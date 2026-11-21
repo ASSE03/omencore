@@ -26,6 +26,7 @@ namespace OmenCore.Localization
         {
             new LanguageOption(SystemDefault, "System default"),
             new LanguageOption("en", "English"),
+            new LanguageOption("fr", "Français"),
             new LanguageOption("ru", "Русский"),
             new LanguageOption("tr", "Türkçe"),
             new LanguageOption("zh", "简体中文")

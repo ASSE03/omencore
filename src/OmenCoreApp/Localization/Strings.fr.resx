@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="WindowTitle" xml:space="preserve">
+    <value>OmenCore - Centre de contrôle pour PC portable gaming</value>
+  </data>
+  <data name="WindowMinimize" xml:space="preserve">
+    <value>Réduire</value>
+  </data>
+  <data name="WindowMaximize" xml:space="preserve">
+    <value>Agrandir</value>
+  </data>
+  <data name="WindowRestore" xml:space="preserve">
+    <value>Restaurer</value>
+  </data>
+  <data name="WindowClose" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+
+  <data name="NavGeneral" xml:space="preserve">
+    <value>Général</value>
+  </data>
+  <data name="NavCustom" xml:space="preserve">
+    <value>Personnalisé</value>
+  </data>
+  <data name="NavTuning" xml:space="preserve">
+    <value>Réglages</value>
+  </data>
+  <data name="NavDiagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="NavMonitoring" xml:space="preserve">
+    <value>Surveillance</value>
+  </data>
+  <data name="NavOptimizer" xml:space="preserve">
+    <value>Optimisation</value>
+  </data>
+  <data name="NavMemory" xml:space="preserve">
+    <value>Mémoire</value>
+  </data>
+  <data name="NavBloatware" xml:space="preserve">
+    <value>Logiciels superflus</value>
+  </data>
+  <data name="NavRgb" xml:space="preserve">
+    <value>RGB</value>
+  </data>
+  <data name="NavSettings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="NavGames" xml:space="preserve">
+    <value>Jeux</value>
+  </data>
+
+  <data name="SettingsWindowBehaviour" xml:space="preserve">
+    <value>Comportement de la fenêtre</value>
+  </data>
+  <data name="SettingsStartWithWindows" xml:space="preserve">
+    <value>Lancer avec Windows</value>
+  </data>
+  <data name="SettingsStartWithWindowsHelp" xml:space="preserve">
+    <value>Lance OmenCore automatiquement au démarrage de Windows</value>
+  </data>
+  <data name="SettingsStartMinimized" xml:space="preserve">
+    <value>Démarrer réduit dans la zone de notification</value>
+  </data>
+  <data name="SettingsStartMinimizedHelp" xml:space="preserve">
+    <value>Masque la fenêtre principale au démarrage, seule l'icône de la zone de notification reste visible</value>
+  </data>
+  <data name="SettingsLiteMode" xml:space="preserve">
+    <value>Mode simplifié (interface débutant)</value>
+  </data>
+  <data name="SettingsLiteModeHelp" xml:space="preserve">
+    <value>Masque les onglets avancés par défaut. Vous pouvez le désactiver à tout moment pour retrouver toutes les commandes.</value>
+  </data>
+  <data name="SettingsHeadlessMode" xml:space="preserve">
+    <value>Mode sans interface (pas de fenêtre principale)</value>
+  </data>
+  <data name="SettingsHeadlessModeHelp" xml:space="preserve">
+    <value>Fonctionne sans fenêtre principale, uniquement avec l'icône de notification et les services en arrière-plan. Utile pour les serveurs.</value>
+  </data>
+  <data name="SettingsSoftwareRendering" xml:space="preserve">
+    <value>Rendu logiciel</value>
+  </data>
+  <data name="SettingsSoftwareRenderingHelp" xml:space="preserve">
+    <value>Utilise un rendu par le processeur pour éviter les plantages causés par les overlays (RTSS, MSI Afterburner). Redémarrage nécessaire.</value>
+  </data>
+  <data name="SettingsReduceMotion" xml:space="preserve">
+    <value>Réduire les animations</value>
+  </data>
+  <data name="SettingsReduceMotionHelp" xml:space="preserve">
+    <value>Supprime les transitions et animations propres à OmenCore, en plus de ce que fait déjà le réglage Windows « Afficher les animations ».</value>
+  </data>
+  <data name="SettingsLanguage" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="SettingsLanguageHelp" xml:space="preserve">
+    <value>Langue de l'interface. Prend effet au prochain démarrage d'OmenCore ; le format des nombres et des fichiers journaux reste identique dans tous les cas.</value>
+  </data>
+  <data name="SettingsMinimizeToTray" xml:space="preserve">
+    <value>Réduire dans la zone de notification à la fermeture</value>
+  </data>
+  <data name="SettingsMinimizeToTrayHelp" xml:space="preserve">
+    <value>Le bouton Fermer réduit dans la zone de notification au lieu de quitter</value>
+  </data>
+  <data name="SettingsStayOnTop" xml:space="preserve">
+    <value>Toujours au premier plan</value>
+  </data>
+  <data name="SettingsStayOnTopHelp" xml:space="preserve">
+    <value>Garde OmenCore au-dessus des autres fenêtres</value>
+  </data>
+  <data name="SettingsTopmostBadge" xml:space="preserve">
+    <value>Premier plan</value>
+  </data>
+  <data name="SettingsActiveBadge" xml:space="preserve">
+    <value>✓ Actif</value>
+  </data>
+
+  <data name="SettingsTrayAndUi" xml:space="preserve">
+    <value>Notification et interface</value>
+  </data>
+  <data name="SettingsDisplayScale" xml:space="preserve">
+    <value>Échelle d'affichage</value>
+  </data>
+  <data name="SettingsDisplayScaleHelp" xml:space="preserve">
+    <value>Agrandit toute l'interface, texte et espacements compris. Ctrl avec + et - (ou Ctrl+0 pour réinitialiser) la modifie depuis n'importe où dans la fenêtre.</value>
+  </data>
+  <data name="SettingsQuickAccess" xml:space="preserve">
+    <value>Raccourci d'accès rapide</value>
+  </data>
+  <data name="SettingsQuickAccessHelp" xml:space="preserve">
+    <value>Choisissez le raccourci central de la fenêtre contextuelle, ou masquez-le pour éviter d'éteindre l'écran par erreur.</value>
+  </data>
+  <data name="SettingsQuickPopup" xml:space="preserve">
+    <value>Activer la fenêtre d'accès rapide</value>
+  </data>
+  <data name="SettingsQuickPopupHelp" xml:space="preserve">
+    <value>Affiche la fenêtre rapide au clic sur l'icône de notification. Désactivez pour ouvrir directement la fenêtre principale.</value>
+  </data>
+  <data name="SettingsTrayTemperature" xml:space="preserve">
+    <value>Afficher la température sur l'icône de notification</value>
+  </data>
+  <data name="SettingsTrayTemperatureHelp" xml:space="preserve">
+    <value>Affiche la température CPU/GPU en direct sur l'icône de la zone de notification</value>
+  </data>
+  <data name="SettingsCorsairHidOnly" xml:space="preserve">
+    <value>Corsair : désactiver le repli sur iCUE (mode HID seul)</value>
+  </data>
+  <data name="SettingsCorsairHidOnlyHelp" xml:space="preserve">
+    <value>Utilise un accès HID direct pour les périphériques Corsair. Peut ne pas fonctionner avec tous les périphériques ; redémarrage nécessaire.</value>
+  </data>
+  <data name="SettingsCorsairHidOnlyWarning" xml:space="preserve">
+    <value>Attention : le mode HID seul peut réduire la compatibilité avec certains périphériques Corsair. Si le contrôle de l'éclairage ne fonctionne plus, réactivez le repli sur iCUE ou installez iCUE.</value>
+  </data>
+  <data name="SettingsTelemetry" xml:space="preserve">
+    <value>Activer la télémétrie anonyme de l'éclairage</value>
+  </data>
+  <data name="SettingsTelemetryHelp" xml:space="preserve">
+    <value>Partage des compteurs anonymes et agrégés de réussite/échec par PID Corsair pour nous aider à améliorer la prise en charge des périphériques. Aucune donnée permettant d'identifier un appareil n'est collectée.</value>
+  </data>
+</root>

@@ -19,7 +19,7 @@ namespace OmenCoreApp.Tests.Localization
     /// </summary>
     public class StringsResourceTests
     {
-        private static readonly string[] Languages = { "en", "ru", "tr", "zh" };
+        private static readonly string[] Languages = { "en", "fr", "ru", "tr", "zh" };
 
         private static string LocalizationDirectory()
         {
