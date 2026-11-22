@@ -12521,4 +12521,36 @@
     <value>ZIP files (*.zip)|*.zip</value>
     <comment>untranslated: English fallback</comment>
   </data>
+  <data name="CsQuickLockWindows" xml:space="preserve">
+    <value>Lock Windows</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsQuickLock" xml:space="preserve">
+    <value>Lock</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsQuickDisplayOff" xml:space="preserve">
+    <value>Display Off</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsQuickMonitoringHealth" xml:space="preserve">
+    <value>Monitoring: {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsQuickHealthHealthy" xml:space="preserve">
+    <value>Healthy</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsQuickHealthDegraded" xml:space="preserve">
+    <value>Degraded</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsQuickHealthStale" xml:space="preserve">
+    <value>Stale</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsQuickHealthUnknown" xml:space="preserve">
+    <value>Unknown</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
 </root>

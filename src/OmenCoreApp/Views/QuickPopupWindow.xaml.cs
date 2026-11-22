@@ -192,6 +192,21 @@ namespace OmenCore.Views
             return string.IsNullOrWhiteSpace(mode) ? "Auto" : mode.Trim();
         }
 
+        // The health value itself ("Healthy", "Degraded", "Stale") also picks the colour below, so only
+        // the displayed text is translated; the state string stays as the monitoring service reports it.
+        private static string FormatMonitoringHealth(string health)
+        {
+            var label = health switch
+            {
+                "Healthy" => global::OmenCore.Localization.Strings.CsQuickHealthHealthy,
+                "Degraded" => global::OmenCore.Localization.Strings.CsQuickHealthDegraded,
+                "Stale" => global::OmenCore.Localization.Strings.CsQuickHealthStale,
+                "Unknown" => global::OmenCore.Localization.Strings.CsQuickHealthUnknown,
+                _ => health
+            };
+            return string.Format(global::OmenCore.Localization.Strings.CsQuickMonitoringHealth, label);
+        }
+
         public void UpdateMonitoringHealth(string health)
         {
             var normalizedHealth = string.IsNullOrWhiteSpace(health) ? "Unknown" : health;
@@ -201,7 +216,7 @@ namespace OmenCore.Views
             }
 
             _monitoringHealth = normalizedHealth;
-            var healthText = $"Monitoring: {_monitoringHealth}";
+            var healthText = FormatMonitoringHealth(_monitoringHealth);
             if (!string.Equals(HealthStatusText.Text, healthText, StringComparison.Ordinal))
             {
                 HealthStatusText.Text = healthText;
@@ -263,7 +278,7 @@ namespace OmenCore.Views
                 sample.GpuTemperatureC > 0 ? sample.GpuTemperatureC.ToString("0") : "—",
                 $"{sample.CpuLoadPercent:0}%",
                 $"{sample.GpuLoadPercent:0}%",
-                $"Monitoring: {_monitoringHealth}",
+                FormatMonitoringHealth(_monitoringHealth),
                 BuildLinkModeText());
         }
 
@@ -455,16 +470,16 @@ namespace OmenCore.Views
                 case "LockWindows":
                     DisplayOffBtn.Visibility = Visibility.Visible;
                     DisplayOffBtn.Tag = "LockWindows";
-                    DisplayOffBtn.ToolTip = "Lock Windows";
+                    DisplayOffBtn.ToolTip = global::OmenCore.Localization.Strings.CsQuickLockWindows;
                     QuickActionIcon.Text = "🔒";
-                    QuickActionText.Text = "Lock";
+                    QuickActionText.Text = global::OmenCore.Localization.Strings.CsQuickLock;
                     break;
                 default:
                     DisplayOffBtn.Visibility = Visibility.Visible;
                     DisplayOffBtn.Tag = "DisplayOff";
                     DisplayOffBtn.ToolTip = global::OmenCore.Localization.Strings.CsTurnOffDisplay_d6360;
                     QuickActionIcon.Text = "🌙";
-                    QuickActionText.Text = "Display Off";
+                    QuickActionText.Text = global::OmenCore.Localization.Strings.CsQuickDisplayOff;
                     break;
             }
         }

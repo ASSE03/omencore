@@ -3173,5 +3173,13 @@ namespace OmenCore.Localization
         public static string CsYourFanCurveCausedSustainedOverheating => Get(nameof(CsYourFanCurveCausedSustainedOverheating));
         public static string CsYourScreensWillGoBlackForA => Get(nameof(CsYourScreensWillGoBlackForA));
         public static string CsZIPFilesZipZip => Get(nameof(CsZIPFilesZipZip));
+        public static string CsQuickLockWindows => Get(nameof(CsQuickLockWindows));
+        public static string CsQuickLock => Get(nameof(CsQuickLock));
+        public static string CsQuickDisplayOff => Get(nameof(CsQuickDisplayOff));
+        public static string CsQuickMonitoringHealth => Get(nameof(CsQuickMonitoringHealth));
+        public static string CsQuickHealthHealthy => Get(nameof(CsQuickHealthHealthy));
+        public static string CsQuickHealthDegraded => Get(nameof(CsQuickHealthDegraded));
+        public static string CsQuickHealthStale => Get(nameof(CsQuickHealthStale));
+        public static string CsQuickHealthUnknown => Get(nameof(CsQuickHealthUnknown));
     }
 }

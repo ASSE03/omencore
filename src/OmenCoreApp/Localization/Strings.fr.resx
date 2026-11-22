@@ -6372,7 +6372,7 @@
     <value>ventilation auto d'origine</value>
   </data>
   <data name="CsFanPerfDecoupledFanStays" xml:space="preserve">
-    <value>Ventil./perf. : indépendants - la ventilation reste</value>
+    <value>Ventil./perf. : indépendants (ventilation conservée)</value>
   </data>
   <data name="CsFanPerfLinked" xml:space="preserve">
     <value>Ventil./perf. : liés</value>
@@ -9433,5 +9433,29 @@
   </data>
   <data name="CsZIPFilesZipZip" xml:space="preserve">
     <value>Fichiers ZIP (*.zip)|*.zip</value>
+  </data>
+  <data name="CsQuickLockWindows" xml:space="preserve">
+    <value>Verrouiller Windows</value>
+  </data>
+  <data name="CsQuickLock" xml:space="preserve">
+    <value>Verrouiller</value>
+  </data>
+  <data name="CsQuickDisplayOff" xml:space="preserve">
+    <value>Éteindre l'écran</value>
+  </data>
+  <data name="CsQuickMonitoringHealth" xml:space="preserve">
+    <value>Surveillance : {0}</value>
+  </data>
+  <data name="CsQuickHealthHealthy" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="CsQuickHealthDegraded" xml:space="preserve">
+    <value>dégradée</value>
+  </data>
+  <data name="CsQuickHealthStale" xml:space="preserve">
+    <value>figée</value>
+  </data>
+  <data name="CsQuickHealthUnknown" xml:space="preserve">
+    <value>inconnue</value>
   </data>
 </root>
