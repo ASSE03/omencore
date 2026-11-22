@@ -12553,4 +12553,594 @@
     <value>Unknown</value>
     <comment>untranslated: English fallback</comment>
   </data>
+
+  <!-- Core text, enum names and status prefixes -->
+  <data name="CoreAdministratorPrivilegesAreRequiredToCreateA" xml:space="preserve">
+    <value>Administrator privileges are required to create a restore point.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreCreatingPreRemovalSystemRestorePoint" xml:space="preserve">
+    <value>Creating pre-removal system restore point...</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreUnknownRestorePointFailure" xml:space="preserve">
+    <value>Unknown restore point failure</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRestorePointCreationWasCanceled" xml:space="preserve">
+    <value>Restore point creation was canceled.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreScanningForBloatware" xml:space="preserve">
+    <value>Scanning for bloatware...</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreAdministratorPrivilegesRequiredPleaseRestartOmenCoreAs" xml:space="preserve">
+    <value>Administrator privileges required. Please restart OmenCore as Administrator to remove applications.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRemovalWasSkippedNoStateChangeRequired" xml:space="preserve">
+    <value>Removal was skipped (no state change required).</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRemovalCompletedAndVerificationConfirmedTheItem" xml:space="preserve">
+    <value>Removal completed and verification confirmed the item is no longer detected.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRemovalCommandCompletedButPostStateVerification" xml:space="preserve">
+    <value>Removal command completed but post-state verification detected the item is still present.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CorePackageWasAlreadyAbsentBeforeRemovalAttempt" xml:space="preserve">
+    <value>Package was already absent before removal attempt.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CorePowerShellAppXRemovalExitedWithNonZero" xml:space="preserve">
+    <value>PowerShell AppX removal exited with non-zero code.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreAccessDeniedRunOmenCoreAsAdministratorTo" xml:space="preserve">
+    <value>Access denied — run OmenCore as Administrator to remove provisioned packages.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRemovalCommandCompletedButAppXPresenceVerification" xml:space="preserve">
+    <value>Removal command completed, but AppX presence verification failed.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreAppXRemovalFailedAndVerificationCouldNot" xml:space="preserve">
+    <value>AppX removal failed and verification could not complete.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreAppXPackageRemovalVerifiedAcrossCurrentUser" xml:space="preserve">
+    <value>AppX package removal verified across current user, all users, and provisioned scopes.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreCouldNotParseWin32UninstallCommand" xml:space="preserve">
+    <value>Could not parse Win32 uninstall command.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreUninstallerExitedSuccessfullyButAppWasStill" xml:space="preserve">
+    <value>Uninstaller exited successfully but app was still detected after verification.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreWin32AppUninstallVerifiedRegistryNoLonger" xml:space="preserve">
+    <value>Win32 app uninstall verified; registry no longer reports the app as installed.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreStartupFileMovedOutOfTheStartup" xml:space="preserve">
+    <value>Startup file moved out of the startup folder successfully.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreStartupRegistryKeyCouldNotBeOpened" xml:space="preserve">
+    <value>Startup registry key could not be opened for removal.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreStartupRegistryEntryRemovedSuccessfully" xml:space="preserve">
+    <value>Startup registry entry removed successfully.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreScheduledTaskDisabledSuccessfully" xml:space="preserve">
+    <value>Scheduled task disabled successfully.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRestoreCanceledBeforeCompletion" xml:space="preserve">
+    <value>Restore canceled before completion.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreSkippedBecauseBulkRestoreWasCanceledBefore" xml:space="preserve">
+    <value>Skipped because bulk restore was canceled before this item was processed.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreCurrentUser" xml:space="preserve">
+    <value>current user</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreAllUsers" xml:space="preserve">
+    <value>all users</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreProvisionedImage" xml:space="preserve">
+    <value>provisioned image</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreHPSecuritySoftwareCanConflictWithThird" xml:space="preserve">
+    <value>HP security software - can conflict with third-party AV</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreHPDiagnosticsTelemetryToolSafeToRemove" xml:space="preserve">
+    <value>HP diagnostics/telemetry tool - safe to remove</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreHPOMENSoftwareConflictSensitiveUntilOmenCore" xml:space="preserve">
+    <value>HP OMEN software - conflict-sensitive until OmenCore fan, RGB, and hotkey control are verified</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreOMENLightingControlComponentRemoveOnlyAfter" xml:space="preserve">
+    <value>OMEN lighting/control component - remove only after OmenCore keyboard lighting and OMEN key behavior are verified</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreHPAudioEnhancementSoftware" xml:space="preserve">
+    <value>HP audio enhancement software</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreHPSystemControlSoftwareOmenCoreReplacesThis" xml:space="preserve">
+    <value>HP system control software - OmenCore replaces this</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreTrialAntivirusCanImpactGamingPerformance" xml:space="preserve">
+    <value>Trial antivirus - can impact gaming performance</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreXboxAppKeepIfYouUseXbox" xml:space="preserve">
+    <value>Xbox app - keep if you use Xbox Game Pass</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMicrosoftVideoEditor" xml:space="preserve">
+    <value>Microsoft video editor</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMicrosoftBingNewsWeatherApp" xml:space="preserve">
+    <value>Microsoft Bing news/weather app</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreWindowsTipsAndHelpApp" xml:space="preserve">
+    <value>Windows tips and help app</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMicrosoftSolitaireWithAds" xml:space="preserve">
+    <value>Microsoft Solitaire with ads</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreGrooveMusicMoviesTVApp" xml:space="preserve">
+    <value>Groove Music / Movies &amp; TV app</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreWindowsPeopleApp" xml:space="preserve">
+    <value>Windows People app</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreSkypeMessagingApp" xml:space="preserve">
+    <value>Skype messaging app</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CorePhoneLinkApp" xml:space="preserve">
+    <value>Phone Link app</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="Core3DMixedRealityAppRarelyUsed" xml:space="preserve">
+    <value>3D/Mixed Reality app - rarely used</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CorePromotionalAppShortcut" xml:space="preserve">
+    <value>Promotional app shortcut</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CorePreInstalledCasualGame" xml:space="preserve">
+    <value>Pre-installed casual game</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreSocialMediaApp" xml:space="preserve">
+    <value>Social media app</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreDolbyAudioEnhancementMayAffectAudioQuality" xml:space="preserve">
+    <value>Dolby audio enhancement - may affect audio quality</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreOneDriveStartupDisableIfNotUsingCloud" xml:space="preserve">
+    <value>OneDrive startup - disable if not using cloud sync</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreCortanaAssistantStartup" xml:space="preserve">
+    <value>Cortana assistant startup</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMicrosoftTeamsStartupDisableIfNotUsing" xml:space="preserve">
+    <value>Microsoft Teams startup - disable if not using</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreHPSoftwareStartupItem" xml:space="preserve">
+    <value>HP software startup item</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreAppStartupDisableIfNotNeededImmediately" xml:space="preserve">
+    <value>App startup - disable if not needed immediately</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreHPScheduledTask" xml:space="preserve">
+    <value>HP scheduled task</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreTelemetryDataCollectionTask" xml:space="preserve">
+    <value>Telemetry data collection task</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreOneDriveScheduledSyncTask" xml:space="preserve">
+    <value>OneDrive scheduled sync task</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreScheduledTask" xml:space="preserve">
+    <value>Scheduled Task</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreStartupFolder" xml:space="preserve">
+    <value>Startup Folder</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreStartupItem" xml:space="preserve">
+    <value>Startup Item</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreNoHPOMENConflictSensitiveControlComponents" xml:space="preserve">
+    <value>No HP/OMEN conflict-sensitive control components selected.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreFanControlVerifiedInOmenCoreOnThis" xml:space="preserve">
+    <value>Fan control verified in OmenCore on this hardware.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreKeyboardLightingRGBBehaviorVerifiedInOmenCore" xml:space="preserve">
+    <value>Keyboard lighting/RGB behavior verified in OmenCore on this hardware.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreOMENKeyAndHPFnMediaHotkeys" xml:space="preserve">
+    <value>OMEN key and HP Fn/media hotkeys verified after OmenCore hotkey handling.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreBIOSDriverUpdatePathUnderstoodBeforeRemoving" xml:space="preserve">
+    <value>BIOS/driver/update path understood before removing HP support utilities.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreWindowsRestorePointPlannedBeforeRemoval" xml:space="preserve">
+    <value>Windows restore point planned before removal.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreConflictSensitiveHardwareControlComponentVerifyOmenCore" xml:space="preserve">
+    <value>Conflict-sensitive hardware control component; verify OmenCore fan, RGB, and hotkey behavior first.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreHighRiskRemovalCandidate" xml:space="preserve">
+    <value>High-risk removal candidate.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMediumRiskRemovalCandidateReviewBeforeRemoval" xml:space="preserve">
+    <value>Medium-risk removal candidate; review before removal.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreLowRiskRemovalCandidate" xml:space="preserve">
+    <value>Low-risk removal candidate.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreNoRiskReasonAvailable" xml:space="preserve">
+    <value>No risk reason available.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRestorableByOmenCoreWhenSourceStateIs" xml:space="preserve">
+    <value>Restorable by OmenCore when source state is still available.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreNoDirectOmenCoreRestoreRelyOnRestore" xml:space="preserve">
+    <value>No direct OmenCore restore; rely on restore point, installer, or Windows repair path.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRestorePackageForTheCurrentUserProvisioning" xml:space="preserve">
+    <value>Restore package for the current user/provisioning source if still available.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRestoreBackedUpRegistryValueOrStartup" xml:space="preserve">
+    <value>Restore backed-up registry value or startup folder shortcut.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreReEnableTheScheduledTask" xml:space="preserve">
+    <value>Re-enable the scheduled task.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreReinstallFromOriginalVendorInstallerOrWindows" xml:space="preserve">
+    <value>Reinstall from original vendor installer or Windows restore point.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreManualRestoreMayBeRequired" xml:space="preserve">
+    <value>Manual restore may be required.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreNeededForOMENKey" xml:space="preserve">
+    <value>needed for OMEN key</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMayAffectLightingHandoff" xml:space="preserve">
+    <value>may affect lighting handoff</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMayAffectFanPerformanceOwnership" xml:space="preserve">
+    <value>may affect fan/performance ownership</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreSafeOnlyAfterOmenCoreHardwareValidation" xml:space="preserve">
+    <value>safe only after OmenCore hardware validation</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreVerifyOmenCoreFanControlKeyboardLightingAnd" xml:space="preserve">
+    <value>Verify OmenCore fan control, keyboard lighting, and OMEN-key behavior before removal.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMayAffectHPHotkeys" xml:space="preserve">
+    <value>may affect HP hotkeys</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMayAffectHPFnMediaHotkeyBehavior" xml:space="preserve">
+    <value>May affect HP Fn/media/hotkey behavior.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreGamePassXboxDependency" xml:space="preserve">
+    <value>Game Pass/Xbox dependency</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreMayAffectXboxAppGamePassOr" xml:space="preserve">
+    <value>May affect Xbox app, Game Pass, or Gaming Services flows.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreSecurityComponent" xml:space="preserve">
+    <value>security component</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreSecurityRelatedComponentVerifyReplacementCoverageBefore" xml:space="preserve">
+    <value>Security-related component; verify replacement coverage before removal.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRestorePointCreatedSuccessfully" xml:space="preserve">
+    <value>Restore point created successfully.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreReusingARecentPreRemovalRestorePoint" xml:space="preserve">
+    <value>Reusing a recent pre-removal restore point from this session.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRestorePointCreationFailed" xml:space="preserve">
+    <value>Restore point creation failed.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreFoundBloatwareItems" xml:space="preserve">
+    <value>Found {0} bloatware items</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreSkipped" xml:space="preserve">
+    <value>Skipped {0}: {1}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRemoving" xml:space="preserve">
+    <value>Removing {0}...</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRemovalStartedFor" xml:space="preserve">
+    <value>Removal started for {0}.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRemoved" xml:space="preserve">
+    <value>Removed {0}: {1}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreErrorRemoving" xml:space="preserve">
+    <value>Error removing {0}: {1}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreFailedToRemove" xml:space="preserve">
+    <value>Failed to remove {0}: {1}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreBulkRemovalCanceledCompletedSkipped" xml:space="preserve">
+    <value>Bulk removal canceled. {0} completed, {1} skipped.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreBulkRemovalCanceledAtCompletedSkipped" xml:space="preserve">
+    <value>Bulk removal canceled at {0}. {1} completed, {2} skipped.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreBulkRemovalFailedAtRollingBackPrevious" xml:space="preserve">
+    <value>Bulk removal failed at {0}. Rolling back previous removals...</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRollbackCompleteRestoredSkipped" xml:space="preserve">
+    <value>Rollback complete ({0} restored, {1} skipped).</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRollbackPartialRestoredFailedSkipped" xml:space="preserve">
+    <value>Rollback partial ({0} restored, {1} failed, {2} skipped).</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreBulkRemoveStoppedAt" xml:space="preserve">
+    <value>Bulk remove stopped at {0}. {1}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreBulkRestoreCanceledCompletedSkipped" xml:space="preserve">
+    <value>Bulk restore canceled. {0} completed, {1} skipped.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreBulkRestoreCanceledAtCompletedSkipped" xml:space="preserve">
+    <value>Bulk restore canceled at {0}. {1} completed, {2} skipped.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CorePackageIsStillPresentAfterRemovalAttempt" xml:space="preserve">
+    <value>Package is still present after removal attempt ({0}).</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRemovalResultedInNoStateChangePackage" xml:space="preserve">
+    <value>Removal resulted in no state change; package is still present ({0}).</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreCommandError" xml:space="preserve">
+    <value>{0} Command error: {1}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreUninstallerExitedWithCodeAndAppIs" xml:space="preserve">
+    <value>Uninstaller exited with code {0} and app is still present.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreDisablingScheduledTaskFor" xml:space="preserve">
+    <value>Disabling scheduled task for {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreRestoring" xml:space="preserve">
+    <value>Restoring {0}...</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreSuccessfullyRestored" xml:space="preserve">
+    <value>Successfully restored {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreCanceledRestoring" xml:space="preserve">
+    <value>Canceled restoring {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreReEnablingScheduledTaskFor" xml:space="preserve">
+    <value>Re-enabling scheduled task for {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreTimedOutAfterSecondsAndWasTerminated" xml:space="preserve">
+    <value>{0} timed out after {1} seconds and was terminated.</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreCheckingScheduledTask" xml:space="preserve">
+    <value>Checking scheduled task {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreAppXPackage" xml:space="preserve">
+    <value>AppX package: {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreWin32UninstallRegistryKey" xml:space="preserve">
+    <value>Win32 uninstall registry key: {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreWin32UninstallCommand" xml:space="preserve">
+    <value>Win32 uninstall command: {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreStartupFolderItem" xml:space="preserve">
+    <value>Startup folder item: {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CoreScheduledTask_32d4b" xml:space="preserve">
+    <value>Scheduled task: {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumRemovalRiskUnknown" xml:space="preserve">
+    <value>Unknown</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumRemovalRiskLow" xml:space="preserve">
+    <value>Low</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumRemovalRiskMedium" xml:space="preserve">
+    <value>Medium</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumRemovalRiskHigh" xml:space="preserve">
+    <value>High</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryUnknown" xml:space="preserve">
+    <value>Unknown</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryOemSoftware" xml:space="preserve">
+    <value>OEM software</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryWindowsApps" xml:space="preserve">
+    <value>Windows apps</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryAntivirus" xml:space="preserve">
+    <value>Antivirus</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryGames" xml:space="preserve">
+    <value>Games</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategorySocial" xml:space="preserve">
+    <value>Social</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryCommunication" xml:space="preserve">
+    <value>Communication</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryPromotional" xml:space="preserve">
+    <value>Promotional</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryTelemetry" xml:space="preserve">
+    <value>Telemetry</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareCategoryStartup" xml:space="preserve">
+    <value>Startup</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareTypeAppxPackage" xml:space="preserve">
+    <value>AppX package</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareTypeWin32App" xml:space="preserve">
+    <value>Win32 app</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareTypeStartupItem" xml:space="preserve">
+    <value>Startup item</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="EnumBloatwareTypeScheduledTask" xml:space="preserve">
+    <value>Scheduled task</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsAllCategories" xml:space="preserve">
+    <value>All categories</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsModeBalanced" xml:space="preserve">
+    <value>Balanced</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsModeQuiet" xml:space="preserve">
+    <value>Quiet</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsModePerformance" xml:space="preserve">
+    <value>Performance</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsStatusDone" xml:space="preserve">
+    <value>Done: {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsStatusDoneBare" xml:space="preserve">
+    <value>Done</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
+  <data name="CsStatusFailed" xml:space="preserve">
+    <value>Failed: {0}</value>
+    <comment>untranslated: English fallback</comment>
+  </data>
 </root>

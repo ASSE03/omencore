@@ -164,7 +164,7 @@ namespace OmenCore.ViewModels
         }
 
         /// <summary>The mode as the profile cards name it ("Balanced", not the firmware's "Default").</summary>
-        public string CurrentPerformanceModeDisplay => OmenCore.Models.PerformanceModeNameResolver.ToDisplayName(_currentPerformanceMode);
+        public string CurrentPerformanceModeDisplay => OmenCore.Utils.ModeDisplayNameConverter.Localize(OmenCore.Models.PerformanceModeNameResolver.ToDisplayName(_currentPerformanceMode));
 
         public string CurrentFanMode
         {

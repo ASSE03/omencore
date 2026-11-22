@@ -149,7 +149,7 @@
                                   Width="120">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding}"/>
+                                    <TextBlock Text="{Binding Converter={StaticResource EnumTextConverter}, ConverterParameter=AllWhenUnknown}"/>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -270,7 +270,7 @@
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="{x:Static loc:Strings.UiApp}" Width="220" DisplayMemberBinding="{Binding Name}"/>
-                                <GridViewColumn Header="{x:Static loc:Strings.UiRisk_59ca8}" Width="70" DisplayMemberBinding="{Binding Risk}"/>
+                                <GridViewColumn Header="{x:Static loc:Strings.UiRisk_59ca8}" Width="70" DisplayMemberBinding="{Binding Risk, Converter={StaticResource EnumTextConverter}}"/>
                                 <GridViewColumn Header="{x:Static loc:Strings.UiEst}" Width="60" DisplayMemberBinding="{Binding EstimatedText}"/>
                                 <GridViewColumn Header="{x:Static loc:Strings.UiDependencyHint}" Width="280" DisplayMemberBinding="{Binding DependencyHint}"/>
                             </GridView>
@@ -347,7 +347,7 @@
                             <GridViewColumn Header="{x:Static loc:Strings.UiStatus}" Width="70">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Border HorizontalAlignment="Center" ToolTip="{Binding LastRemovalDetail}">
+                                        <Border HorizontalAlignment="Center" ToolTip="{Binding LastRemovalDetail, Converter={StaticResource CoreTextConverter}}">
                                             <Border.Style>
                                                 <Style TargetType="Border" BasedOn="{StaticResource StatusBadge}">
                                                     <Setter Property="Background" Value="{DynamicResource SurfaceLightBrush}"/>
@@ -400,10 +400,10 @@
                             <GridViewColumn Header="{x:Static loc:Strings.UiResultDetail}" Width="320">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding LastRemovalDetail, TargetNullValue=-}"
+                                        <TextBlock Text="{Binding LastRemovalDetail, TargetNullValue=-, Converter={StaticResource CoreTextConverter}}"
                                                    TextTrimming="CharacterEllipsis"
                                                    Foreground="{StaticResource TextSecondaryBrush}"
-                                                   ToolTip="{Binding LastRemovalDetail}">
+                                                   ToolTip="{Binding LastRemovalDetail, Converter={StaticResource CoreTextConverter}}">
                                             <TextBlock.Style>
                                                 <Style TargetType="TextBlock">
                                                     <Style.Triggers>
@@ -421,7 +421,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Border Style="{StaticResource StatusBadge}" Background="{StaticResource SurfaceMediumBrush}">
-                                            <TextBlock Text="{Binding Category}" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                            <TextBlock Text="{Binding Category, Converter={StaticResource EnumTextConverter}}" FontSize="10" Foreground="{StaticResource TextSecondaryBrush}"/>
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -429,7 +429,7 @@
                             <GridViewColumn Header="{x:Static loc:Strings.UiType}" Width="100">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Type}" FontSize="11" Foreground="{StaticResource TextTertiaryBrush}"/>
+                                        <TextBlock Text="{Binding Type, Converter={StaticResource EnumTextConverter}}" FontSize="11" Foreground="{StaticResource TextTertiaryBrush}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -453,7 +453,7 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Border.Style>
-                                            <TextBlock Text="{Binding RemovalRisk}" FontSize="9" FontWeight="Bold" Foreground="White"/>
+                                            <TextBlock Text="{Binding RemovalRisk, Converter={StaticResource EnumTextConverter}}" FontSize="9" FontWeight="Bold" Foreground="White"/>
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -461,14 +461,14 @@
                             <GridViewColumn Header="{x:Static loc:Strings.UiDescription}" Width="260">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Description}" TextTrimming="CharacterEllipsis" Foreground="{StaticResource TextSecondaryBrush}" ToolTip="{Binding Description}"/>
+                                        <TextBlock Text="{Binding Description, Converter={StaticResource CoreTextConverter}}" TextTrimming="CharacterEllipsis" Foreground="{StaticResource TextSecondaryBrush}" ToolTip="{Binding Description, Converter={StaticResource CoreTextConverter}}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="{x:Static loc:Strings.UiPublisher}" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Publisher}" TextTrimming="CharacterEllipsis" Foreground="{StaticResource TextTertiaryBrush}" ToolTip="{Binding Publisher}"/>
+                                        <TextBlock Text="{Binding Publisher, Converter={StaticResource CoreTextConverter}}" TextTrimming="CharacterEllipsis" Foreground="{StaticResource TextTertiaryBrush}" ToolTip="{Binding Publisher, Converter={StaticResource CoreTextConverter}}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

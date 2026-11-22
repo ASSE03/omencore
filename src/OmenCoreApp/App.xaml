@@ -32,6 +32,8 @@
             <local:LatestFanSpeedConverter x:Key="LatestFanSpeedConverter" xmlns:local="clr-namespace:OmenCore.Utils" />
             <local:ZeroDoubleToPlaceholderConverter x:Key="ZeroDoubleToPlaceholderConverter" xmlns:local="clr-namespace:OmenCore.Utils" />
             <local:ModeDisplayNameConverter x:Key="ModeDisplayNameConverter" xmlns:local="clr-namespace:OmenCore.Utils" />
+            <locz:CoreTextConverter x:Key="CoreTextConverter" xmlns:locz="clr-namespace:OmenCore.Localization" />
+            <locz:EnumTextConverter x:Key="EnumTextConverter" xmlns:locz="clr-namespace:OmenCore.Localization" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

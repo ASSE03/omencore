@@ -1735,7 +1735,7 @@
     <value>COURBE DE VENTILATION (selon la temp. GPU)</value>
   </data>
   <data name="UiFANMODE" xml:space="preserve">
-    <value>MODE VENTILATION</value>
+    <value>VENTILATION</value>
   </data>
   <data name="UiFANPROFILES" xml:space="preserve">
     <value>PROFILS DE VENTILATION</value>
@@ -9457,5 +9457,448 @@
   </data>
   <data name="CsQuickHealthUnknown" xml:space="preserve">
     <value>inconnue</value>
+  </data>
+
+  <!-- Core text, enum names and status prefixes -->
+  <data name="CoreAdministratorPrivilegesAreRequiredToCreateA" xml:space="preserve">
+    <value>Les droits administrateur sont nécessaires pour créer un point de restauration.</value>
+  </data>
+  <data name="CoreCreatingPreRemovalSystemRestorePoint" xml:space="preserve">
+    <value>Création d'un point de restauration avant la suppression...</value>
+  </data>
+  <data name="CoreUnknownRestorePointFailure" xml:space="preserve">
+    <value>Échec inconnu du point de restauration</value>
+  </data>
+  <data name="CoreRestorePointCreationWasCanceled" xml:space="preserve">
+    <value>La création du point de restauration a été annulée.</value>
+  </data>
+  <data name="CoreScanningForBloatware" xml:space="preserve">
+    <value>Recherche des logiciels superflus...</value>
+  </data>
+  <data name="CoreAdministratorPrivilegesRequiredPleaseRestartOmenCoreAs" xml:space="preserve">
+    <value>Droits administrateur requis. Relancez OmenCore en tant qu'administrateur pour supprimer des applications.</value>
+  </data>
+  <data name="CoreRemovalWasSkippedNoStateChangeRequired" xml:space="preserve">
+    <value>Suppression ignorée (aucun changement nécessaire).</value>
+  </data>
+  <data name="CoreRemovalCompletedAndVerificationConfirmedTheItem" xml:space="preserve">
+    <value>Suppression terminée : la vérification confirme que l'élément n'est plus détecté.</value>
+  </data>
+  <data name="CoreRemovalCommandCompletedButPostStateVerification" xml:space="preserve">
+    <value>La commande de suppression s'est terminée, mais la vérification détecte toujours l'élément.</value>
+  </data>
+  <data name="CorePackageWasAlreadyAbsentBeforeRemovalAttempt" xml:space="preserve">
+    <value>Le paquet était déjà absent avant la tentative de suppression.</value>
+  </data>
+  <data name="CorePowerShellAppXRemovalExitedWithNonZero" xml:space="preserve">
+    <value>La suppression AppX par PowerShell s'est terminée avec un code d'erreur.</value>
+  </data>
+  <data name="CoreAccessDeniedRunOmenCoreAsAdministratorTo" xml:space="preserve">
+    <value>Accès refusé : lancez OmenCore en tant qu'administrateur pour supprimer les paquets préinstallés.</value>
+  </data>
+  <data name="CoreRemovalCommandCompletedButAppXPresenceVerification" xml:space="preserve">
+    <value>La commande de suppression s'est terminée, mais la vérification de présence AppX a échoué.</value>
+  </data>
+  <data name="CoreAppXRemovalFailedAndVerificationCouldNot" xml:space="preserve">
+    <value>La suppression AppX a échoué et la vérification n'a pas pu aboutir.</value>
+  </data>
+  <data name="CoreAppXPackageRemovalVerifiedAcrossCurrentUser" xml:space="preserve">
+    <value>Suppression du paquet AppX vérifiée pour l'utilisateur actuel, tous les utilisateurs et l'image préinstallée.</value>
+  </data>
+  <data name="CoreCouldNotParseWin32UninstallCommand" xml:space="preserve">
+    <value>Impossible d'analyser la commande de désinstallation Win32.</value>
+  </data>
+  <data name="CoreUninstallerExitedSuccessfullyButAppWasStill" xml:space="preserve">
+    <value>Le désinstalleur s'est terminé sans erreur, mais l'application est toujours détectée.</value>
+  </data>
+  <data name="CoreWin32AppUninstallVerifiedRegistryNoLonger" xml:space="preserve">
+    <value>Désinstallation Win32 vérifiée : le registre n'indique plus l'application comme installée.</value>
+  </data>
+  <data name="CoreStartupFileMovedOutOfTheStartup" xml:space="preserve">
+    <value>Fichier de démarrage retiré du dossier Démarrage.</value>
+  </data>
+  <data name="CoreStartupRegistryKeyCouldNotBeOpened" xml:space="preserve">
+    <value>Impossible d'ouvrir la clé de registre de démarrage pour la supprimer.</value>
+  </data>
+  <data name="CoreStartupRegistryEntryRemovedSuccessfully" xml:space="preserve">
+    <value>Entrée de démarrage du registre supprimée.</value>
+  </data>
+  <data name="CoreScheduledTaskDisabledSuccessfully" xml:space="preserve">
+    <value>Tâche planifiée désactivée.</value>
+  </data>
+  <data name="CoreRestoreCanceledBeforeCompletion" xml:space="preserve">
+    <value>Restauration annulée avant la fin.</value>
+  </data>
+  <data name="CoreSkippedBecauseBulkRestoreWasCanceledBefore" xml:space="preserve">
+    <value>Ignoré : la restauration groupée a été annulée avant cet élément.</value>
+  </data>
+  <data name="CoreCurrentUser" xml:space="preserve">
+    <value>utilisateur actuel</value>
+  </data>
+  <data name="CoreAllUsers" xml:space="preserve">
+    <value>tous les utilisateurs</value>
+  </data>
+  <data name="CoreProvisionedImage" xml:space="preserve">
+    <value>image préinstallée</value>
+  </data>
+  <data name="CoreHPSecuritySoftwareCanConflictWithThird" xml:space="preserve">
+    <value>Logiciel de sécurité HP - peut entrer en conflit avec un antivirus tiers</value>
+  </data>
+  <data name="CoreHPDiagnosticsTelemetryToolSafeToRemove" xml:space="preserve">
+    <value>Outil de diagnostic/télémétrie HP - suppression sans risque</value>
+  </data>
+  <data name="CoreHPOMENSoftwareConflictSensitiveUntilOmenCore" xml:space="preserve">
+    <value>Logiciel HP OMEN - sensible aux conflits tant que la ventilation, le RGB et les raccourcis d'OmenCore ne sont pas vérifiés</value>
+  </data>
+  <data name="CoreOMENLightingControlComponentRemoveOnlyAfter" xml:space="preserve">
+    <value>Composant d'éclairage/contrôle OMEN - à supprimer seulement après avoir vérifié l'éclairage du clavier et la touche OMEN dans OmenCore</value>
+  </data>
+  <data name="CoreHPAudioEnhancementSoftware" xml:space="preserve">
+    <value>Logiciel d'amélioration audio HP</value>
+  </data>
+  <data name="CoreHPSystemControlSoftwareOmenCoreReplacesThis" xml:space="preserve">
+    <value>Logiciel de contrôle système HP - remplacé par OmenCore</value>
+  </data>
+  <data name="CoreTrialAntivirusCanImpactGamingPerformance" xml:space="preserve">
+    <value>Antivirus d'essai - peut réduire les performances en jeu</value>
+  </data>
+  <data name="CoreXboxAppKeepIfYouUseXbox" xml:space="preserve">
+    <value>Appli Xbox - à garder si vous utilisez le Xbox Game Pass</value>
+  </data>
+  <data name="CoreMicrosoftVideoEditor" xml:space="preserve">
+    <value>Éditeur vidéo Microsoft</value>
+  </data>
+  <data name="CoreMicrosoftBingNewsWeatherApp" xml:space="preserve">
+    <value>Appli Microsoft Bing actualités/météo</value>
+  </data>
+  <data name="CoreWindowsTipsAndHelpApp" xml:space="preserve">
+    <value>Appli d'astuces et d'aide Windows</value>
+  </data>
+  <data name="CoreMicrosoftSolitaireWithAds" xml:space="preserve">
+    <value>Microsoft Solitaire avec publicités</value>
+  </data>
+  <data name="CoreGrooveMusicMoviesTVApp" xml:space="preserve">
+    <value>Appli Groove Musique / Films et TV</value>
+  </data>
+  <data name="CoreWindowsPeopleApp" xml:space="preserve">
+    <value>Appli Contacts de Windows</value>
+  </data>
+  <data name="CoreSkypeMessagingApp" xml:space="preserve">
+    <value>Appli de messagerie Skype</value>
+  </data>
+  <data name="CorePhoneLinkApp" xml:space="preserve">
+    <value>Appli Mobile connecté</value>
+  </data>
+  <data name="Core3DMixedRealityAppRarelyUsed" xml:space="preserve">
+    <value>Appli 3D/réalité mixte - rarement utilisée</value>
+  </data>
+  <data name="CorePromotionalAppShortcut" xml:space="preserve">
+    <value>Raccourci d'appli promotionnelle</value>
+  </data>
+  <data name="CorePreInstalledCasualGame" xml:space="preserve">
+    <value>Jeu occasionnel préinstallé</value>
+  </data>
+  <data name="CoreSocialMediaApp" xml:space="preserve">
+    <value>Appli de réseau social</value>
+  </data>
+  <data name="CoreDolbyAudioEnhancementMayAffectAudioQuality" xml:space="preserve">
+    <value>Amélioration audio Dolby - peut affecter la qualité du son</value>
+  </data>
+  <data name="CoreOneDriveStartupDisableIfNotUsingCloud" xml:space="preserve">
+    <value>Démarrage de OneDrive - à désactiver sans synchronisation cloud</value>
+  </data>
+  <data name="CoreCortanaAssistantStartup" xml:space="preserve">
+    <value>Démarrage de l'assistant Cortana</value>
+  </data>
+  <data name="CoreMicrosoftTeamsStartupDisableIfNotUsing" xml:space="preserve">
+    <value>Démarrage de Microsoft Teams - à désactiver si inutilisé</value>
+  </data>
+  <data name="CoreHPSoftwareStartupItem" xml:space="preserve">
+    <value>Élément de démarrage d'un logiciel HP</value>
+  </data>
+  <data name="CoreAppStartupDisableIfNotNeededImmediately" xml:space="preserve">
+    <value>Démarrage d'appli - à désactiver si pas utile tout de suite</value>
+  </data>
+  <data name="CoreHPScheduledTask" xml:space="preserve">
+    <value>Tâche planifiée HP</value>
+  </data>
+  <data name="CoreTelemetryDataCollectionTask" xml:space="preserve">
+    <value>Tâche de collecte de télémétrie</value>
+  </data>
+  <data name="CoreOneDriveScheduledSyncTask" xml:space="preserve">
+    <value>Tâche de synchronisation planifiée OneDrive</value>
+  </data>
+  <data name="CoreScheduledTask" xml:space="preserve">
+    <value>Tâche planifiée</value>
+  </data>
+  <data name="CoreStartupFolder" xml:space="preserve">
+    <value>Dossier Démarrage</value>
+  </data>
+  <data name="CoreStartupItem" xml:space="preserve">
+    <value>Élément de démarrage</value>
+  </data>
+  <data name="CoreNoHPOMENConflictSensitiveControlComponents" xml:space="preserve">
+    <value>Aucun composant de contrôle HP/OMEN sensible aux conflits sélectionné.</value>
+  </data>
+  <data name="CoreFanControlVerifiedInOmenCoreOnThis" xml:space="preserve">
+    <value>Contrôle des ventilateurs vérifié dans OmenCore sur ce matériel.</value>
+  </data>
+  <data name="CoreKeyboardLightingRGBBehaviorVerifiedInOmenCore" xml:space="preserve">
+    <value>Éclairage du clavier/RGB vérifié dans OmenCore sur ce matériel.</value>
+  </data>
+  <data name="CoreOMENKeyAndHPFnMediaHotkeys" xml:space="preserve">
+    <value>Touche OMEN et raccourcis Fn/multimédia HP vérifiés avec la gestion des raccourcis d'OmenCore.</value>
+  </data>
+  <data name="CoreBIOSDriverUpdatePathUnderstoodBeforeRemoving" xml:space="preserve">
+    <value>Méthode de mise à jour BIOS/pilotes connue avant de supprimer les utilitaires de support HP.</value>
+  </data>
+  <data name="CoreWindowsRestorePointPlannedBeforeRemoval" xml:space="preserve">
+    <value>Point de restauration Windows prévu avant la suppression.</value>
+  </data>
+  <data name="CoreConflictSensitiveHardwareControlComponentVerifyOmenCore" xml:space="preserve">
+    <value>Composant de contrôle matériel sensible aux conflits : vérifiez d'abord la ventilation, le RGB et les raccourcis d'OmenCore.</value>
+  </data>
+  <data name="CoreHighRiskRemovalCandidate" xml:space="preserve">
+    <value>Suppression à risque élevé.</value>
+  </data>
+  <data name="CoreMediumRiskRemovalCandidateReviewBeforeRemoval" xml:space="preserve">
+    <value>Suppression à risque moyen : à vérifier avant de supprimer.</value>
+  </data>
+  <data name="CoreLowRiskRemovalCandidate" xml:space="preserve">
+    <value>Suppression à faible risque.</value>
+  </data>
+  <data name="CoreNoRiskReasonAvailable" xml:space="preserve">
+    <value>Aucune raison de risque disponible.</value>
+  </data>
+  <data name="CoreRestorableByOmenCoreWhenSourceStateIs" xml:space="preserve">
+    <value>Restaurable par OmenCore tant que la source est disponible.</value>
+  </data>
+  <data name="CoreNoDirectOmenCoreRestoreRelyOnRestore" xml:space="preserve">
+    <value>Pas de restauration directe par OmenCore : utilisez un point de restauration, l'installateur ou la réparation Windows.</value>
+  </data>
+  <data name="CoreRestorePackageForTheCurrentUserProvisioning" xml:space="preserve">
+    <value>Restaure le paquet pour l'utilisateur actuel/la source préinstallée si elle est disponible.</value>
+  </data>
+  <data name="CoreRestoreBackedUpRegistryValueOrStartup" xml:space="preserve">
+    <value>Restaure la valeur de registre sauvegardée ou le raccourci du dossier Démarrage.</value>
+  </data>
+  <data name="CoreReEnableTheScheduledTask" xml:space="preserve">
+    <value>Réactive la tâche planifiée.</value>
+  </data>
+  <data name="CoreReinstallFromOriginalVendorInstallerOrWindows" xml:space="preserve">
+    <value>Réinstallation via l'installateur d'origine ou un point de restauration Windows.</value>
+  </data>
+  <data name="CoreManualRestoreMayBeRequired" xml:space="preserve">
+    <value>Une restauration manuelle peut être nécessaire.</value>
+  </data>
+  <data name="CoreNeededForOMENKey" xml:space="preserve">
+    <value>nécessaire pour la touche OMEN</value>
+  </data>
+  <data name="CoreMayAffectLightingHandoff" xml:space="preserve">
+    <value>peut affecter la reprise de l'éclairage</value>
+  </data>
+  <data name="CoreMayAffectFanPerformanceOwnership" xml:space="preserve">
+    <value>peut affecter le contrôle ventilation/performance</value>
+  </data>
+  <data name="CoreSafeOnlyAfterOmenCoreHardwareValidation" xml:space="preserve">
+    <value>sans risque seulement après validation du matériel dans OmenCore</value>
+  </data>
+  <data name="CoreVerifyOmenCoreFanControlKeyboardLightingAnd" xml:space="preserve">
+    <value>Vérifiez la ventilation, l'éclairage du clavier et la touche OMEN dans OmenCore avant la suppression.</value>
+  </data>
+  <data name="CoreMayAffectHPHotkeys" xml:space="preserve">
+    <value>peut affecter les raccourcis HP</value>
+  </data>
+  <data name="CoreMayAffectHPFnMediaHotkeyBehavior" xml:space="preserve">
+    <value>Peut affecter les touches Fn/multimédia/raccourcis HP.</value>
+  </data>
+  <data name="CoreGamePassXboxDependency" xml:space="preserve">
+    <value>Dépendance Game Pass/Xbox</value>
+  </data>
+  <data name="CoreMayAffectXboxAppGamePassOr" xml:space="preserve">
+    <value>Peut affecter l'appli Xbox, le Game Pass ou les Gaming Services.</value>
+  </data>
+  <data name="CoreSecurityComponent" xml:space="preserve">
+    <value>composant de sécurité</value>
+  </data>
+  <data name="CoreSecurityRelatedComponentVerifyReplacementCoverageBefore" xml:space="preserve">
+    <value>Composant lié à la sécurité : vérifiez qu'il est remplacé avant de le supprimer.</value>
+  </data>
+  <data name="CoreRestorePointCreatedSuccessfully" xml:space="preserve">
+    <value>Point de restauration créé.</value>
+  </data>
+  <data name="CoreReusingARecentPreRemovalRestorePoint" xml:space="preserve">
+    <value>Réutilisation d'un point de restauration récent de cette session.</value>
+  </data>
+  <data name="CoreRestorePointCreationFailed" xml:space="preserve">
+    <value>Échec de la création du point de restauration.</value>
+  </data>
+  <data name="CoreFoundBloatwareItems" xml:space="preserve">
+    <value>{0} logiciels superflus trouvés</value>
+  </data>
+  <data name="CoreSkipped" xml:space="preserve">
+    <value>{0} ignoré : {1}</value>
+  </data>
+  <data name="CoreRemoving" xml:space="preserve">
+    <value>Suppression de {0}...</value>
+  </data>
+  <data name="CoreRemovalStartedFor" xml:space="preserve">
+    <value>Suppression de {0} démarrée.</value>
+  </data>
+  <data name="CoreRemoved" xml:space="preserve">
+    <value>{0} supprimé : {1}</value>
+  </data>
+  <data name="CoreErrorRemoving" xml:space="preserve">
+    <value>Erreur lors de la suppression de {0} : {1}</value>
+  </data>
+  <data name="CoreFailedToRemove" xml:space="preserve">
+    <value>Échec de la suppression de {0} : {1}</value>
+  </data>
+  <data name="CoreBulkRemovalCanceledCompletedSkipped" xml:space="preserve">
+    <value>Suppression groupée annulée. {0} terminés, {1} ignorés.</value>
+  </data>
+  <data name="CoreBulkRemovalCanceledAtCompletedSkipped" xml:space="preserve">
+    <value>Suppression groupée annulée à {0}. {1} terminés, {2} ignorés.</value>
+  </data>
+  <data name="CoreBulkRemovalFailedAtRollingBackPrevious" xml:space="preserve">
+    <value>Échec de la suppression groupée à {0}. Annulation des suppressions précédentes...</value>
+  </data>
+  <data name="CoreRollbackCompleteRestoredSkipped" xml:space="preserve">
+    <value>Retour arrière terminé ({0} restaurés, {1} ignorés).</value>
+  </data>
+  <data name="CoreRollbackPartialRestoredFailedSkipped" xml:space="preserve">
+    <value>Retour arrière partiel ({0} restaurés, {1} en échec, {2} ignorés).</value>
+  </data>
+  <data name="CoreBulkRemoveStoppedAt" xml:space="preserve">
+    <value>Suppression groupée arrêtée à {0}. {1}</value>
+  </data>
+  <data name="CoreBulkRestoreCanceledCompletedSkipped" xml:space="preserve">
+    <value>Restauration groupée annulée. {0} terminés, {1} ignorés.</value>
+  </data>
+  <data name="CoreBulkRestoreCanceledAtCompletedSkipped" xml:space="preserve">
+    <value>Restauration groupée annulée à {0}. {1} terminés, {2} ignorés.</value>
+  </data>
+  <data name="CorePackageIsStillPresentAfterRemovalAttempt" xml:space="preserve">
+    <value>Le paquet est toujours présent après la tentative de suppression ({0}).</value>
+  </data>
+  <data name="CoreRemovalResultedInNoStateChangePackage" xml:space="preserve">
+    <value>La suppression n'a rien changé : le paquet est toujours présent ({0}).</value>
+  </data>
+  <data name="CoreCommandError" xml:space="preserve">
+    <value>{0} Erreur de la commande : {1}</value>
+  </data>
+  <data name="CoreUninstallerExitedWithCodeAndAppIs" xml:space="preserve">
+    <value>Le désinstalleur s'est terminé avec le code {0} et l'application est toujours présente.</value>
+  </data>
+  <data name="CoreDisablingScheduledTaskFor" xml:space="preserve">
+    <value>Désactivation de la tâche planifiée de {0}</value>
+  </data>
+  <data name="CoreRestoring" xml:space="preserve">
+    <value>Restauration de {0}...</value>
+  </data>
+  <data name="CoreSuccessfullyRestored" xml:space="preserve">
+    <value>{0} restauré</value>
+  </data>
+  <data name="CoreCanceledRestoring" xml:space="preserve">
+    <value>Restauration de {0} annulée</value>
+  </data>
+  <data name="CoreReEnablingScheduledTaskFor" xml:space="preserve">
+    <value>Réactivation de la tâche planifiée de {0}</value>
+  </data>
+  <data name="CoreTimedOutAfterSecondsAndWasTerminated" xml:space="preserve">
+    <value>{0} a dépassé le délai de {1} secondes et a été arrêté.</value>
+  </data>
+  <data name="CoreCheckingScheduledTask" xml:space="preserve">
+    <value>Vérification de la tâche planifiée {0}</value>
+  </data>
+  <data name="CoreAppXPackage" xml:space="preserve">
+    <value>Paquet AppX : {0}</value>
+  </data>
+  <data name="CoreWin32UninstallRegistryKey" xml:space="preserve">
+    <value>Clé de registre de désinstallation Win32 : {0}</value>
+  </data>
+  <data name="CoreWin32UninstallCommand" xml:space="preserve">
+    <value>Commande de désinstallation Win32 : {0}</value>
+  </data>
+  <data name="CoreStartupFolderItem" xml:space="preserve">
+    <value>Élément du dossier Démarrage : {0}</value>
+  </data>
+  <data name="CoreScheduledTask_32d4b" xml:space="preserve">
+    <value>Tâche planifiée : {0}</value>
+  </data>
+  <data name="EnumRemovalRiskUnknown" xml:space="preserve">
+    <value>Inconnu</value>
+  </data>
+  <data name="EnumRemovalRiskLow" xml:space="preserve">
+    <value>Faible</value>
+  </data>
+  <data name="EnumRemovalRiskMedium" xml:space="preserve">
+    <value>Moyen</value>
+  </data>
+  <data name="EnumRemovalRiskHigh" xml:space="preserve">
+    <value>Élevé</value>
+  </data>
+  <data name="EnumBloatwareCategoryUnknown" xml:space="preserve">
+    <value>Inconnue</value>
+  </data>
+  <data name="EnumBloatwareCategoryOemSoftware" xml:space="preserve">
+    <value>Logiciel OEM</value>
+  </data>
+  <data name="EnumBloatwareCategoryWindowsApps" xml:space="preserve">
+    <value>Applis Windows</value>
+  </data>
+  <data name="EnumBloatwareCategoryAntivirus" xml:space="preserve">
+    <value>Antivirus</value>
+  </data>
+  <data name="EnumBloatwareCategoryGames" xml:space="preserve">
+    <value>Jeux</value>
+  </data>
+  <data name="EnumBloatwareCategorySocial" xml:space="preserve">
+    <value>Réseaux sociaux</value>
+  </data>
+  <data name="EnumBloatwareCategoryCommunication" xml:space="preserve">
+    <value>Communication</value>
+  </data>
+  <data name="EnumBloatwareCategoryPromotional" xml:space="preserve">
+    <value>Promotionnel</value>
+  </data>
+  <data name="EnumBloatwareCategoryTelemetry" xml:space="preserve">
+    <value>Télémétrie</value>
+  </data>
+  <data name="EnumBloatwareCategoryStartup" xml:space="preserve">
+    <value>Démarrage</value>
+  </data>
+  <data name="EnumBloatwareTypeAppxPackage" xml:space="preserve">
+    <value>Paquet AppX</value>
+  </data>
+  <data name="EnumBloatwareTypeWin32App" xml:space="preserve">
+    <value>Appli Win32</value>
+  </data>
+  <data name="EnumBloatwareTypeStartupItem" xml:space="preserve">
+    <value>Démarrage</value>
+  </data>
+  <data name="EnumBloatwareTypeScheduledTask" xml:space="preserve">
+    <value>Tâche planifiée</value>
+  </data>
+  <data name="CsAllCategories" xml:space="preserve">
+    <value>Toutes catégories</value>
+  </data>
+  <data name="CsModeBalanced" xml:space="preserve">
+    <value>Équilibré</value>
+  </data>
+  <data name="CsModeQuiet" xml:space="preserve">
+    <value>Silencieux</value>
+  </data>
+  <data name="CsModePerformance" xml:space="preserve">
+    <value>Performance</value>
+  </data>
+  <data name="CsStatusDone" xml:space="preserve">
+    <value>Terminé : {0}</value>
+  </data>
+  <data name="CsStatusDoneBare" xml:space="preserve">
+    <value>Terminé</value>
+  </data>
+  <data name="CsStatusFailed" xml:space="preserve">
+    <value>Échec : {0}</value>
   </data>
 </root>

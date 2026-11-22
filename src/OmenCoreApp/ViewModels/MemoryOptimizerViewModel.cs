@@ -112,7 +112,7 @@ namespace OmenCore.ViewModels
                     }
                     else
                     {
-                        LastCleanResult = $"Failed: {result.ErrorMessage}";
+                        LastCleanResult = string.Format(global::OmenCore.Localization.Strings.CsStatusFailed, result.ErrorMessage);
                         SetStatusFailed(result.ErrorMessage);
                     }
                 });
@@ -1218,12 +1218,12 @@ namespace OmenCore.ViewModels
 
         private void SetStatusDone(string? details = null)
         {
-            StatusMessage = string.IsNullOrWhiteSpace(details) ? "Done" : $"Done: {details}";
+            StatusMessage = string.IsNullOrWhiteSpace(details) ? global::OmenCore.Localization.Strings.CsStatusDoneBare : string.Format(global::OmenCore.Localization.Strings.CsStatusDone, details);
         }
 
         private void SetStatusFailed(string? reason)
         {
-            StatusMessage = $"Failed: {reason}";
+            StatusMessage = string.Format(global::OmenCore.Localization.Strings.CsStatusFailed, reason);
         }
 
         public void Dispose()

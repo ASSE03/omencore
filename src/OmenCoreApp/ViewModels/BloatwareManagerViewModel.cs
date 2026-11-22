@@ -265,13 +265,17 @@ namespace OmenCore.ViewModels
             ApplyFullStandalonePresetCommand = new RelayCommand(_ => ApplyFullStandalonePreset(), _ => AllApps.Count > 0 && CanInteract);
 
             // Initialize categories
+            // Unknown heads the list as the "All categories" entry (the filter treats it as no filter):
+            // with no item selected the combo used to render empty.
+            Categories.Add(BloatwareCategory.Unknown);
             foreach (var cat in Enum.GetValues<BloatwareCategory>().Where(c => c != BloatwareCategory.Unknown))
             {
                 Categories.Add(cat);
             }
+            _selectedCategory = BloatwareCategory.Unknown;
 
             // Subscribe to service events
-            _service.StatusChanged += status => DispatcherHelper.RunOnUiThread(() => StatusMessage = status);
+            _service.StatusChanged += status => DispatcherHelper.RunOnUiThread(() => StatusMessage = global::OmenCore.Localization.CoreText.Translate(status));
             _service.AppRemoved += app => DispatcherHelper.RunOnUiThread(UpdateCounts);
             _service.AppRestored += app => DispatcherHelper.RunOnUiThread(UpdateCounts);
 
@@ -422,7 +426,7 @@ namespace OmenCore.ViewModels
                             : bulkResult.FailedAt!.LastFailureReason!
                         : bulkResult.FailedAt!.LastRemovalDetail!;
                     SetStatusFailed(
-                        string.Format(global::OmenCore.Localization.Strings.CsBulkRemoveStoppedAtRollbackRestored, failedName, failedDetail, bulkResult.RollbackSucceeded.Count) +
+                        string.Format(global::OmenCore.Localization.Strings.CsBulkRemoveStoppedAtRollbackRestored, failedName, global::OmenCore.Localization.CoreText.Translate(failedDetail), bulkResult.RollbackSucceeded.Count) +
                         string.Format(global::OmenCore.Localization.Strings.CsFailedSkippedExportLogForDetails, bulkResult.RollbackFailed.Count, bulkResult.RollbackSkipped.Count));
                 }
 
@@ -444,9 +448,9 @@ namespace OmenCore.ViewModels
 
         private static string BuildSingleRemovalOutcomeMessage(BloatwareApp app)
         {
-            var detail = string.IsNullOrWhiteSpace(app.LastRemovalDetail)
+            var detail = global::OmenCore.Localization.CoreText.Translate(string.IsNullOrWhiteSpace(app.LastRemovalDetail)
                 ? app.LastFailureReason
-                : app.LastRemovalDetail;
+                : app.LastRemovalDetail);
 
             return app.LastRemovalStatus switch
             {
@@ -480,7 +484,7 @@ namespace OmenCore.ViewModels
                 .FirstOrDefault(app => !string.IsNullOrWhiteSpace(app.LastRemovalDetail));
             if (firstSkippedWithDetail != null)
             {
-                summary += string.Format(global::OmenCore.Localization.Strings.CsExampleSkip, firstSkippedWithDetail.Name, firstSkippedWithDetail.LastRemovalDetail);
+                summary += string.Format(global::OmenCore.Localization.Strings.CsExampleSkip, firstSkippedWithDetail.Name, global::OmenCore.Localization.CoreText.Translate(firstSkippedWithDetail.LastRemovalDetail));
             }
 
             return summary;
@@ -787,7 +791,7 @@ namespace OmenCore.ViewModels
             var filtered = AllApps.AsEnumerable();
 
             // Filter by category
-            if (SelectedCategory.HasValue)
+            if (SelectedCategory.HasValue && SelectedCategory.Value != BloatwareCategory.Unknown)
             {
                 filtered = filtered.Where(a => a.Category == SelectedCategory.Value);
             }
@@ -895,12 +899,12 @@ namespace OmenCore.ViewModels
 
         private void SetStatusDone(string details)
         {
-            StatusMessage = $"Done: {details}";
+            StatusMessage = string.Format(global::OmenCore.Localization.Strings.CsStatusDone, global::OmenCore.Localization.CoreText.Translate(details));
         }
 
         private void SetStatusFailed(string reason)
         {
-            StatusMessage = $"Failed: {reason}";
+            StatusMessage = string.Format(global::OmenCore.Localization.Strings.CsStatusFailed, global::OmenCore.Localization.CoreText.Translate(reason));
         }
 
         private CancellationTokenSource BeginBulkOperation()

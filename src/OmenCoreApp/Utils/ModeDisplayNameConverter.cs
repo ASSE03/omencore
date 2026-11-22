@@ -9,7 +9,19 @@ namespace OmenCore.Utils
     public sealed class ModeDisplayNameConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-            PerformanceModeNameResolver.ToDisplayName(value as string);
+            Localize(PerformanceModeNameResolver.ToDisplayName(value as string));
+
+        /// <summary>
+        /// Translates the three built-in mode names ToDisplayName returns; user-named modes are shown
+        /// as typed. Display only: the canonical English names stay the values the app compares.
+        /// </summary>
+        public static string Localize(string displayName) => displayName switch
+        {
+            "Balanced" => global::OmenCore.Localization.Strings.CsModeBalanced,
+            "Quiet" => global::OmenCore.Localization.Strings.CsModeQuiet,
+            "Performance" => global::OmenCore.Localization.Strings.CsModePerformance,
+            _ => displayName
+        };
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
             Binding.DoNothing;
