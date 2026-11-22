@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using OmenCore.Services.BloatwareManager;
 using Xunit;
@@ -37,6 +38,29 @@ namespace OmenCoreApp.Tests.Services
             var (file, args) = BloatwareManagerService.ParseWin32UninstallCommand(@"C:\Program Files\HP\uninst.exe -remove", isQuietCommand: true);
             file.Should().Be(@"C:\Program Files\HP\uninst.exe");
             args.Should().Be("-remove");
+        }
+
+        // ─── AppX removal script ────────────────────────────────────────────
+
+        [Fact]
+        public void AppxRemoval_RunsEveryScope_NotJustTheFirstThatSucceeds()
+        {
+            var script = BloatwareManagerService.BuildAppxRemovalScript("Microsoft.ZuneVideo");
+
+            script.Should().Contain("Get-AppxPackage -AllUsers -Name $n | Remove-AppxPackage -AllUsers");
+            script.Should().Contain("Get-AppxPackage -Name $n | Remove-AppxPackage");
+            script.Should().Contain("Remove-AppxProvisionedPackage -Online");
+
+            // The old script exited after the first scope that did not throw, leaving the package
+            // installed for other users and in the provisioned image. Only one exit decision, at the end.
+            script.IndexOf("exit 0", StringComparison.Ordinal)
+                .Should().BeGreaterThan(script.IndexOf("Remove-AppxProvisionedPackage", StringComparison.Ordinal));
+        }
+
+        [Fact]
+        public void AppxRemoval_UsesTheEscapedName()
+        {
+            BloatwareManagerService.BuildAppxRemovalScript("O''Brien.App").Should().StartWith("$n='O''Brien.App';");
         }
     }
 }

@@ -853,15 +853,7 @@ namespace OmenCore.Services.BloatwareManager
             var psi = new ProcessStartInfo
             {
                 FileName = "powershell.exe",
-                Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"" +
-                    $"try {{ Get-AppxPackage '{escapedAppxName}' | Remove-AppxPackage -ErrorAction Stop; exit 0 }} " +
-                    $"catch {{ " +
-                    $"  try {{ Get-AppxPackage -AllUsers '{escapedAppxName}' | Remove-AppxPackage -AllUsers -ErrorAction Stop; exit 0 }} " +
-                    $"  catch {{ " +
-                    $"    try {{ Get-AppxProvisionedPackage -Online | Where-Object {{ $_.DisplayName -like '{escapedAppxName}*' }} | Remove-AppxProvisionedPackage -Online -ErrorAction Stop; exit 0 }} " +
-                    $"    catch {{ Write-Error $_.Exception.Message; exit 1 }} " +
-                    $"  }} " +
-                    $"}}\"",
+                Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{BuildAppxRemovalScript(escapedAppxName)}\"",
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 CreateNoWindow = true
@@ -880,7 +872,10 @@ namespace OmenCore.Services.BloatwareManager
                 _logger.Warn($"AppX removal failed for {app.Name}: {reason}");
                 
                 if (reason.Contains("Access is denied", StringComparison.OrdinalIgnoreCase) ||
-                    reason.Contains("0x80070005", StringComparison.OrdinalIgnoreCase))
+                    reason.Contains("0x80070005", StringComparison.OrdinalIgnoreCase) ||
+                    reason.Contains("0x800702E4", StringComparison.OrdinalIgnoreCase) ||   // ERROR_ELEVATION_REQUIRED
+                    reason.Contains("Accès refusé", StringComparison.OrdinalIgnoreCase) ||  // French Windows
+                    reason.Contains("élévation", StringComparison.OrdinalIgnoreCase))
                 {
                     _logger.Warn($"  → Run OmenCore as Administrator to remove provisioned packages");
                     reason = "Access denied — run OmenCore as Administrator to remove provisioned packages.";
@@ -1432,6 +1427,28 @@ namespace OmenCore.Services.BloatwareManager
             app.LastRemovalStatus = status;
             app.LastRemovalDetail = detail;
             app.LastFailureReason = failureReason;
+        }
+
+        /// <summary>
+        /// PowerShell script that removes an AppX package from every scope it can live in: the
+        /// current user, every user, and the provisioned image new accounts are built from.
+        ///
+        /// The three steps are cumulative, not alternatives. The previous script chained them as
+        /// try/catch fallbacks and exited 0 after the first one that did not throw, so on an
+        /// OEM-provisioned app (Movies &amp; TV, Mixed Reality Portal...) only the current user's copy
+        /// went away; the presence check that follows then still found it for all users and in the
+        /// provisioned image, reported a failure, and the bulk removal rolled everything back.
+        /// The exit code only feeds the failure message: success is decided by that presence check.
+        /// </summary>
+        /// <param name="escapedAppxName">Package name, already escaped for a single-quoted string.</param>
+        internal static string BuildAppxRemovalScript(string escapedAppxName)
+        {
+            return
+                $"$n='{escapedAppxName}'; $errs=@(); " +
+                "try { Get-AppxPackage -AllUsers -Name $n | Remove-AppxPackage -AllUsers -ErrorAction Stop } catch { $errs += $_.Exception.Message }; " +
+                "try { Get-AppxPackage -Name $n | Remove-AppxPackage -ErrorAction Stop } catch { $errs += $_.Exception.Message }; " +
+                "try { Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -like ($n + '*') } | Remove-AppxProvisionedPackage -Online -ErrorAction Stop | Out-Null } catch { $errs += $_.Exception.Message }; " +
+                "if ($errs.Count -gt 0) { Write-Error ($errs -join ' | '); exit 1 } else { exit 0 }";
         }
 
         private static string EscapePowerShellSingleQuotedString(string input)
