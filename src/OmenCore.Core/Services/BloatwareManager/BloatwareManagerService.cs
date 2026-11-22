@@ -413,11 +413,28 @@ namespace OmenCore.Services.BloatwareManager
                 }
 
                 var output = ProcessWait.Complete(outputTask);
+                var disabledTasks = GetDisabledScheduledTaskPaths();
 
                 foreach (var taskName in ExtractScheduledTaskNamesFromSchtasksCsv(output))
                 {
                     if (IsKnownBloatwareTask(taskName, out var category, out var description, out var risk))
                     {
+                        // Removing a task means disabling it, so a task this scan finds disabled has
+                        // already been dealt with. It used to be listed as installed again on every
+                        // scan (after a reboot, after reopening the page), which looked as if the
+                        // removal had been undone. It is now listed as removed, restorable as before.
+                        var isDisabled = disabledTasks.Contains(taskName);
+                        if (isDisabled && !_backups.ContainsKey(taskName))
+                        {
+                            _backups[taskName] = new BloatwareBackup
+                            {
+                                PackageId = taskName,
+                                Name = GetFriendlyTaskName(taskName),
+                                Type = BloatwareType.ScheduledTask,
+                                BackupDate = DateTime.Now
+                            };
+                        }
+
                         AddDetectedApp(new BloatwareApp
                         {
                             Name = GetFriendlyTaskName(taskName),
@@ -428,7 +445,7 @@ namespace OmenCore.Services.BloatwareManager
                             Description = description,
                             RemovalRisk = risk,
                             CanRestore = true,
-                            IsRemoved = false
+                            IsRemoved = isDisabled
                         });
                     }
                 }
@@ -437,6 +454,54 @@ namespace OmenCore.Services.BloatwareManager
             {
                 _logger.Error($"Failed to scan scheduled tasks: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Full paths ("\\HP\\ABO") of the scheduled tasks that are currently disabled. Read through
+        /// Get-ScheduledTask because its State is an enum that does not depend on the Windows display
+        /// language, unlike the status column of schtasks /v. Empty on any failure, which keeps the
+        /// previous behaviour (every matching task listed as installed).
+        /// </summary>
+        private HashSet<string> GetDisabledScheduledTaskPaths()
+        {
+            var result = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            try
+            {
+                var psi = new ProcessStartInfo
+                {
+                    FileName = "powershell.exe",
+                    Arguments = "-NoProfile -ExecutionPolicy Bypass -Command \"Get-ScheduledTask | Where-Object { $_.State -eq 'Disabled' } | ForEach-Object { $_.TaskPath + $_.TaskName }\"",
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    StandardOutputEncoding = System.Text.Encoding.UTF8
+                };
+
+                using var process = Process.Start(psi);
+                if (process == null) return result;
+
+                var outputTask = process.StandardOutput.ReadToEndAsync();
+                if (!ProcessWait.TryWait(process, 30000))
+                {
+                    _logger.Warn("Disabled scheduled task query timed out after 30s");
+                    return result;
+                }
+
+                foreach (var line in ProcessWait.Complete(outputTask).Split('\n'))
+                {
+                    var path = line.Trim();
+                    if (path.Length > 0)
+                    {
+                        result.Add(path);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Warn($"Could not read disabled scheduled tasks: {ex.Message}");
+            }
+
+            return result;
         }
 
         private void AddDetectedApp(BloatwareApp app)
