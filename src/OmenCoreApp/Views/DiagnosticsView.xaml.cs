@@ -45,26 +45,26 @@ namespace OmenCore.Views
             // asking consent for the part that is obvious and not for the part that writes to
             // the SMU every thirty seconds afterwards.
             var cpuHalf = vm.GpuClamp.CanOfferApuClampLift
-                ? $"It then raises the four CPU power limits to {vm.GpuClamp.ApuClampTargetDescription}, and puts " +
-                  "them back after a resume or a change of supply - the events that take them away. " +
-                  "OmenCore cannot read them back, so that half is what the SMU accepted rather than " +
-                  "what it is running.\n\n"
+                ? string.Format(global::OmenCore.Localization.Strings.CsItThenRaisesTheFourCPUPower, vm.GpuClamp.ApuClampTargetDescription) +
+                  global::OmenCore.Localization.Strings.CsThemBackAfterAResumeOrA +
+                  global::OmenCore.Localization.Strings.CsOmenCoreCannotReadThemBackSoThat +
+                  global::OmenCore.Localization.Strings.CsWhatItIsRunning
                 : string.Empty;
 
             var answer = System.Windows.MessageBox.Show(
-                "This disables and re-enables the discrete GPU.\n\n" +
-                "Your screens will go black for a few seconds, and any game, render or compute job " +
-                "using the GPU will lose it and may crash.\n\n" +
+                global::OmenCore.Localization.Strings.CsThisDisablesAndReEnablesTheDiscrete +
+                global::OmenCore.Localization.Strings.CsYourScreensWillGoBlackForA +
+                global::OmenCore.Localization.Strings.CsUsingTheGPUWillLoseItAnd +
                 cpuHalf +
-                "Neither figure is an overclock. The GPU lands on the limit its own driver reports as " +
-                "default, and the CPU limits are set to the number this machine's firmware states for " +
-                "a loaded CPU and GPU together. The clamp is a policy the firmware applies to a supply " +
-                "it does not rate highly enough, not a measurement of what that supply can deliver.\n\n" +
-                "Nothing here survives a reboot: the GPU limit holds until the firmware tells the " +
-                "driver about the adapter again - changing supply does that - and the CPU limits " +
-                "until you stop holding them.\n\n" +
-                "Drop the clamp now?",
-                "Drop the adapter power clamp?",
+                global::OmenCore.Localization.Strings.CsNeitherFigureIsAnOverclockTheGPU +
+                global::OmenCore.Localization.Strings.CsDefaultAndTheCPULimitsAreSet +
+                global::OmenCore.Localization.Strings.CsALoadedCPUAndGPUTogetherThe +
+                global::OmenCore.Localization.Strings.CsItDoesNotRateHighlyEnoughNot +
+                global::OmenCore.Localization.Strings.CsNothingHereSurvivesARebootTheGPU +
+                global::OmenCore.Localization.Strings.CsDriverAboutTheAdapterAgainChangingSupply +
+                global::OmenCore.Localization.Strings.CsUntilYouStopHoldingThem +
+                global::OmenCore.Localization.Strings.CsDropTheClampNow,
+                global::OmenCore.Localization.Strings.CsDropTheAdapterPowerClamp,
                 System.Windows.MessageBoxButton.YesNo,
                 System.Windows.MessageBoxImage.Warning,
                 System.Windows.MessageBoxResult.No);
@@ -89,19 +89,19 @@ namespace OmenCore.Views
             if (DataContext is not ViewModels.MainViewModel vm) return;
 
             var answer = System.Windows.MessageBox.Show(
-                "This is an experimental, unconfirmed feature that pins two firmware-managed EC " +
-                "bits open for a moment and fires one WMI command, then measures whether the GPU's " +
-                "power actually moved.\n\n" +
-                "It has not been run on real hardware by anyone who wrote it. During the " +
-                "investigation it is built from, forcing this same mechanism on an undersized power " +
-                "adapter left the GPU in a degraded state - driver calls taking 20+ seconds, unable " +
-                "to render - that did not clear until the machine was rebooted, on hardware with a " +
-                "history of GPU-driver crashes.\n\n" +
-                "This offer only appears when the connected adapter is well above this machine's " +
-                "rated requirement, which is the one safeguard behind it. There is no way to preview " +
-                "the result, and no undo beyond a reboot if something goes wrong.\n\n" +
-                "Try it anyway?",
-                "Try the experimental GPU power unlock?",
+                global::OmenCore.Localization.Strings.CsThisIsAnExperimentalUnconfirmedFeatureThat
+
+
+
+
+
+
+
+
+
+
+,
+                global::OmenCore.Localization.Strings.CsTryTheExperimentalGPUPowerUnlock,
                 System.Windows.MessageBoxButton.YesNo,
                 System.Windows.MessageBoxImage.Warning,
                 System.Windows.MessageBoxResult.No);

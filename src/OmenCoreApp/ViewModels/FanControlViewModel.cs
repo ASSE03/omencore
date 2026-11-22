@@ -34,7 +34,7 @@ namespace OmenCore.ViewModels
         private IEnumerable<FanCurvePoint>? _hoveredPresetCurve;
         private bool _isApplyingCustomCurve;
         private volatile bool _isApplyingConstantSpeed;
-        private string _curveApplyStatus = "Ready to apply";
+        private string _curveApplyStatus = global::OmenCore.Localization.Strings.CsReadyToApply;
         private string _fanCalibrationModelId = "unknown";
         private string _fanCalibrationModelName = "Unknown Model";
         private bool _showRpmSanityWarning = false;
@@ -134,7 +134,7 @@ namespace OmenCore.ViewModels
                     return string.Empty;
                 }
 
-                return $"Thermal guard active: curve requests {PredictedFanPercent}% at {CurrentTemperature:F0}C; OmenCore will command {EffectiveFanPercent}% until temperatures fall.";
+                return string.Format(global::OmenCore.Localization.Strings.CsThermalGuardActiveCurveRequestsAtC, PredictedFanPercent, CurrentTemperature, EffectiveFanPercent);
             }
         }
         
@@ -145,8 +145,8 @@ namespace OmenCore.ViewModels
                 var raw = PredictedFanPercent;
                 var effective = EffectiveFanPercent;
                 if (effective != raw)
-                    return $"At {CurrentTemperature:F0}C -> requested {raw}%, effective {effective}%";
-                return $"At {CurrentTemperature:F0}C -> {raw}%";
+                    return string.Format(global::OmenCore.Localization.Strings.CsAtCRequestedEffective, CurrentTemperature, raw, effective);
+                return string.Format(global::OmenCore.Localization.Strings.CsAtC, CurrentTemperature, raw);
             }
         }
         
@@ -158,7 +158,7 @@ namespace OmenCore.ViewModels
             get
             {
                 if (CustomFanCurve == null || CustomFanCurve.Count < 2)
-                    return "⚠️ Curve needs at least 2 points";
+                    return global::OmenCore.Localization.Strings.CsCurveNeedsAtLeast2Points;
                 
                 var sorted = CustomFanCurve.OrderBy(p => p.TemperatureC).ToList();
                 
@@ -168,7 +168,7 @@ namespace OmenCore.ViewModels
                     if (sorted[i + 1].FanPercent < sorted[i].FanPercent && 
                         sorted[i + 1].TemperatureC > 60) // Only warn above 60°C
                     {
-                        return $"⚠️ Fan drops to {sorted[i + 1].FanPercent}% at {sorted[i + 1].TemperatureC}°C";
+                        return string.Format(global::OmenCore.Localization.Strings.CsFanDropsToAtC, sorted[i + 1].FanPercent, sorted[i + 1].TemperatureC);
                     }
                 }
                 
@@ -176,7 +176,7 @@ namespace OmenCore.ViewModels
                 var maxTempPoint = sorted.Last();
                 if (maxTempPoint.TemperatureC < 80)
                 {
-                    return $"ℹ️ Consider adding a point at 85-95°C";
+                    return global::OmenCore.Localization.Strings.CsConsiderAddingAPointAt8595;
                 }
 
                 if (IsSafetyFloorActive)
@@ -187,7 +187,7 @@ namespace OmenCore.ViewModels
                 // Check if fan never reaches 100%
                 if (sorted.All(p => p.FanPercent < 90))
                 {
-                    return "ℹ️ Curve never reaches 100% - may cause thermal throttling";
+                    return global::OmenCore.Localization.Strings.CsCurveNeverReaches100MayCauseThermal;
                 }
                 
                 // Warn if safety clamping will override at current temp
@@ -195,10 +195,10 @@ namespace OmenCore.ViewModels
                 var currentEffective = EffectiveFanPercent;
                 if (currentEffective > currentRaw)
                 {
-                    return $"ℹ️ Safety floor active: {currentRaw}% → {currentEffective}% at {CurrentTemperature:F0}°C";
+                    return string.Format(global::OmenCore.Localization.Strings.CsSafetyFloorActiveAtC, currentRaw, currentEffective, CurrentTemperature);
                 }
                 
-                return "✓ Curve looks good";
+                return global::OmenCore.Localization.Strings.CsCurveLooksGood;
             }
         }
         
@@ -429,20 +429,20 @@ namespace OmenCore.ViewModels
             get
             {
                 if (IsApplyingCustomCurve)
-                    return "Applying custom curve";
+                    return global::OmenCore.Localization.Strings.CsApplyingCustomCurve;
 
                 if (IsCurveActive)
                     return ActiveFanMode == "Custom"
-                        ? "Custom curve is actively managing fans"
-                        : $"{ActiveFanMode} curve is actively managing fans";
+                        ? global::OmenCore.Localization.Strings.CsCustomCurveIsActivelyManagingFans
+                        : string.Format(global::OmenCore.Localization.Strings.CsCurveIsActivelyManagingFans, ActiveFanMode);
 
                 return ActiveFanMode switch
                 {
-                    "Auto" => "Auto mode: firmware owns fan control",
-                    "Max" => "Max mode: OmenCore requests full cooling",
+                    "Auto" => global::OmenCore.Localization.Strings.CsAutoModeFirmwareOwnsFanControl,
+                    "Max" => global::OmenCore.Localization.Strings.CsMaxModeOmenCoreRequestsFullCooling,
                     "Constant" => $"Constant mode: OmenCore requests {ConstantFanPercent}%",
-                    "Custom" => "Custom curve loaded, not actively applied",
-                    _ => $"{ActiveFanMode} preset selected"
+                    "Custom" => global::OmenCore.Localization.Strings.CsCustomCurveLoadedNotActivelyApplied,
+                    _ => string.Format(global::OmenCore.Localization.Strings.CsPresetSelected, ActiveFanMode)
                 };
             }
         }
@@ -451,7 +451,7 @@ namespace OmenCore.ViewModels
         {
             get
             {
-                var backend = string.IsNullOrWhiteSpace(RpmSourceDisplay) ? "unknown backend" : RpmSourceDisplay;
+                var backend = string.IsNullOrWhiteSpace(RpmSourceDisplay) ? global::OmenCore.Localization.Strings.CsUnknownBackend : RpmSourceDisplay;
                 var status = string.IsNullOrWhiteSpace(CurveApplyStatus) ? "Ready" : CurveApplyStatus;
                 if (ProfileOnlyFanControl)
                 {
@@ -498,8 +498,8 @@ namespace OmenCore.ViewModels
         public string FanCapabilityVisualState => ProfileOnlyFanControl ? "degraded" : "confirmed";
 
         public string FanProfileHeaderHint => ProfileOnlyFanControl
-            ? "Select an OEM fan profile"
-            : "Select a preset, direct fan level, or custom curve";
+            ? global::OmenCore.Localization.Strings.CsSelectAnOEMFanProfile
+            : global::OmenCore.Localization.Strings.CsSelectAPresetDirectFanLevelOr;
 
         public string ExtremePresetSubtitle => ProfileOnlyFanControl ? "Profile" : "@75C";
 
@@ -510,12 +510,12 @@ namespace OmenCore.ViewModels
         public string DirectPresetSubtitle => ManualFanControlAvailable ? $"{ConstantFanPercent}%" : "Unavailable";
 
         public string CustomCurveTooltip => FanCurvesAvailable
-            ? "Apply your custom fan curve defined in the editor below."
-            : "This model's fan controller doesn't expose a custom-curve interface — a hardware/firmware limitation, not related to whether the model profile is verified. Use OEM fan profiles instead.";
+            ? global::OmenCore.Localization.Strings.CsApplyYourCustomFanCurveDefinedIn
+            : global::OmenCore.Localization.Strings.CsThisModelSFanControllerDoesnT;
 
         public string DirectFanControlTooltip => ManualFanControlAvailable
-            ? "Hold fans at a fixed requested level using manual fan control."
-            : "This model's fan controller doesn't expose direct fixed-level control — a hardware/firmware limitation, not related to whether the model profile is verified. Use OEM fan profiles instead.";
+            ? global::OmenCore.Localization.Strings.CsHoldFansAtAFixedRequestedLevel
+            : global::OmenCore.Localization.Strings.CsThisModelSFanControllerDoesnT_0aaae;
 
         public string CustomPresetName
         {
@@ -673,7 +673,7 @@ namespace OmenCore.ViewModels
         public bool IndependentCurvesFeatureAvailable => false;
 
         public string GpuFanControlSupportSummary =>
-            "GPU fan curve write is model-dependent and currently not guaranteed. OmenCore applies a unified duty target and the GPU fan typically tracks CPU duty.";
+            global::OmenCore.Localization.Strings.CsGPUFanCurveWriteIsModelDependent;
 
         public string GpuFanDutyRatioSummary
         {
@@ -684,11 +684,11 @@ namespace OmenCore.ViewModels
 
                 if (cpu == null || gpu == null || cpu.DutyCyclePercent <= 0)
                 {
-                    return "Observed GPU/CPU duty ratio: unavailable (insufficient telemetry).";
+                    return global::OmenCore.Localization.Strings.CsObservedGPUCPUDutyRatioUnavailableInsufficient;
                 }
 
                 var ratio = (double)gpu.DutyCyclePercent / cpu.DutyCyclePercent;
-                return $"Observed GPU/CPU duty ratio: {ratio:P0} ({gpu.DutyCyclePercent}% GPU vs {cpu.DutyCyclePercent}% CPU).";
+                return string.Format(global::OmenCore.Localization.Strings.CsObservedGPUCPUDutyRatioGPUVs, ratio, gpu.DutyCyclePercent, cpu.DutyCyclePercent);
             }
         }
         
@@ -714,7 +714,7 @@ namespace OmenCore.ViewModels
         
         /// <summary>Human-readable thermal protection status.</summary>
         public string ThermalProtectionStatusText => ThermalProtectionActive 
-            ? $"⚠️ Active - CPU at {CurrentTemperature:F0}°C" 
+            ? string.Format(global::OmenCore.Localization.Strings.CsActiveCPUAtC, CurrentTemperature) 
             : "✓ Normal";
         
         /// <summary>When the fan telemetry was last updated.</summary>
@@ -735,16 +735,16 @@ namespace OmenCore.ViewModels
             {
                 if (!IsFanCalibrationAvailable)
                 {
-                    return $"Calibration unavailable: {FanCalibrationUnavailableReason}";
+                    return string.Format(global::OmenCore.Localization.Strings.CsCalibrationUnavailable, FanCalibrationUnavailableReason);
                 }
 
                 var calibration = _fanCalibrationStorage.GetCalibration(_fanCalibrationModelId);
                 if (calibration == null)
                 {
-                    return $"No calibration data stored for {_fanCalibrationModelName}. Run the wizard to build a duty-to-RPM map.";
+                    return string.Format(global::OmenCore.Localization.Strings.CsNoCalibrationDataStoredForRunThe, _fanCalibrationModelName);
                 }
 
-                return $"Calibration available for {calibration.ModelName} from {calibration.CreatedDate:g}. {calibration.FanCalibrations.Count} fan map(s) stored.";
+                return string.Format(global::OmenCore.Localization.Strings.CsCalibrationAvailableForFromFanMapS, calibration.ModelName, calibration.CreatedDate, calibration.FanCalibrations.Count);
             }
         }
 
@@ -754,33 +754,33 @@ namespace OmenCore.ViewModels
             {
                 if (_fanVerificationService == null)
                 {
-                    return "fan verification service is not initialized in this runtime context.";
+                    return global::OmenCore.Localization.Strings.CsFanVerificationServiceIsNotInitializedIn;
                 }
 
                 if (!_fanVerificationService.IsAvailable)
                 {
-                    return $"fan verification backend is inactive (active fan backend: {_fanService.Backend}).";
+                    return string.Format(global::OmenCore.Localization.Strings.CsFanVerificationBackendIsInactiveActiveFan, _fanService.Backend);
                 }
 
-                return "fan verification is available.";
+                return global::OmenCore.Localization.Strings.CsFanVerificationIsAvailable;
             }
         }
 
-        public string FanCalibrationActionText => HasFanCalibrationData ? "Recalibrate" : "Start Calibration";
+        public string FanCalibrationActionText => HasFanCalibrationData ? "Recalibrate" : global::OmenCore.Localization.Strings.CsStartCalibration;
 
         public string FanCalibrationMapSummary => HasFanCalibrationMap
-            ? "Measured duty-to-RPM map from the latest calibration run."
-            : "No duty-to-RPM map available yet.";
+            ? global::OmenCore.Localization.Strings.CsMeasuredDutyToRPMMapFromThe
+            : global::OmenCore.Localization.Strings.CsNoDutyToRPMMapAvailableYet;
 
         public bool IsFanPerformanceLinked => _configService.Config.LinkFanToPerformanceMode;
 
         public string FanPerformanceLinkBadgeText => IsFanPerformanceLinked
-            ? "Linked: performance may change fan mode"
-            : "Independent: fan mode stays under fan controls";
+            ? global::OmenCore.Localization.Strings.CsLinkedPerformanceMayChangeFanMode
+            : global::OmenCore.Localization.Strings.CsIndependentFanModeStaysUnderFanControls;
 
         public string FanPerformanceLinkDescription => IsFanPerformanceLinked
-            ? "When linked, selecting a performance profile can also switch the active fan mode. Use this only if you want profile-driven fan behavior."
-            : "When independent, performance profile changes do not rewrite fan policy. Your selected fan preset/curve remains active until you change fan controls directly.";
+            ? global::OmenCore.Localization.Strings.CsWhenLinkedSelectingAPerformanceProfileCan
+            : global::OmenCore.Localization.Strings.CsWhenIndependentPerformanceProfileChangesDoNot;
 
         public bool ShowFanPerformanceInfoBanner => !IsFanPerformanceLinked && !_configService.Config.DismissedFanPerformanceDecouplingNotice;
 
@@ -796,8 +796,8 @@ namespace OmenCore.ViewModels
         public bool ShowStartupRestoreHint => !WillFanStateReapplyAtStartup && !_configService.Config.DismissedStartupRestoreHint;
 
         public string StartupRestoreHintText => !_configService.Config.EnableStartupHardwareRestore
-            ? "Startup Hardware Restore is off in Settings, so this preset/curve won't be reapplied automatically after a restart - you'll need to reselect it, or turn that on."
-            : "The Fans category of Startup Hardware Restore is off in Settings, so this preset/curve won't be reapplied automatically after a restart - you'll need to reselect it, or turn that category back on.";
+            ? global::OmenCore.Localization.Strings.CsStartupHardwareRestoreIsOffInSettings
+            : global::OmenCore.Localization.Strings.CsTheFansCategoryOfStartupHardwareRestore;
 
         public ICommand DismissStartupRestoreHintCommand { get; }
 
@@ -975,8 +975,8 @@ namespace OmenCore.ViewModels
             ActiveFanMode = "Auto";
             SelectPresetByNameNoApplyAndSave("Auto");
             CurveApplyStatus = success
-                ? "OEM auto restored"
-                : "OEM auto restore did not report success";
+                ? global::OmenCore.Localization.Strings.CsOEMAutoRestored
+                : global::OmenCore.Localization.Strings.CsOEMAutoRestoreDidNotReportSuccess;
             NotifyFanOwnershipChanged();
         }
 
@@ -995,7 +995,7 @@ namespace OmenCore.ViewModels
 
                 if (string.IsNullOrWhiteSpace(_fanCalibrationModelName))
                 {
-                    _fanCalibrationModelName = "Unknown Model";
+                    _fanCalibrationModelName = global::OmenCore.Localization.Strings.CsUnknownModel;
                 }
 
                 _fanCalibrationModelId = GenerateFanCalibrationModelId(_fanCalibrationModelName);
@@ -1003,7 +1003,7 @@ namespace OmenCore.ViewModels
             catch (Exception ex)
             {
                 _logging.Warn($"Failed to initialize fan calibration model context: {ex.Message}");
-                _fanCalibrationModelName = "Unknown Model";
+                _fanCalibrationModelName = global::OmenCore.Localization.Strings.CsUnknownModel;
                 _fanCalibrationModelId = "unknown";
             }
         }
@@ -1048,7 +1048,7 @@ namespace OmenCore.ViewModels
         {
             if (!IsFanCalibrationAvailable)
             {
-                CurveApplyStatus = $"Calibration is unavailable: {FanCalibrationUnavailableReason}";
+                CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsCalibrationIsUnavailable, FanCalibrationUnavailableReason);
                 return;
             }
 
@@ -1056,7 +1056,7 @@ namespace OmenCore.ViewModels
             {
                 var window = new Window
                 {
-                    Title = "Fan Calibration Wizard",
+                    Title = global::OmenCore.Localization.Strings.CsFanCalibrationWizard,
                     Width = 920,
                     Height = 760,
                     MinWidth = 820,
@@ -1069,8 +1069,8 @@ namespace OmenCore.ViewModels
                 window.ShowDialog();
                 RefreshFanCalibrationStatus();
                 CurveApplyStatus = HasFanCalibrationData
-                    ? "Fan calibration map refreshed from the latest wizard run."
-                    : "Fan calibration wizard closed.";
+                    ? global::OmenCore.Localization.Strings.CsFanCalibrationMapRefreshedFromTheLatest
+                    : global::OmenCore.Localization.Strings.CsFanCalibrationWizardClosed;
             }
             catch (Exception ex)
             {
@@ -1262,7 +1262,7 @@ namespace OmenCore.ViewModels
                 var code = OmenCore.Utils.FanCurveShareCode.Generate(CustomFanCurve, SelectedPreset?.Name ?? "Custom Curve");
                 if (code == null)
                 {
-                    System.Windows.MessageBox.Show("Need at least 2 curve points to generate a share code.", "Cannot Copy Share Code",
+                    System.Windows.MessageBox.Show(global::OmenCore.Localization.Strings.CsNeedAtLeast2CurvePointsTo, global::OmenCore.Localization.Strings.CsCannotCopyShareCode,
                         System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                     return;
                 }
@@ -1273,7 +1273,7 @@ namespace OmenCore.ViewModels
             catch (Exception ex)
             {
                 _logging.Error($"Failed to copy curve share code: {ex.Message}", ex);
-                System.Windows.MessageBox.Show($"Failed to copy share code: {ex.Message}", "Copy Failed",
+                System.Windows.MessageBox.Show($"Failed to copy share code: {ex.Message}", global::OmenCore.Localization.Strings.CsCopyFailed,
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
@@ -1289,7 +1289,7 @@ namespace OmenCore.ViewModels
             {
                 if (!System.Windows.Clipboard.ContainsText())
                 {
-                    System.Windows.MessageBox.Show("Clipboard doesn't contain text.", "Import Failed",
+                    System.Windows.MessageBox.Show(global::OmenCore.Localization.Strings.CsClipboardDoesnTContainText, global::OmenCore.Localization.Strings.CsImportFailed,
                         System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                     return;
                 }
@@ -1297,7 +1297,7 @@ namespace OmenCore.ViewModels
                 var clipboardText = System.Windows.Clipboard.GetText();
                 if (!OmenCore.Utils.FanCurveShareCode.TryParse(clipboardText, out var points, out var name))
                 {
-                    System.Windows.MessageBox.Show("Clipboard doesn't contain a valid fan curve share code.", "Import Failed",
+                    System.Windows.MessageBox.Show(global::OmenCore.Localization.Strings.CsClipboardDoesnTContainAValidFan, global::OmenCore.Localization.Strings.CsImportFailed,
                         System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                     return;
                 }
@@ -1309,13 +1309,13 @@ namespace OmenCore.ViewModels
                 }
 
                 _logging.Info($"📥 Imported fan curve '{name}' from share code ({points.Count} points)");
-                System.Windows.MessageBox.Show($"Imported curve \"{name}\" ({points.Count} points). Remember to apply/save it.", "Import Complete",
+                System.Windows.MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsImportedCurvePointsRememberToApplySave, name, points.Count), global::OmenCore.Localization.Strings.CsImportComplete,
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
                 _logging.Error($"Failed to import curve from clipboard: {ex.Message}", ex);
-                System.Windows.MessageBox.Show($"Failed to import share code: {ex.Message}", "Import Error",
+                System.Windows.MessageBox.Show($"Failed to import share code: {ex.Message}", global::OmenCore.Localization.Strings.CsImportError,
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
@@ -1519,12 +1519,12 @@ namespace OmenCore.ViewModels
             await _fanApplySemaphore.WaitAsync();
             try
             {
-                CurveApplyStatus = $"Applying '{preset.Name}'… (transitioning)";
+                CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsApplyingTransitioning, preset.Name);
                 var immediateApply = ImmediateApplyOnApply || (preset.Curve?.Count > 0);
                 var applied = await Task.Run(() => _fanService.ApplyPreset(preset, immediate: immediateApply));
                 if (!applied)
                 {
-                    CurveApplyStatus = $"Preset '{preset.Name}' failed verification";
+                    CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsPresetFailedVerification, preset.Name);
                     _logging.Warn($"Preset '{preset.Name}' was not saved because fan service reported apply failure");
                     return;
                 }
@@ -1549,7 +1549,7 @@ namespace OmenCore.ViewModels
                     }
                     else
                     {
-                        CurveApplyStatus = $"Preset '{preset.Name}' applied";
+                        CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsPresetApplied, preset.Name);
                     }
                 });
             }
@@ -1567,7 +1567,7 @@ namespace OmenCore.ViewModels
         {
             if (IsApplyingCustomCurve)
             {
-                CurveApplyStatus = "Verification already in progress...";
+                CurveApplyStatus = global::OmenCore.Localization.Strings.CsVerificationAlreadyInProgress;
                 return;
             }
 
@@ -1575,13 +1575,13 @@ namespace OmenCore.ViewModels
             try
             {
                 await RunCurveVerificationKickAsync(
-                    sourceLabel: $"Preset '{preset.Name}'",
+                    sourceLabel: string.Format(global::OmenCore.Localization.Strings.CsPreset, preset.Name),
                     curvePoints: preset.Curve,
                     reapplyCurveAction: () => _fanService.ApplyPreset(preset, ImmediateApplyOnApply));
             }
             catch (Exception ex)
             {
-                CurveApplyStatus = $"Preset '{preset.Name}' apply failed: {ex.Message}";
+                CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsPresetApplyFailed, preset.Name, ex.Message);
                 _logging.Error($"Preset '{preset.Name}' verification kick failed", ex);
             }
             finally
@@ -1618,7 +1618,7 @@ namespace OmenCore.ViewModels
 
             if (!FanCurvesAvailable)
             {
-                CurveApplyStatus = "Custom curves unavailable on this model";
+                CurveApplyStatus = global::OmenCore.Localization.Strings.CsCustomCurvesUnavailableOnThisModel;
                 _logging.Warn("Skipped custom curve apply request because this model is limited to OEM fan profiles");
                 return;
             }
@@ -1629,8 +1629,8 @@ namespace OmenCore.ViewModels
             {
                 _logging.Warn($"Invalid fan curve: {validationError}");
                 System.Windows.MessageBox.Show(
-                    $"{validationError}\n\nThe fan curve was not applied. Please fix the issues and try again.",
-                    "Invalid Fan Curve",
+                    string.Format(global::OmenCore.Localization.Strings.CsTheFanCurveWasNotAppliedPlease, validationError),
+                    global::OmenCore.Localization.Strings.CsInvalidFanCurve,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Warning);
                 return;
@@ -1647,11 +1647,11 @@ namespace OmenCore.ViewModels
             IsApplyingCustomCurve = true;
             try
             {
-                CurveApplyStatus = "Applying custom curve...";
+                CurveApplyStatus = global::OmenCore.Localization.Strings.CsApplyingCustomCurve_4c481;
                 var applied = await Task.Run(() => _fanService.ApplyPreset(customPreset, immediate: true));
                 if (!applied)
                 {
-                    CurveApplyStatus = "Custom curve failed verification";
+                    CurveApplyStatus = global::OmenCore.Localization.Strings.CsCustomCurveFailedVerification;
                     _logging.Warn("Custom curve was not saved because fan service reported apply failure");
                     return;
                 }
@@ -1661,7 +1661,7 @@ namespace OmenCore.ViewModels
                 OnPropertyChanged(nameof(CurrentFanModeName));
 
                 await RunCurveVerificationKickAsync(
-                    sourceLabel: "Custom curve",
+                    sourceLabel: global::OmenCore.Localization.Strings.CsCustomCurve,
                     curvePoints: CustomFanCurve,
                     reapplyCurveAction: () => _fanService.ApplyPreset(customPreset, immediate: true));
             }
@@ -1693,7 +1693,7 @@ namespace OmenCore.ViewModels
 
             if (FanTelemetry.Count == 0)
             {
-                CurveApplyStatus = $"{sourceLabel} applied; verification skipped (no RPM telemetry)";
+                CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsAppliedVerificationSkippedNoRPMTelemetry, sourceLabel);
                 return;
             }
 
@@ -1705,14 +1705,14 @@ namespace OmenCore.ViewModels
             var targetPercent = ApplySafetyFloor(requestedPercent, controlTemp);
             var verificationTargetText = requestedPercent == targetPercent
                 ? $"{targetPercent}%"
-                : $"{targetPercent}% (curve requested {requestedPercent}%; thermal guard raised it)";
+                : string.Format(global::OmenCore.Localization.Strings.CsCurveRequestedThermalGuardRaisedIt, targetPercent, requestedPercent);
 
             var verificationKey = $"{sourceLabel}|{targetPercent}";
             var nowUtc = DateTime.UtcNow;
             if (string.Equals(_lastCurveVerificationKickKey, verificationKey, StringComparison.Ordinal) &&
                 nowUtc - _lastCurveVerificationKickUtc < CurveVerificationKickCooldown)
             {
-                CurveApplyStatus = $"{sourceLabel} applied; verification recently checked";
+                CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsAppliedVerificationRecentlyChecked, sourceLabel);
                 _logging.Info($"[FanCurve] Skipped post-apply verification kick for {sourceLabel}; recent check still inside cooldown");
                 return;
             }
@@ -1720,7 +1720,7 @@ namespace OmenCore.ViewModels
             _lastCurveVerificationKickKey = verificationKey;
             _lastCurveVerificationKickUtc = nowUtc;
 
-            CurveApplyStatus = $"Verifying {sourceLabel.ToLowerInvariant()} at {controlTemp:F0}C -> {verificationTargetText}...";
+            CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsVerifyingAtC, sourceLabel.ToLowerInvariant(), controlTemp, verificationTargetText);
             _logging.Info($"[FanCurve] Running post-apply verification kick for {sourceLabel} at {controlTemp:F1}C -> {verificationTargetText}");
 
             var fanCount = Math.Min(CurveVerificationKickFanLimit, FanTelemetry.Count);
@@ -1737,7 +1737,7 @@ namespace OmenCore.ViewModels
             }
             catch (OperationCanceledException)
             {
-                CurveApplyStatus = $"{sourceLabel} applied; verification timed out";
+                CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsAppliedVerificationTimedOut, sourceLabel);
                 _logging.Warn($"[FanCurve] Post-apply verification kick for {sourceLabel} timed out after {CurveVerificationKickTimeout.TotalSeconds:F0}s; curve was restored");
                 return;
             }
@@ -1751,19 +1751,19 @@ namespace OmenCore.ViewModels
             if (passedCount == results.Count)
             {
                 CurveApplyStatus = results.Count == 1
-                    ? $"{sourceLabel} verified at {verificationTargetText} ({results[0].ActualRpmAfter} RPM)"
-                    : $"{sourceLabel} verified on both fans at {verificationTargetText}";
+                    ? string.Format(global::OmenCore.Localization.Strings.CsVerifiedAtRPM, sourceLabel, verificationTargetText, results[0].ActualRpmAfter)
+                    : string.Format(global::OmenCore.Localization.Strings.CsVerifiedOnBothFansAt, sourceLabel, verificationTargetText);
             }
             else if (passedCount > 0)
             {
-                CurveApplyStatus = $"{sourceLabel} applied; verification partial ({passedCount}/{results.Count} fans passed)";
+                CurveApplyStatus = string.Format(global::OmenCore.Localization.Strings.CsAppliedVerificationPartialFansPassed, sourceLabel, passedCount, results.Count);
             }
             else
             {
                 var firstFailure = results.FirstOrDefault(r => !r.VerificationPassed)?.ErrorMessage;
                 CurveApplyStatus = string.IsNullOrWhiteSpace(firstFailure)
-                    ? $"{sourceLabel} applied; verification did not confirm RPM change"
-                    : $"{sourceLabel} applied; verification warning: {firstFailure}";
+                    ? string.Format(global::OmenCore.Localization.Strings.CsAppliedVerificationDidNotConfirmRPMChange, sourceLabel)
+                    : string.Format(global::OmenCore.Localization.Strings.CsAppliedVerificationWarning, sourceLabel, firstFailure);
             }
         }
 
@@ -1816,16 +1816,16 @@ namespace OmenCore.ViewModels
             
             // Minimum 2 points required
             if (points.Count < 2)
-                return "Fan curve must have at least 2 points to define a proper cooling response.";
+                return global::OmenCore.Localization.Strings.CsFanCurveMustHaveAtLeast2;
             
             // Check temperature ranges
             foreach (var point in points)
             {
                 if (point.TemperatureC < 0 || point.TemperatureC > 100)
-                    return $"Temperature {point.TemperatureC}°C is out of range. Valid range: 0-100°C.";
+                    return string.Format(global::OmenCore.Localization.Strings.CsTemperatureCIsOutOfRangeValid, point.TemperatureC);
                 
                 if (point.FanPercent < 0 || point.FanPercent > 100)
-                    return $"Fan speed {point.FanPercent}% is out of range. Valid range: 0-100%.";
+                    return string.Format(global::OmenCore.Localization.Strings.CsFanSpeedIsOutOfRangeValid, point.FanPercent);
             }
             
             // Check for duplicate temperatures
@@ -1833,16 +1833,16 @@ namespace OmenCore.ViewModels
             for (int i = 0; i < sorted.Count - 1; i++)
             {
                 if (sorted[i].TemperatureC == sorted[i + 1].TemperatureC)
-                    return $"Duplicate temperature point at {sorted[i].TemperatureC}°C. Each temperature can only appear once.";
+                    return string.Format(global::OmenCore.Localization.Strings.CsDuplicateTemperaturePointAtCEachTemperature, sorted[i].TemperatureC);
             }
             
             // Warn if curve doesn't cover high temperatures
             if (sorted[^1].TemperatureC < 80)
-                return $"Fan curve should extend to at least 80°C to protect against thermal throttling. Highest point is {sorted[^1].TemperatureC}°C.";
+                return string.Format(global::OmenCore.Localization.Strings.CsFanCurveShouldExtendToAtLeast, sorted[^1].TemperatureC);
             
             // Warn if low temperature has too high fan speed (noisy)
             if (sorted[0].TemperatureC < 50 && sorted[0].FanPercent > 60)
-                return $"Low temperature ({sorted[0].TemperatureC}°C) has high fan speed ({sorted[0].FanPercent}%). This may cause unnecessary noise.";
+                return string.Format(global::OmenCore.Localization.Strings.CsLowTemperatureCHasHighFanSpeed, sorted[0].TemperatureC, sorted[0].FanPercent);
             
             // Warn about potentially inverted/non-monotonic curves (fan% decreases as temp increases)
             for (int i = 0; i < sorted.Count - 1; i++)
@@ -1863,8 +1863,8 @@ namespace OmenCore.ViewModels
             {
                 _logging.Warn("Skipped custom fan preset save because this model is limited to OEM fan profiles");
                 System.Windows.MessageBox.Show(
-                    "Custom fan curves are unavailable for this model. Use the OEM fan profiles instead.",
-                    "Custom Curves Unavailable",
+                    global::OmenCore.Localization.Strings.CsCustomFanCurvesAreUnavailableForThis,
+                    global::OmenCore.Localization.Strings.CsCustomCurvesUnavailable,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Information);
                 return;
@@ -1876,8 +1876,8 @@ namespace OmenCore.ViewModels
             {
                 _logging.Warn($"Cannot save invalid fan curve: {validationError}");
                 System.Windows.MessageBox.Show(
-                    $"{validationError}\n\nPlease fix the issues before saving.",
-                    "Invalid Fan Curve",
+                    string.Format(global::OmenCore.Localization.Strings.CsPleaseFixTheIssuesBeforeSaving, validationError),
+                    global::OmenCore.Localization.Strings.CsInvalidFanCurve,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Warning);
                 return;
@@ -1887,8 +1887,8 @@ namespace OmenCore.ViewModels
             {
                 _logging.Warn("Cannot save preset with empty name");
                 System.Windows.MessageBox.Show(
-                    "Please enter a name for the preset.",
-                    "Name Required",
+                    global::OmenCore.Localization.Strings.CsPleaseEnterANameForThePreset,
+                    global::OmenCore.Localization.Strings.CsNameRequired,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Information);
                 return;
@@ -2002,8 +2002,8 @@ namespace OmenCore.ViewModels
             
             var presetName = SelectedPreset.Name;
             var result = System.Windows.MessageBox.Show(
-                $"Delete custom preset '{presetName}'?",
-                "Delete Preset",
+                string.Format(global::OmenCore.Localization.Strings.CsDeleteCustomPreset, presetName),
+                global::OmenCore.Localization.Strings.CsDeletePreset,
                 System.Windows.MessageBoxButton.YesNo,
                 System.Windows.MessageBoxImage.Question);
             
@@ -2228,7 +2228,7 @@ namespace OmenCore.ViewModels
             var saved = _configService.Config.LastFanPresetName;
             if (string.IsNullOrEmpty(saved))
             {
-                System.Windows.MessageBox.Show("No saved fan preset found in configuration.", "Reapply Saved Preset",
+                System.Windows.MessageBox.Show(global::OmenCore.Localization.Strings.CsNoSavedFanPresetFoundInConfiguration, global::OmenCore.Localization.Strings.CsReapplySavedPreset,
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 return;
             }
@@ -2305,7 +2305,7 @@ namespace OmenCore.ViewModels
 
             if (!ManualFanControlAvailable)
             {
-                CurveApplyStatus = "Fixed fan speed unavailable on this model";
+                CurveApplyStatus = global::OmenCore.Localization.Strings.CsFixedFanSpeedUnavailableOnThisModel;
                 _logging.Warn("Skipped constant fan speed apply request because manual fan levels are disabled for this model");
                 return;
             }
@@ -2438,7 +2438,7 @@ namespace OmenCore.ViewModels
                 var dialog = new OpenFileDialog
                 {
                     Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
-                    Title = "Import Fan Presets"
+                    Title = global::OmenCore.Localization.Strings.CsImportFanPresets
                 };
 
                 if (dialog.ShowDialog() == true)
@@ -2451,7 +2451,7 @@ namespace OmenCore.ViewModels
 
                     if (imported?.Presets == null || imported.Presets.Count == 0)
                     {
-                        System.Windows.MessageBox.Show("No valid fan presets found in file.", "Import Failed",
+                        System.Windows.MessageBox.Show(global::OmenCore.Localization.Strings.CsNoValidFanPresetsFoundInFile, global::OmenCore.Localization.Strings.CsImportFailed,
                             System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                         return;
                     }
@@ -2478,14 +2478,14 @@ namespace OmenCore.ViewModels
                     SavePresetsToConfig();
                     
                     _logging.Info($"📥 Imported {count} fan preset(s) from {dialog.FileName}");
-                    System.Windows.MessageBox.Show($"Imported {count} fan preset(s)", "Import Complete",
+                    System.Windows.MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsImportedFanPresetS, count), global::OmenCore.Localization.Strings.CsImportComplete,
                         System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
                 _logging.Error($"Failed to import fan presets: {ex.Message}", ex);
-                System.Windows.MessageBox.Show($"Failed to import presets: {ex.Message}", "Import Error",
+                System.Windows.MessageBox.Show($"Failed to import presets: {ex.Message}", global::OmenCore.Localization.Strings.CsImportError,
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
@@ -2500,7 +2500,7 @@ namespace OmenCore.ViewModels
                 var dialog = new SaveFileDialog
                 {
                     Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
-                    Title = "Export Fan Presets",
+                    Title = global::OmenCore.Localization.Strings.CsExportFanPresets,
                     FileName = $"omencore-fan-presets-{DateTime.Now:yyyy-MM-dd}.json"
                 };
 
@@ -2521,14 +2521,14 @@ namespace OmenCore.ViewModels
                     File.WriteAllText(dialog.FileName, json);
                     
                     _logging.Info($"📤 Exported {export.Presets.Count} fan preset(s) to {dialog.FileName}");
-                    System.Windows.MessageBox.Show($"Exported {export.Presets.Count} fan preset(s)", "Export Complete",
+                    System.Windows.MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsExportedFanPresetS, export.Presets.Count), global::OmenCore.Localization.Strings.CsExportComplete,
                         System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
                 _logging.Error($"Failed to export fan presets: {ex.Message}", ex);
-                System.Windows.MessageBox.Show($"Failed to export presets: {ex.Message}", "Export Error",
+                System.Windows.MessageBox.Show($"Failed to export presets: {ex.Message}", global::OmenCore.Localization.Strings.CsExportError,
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }

@@ -51,7 +51,7 @@ namespace OmenCore.ViewModels
         public bool GpuModeSwitchingUnsupported => !GpuModeSwitchingSupported;
 
         public string GpuModeSwitchingStatusText => GpuModeSwitchingSupported
-            ? "BIOS WMI GPU switching is available."
+            ? global::OmenCore.Localization.Strings.CsBIOSWMIGPUSwitchingIsAvailable
             : $"GPU mode switching is unavailable through OmenCore: {_gpuSwitchService.UnsupportedReason}";
 
         public ObservableCollection<GpuSwitchMode> GpuSwitchModes { get; } = new();
@@ -125,15 +125,15 @@ namespace OmenCore.ViewModels
             try
             {
                 var states = _telemetryServices.Query();
-                if (states.Count == 0) { HpTelemetryStatus = "No HP telemetry services found on this system."; return; }
+                if (states.Count == 0) { HpTelemetryStatus = global::OmenCore.Localization.Strings.CsNoHPTelemetryServicesFoundOnThis; return; }
                 var off = states.Count(s => s.StartType == HpTelemetryServiceControl.Disabled);
-                HpTelemetryStatus = $"{states.Count} HP service(s) found, {off} disabled" +
-                                    (states.Any(s => s.Managed) ? " (Restore available)." : ".");
+                HpTelemetryStatus = string.Format(global::OmenCore.Localization.Strings.CsHPServiceSFoundDisabled, states.Count, off) +
+                                    (states.Any(s => s.Managed) ? global::OmenCore.Localization.Strings.CsRestoreAvailable : ".");
             }
             catch (Exception ex)
             {
                 _logging.Warn($"HP telemetry status failed: {ex.Message}");
-                HpTelemetryStatus = "Could not read HP service state.";
+                HpTelemetryStatus = global::OmenCore.Localization.Strings.CsCouldNotReadHPServiceState;
             }
         }
 
@@ -188,7 +188,7 @@ namespace OmenCore.ViewModels
 
         public bool HasCleanupSteps => OmenCleanupSteps.Count > 0;
 
-        private string _cleanupStatus = "Status: Not checked";
+        private string _cleanupStatus = global::OmenCore.Localization.Strings.CsStatusNotChecked;
         public string CleanupStatus
         {
             get => _cleanupStatus;
@@ -299,9 +299,9 @@ namespace OmenCore.ViewModels
                 var mode = _gpuSwitchService.DetectCurrentMode();
                 CurrentGpuMode = mode switch
                 {
-                    GpuSwitchMode.Hybrid => "Hybrid (MSHybrid/Optimus)",
-                    GpuSwitchMode.Discrete => "Discrete GPU Only",
-                    GpuSwitchMode.Integrated => "Integrated GPU Only",
+                    GpuSwitchMode.Hybrid => global::OmenCore.Localization.Strings.CsHybridMSHybridOptimus,
+                    GpuSwitchMode.Discrete => global::OmenCore.Localization.Strings.CsDiscreteGPUOnly,
+                    GpuSwitchMode.Integrated => global::OmenCore.Localization.Strings.CsIntegratedGPUOnly,
                     _ => "Unknown"
                 };
                 _logging.Info($"Detected GPU mode: {CurrentGpuMode}");
@@ -313,7 +313,7 @@ namespace OmenCore.ViewModels
                     operation: "DetectGpuMode",
                     message: "Failed to detect GPU mode",
                     ex: ex);
-                CurrentGpuMode = "Detection Failed";
+                CurrentGpuMode = global::OmenCore.Localization.Strings.CsDetectionFailed;
             }
         }
 
@@ -346,9 +346,9 @@ namespace OmenCore.ViewModels
                     // Show restart prompt
                     var result = System.Windows.MessageBox.Show(
                         $"GPU mode has been set to {targetMode}.\n\n" +
-                        "A system restart is required for changes to take effect.\n\n" +
-                        "Would you like to restart now?",
-                        "Restart Required - OmenCore",
+                        global::OmenCore.Localization.Strings.CsASystemRestartIsRequiredForChanges +
+                        global::OmenCore.Localization.Strings.CsWouldYouLikeToRestartNow,
+                        global::OmenCore.Localization.Strings.CsRestartRequiredOmenCore,
                         System.Windows.MessageBoxButton.YesNo,
                         System.Windows.MessageBoxImage.Question);
 
@@ -362,8 +362,8 @@ namespace OmenCore.ViewModels
                 {
                     _logging.Error("✗ GPU mode switch failed");
                     System.Windows.MessageBox.Show(
-                        "Failed to switch GPU mode. Please check the logs for details.",
-                        "GPU Mode Switch Failed",
+                        global::OmenCore.Localization.Strings.CsFailedToSwitchGPUModePleaseCheck,
+                        global::OmenCore.Localization.Strings.CsGPUModeSwitchFailed,
                         System.Windows.MessageBoxButton.OK,
                         System.Windows.MessageBoxImage.Error);
                 }
@@ -447,9 +447,9 @@ namespace OmenCore.ViewModels
                     };
 
                     var result = await _cleanupService.CleanupAsync(options);
-                    CleanupStatus = result.Success ? "✓ Cleanup complete - restart recommended" : "⚠ Cleanup failed";
+                    CleanupStatus = result.Success ? global::OmenCore.Localization.Strings.CsCleanupCompleteRestartRecommended : global::OmenCore.Localization.Strings.CsCleanupFailed;
                     CleanupComplete = result.Success;
-                }, "Running HP Omen cleanup...");
+                }, global::OmenCore.Localization.Strings.CsRunningHPOmenCleanup);
             }
             finally
             {
@@ -473,7 +473,7 @@ namespace OmenCore.ViewModels
             await ExecuteWithLoadingAsync(async () =>
             {
                 _logging.Info("Creating system restore point...");
-                var result = await _restoreService.CreateRestorePointAsync("OmenCore - Before System Changes");
+                var result = await _restoreService.CreateRestorePointAsync(global::OmenCore.Localization.Strings.CsOmenCoreBeforeSystemChanges);
 
                 if (result.Success)
                 {
@@ -483,7 +483,7 @@ namespace OmenCore.ViewModels
                 {
                     _logging.Error($"✗ Failed to create restore point: {result.Message}");
                 }
-            }, "Creating system restore point...");
+            }, global::OmenCore.Localization.Strings.CsCreatingSystemRestorePoint);
         }
 
         public void Dispose()

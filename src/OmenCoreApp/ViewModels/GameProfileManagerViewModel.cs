@@ -163,22 +163,22 @@ namespace OmenCore.ViewModels
                 return null;
 
             if (string.IsNullOrWhiteSpace(profile.Name))
-                return "Profile name is required";
+                return global::OmenCore.Localization.Strings.CsProfileNameIsRequired;
 
             if (profile.Name.Length > 100)
-                return "Profile name must be 100 characters or less";
+                return global::OmenCore.Localization.Strings.CsProfileNameMustBe100CharactersOr;
 
             if (string.IsNullOrWhiteSpace(profile.ExecutableName))
-                return "Executable name is required";
+                return global::OmenCore.Localization.Strings.CsExecutableNameIsRequired;
 
             if (!profile.ExecutableName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
                 return "Executable must end with .exe";
 
             if (profile.CpuCoreOffsetMv < -200 || profile.CpuCoreOffsetMv > 0)
-                return "CPU undervolt must be between -200 and 0 mV";
+                return global::OmenCore.Localization.Strings.CsCPUUndervoltMustBeBetween200And;
 
             if (profile.Priority < 0 || profile.Priority > 100)
-                return "Priority must be between 0 and 100";
+                return global::OmenCore.Localization.Strings.CsPriorityMustBeBetween0And100;
 
             return null;
         }
@@ -201,7 +201,7 @@ namespace OmenCore.ViewModels
 
         private void CreateProfile()
         {
-            var profile = _profileService.CreateProfile("New Game Profile", "game.exe");
+            var profile = _profileService.CreateProfile(global::OmenCore.Localization.Strings.CsNewGameProfile, "game.exe");
             FilterProfiles();
             SelectedProfile = profile;
             _logging.Info("Created new game profile");
@@ -224,8 +224,8 @@ namespace OmenCore.ViewModels
                 if (SelectedProfile == null) return;
 
                 var result = MessageBox.Show(
-                    $"Delete profile '{SelectedProfile.Name}'?",
-                    "Confirm Delete",
+                    string.Format(global::OmenCore.Localization.Strings.CsDeleteProfile, SelectedProfile.Name),
+                    global::OmenCore.Localization.Strings.CsConfirmDelete,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
 
@@ -252,13 +252,13 @@ namespace OmenCore.ViewModels
                 var dialog = new OpenFileDialog
                 {
                     Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
-                    Title = "Import Game Profiles"
+                    Title = global::OmenCore.Localization.Strings.CsImportGameProfiles
                 };
 
                 if (dialog.ShowDialog() == true)
                 {
                     var count = await _profileService.ImportProfilesAsync(dialog.FileName);
-                    MessageBox.Show($"Imported {count} profile(s)", "Import Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsImportedProfileS, count), global::OmenCore.Localization.Strings.CsImportComplete, MessageBoxButton.OK, MessageBoxImage.Information);
                     FilterProfiles();
                     _logging.Info($"Imported {count} profiles from {dialog.FileName}");
                 }
@@ -277,14 +277,14 @@ namespace OmenCore.ViewModels
                 var dialog = new SaveFileDialog
                 {
                     Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*",
-                    Title = "Export Game Profiles",
+                    Title = global::OmenCore.Localization.Strings.CsExportGameProfiles,
                     FileName = $"omencore-profiles-{DateTime.Now:yyyy-MM-dd}.json"
                 };
 
                 if (dialog.ShowDialog() == true)
                 {
                     await _profileService.ExportProfilesAsync(dialog.FileName);
-                    MessageBox.Show($"Exported {_profileService.Profiles.Count} profile(s)", "Export Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsExportedProfileS, _profileService.Profiles.Count), global::OmenCore.Localization.Strings.CsExportComplete, MessageBoxButton.OK, MessageBoxImage.Information);
                     _logging.Info($"Exported profiles to {dialog.FileName}");
                 }
             }
@@ -302,7 +302,7 @@ namespace OmenCore.ViewModels
             var dialog = new OpenFileDialog
             {
                 Filter = "Executable Files (*.exe)|*.exe|All Files (*.*)|*.*",
-                Title = "Select Game Executable"
+                Title = global::OmenCore.Localization.Strings.CsSelectGameExecutable
             };
 
             if (dialog.ShowDialog() == true)
@@ -320,7 +320,7 @@ namespace OmenCore.ViewModels
                 ValidateSelectedProfile();
                 if (!IsProfileValid)
                 {
-                    MessageBox.Show(ValidationError, "Invalid Game Profile", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(ValidationError, global::OmenCore.Localization.Strings.CsInvalidGameProfile, MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 

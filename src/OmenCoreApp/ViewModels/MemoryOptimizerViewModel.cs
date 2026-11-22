@@ -95,12 +95,12 @@ namespace OmenCore.ViewModels
                 {
                     if (result.Success)
                     {
-                        LastCleanResult = $"Freed {result.FreedMB} MB  •  {result.OperationsSucceeded} ops succeeded" +
-                            (result.OperationsFailed > 0 ? $"  •  {result.OperationsFailed} failed" : "") +
+                        LastCleanResult = string.Format(global::OmenCore.Localization.Strings.CsFreedMBOpsSucceeded, result.FreedMB, result.OperationsSucceeded) +
+                            (result.OperationsFailed > 0 ? string.Format(global::OmenCore.Localization.Strings.CsFailed, result.OperationsFailed) : "") +
                             $"  •  {result.Timestamp:HH:mm:ss}" +
                             Environment.NewLine +
                             result.GetDeltaSummary();
-                        SetStatusDone($"Freed {result.FreedMB} MB");
+                        SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsFreedMB, result.FreedMB));
 
                         // A clean that only ran because the auto/interval timer fired can freed a
                         // trivial amount on an already-quiet system - only worth interrupting the
@@ -397,13 +397,13 @@ namespace OmenCore.ViewModels
         public string UsedPhysicalGB => $"{UsedPhysicalMB / 1024.0:F1} GB";
         public string AvailablePhysicalGB => $"{AvailablePhysicalMB / 1024.0:F1} GB";
         public string MemoryLoadText => $"{MemoryLoadPercent}%";
-        public string CommitText => $"{CommitTotalMB / 1024.0:F1} / {CommitLimitMB / 1024.0:F1} GB";
-        public string PageFileText => $"{UsedPageFileMB / 1024.0:F1} / {TotalPageFileMB / 1024.0:F1} GB";
+        public string CommitText => string.Format(global::OmenCore.Localization.Strings.CsGB, CommitTotalMB / 1024.0, CommitLimitMB / 1024.0);
+        public string PageFileText => string.Format(global::OmenCore.Localization.Strings.CsGB, UsedPageFileMB / 1024.0, TotalPageFileMB / 1024.0);
         public string StandbyListText => $"{StandbyListMB} MB";
         public string ModifiedPageListText => $"{ModifiedPageListMB} MB";
         public string CompressedMemoryText => CompressedMemoryMB.HasValue ? $"{CompressedMemoryMB.Value} MB" : (MemoryCompressionEnabled ? "Enabled" : "Unavailable");
-        public string PhysicalMemorySummary => $"Used {UsedPhysicalGB} • Available {AvailablePhysicalGB} • Cache {SystemCacheMB / 1024.0:F1} GB";
-        public string VirtualMemorySummary => $"Commit {CommitText} • Page file {PageFileText}";
+        public string PhysicalMemorySummary => string.Format(global::OmenCore.Localization.Strings.CsUsedAvailableCacheGB, UsedPhysicalGB, AvailablePhysicalGB, SystemCacheMB / 1024.0);
+        public string VirtualMemorySummary => string.Format(global::OmenCore.Localization.Strings.CsCommitPageFile, CommitText, PageFileText);
         public IEnumerable<double> RecentMemoryLoadHistory => _memoryHistory.Select(sample => (double)sample.LoadPercent);
         public bool HasMemoryHistory => _memoryHistory.Count >= 3;
         public string MemoryTrendSummary
@@ -412,7 +412,7 @@ namespace OmenCore.ViewModels
             {
                 if (_memoryHistory.Count == 0)
                 {
-                    return "No history collected yet.";
+                    return global::OmenCore.Localization.Strings.CsNoHistoryCollectedYet;
                 }
 
                 var loads = _memoryHistory.Select(sample => sample.LoadPercent).ToArray();
@@ -420,7 +420,7 @@ namespace OmenCore.ViewModels
                 var max = loads.Max();
                 var avg = loads.Average();
                 var span = _memoryHistory.Last().Timestamp - _memoryHistory.First().Timestamp;
-                return $"{span.TotalMinutes:F0} min history • avg {avg:F0}% • low {min}% • high {max}%";
+                return string.Format(global::OmenCore.Localization.Strings.CsMinHistoryAvgLowHigh, span.TotalMinutes, avg, min, max);
             }
         }
 
@@ -541,7 +541,7 @@ namespace OmenCore.ViewModels
                 if (AutoCleanCooldownMinutes <= 0)
                 {
                     var profile = ParseAutoCleanProfile(_selectedAutoCleanProfile);
-                    return $"Profile default ({GetAutoCleanCooldownMinutes(profile)} min)";
+                    return string.Format(global::OmenCore.Localization.Strings.CsProfileDefaultMin, GetAutoCleanCooldownMinutes(profile));
                 }
 
                 return $"{AutoCleanCooldownMinutes} min";
@@ -568,7 +568,7 @@ namespace OmenCore.ViewModels
             }
         }
 
-        public string AutoCleanCheckIntervalText => $"Every {_autoCleanCheckIntervalSeconds} sec";
+        public string AutoCleanCheckIntervalText => string.Format(global::OmenCore.Localization.Strings.CsEverySec, _autoCleanCheckIntervalSeconds);
 
         public bool GameAwareQuietWindowEnabled
         {
@@ -589,8 +589,8 @@ namespace OmenCore.ViewModels
         }
 
         public string GameAwareQuietWindowSummary => GameAwareQuietWindowEnabled
-            ? "On: fullscreen and borderless games get light working-set trims unless memory pressure is critical."
-            : "Off: Smart Clean can run the full safe cleanup profile while a game is in the foreground.";
+            ? global::OmenCore.Localization.Strings.CsOnFullscreenAndBorderlessGamesGetLight
+            : global::OmenCore.Localization.Strings.CsOffSmartCleanCanRunTheFull;
 
         public bool MemoryCompressionSupported
         {
@@ -610,7 +610,7 @@ namespace OmenCore.ViewModels
         }
 
         public string MemoryCompressionStatusText => !MemoryCompressionSupported
-            ? "Memory compression status unavailable"
+            ? global::OmenCore.Localization.Strings.CsMemoryCompressionStatusUnavailable
             : (MemoryCompressionEnabled ? "Enabled" : "Disabled");
 
         public string NewExcludedProcessName
@@ -668,7 +668,7 @@ namespace OmenCore.ViewModels
             }
         }
 
-        public string CleanEveryMinutesText => $"Every {CleanEveryMinutes} min";
+        public string CleanEveryMinutesText => string.Format(global::OmenCore.Localization.Strings.CsEveryMin, CleanEveryMinutes);
 
         /// <summary>
         /// Gets or sets the selected memory cleaning profile (Conservative, Balanced, or Aggressive).
@@ -731,10 +731,10 @@ namespace OmenCore.ViewModels
                 {
                     return ExcludedProcesses.Count == 0
                         ? "Tip: exclude apps you keep open (games, capture, chat, anti-cheat). You can add from the top-process list or type a process name without .exe."
-                        : $"{ExcludedProcesses.Count} process exclusions active. Add more from the top-process list to avoid repeated working-set trims.";
+                        : string.Format(global::OmenCore.Localization.Strings.CsProcessExclusionsActiveAddMoreFromThe, ExcludedProcesses.Count);
                 }
 
-                return $"Suggested exclusions from current top processes: {string.Join(", ", suggestions)}.";
+                return string.Format(global::OmenCore.Localization.Strings.CsSuggestedExclusionsFromCurrentTopProcesses, string.Join(", ", suggestions));
             }
         }
 
@@ -780,7 +780,7 @@ namespace OmenCore.ViewModels
             {
                 var flags = GetProfileFlags(_selectedProfile);
                 var preview = _memoryService.PreviewMemoryCleaning(flags, currentInfo);
-                CleanupPreviewText = $"This profile will free approximately {preview.EstimatedFreeMB} MB";
+                CleanupPreviewText = string.Format(global::OmenCore.Localization.Strings.CsThisProfileWillFreeApproximatelyMB, preview.EstimatedFreeMB);
             }
             catch (Exception ex)
             {
@@ -877,7 +877,7 @@ namespace OmenCore.ViewModels
 
             if (TryAddExcludedProcessName(process.ProcessName))
             {
-                SetStatusDone($"Excluded {NormalizeProcessName(process.ProcessName)} from working-set trims");
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsExcludedFromWorkingSetTrims, NormalizeProcessName(process.ProcessName)));
             }
         }
 
@@ -974,11 +974,11 @@ namespace OmenCore.ViewModels
             }
 
             var target = !MemoryCompressionEnabled;
-            SetStatusAction(target ? "Enabling memory compression" : "Disabling memory compression");
+            SetStatusAction(target ? global::OmenCore.Localization.Strings.CsEnablingMemoryCompression : global::OmenCore.Localization.Strings.CsDisablingMemoryCompression);
             var success = _memoryService.SetMemoryCompressionEnabled(target);
             if (!success)
             {
-                SetStatusFailed("Failed to change memory compression state");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsFailedToChangeMemoryCompressionState);
                 return;
             }
 
@@ -1161,7 +1161,7 @@ namespace OmenCore.ViewModels
 
                 if (string.IsNullOrWhiteSpace(executablePath))
                 {
-                    SetStatusFailed("Process location unavailable");
+                    SetStatusFailed(global::OmenCore.Localization.Strings.CsProcessLocationUnavailable);
                     return;
                 }
 
@@ -1170,7 +1170,7 @@ namespace OmenCore.ViewModels
             catch (Exception ex)
             {
                 _logger.Warn($"Failed to open process location: {ex.Message}");
-                SetStatusFailed("Failed to open process location");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsFailedToOpenProcessLocation);
             }
         }
 
@@ -1179,13 +1179,13 @@ namespace OmenCore.ViewModels
             try
             {
                 IsCleaning = true;
-                SetStatusAction("Cleaning memory");
+                SetStatusAction(global::OmenCore.Localization.Strings.CsCleaningMemory);
 
                 var result = await _memoryService.CleanMemoryAsync(flags);
 
                 if (result.Success)
                 {
-                    SetStatusDone($"Freed {result.FreedMB} MB");
+                    SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsFreedMB, result.FreedMB));
                 }
                 else
                 {

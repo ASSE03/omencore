@@ -33,14 +33,14 @@ namespace OmenCore.ViewModels
         private string _operationProgressLabel = string.Empty;
         private readonly DispatcherTimer _verificationTimer;
         private DateTime? _lastVerifiedAt;
-        private string _verificationSummary = "Verification pending";
+        private string _verificationSummary = global::OmenCore.Localization.Strings.CsVerificationPending;
         private bool _hasStateDrift;
         private OptimizationDriftSummary _lastDriftSummary = new();
-        private string _driftWarningRollup = "No drift explanations yet.";
+        private string _driftWarningRollup = global::OmenCore.Localization.Strings.CsNoDriftExplanationsYet;
         private string _lastExportedReportPath = string.Empty;
         private OptimizationState? _expectedStateForDrift;
-        private string _preflightSummary = "Preflight: not loaded";
-        private string _preflightWarningRollup = "No additional preflight warnings.";
+        private string _preflightSummary = global::OmenCore.Localization.Strings.CsPreflightNotLoaded;
+        private string _preflightWarningRollup = global::OmenCore.Localization.Strings.CsNoAdditionalPreflightWarnings;
         private bool _preflightHasHighRisk;
         private int _preflightHighRiskCount;
         
@@ -138,7 +138,7 @@ namespace OmenCore.ViewModels
         public bool HasOperationProgress => OperationTotalSteps > 0;
         public double OperationProgressValue => OperationCurrentStep;
         public double OperationProgressMaximum => OperationTotalSteps > 0 ? OperationTotalSteps : 1;
-        public string OperationProgressText => HasOperationProgress ? $"Step {OperationCurrentStep}/{OperationTotalSteps}" : string.Empty;
+        public string OperationProgressText => HasOperationProgress ? string.Format(global::OmenCore.Localization.Strings.CsStep, OperationCurrentStep, OperationTotalSteps) : string.Empty;
 
         public int ActiveOptimizationCount => _currentState?.ActiveCount ?? 0;
         public int TotalOptimizationCount => _currentState?.TotalCount ?? 0;
@@ -154,8 +154,8 @@ namespace OmenCore.ViewModels
         }
 
         public string LastVerifiedText => LastVerifiedAt.HasValue
-            ? $"Last verified {LastVerifiedAt.Value:g}"
-            : "Verification pending";
+            ? string.Format(global::OmenCore.Localization.Strings.CsLastVerified, LastVerifiedAt.Value)
+            : global::OmenCore.Localization.Strings.CsVerificationPending;
 
         public string VerificationSummary
         {
@@ -171,7 +171,7 @@ namespace OmenCore.ViewModels
 
         public string DriftSummaryText => _lastDriftSummary.HasDrift
             ? _lastDriftSummary.OneLinerSummary
-            : "No drift detected since last verification.";
+            : global::OmenCore.Localization.Strings.CsNoDriftDetectedSinceLastVerification;
 
         public string DriftWarningRollup
         {
@@ -197,7 +197,7 @@ namespace OmenCore.ViewModels
         public bool CanCopyExportedReportPath => SystemOptimizerReportActionGuard.CanCopyPath(LastExportedReportPath);
 
         public string OptimizationSummary => 
-            $"{ActiveOptimizationCount} of {TotalOptimizationCount} optimizations active";
+            string.Format(global::OmenCore.Localization.Strings.CsOfOptimizationsActive, ActiveOptimizationCount, TotalOptimizationCount);
 
         public string PreflightSummary
         {
@@ -224,8 +224,8 @@ namespace OmenCore.ViewModels
         }
 
         public string PreflightRiskBannerText => PreflightHasHighRisk
-            ? $"Preflight found {PreflightHighRiskCount} High-risk optimization(s). Review before applying Gaming Max."
-            : "Preflight contains no High-risk optimizations.";
+            ? string.Format(global::OmenCore.Localization.Strings.CsPreflightFoundHighRiskOptimizationSReview, PreflightHighRiskCount)
+            : global::OmenCore.Localization.Strings.CsPreflightContainsNoHighRiskOptimizations;
 
         // Optimization Collections
         public ObservableCollection<OptimizationItem> PowerOptimizations { get; }
@@ -263,15 +263,15 @@ namespace OmenCore.ViewModels
                     IsLoading = true;
                 }
 
-                SetStatusAction(showOverlay ? "Scanning system state" : "Refreshing optimizer state");
+                SetStatusAction(showOverlay ? global::OmenCore.Localization.Strings.CsScanningSystemState : global::OmenCore.Localization.Strings.CsRefreshingOptimizerState);
                 
                 _currentState = await _optimizerService.VerifyStateAsync();
                 _expectedStateForDrift = _currentState;
                 LastVerifiedAt = _currentState.LastChecked;
-                VerificationSummary = "Verified against current system state";
+                VerificationSummary = global::OmenCore.Localization.Strings.CsVerifiedAgainstCurrentSystemState;
                 HasStateDrift = false;
                 _lastDriftSummary = new OptimizationDriftSummary();
-                DriftWarningRollup = "No drift explanations yet.";
+                DriftWarningRollup = global::OmenCore.Localization.Strings.CsNoDriftExplanationsYet;
                 OnPropertyChanged(nameof(DriftSummaryText));
 
                 await RefreshPreflightAsync(showStatus: false);
@@ -310,7 +310,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "power_ultimate_perf",
                     Name = "Ultimate Performance Plan",
-                    Description = "Sets Windows power plan to Ultimate Performance for maximum CPU/GPU performance",
+                    Description = global::OmenCore.Localization.Strings.CsSetsWindowsPowerPlanToUltimatePerformance,
                     IsEnabled = _currentState.Power.UltimatePerformancePlan,
                     Risk = OptimizationRisk.Low,
                     Category = "Power",
@@ -320,7 +320,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "power_gpu_scheduling",
                     Name = "Hardware GPU Scheduling",
-                    Description = "Enables hardware-accelerated GPU scheduling (Windows 10 2004+)",
+                    Description = global::OmenCore.Localization.Strings.CsEnablesHardwareAcceleratedGPUSchedulingWindows10,
                     IsEnabled = _currentState.Power.HardwareGpuScheduling,
                     Risk = OptimizationRisk.Low,
                     Category = "Power",
@@ -330,7 +330,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "power_game_mode",
                     Name = "Game Mode",
-                    Description = "Enables Windows Game Mode for better gaming performance",
+                    Description = global::OmenCore.Localization.Strings.CsEnablesWindowsGameModeForBetterGaming,
                     IsEnabled = _currentState.Power.GameModeEnabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Power",
@@ -340,7 +340,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "power_foreground_priority",
                     Name = "Foreground Priority Boost",
-                    Description = "Increases CPU priority for foreground applications",
+                    Description = global::OmenCore.Localization.Strings.CsIncreasesCPUPriorityForForegroundApplications,
                     IsEnabled = _currentState.Power.ForegroundPriority,
                     Risk = OptimizationRisk.Low,
                     Category = "Power",
@@ -353,7 +353,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "service_telemetry",
                     Name = "Disable Telemetry",
-                    Description = "Disables Windows telemetry data collection (DiagTrack service)",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesWindowsTelemetryDataCollectionDiagTrackService,
                     IsEnabled = _currentState.Services.TelemetryDisabled,
                     Risk = OptimizationRisk.Medium,
                     Category = "Services",
@@ -363,7 +363,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "service_sysmain",
                     Name = "Disable SysMain (Superfetch)",
-                    Description = "Disables Superfetch service - recommended for SSD systems",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesSuperfetchServiceRecommendedForSSDSystems,
                     IsEnabled = _currentState.Services.SysMainDisabled,
                     Risk = OptimizationRisk.Medium,
                     Category = "Services",
@@ -373,10 +373,10 @@ namespace OmenCore.ViewModels
                 {
                     Id = "service_search",
                     Name = "Disable Search Indexing",
-                    Description = "Disables Windows Search indexing for lower disk/CPU usage",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesWindowsSearchIndexingForLowerDisk,
                     IsEnabled = _currentState.Services.SearchIndexingDisabled,
                     Risk = OptimizationRisk.Medium,
-                    Warning = "May slow down file searches",
+                    Warning = global::OmenCore.Localization.Strings.CsMaySlowDownFileSearches,
                     Category = "Services",
                     OnToggleAsync = ToggleOptimizationAsync
                 });
@@ -384,7 +384,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "service_diagtrack",
                     Name = "Disable Connected Experiences",
-                    Description = "Disables Connected User Experiences and Telemetry service",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesConnectedUserExperiencesAndTelemetryService,
                     IsEnabled = _currentState.Services.DiagTrackDisabled,
                     Risk = OptimizationRisk.Medium,
                     Category = "Services",
@@ -397,7 +397,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "network_tcp_nodelay",
                     Name = "TCP No Delay",
-                    Description = "Disables TCP delayed acknowledgments for lower latency",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesTCPDelayedAcknowledgmentsForLowerLatency,
                     IsEnabled = _currentState.Network.TcpNoDelay,
                     Risk = OptimizationRisk.Low,
                     Category = "Network",
@@ -407,7 +407,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "network_tcp_ack",
                     Name = "TCP ACK Optimization",
-                    Description = "Optimizes TCP ACK frequency for faster responses",
+                    Description = global::OmenCore.Localization.Strings.CsOptimizesTCPACKFrequencyForFasterResponses,
                     IsEnabled = _currentState.Network.TcpAckFrequency,
                     Risk = OptimizationRisk.Low,
                     Category = "Network",
@@ -417,7 +417,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "network_delivery_opt",
                     Name = "Disable P2P Updates",
-                    Description = "Disables Delivery Optimization P2P sharing",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesDeliveryOptimizationP2PSharing,
                     IsEnabled = _currentState.Network.DeliveryOptimizationDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Network",
@@ -427,7 +427,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "network_nagle",
                     Name = "Disable Nagle Algorithm",
-                    Description = "Reduces TCP buffering delay - helpful for online games",
+                    Description = global::OmenCore.Localization.Strings.CsReducesTCPBufferingDelayHelpfulForOnline,
                     IsEnabled = _currentState.Network.NagleDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Network",
@@ -440,7 +440,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "input_mouse_accel",
                     Name = "Disable Mouse Acceleration",
-                    Description = "Disables 'Enhance pointer precision' for 1:1 mouse movement",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesEnhancePointerPrecisionFor11,
                     IsEnabled = _currentState.Input.MouseAccelerationDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Input",
@@ -450,7 +450,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "input_game_dvr",
                     Name = "Disable Game DVR",
-                    Description = "Disables background game recording for better performance",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesBackgroundGameRecordingForBetterPerformance,
                     IsEnabled = _currentState.Input.GameDvrDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Input",
@@ -460,7 +460,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "input_game_bar",
                     Name = "Disable Xbox Game Bar",
-                    Description = "Disables the Xbox Game Bar overlay",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesTheXboxGameBarOverlay,
                     IsEnabled = _currentState.Input.GameBarDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Input",
@@ -470,7 +470,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "input_fullscreen_opt",
                     Name = "Fullscreen Optimizations",
-                    Description = "Configures fullscreen optimizations for better compatibility",
+                    Description = global::OmenCore.Localization.Strings.CsConfiguresFullscreenOptimizationsForBetterCompatibility,
                     IsEnabled = _currentState.Input.FullscreenOptimizationsDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Input",
@@ -483,7 +483,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "visual_transparency",
                     Name = "Disable Transparency",
-                    Description = "Disables Windows transparency effects",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesWindowsTransparencyEffects,
                     IsEnabled = _currentState.Visual.TransparencyDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Visual",
@@ -493,7 +493,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "visual_animations",
                     Name = "Disable Animations",
-                    Description = "Disables window animations for snappier UI",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesWindowAnimationsForSnappierUI,
                     IsEnabled = _currentState.Visual.AnimationsDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Visual",
@@ -508,7 +508,7 @@ namespace OmenCore.ViewModels
                     {
                         Id = "storage_trim",
                         Name = "TRIM for SSD",
-                        Description = "Enables TRIM command for SSD health and performance",
+                        Description = global::OmenCore.Localization.Strings.CsEnablesTRIMCommandForSSDHealthAnd,
                         IsEnabled = _currentState.Storage.TrimEnabled,
                         Risk = OptimizationRisk.Low,
                         Category = "Storage",
@@ -519,7 +519,7 @@ namespace OmenCore.ViewModels
                 {
                     Id = "storage_last_access",
                     Name = "Disable Last Access Timestamps",
-                    Description = "Disables NTFS last access time updates for lower disk activity",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesNTFSLastAccessTimeUpdatesFor,
                     IsEnabled = _currentState.Storage.LastAccessDisabled,
                     Risk = OptimizationRisk.Low,
                     Category = "Storage",
@@ -529,10 +529,10 @@ namespace OmenCore.ViewModels
                 {
                     Id = "storage_8dot3",
                     Name = "Disable 8.3 Names",
-                    Description = "Disables legacy short filename creation",
+                    Description = global::OmenCore.Localization.Strings.CsDisablesLegacyShortFilenameCreation,
                     IsEnabled = _currentState.Storage.ShortNamesDisabled,
                     Risk = OptimizationRisk.Low,
-                    Warning = "May break very old software",
+                    Warning = global::OmenCore.Localization.Strings.CsMayBreakVeryOldSoftware,
                     Category = "Storage",
                     OnToggleAsync = ToggleOptimizationAsync
                 });
@@ -577,7 +577,7 @@ namespace OmenCore.ViewModels
                     
                     if (result.RequiresReboot)
                     {
-                        SetStatusDone($"{item.Name} {(item.IsEnabled ? "enabled" : "disabled")} (reboot required)");
+                        SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsRebootRequired_d19bf, item.Name, (item.IsEnabled ? "enabled" : "disabled")));
                     }
                 }
                 else
@@ -604,12 +604,12 @@ namespace OmenCore.ViewModels
             var preflight = await _optimizerService.GeneratePreflightReportAsync(includeHighRisk: true);
 
             var msgResult = MessageBox.Show(
-                "This will apply ALL gaming optimizations for maximum performance.\n\n" +
+                global::OmenCore.Localization.Strings.CsThisWillApplyALLGamingOptimizationsFor +
                 $"{SystemOptimizerPreflightFormatter.BuildSummary(preflight)}\n" +
                 $"{SystemOptimizerPreflightFormatter.BuildWarningRollup(preflight)}\n\n" +
-                "A system restore point will be created before making changes.\n\n" +
-                "Continue?",
-                "Apply Gaming Maximum",
+                global::OmenCore.Localization.Strings.CsASystemRestorePointWillBeCreated +
+                global::OmenCore.Localization.Strings.CsContinue,
+                global::OmenCore.Localization.Strings.CsApplyGamingMaximum,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
             
@@ -624,18 +624,18 @@ namespace OmenCore.ViewModels
                 var failCount = results.Count - successCount;
                 var rebootNeeded = results.Any(r => r.RequiresReboot && r.Success);
                 
-                SetStatusDone($"Applied {successCount}/{results.Count} optimizations");
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedOptimizations, successCount, results.Count));
                 
                 if (failCount > 0)
                 {
-                    SetStatusDone($"Applied {successCount}/{results.Count} optimizations ({failCount} failed)");
+                    SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedOptimizationsFailed, successCount, results.Count, failCount));
                 }
                 
                 if (rebootNeeded)
                 {
                     var reboot = MessageBox.Show(
-                        "Some changes require a reboot to take effect.\n\nReboot now?",
-                        "Reboot Required",
+                        global::OmenCore.Localization.Strings.CsSomeChangesRequireARebootToTake,
+                        global::OmenCore.Localization.Strings.CsRebootRequired,
                         MessageBoxButton.YesNo,
                         MessageBoxImage.Question);
                     
@@ -665,12 +665,12 @@ namespace OmenCore.ViewModels
             var pendingItems = optimizations.Where(item => !item.IsEnabled).ToList();
             if (!pendingItems.Any())
             {
-                SetStatusDone($"{categoryName} is already fully applied");
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsIsAlreadyFullyApplied, categoryName));
                 return;
             }
 
             var confirmation = MessageBox.Show(
-                $"This will apply {pendingItems.Count} optimization(s) in {categoryName}.\n\nContinue?",
+                string.Format(global::OmenCore.Localization.Strings.CsThisWillApplyOptimizationSInContinue, pendingItems.Count, categoryName),
                 $"Apply {categoryName}",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
@@ -708,11 +708,11 @@ namespace OmenCore.ViewModels
 
                 if (failCount > 0)
                 {
-                    SetStatusDone($"Applied {successCount}/{pendingItems.Count} items in {categoryName} ({failCount} failed)");
+                    SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedItemsInFailed, successCount, pendingItems.Count, categoryName, failCount));
                 }
                 else
                 {
-                    SetStatusDone($"Applied {successCount} {categoryName} optimization(s)");
+                    SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedOptimizationS, successCount, categoryName));
                 }
 
                 await RefreshStateAsync(showOverlay: false);
@@ -734,12 +734,12 @@ namespace OmenCore.ViewModels
             var preflight = await _optimizerService.GeneratePreflightReportAsync(includeHighRisk: false);
 
             var msgResult = MessageBox.Show(
-                "This will apply recommended optimizations with minimal risk.\n\n" +
+                global::OmenCore.Localization.Strings.CsThisWillApplyRecommendedOptimizationsWithMinimal +
                 $"{SystemOptimizerPreflightFormatter.BuildSummary(preflight)}\n" +
                 $"{SystemOptimizerPreflightFormatter.BuildWarningRollup(preflight)}\n\n" +
-                "A system restore point will be created before making changes.\n\n" +
-                "Continue?",
-                "Apply Balanced Optimizations",
+                global::OmenCore.Localization.Strings.CsASystemRestorePointWillBeCreated +
+                global::OmenCore.Localization.Strings.CsContinue,
+                global::OmenCore.Localization.Strings.CsApplyBalancedOptimizations,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Information);
             
@@ -751,7 +751,7 @@ namespace OmenCore.ViewModels
                 var results = await _optimizerService.ApplyBalancedAsync();
                 
                 var successCount = results.Count(r => r.Success);
-                SetStatusDone($"Applied {successCount}/{results.Count} optimizations");
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedOptimizations, successCount, results.Count));
                 
                 await RefreshStateAsync();
             }
@@ -769,10 +769,10 @@ namespace OmenCore.ViewModels
         private async Task RevertAllAsync()
         {
             var msgResult = MessageBox.Show(
-                "This will revert ALL optimizations to Windows defaults.\n\n" +
-                "Your backed-up settings will be restored.\n\n" +
-                "Continue?",
-                "Revert All Optimizations",
+                global::OmenCore.Localization.Strings.CsThisWillRevertALLOptimizationsToWindows
+
+,
+                global::OmenCore.Localization.Strings.CsRevertAllOptimizations,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
             
@@ -785,14 +785,14 @@ namespace OmenCore.ViewModels
                 var results = await _optimizerService.RevertAllAsync(cts.Token);
                 
                 var successCount = results.Count(r => r.Success);
-                SetStatusDone($"Reverted {successCount}/{results.Count} optimizations");
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsRevertedOptimizations, successCount, results.Count));
                 
                 await RefreshStateAsync();
             }
             catch (OperationCanceledException)
             {
                 _logger.Error("Revert operation timed out after 60 seconds");
-                SetStatusFailed("Revert timed out — check system state manually");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsRevertTimedOutCheckSystemStateManually);
             }
             catch (Exception ex)
             {
@@ -882,10 +882,10 @@ namespace OmenCore.ViewModels
                 var driftSummary = SystemOptimizerService.GetDriftExplanations(expectedState, verifiedState);
                 if (!driftSummary.HasDrift)
                 {
-                    VerificationSummary = "Verified: no drift detected";
+                    VerificationSummary = global::OmenCore.Localization.Strings.CsVerifiedNoDriftDetected;
                     HasStateDrift = false;
                     _lastDriftSummary = driftSummary;
-                    DriftWarningRollup = "No drift explanations yet.";
+                    DriftWarningRollup = global::OmenCore.Localization.Strings.CsNoDriftExplanationsYet;
                     OnPropertyChanged(nameof(DriftSummaryText));
                     return;
                 }
@@ -908,20 +908,20 @@ namespace OmenCore.ViewModels
                 _lastDriftSummary = driftSummary;
                 DriftWarningRollup = driftSummary.HasDrift
                     ? string.Join(" | ", driftSummary.DriftedItems.Take(3).Select(d => d.Explanation))
-                    : "No drift explanations yet.";
+                    : global::OmenCore.Localization.Strings.CsNoDriftExplanationsYet;
                 OnPropertyChanged(nameof(DriftSummaryText));
 
                 HasStateDrift = driftSummary.HasDrift;
                 VerificationSummary = HasStateDrift
-                    ? $"Drift detected: {string.Join(", ", driftSummary.DriftedItems.Select(d => d.Name).Take(3))}"
-                    : $"Verified: auto-corrected {autoCorrectionResults.Count(result => result.Success)} service setting(s)";
+                    ? string.Format(global::OmenCore.Localization.Strings.CsDriftDetected, string.Join(", ", driftSummary.DriftedItems.Select(d => d.Name).Take(3)))
+                    : string.Format(global::OmenCore.Localization.Strings.CsVerifiedAutoCorrectedServiceSettingS, autoCorrectionResults.Count(result => result.Success));
 
                 await RefreshPreflightAsync(showStatus: false);
             }
             catch (Exception ex)
             {
                 _logger.Error($"Background optimizer verification failed: {ex.Message}");
-                VerificationSummary = "Verification failed";
+                VerificationSummary = global::OmenCore.Localization.Strings.CsVerificationFailed;
             }
         }
 
@@ -931,7 +931,7 @@ namespace OmenCore.ViewModels
             {
                 if (showStatus)
                 {
-                    SetStatusAction("Refreshing optimizer preflight");
+                    SetStatusAction(global::OmenCore.Localization.Strings.CsRefreshingOptimizerPreflight);
                 }
 
                 var report = await _optimizerService.GeneratePreflightReportAsync(includeHighRisk: true);
@@ -942,7 +942,7 @@ namespace OmenCore.ViewModels
 
                 if (showStatus)
                 {
-                    SetStatusDone("Preflight updated");
+                    SetStatusDone(global::OmenCore.Localization.Strings.CsPreflightUpdated);
                 }
             }
             catch (Exception ex)
@@ -950,7 +950,7 @@ namespace OmenCore.ViewModels
                 _logger.Error($"Failed to refresh preflight: {ex.Message}");
                 if (showStatus)
                 {
-                    SetStatusFailed($"Preflight refresh failed: {ex.Message}");
+                    SetStatusFailed(string.Format(global::OmenCore.Localization.Strings.CsPreflightRefreshFailed, ex.Message));
                 }
             }
         }
@@ -959,21 +959,21 @@ namespace OmenCore.ViewModels
         {
             try
             {
-                SetStatusAction("Exporting optimization report");
+                SetStatusAction(global::OmenCore.Localization.Strings.CsExportingOptimizationReport);
                 var exportPath = await _optimizerService.ExportOptimizationReportAsync(_expectedStateForDrift);
                 if (string.IsNullOrWhiteSpace(exportPath))
                 {
-                    SetStatusFailed("Could not export optimization report");
+                    SetStatusFailed(global::OmenCore.Localization.Strings.CsCouldNotExportOptimizationReport);
                     return;
                 }
 
                 LastExportedReportPath = exportPath;
-                SetStatusDone($"Report exported: {exportPath}");
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsReportExported, exportPath));
             }
             catch (Exception ex)
             {
                 _logger.Error($"Failed to export optimization report: {ex.Message}");
-                SetStatusFailed($"Report export failed: {ex.Message}");
+                SetStatusFailed(string.Format(global::OmenCore.Localization.Strings.CsReportExportFailed, ex.Message));
             }
         }
 
@@ -982,7 +982,7 @@ namespace OmenCore.ViewModels
             var path = SystemOptimizerReportActionGuard.NormalizePath(LastExportedReportPath);
             if (!SystemOptimizerReportActionGuard.CanOpenReport(path))
             {
-                SetStatusFailed("Report file not found");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsReportFileNotFound);
                 return;
             }
 
@@ -992,12 +992,12 @@ namespace OmenCore.ViewModels
                 {
                     UseShellExecute = true
                 });
-                SetStatusDone("Opened exported report");
+                SetStatusDone(global::OmenCore.Localization.Strings.CsOpenedExportedReport);
             }
             catch (Exception ex)
             {
                 _logger.Error($"Failed to open optimization report: {ex.Message}");
-                SetStatusFailed($"Could not open report: {ex.Message}");
+                SetStatusFailed(string.Format(global::OmenCore.Localization.Strings.CsCouldNotOpenReport, ex.Message));
             }
         }
 
@@ -1006,19 +1006,19 @@ namespace OmenCore.ViewModels
             var path = SystemOptimizerReportActionGuard.NormalizePath(LastExportedReportPath);
             if (!SystemOptimizerReportActionGuard.CanCopyPath(path))
             {
-                SetStatusFailed("No report path to copy");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsNoReportPathToCopy);
                 return;
             }
 
             try
             {
                 Clipboard.SetText(path);
-                SetStatusDone("Copied report path to clipboard");
+                SetStatusDone(global::OmenCore.Localization.Strings.CsCopiedReportPathToClipboard);
             }
             catch (Exception ex)
             {
                 _logger.Error($"Failed to copy report path: {ex.Message}");
-                SetStatusFailed($"Could not copy report path: {ex.Message}");
+                SetStatusFailed(string.Format(global::OmenCore.Localization.Strings.CsCouldNotCopyReportPath, ex.Message));
             }
         }
 
@@ -1057,71 +1057,71 @@ namespace OmenCore.ViewModels
             return optimizationId switch
             {
                 "power_ultimate_perf" => new OptimizationRiskAssessment(
-                    "Switches the active Windows power plan to the highest-performance profile available so CPU and GPU boost behavior stays aggressive during gameplay.",
+                    global::OmenCore.Localization.Strings.CsSwitchesTheActiveWindowsPowerPlanTo,
                     Array.Empty<string>(),
-                    new[] { "powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61", "Fallback: powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c" },
-                    "Restore the Balanced plan with: powercfg /setactive 381b4222-f694-41f0-9685-ff5bb260df2e"),
+                    new[] { "powercfg /setactive e9a42b02-d5df-448d-aa00-03f14749eb61", global::OmenCore.Localization.Strings.CsFallbackPowercfgSetactive8c5e7fdaE8bf4a969a85 },
+                    global::OmenCore.Localization.Strings.CsRestoreTheBalancedPlanWithPowercfgSetactive),
                 "power_gpu_scheduling" => new OptimizationRiskAssessment(
-                    "Enables Hardware-Accelerated GPU Scheduling so Windows can submit GPU work with lower CPU overhead on supported systems.",
+                    global::OmenCore.Localization.Strings.CsEnablesHardwareAcceleratedGPUSchedulingSoWindows,
                     new[] { @"HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\HwSchMode" },
                     Array.Empty<string>(),
-                    "Set HwSchMode back to 0 or remove it, then reboot Windows."),
+                    global::OmenCore.Localization.Strings.CsSetHwSchModeBackTo0OrRemove),
                 "power_game_mode" => new OptimizationRiskAssessment(
-                    "Turns on Windows Game Mode so the OS prioritizes the active game and reduces background interference.",
+                    global::OmenCore.Localization.Strings.CsTurnsOnWindowsGameModeSoThe,
                     new[] { @"HKCU\Software\Microsoft\GameBar\AutoGameModeEnabled" },
                     Array.Empty<string>(),
-                    "Set AutoGameModeEnabled to 0 or remove the value."),
+                    global::OmenCore.Localization.Strings.CsSetAutoGameModeEnabledTo0OrRemoveThe),
                 "power_foreground_priority" => new OptimizationRiskAssessment(
-                    "Raises foreground scheduling priority so the active game receives more CPU time relative to background tasks.",
+                    global::OmenCore.Localization.Strings.CsRaisesForegroundSchedulingPrioritySoTheActive,
                     new[] { @"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl\Win32PrioritySeparation" },
                     Array.Empty<string>(),
-                    "Restore the default Win32PrioritySeparation value or remove the override."),
+                    global::OmenCore.Localization.Strings.CsRestoreTheDefaultWin32PrioritySeparationValueOrRemove),
                 "service_telemetry" => new OptimizationRiskAssessment(
-                    "Disables Windows telemetry policy values that control how much diagnostic data the OS is allowed to collect.",
+                    global::OmenCore.Localization.Strings.CsDisablesWindowsTelemetryPolicyValuesThatControl,
                     new[]
                     {
                         @"HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection\AllowTelemetry",
                         @"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection\AllowTelemetry"
                     },
                     Array.Empty<string>(),
-                    "Remove the AllowTelemetry overrides to return to the Windows default policy."),
+                    global::OmenCore.Localization.Strings.CsRemoveTheAllowTelemetryOverridesToReturnTo),
                 "service_sysmain" => new OptimizationRiskAssessment(
-                    "Stops and disables SysMain so Windows stops preloading applications in the background, which is often preferable on SSD systems.",
+                    global::OmenCore.Localization.Strings.CsStopsAndDisablesSysMainSoWindowsStops,
                     Array.Empty<string>(),
-                    new[] { "SysMain service" },
-                    "Set the SysMain service back to Automatic and start it from Services."),
+                    new[] { global::OmenCore.Localization.Strings.CsSysMainService },
+                    global::OmenCore.Localization.Strings.CsSetTheSysMainServiceBackToAutomatic),
                 "service_search" => new OptimizationRiskAssessment(
-                    "Stops and disables Windows Search indexing to reduce background disk and CPU usage.",
+                    global::OmenCore.Localization.Strings.CsStopsAndDisablesWindowsSearchIndexingTo,
                     Array.Empty<string>(),
-                    new[] { "WSearch service" },
-                    "Set the Windows Search service back to Automatic and start it from Services."),
+                    new[] { global::OmenCore.Localization.Strings.CsWSearchService },
+                    global::OmenCore.Localization.Strings.CsSetTheWindowsSearchServiceBackTo),
                 "service_diagtrack" => new OptimizationRiskAssessment(
-                    "Disables the Connected User Experiences and Telemetry service so background telemetry processing is reduced.",
+                    global::OmenCore.Localization.Strings.CsDisablesTheConnectedUserExperiencesAndTelemetry,
                     Array.Empty<string>(),
-                    new[] { "DiagTrack service" },
-                    "Set the DiagTrack service back to Automatic and start it from Services."),
+                    new[] { global::OmenCore.Localization.Strings.CsDiagTrackService },
+                    global::OmenCore.Localization.Strings.CsSetTheDiagTrackServiceBackToAutomatic),
                 "network_tcp_nodelay" => new OptimizationRiskAssessment(
-                    "Forces TCP to send packets without delayed acknowledgments, reducing latency at the cost of more frequent network traffic.",
+                    global::OmenCore.Localization.Strings.CsForcesTCPToSendPacketsWithoutDelayed,
                     new[] { @"HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpNoDelay" },
                     Array.Empty<string>(),
-                    "Remove TcpNoDelay or set it back to 0."),
+                    global::OmenCore.Localization.Strings.CsRemoveTcpNoDelayOrSetItBackTo),
                 "network_tcp_ack" => new OptimizationRiskAssessment(
-                    "Changes TCP acknowledgment behavior so packets are acknowledged immediately instead of being batched.",
+                    global::OmenCore.Localization.Strings.CsChangesTCPAcknowledgmentBehaviorSoPacketsAre,
                     new[] { @"HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TcpAckFrequency" },
                     Array.Empty<string>(),
-                    "Remove TcpAckFrequency or restore the default behavior."),
+                    global::OmenCore.Localization.Strings.CsRemoveTcpAckFrequencyOrRestoreTheDefaultBehavior),
                 "network_delivery_opt" => new OptimizationRiskAssessment(
-                    "Disables Delivery Optimization peer-to-peer update sharing so Windows Update no longer uploads update data to other machines.",
+                    global::OmenCore.Localization.Strings.CsDisablesDeliveryOptimizationPeerToPeerUpdate,
                     new[] { @"HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization\DODownloadMode" },
                     Array.Empty<string>(),
-                    "Remove DODownloadMode to let Windows manage Delivery Optimization normally."),
+                    global::OmenCore.Localization.Strings.CsRemoveDODownloadModeToLetWindowsManageDelivery),
                 "network_nagle" => new OptimizationRiskAssessment(
-                    "Adjusts TCP buffering behavior to minimize acknowledgment delay for latency-sensitive workloads.",
+                    global::OmenCore.Localization.Strings.CsAdjustsTCPBufferingBehaviorToMinimizeAcknowledgment,
                     new[] { @"HKLM\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\TCPDelAckTicks" },
                     Array.Empty<string>(),
-                    "Remove TCPDelAckTicks to restore the default stack behavior."),
+                    global::OmenCore.Localization.Strings.CsRemoveTCPDelAckTicksToRestoreTheDefaultStack),
                 "input_mouse_accel" => new OptimizationRiskAssessment(
-                    "Disables Enhanced Pointer Precision so mouse movement stays raw and 1:1, which is generally preferred for games.",
+                    global::OmenCore.Localization.Strings.CsDisablesEnhancedPointerPrecisionSoMouseMovement,
                     new[]
                     {
                         @"HKCU\Control Panel\Mouse\MouseSpeed",
@@ -1129,9 +1129,9 @@ namespace OmenCore.ViewModels
                         @"HKCU\Control Panel\Mouse\MouseThreshold2"
                     },
                     Array.Empty<string>(),
-                    "Set MouseSpeed back to 1 and restore threshold values, or re-enable pointer precision in Windows mouse settings."),
+                    global::OmenCore.Localization.Strings.CsSetMouseSpeedBackTo1AndRestore),
                 "input_game_dvr" => new OptimizationRiskAssessment(
-                    "Disables background game recording so Game DVR stops reserving resources while games are running.",
+                    global::OmenCore.Localization.Strings.CsDisablesBackgroundGameRecordingSoGameDVR,
                     new[]
                     {
                         @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR\AppCaptureEnabled",
@@ -1139,18 +1139,18 @@ namespace OmenCore.ViewModels
                         @"HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR\AllowGameDVR"
                     },
                     Array.Empty<string>(),
-                    "Remove the Game DVR policy values or set them back to enabled."),
+                    global::OmenCore.Localization.Strings.CsRemoveTheGameDVRPolicyValuesOr),
                 "input_game_bar" => new OptimizationRiskAssessment(
-                    "Disables Xbox Game Bar overlays and startup prompts so they do not interrupt gameplay.",
+                    global::OmenCore.Localization.Strings.CsDisablesXboxGameBarOverlaysAndStartup,
                     new[]
                     {
                         @"HKCU\SOFTWARE\Microsoft\GameBar\UseNexusForGameBarEnabled",
                         @"HKCU\SOFTWARE\Microsoft\GameBar\ShowStartupPanel"
                     },
                     Array.Empty<string>(),
-                    "Remove those Game Bar values or re-enable Xbox Game Bar in Windows Settings."),
+                    global::OmenCore.Localization.Strings.CsRemoveThoseGameBarValuesOrRe),
                 "input_fullscreen_opt" => new OptimizationRiskAssessment(
-                    "Tunes fullscreen optimization behavior for games by adjusting Windows GameConfigStore flags.",
+                    global::OmenCore.Localization.Strings.CsTunesFullscreenOptimizationBehaviorForGamesBy,
                     new[]
                     {
                         @"HKCU\System\GameConfigStore\GameDVR_FSEBehaviorMode",
@@ -1158,14 +1158,14 @@ namespace OmenCore.ViewModels
                         @"HKCU\System\GameConfigStore\GameDVR_FSEBehavior"
                     },
                     Array.Empty<string>(),
-                    "Remove the GameConfigStore fullscreen values to restore Windows defaults."),
+                    global::OmenCore.Localization.Strings.CsRemoveTheGameConfigStoreFullscreenValuesToRestore),
                 "visual_transparency" => new OptimizationRiskAssessment(
-                    "Disables acrylic and transparency effects to reduce compositing overhead and visual distractions.",
+                    global::OmenCore.Localization.Strings.CsDisablesAcrylicAndTransparencyEffectsToReduce,
                     new[] { @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize\EnableTransparency" },
                     Array.Empty<string>(),
-                    "Set EnableTransparency back to 1 or re-enable Transparency Effects in Personalization settings."),
+                    global::OmenCore.Localization.Strings.CsSetEnableTransparencyBackTo1OrRe),
                 "visual_animations" => new OptimizationRiskAssessment(
-                    "Turns off common shell animations and menu delays so the desktop feels snappier and uses fewer visual effects.",
+                    global::OmenCore.Localization.Strings.CsTurnsOffCommonShellAnimationsAndMenu,
                     new[]
                     {
                         @"HKCU\Control Panel\Desktop\WindowMetrics\MinAnimate",
@@ -1173,24 +1173,24 @@ namespace OmenCore.ViewModels
                         @"HKCU\Control Panel\Desktop\SmoothScroll"
                     },
                     Array.Empty<string>(),
-                    "Restore MinAnimate, MenuShowDelay, and SmoothScroll to their default values if you want the stock Windows UI feel back."),
+                    global::OmenCore.Localization.Strings.CsRestoreMinAnimateMenuShowDelayAndSmoothScrollToTheir),
                 "storage_trim" => new OptimizationRiskAssessment(
-                    "Enables the NTFS TRIM path so SSDs can reclaim deleted blocks efficiently and maintain performance over time.",
+                    global::OmenCore.Localization.Strings.CsEnablesTheNTFSTRIMPathSoSSDs,
                     Array.Empty<string>(),
                     new[] { "fsutil behavior set DisableDeleteNotify 0" },
-                    "Run fsutil behavior set DisableDeleteNotify 1 to turn the override back off."),
+                    global::OmenCore.Localization.Strings.CsRunFsutilBehaviorSetDisableDeleteNotify1To),
                 "storage_last_access" => new OptimizationRiskAssessment(
-                    "Disables NTFS last-access timestamp updates to reduce metadata writes on storage devices.",
+                    global::OmenCore.Localization.Strings.CsDisablesNTFSLastAccessTimestampUpdatesTo,
                     Array.Empty<string>(),
                     new[] { "fsutil behavior set disablelastaccess 1" },
-                    "Run fsutil behavior set disablelastaccess 0 to restore timestamp updates."),
+                    global::OmenCore.Localization.Strings.CsRunFsutilBehaviorSetDisablelastaccess0To),
                 "storage_8dot3" => new OptimizationRiskAssessment(
-                    "Disables legacy 8.3 short filename generation, which can slightly reduce file-system bookkeeping on modern systems.",
+                    global::OmenCore.Localization.Strings.CsDisablesLegacy83ShortFilenameGeneration,
                     new[] { @"HKLM\SYSTEM\CurrentControlSet\Control\FileSystem\NtfsDisable8dot3NameCreation" },
                     Array.Empty<string>(),
-                    "Set NtfsDisable8dot3NameCreation back to 0 if older software depends on DOS-style short names."),
+                    global::OmenCore.Localization.Strings.CsSetNtfsDisable8dot3NameCreationBackTo0IfOlder),
                 _ => new OptimizationRiskAssessment(
-                    "This optimization changes Windows settings that OmenCore can also revert later through the built-in restore flow.",
+                    global::OmenCore.Localization.Strings.CsThisOptimizationChangesWindowsSettingsThatOmenCore,
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     null)
@@ -1240,9 +1240,9 @@ namespace OmenCore.ViewModels
 
         public string RiskText => Risk switch
         {
-            OptimizationRisk.Low => "Low Risk",
-            OptimizationRisk.Medium => "Medium Risk",
-            OptimizationRisk.High => "High Risk",
+            OptimizationRisk.Low => global::OmenCore.Localization.Strings.CsLowRisk,
+            OptimizationRisk.Medium => global::OmenCore.Localization.Strings.CsMediumRisk,
+            OptimizationRisk.High => global::OmenCore.Localization.Strings.CsHighRisk,
             _ => "Unknown"
         };
 

@@ -63,7 +63,7 @@ public class ToastNotificationService : IDisposable
     /// </summary>
     public void ShowFanProfileChange(string profile)
     {
-        ShowModeChange("Fan Profile", profile, "🌀");
+        ShowModeChange(global::OmenCore.Localization.Strings.CsFanProfile, profile, "🌀");
     }
     
     /// <summary>
@@ -71,7 +71,7 @@ public class ToastNotificationService : IDisposable
     /// </summary>
     public void ShowPerformanceModeChange(string mode)
     {
-        ShowModeChange("Performance Mode", mode, "⚡");
+        ShowModeChange(global::OmenCore.Localization.Strings.CsPerformanceMode, mode, "⚡");
     }
     
     /// <summary>

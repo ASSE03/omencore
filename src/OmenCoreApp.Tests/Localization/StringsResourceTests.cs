@@ -98,6 +98,7 @@ namespace OmenCoreApp.Tests.Localization
         public void Resolve_MapsEverySupportedCode()
         {
             Language.Resolve("en").TwoLetterISOLanguageName.Should().Be("en");
+            Language.Resolve("fr").TwoLetterISOLanguageName.Should().Be("fr");
             Language.Resolve("ru").TwoLetterISOLanguageName.Should().Be("ru");
             Language.Resolve("tr").TwoLetterISOLanguageName.Should().Be("tr");
             Language.Resolve("zh").TwoLetterISOLanguageName.Should().Be("zh");
@@ -138,6 +139,11 @@ namespace OmenCoreApp.Tests.Localization
 
                 CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("tr");
                 Strings.NavGames.Should().Be("Oyunlar");
+
+                CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("fr");
+                Strings.NavSettings.Should().Be("Paramètres");
+                Strings.UiCancel.Should().Be("Annuler");
+                Strings.CsOpenDashboard.Should().Be("Ouvrir le tableau de bord");
 
                 CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("zh");
                 Strings.NavSettings.Should().Be("设置");

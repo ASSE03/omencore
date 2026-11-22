@@ -84,26 +84,26 @@ namespace OmenCore.ViewModels
             get
             {
                 if (_adapterInfo is not HpWmiBios.AdapterInfo info)
-                    return "Not reported by this board";
+                    return global::OmenCore.Localization.Strings.CsNotReportedByThisBoard;
 
                 // On battery there is no adapter to describe, and the wattage byte reads 0 - pairing
                 // that with "running on battery" would render as the nonsensical "0 W - running on
                 // battery".
                 if (info.Status == HpWmiBios.SmartAdapterStatus.BatteryPower)
-                    return "None — running on battery";
+                    return global::OmenCore.Localization.Strings.CsNoneRunningOnBattery;
 
                 var watts = info.PowerRatingKnown
                     ? $"{info.PowerRatingWatts} W"
-                    : "Wattage not reported";
+                    : global::OmenCore.Localization.Strings.CsWattageNotReported;
 
                 var verdict = info.Status switch
                 {
-                    HpWmiBios.SmartAdapterStatus.MeetsRequirement => "meets this machine's requirement",
-                    HpWmiBios.SmartAdapterStatus.BelowRequirement => "below this machine's requirement",
-                    HpWmiBios.SmartAdapterStatus.BatteryPower => "running on battery",
-                    HpWmiBios.SmartAdapterStatus.NotFunctioning => "not functioning correctly",
+                    HpWmiBios.SmartAdapterStatus.MeetsRequirement => global::OmenCore.Localization.Strings.CsMeetsThisMachineSRequirement,
+                    HpWmiBios.SmartAdapterStatus.BelowRequirement => global::OmenCore.Localization.Strings.CsBelowThisMachineSRequirement,
+                    HpWmiBios.SmartAdapterStatus.BatteryPower => global::OmenCore.Localization.Strings.CsRunningOnBattery,
+                    HpWmiBios.SmartAdapterStatus.NotFunctioning => global::OmenCore.Localization.Strings.CsNotFunctioningCorrectly,
                     HpWmiBios.SmartAdapterStatus.ConnectedTypeC => "USB-C Power Delivery",
-                    HpWmiBios.SmartAdapterStatus.NotSupported => "adapter detection not supported",
+                    HpWmiBios.SmartAdapterStatus.NotSupported => global::OmenCore.Localization.Strings.CsAdapterDetectionNotSupported,
                     _ => info.Status.ToString()
                 };
 
@@ -120,7 +120,7 @@ namespace OmenCore.ViewModels
             get
             {
                 var shipping = _wmiBios?.SystemDesign?.ShippingAdapterPowerRatingWatts ?? 0;
-                return shipping > 0 ? $"{shipping} W" : "Not reported";
+                return shipping > 0 ? $"{shipping} W" : global::OmenCore.Localization.Strings.CsNotReported;
             }
         }
 
@@ -140,15 +140,15 @@ namespace OmenCore.ViewModels
 
                 if (info.Status == HpWmiBios.SmartAdapterStatus.BatteryPower)
                 {
-                    return "Running on battery. Expect reduced CPU and GPU power limits until an adapter is connected.";
+                    return global::OmenCore.Localization.Strings.CsRunningOnBatteryExpectReducedCPUAnd;
                 }
 
                 if (!info.IsLowWattage)
                     return null;
 
                 var shipping = _wmiBios?.SystemDesign?.ShippingAdapterPowerRatingWatts ?? 0;
-                var connected = info.PowerRatingKnown ? $"{info.PowerRatingWatts} W" : "an unrecognised";
-                var required = shipping > 0 ? $" This machine shipped with a {shipping} W adapter." : string.Empty;
+                var connected = info.PowerRatingKnown ? $"{info.PowerRatingWatts} W" : global::OmenCore.Localization.Strings.CsAnUnrecognised;
+                var required = shipping > 0 ? string.Format(global::OmenCore.Localization.Strings.CsThisMachineShippedWithAWAdapter, shipping) : string.Empty;
 
                 // Attribute the verdict to whoever actually reached it. On a barrel adapter the
                 // firmware says BelowRequirement outright and quoting it is accurate. On USB-C it
@@ -161,24 +161,24 @@ namespace OmenCore.ViewModels
                 if (info.Status == HpWmiBios.SmartAdapterStatus.ConnectedTypeC)
                 {
                     var supply = info.PowerRatingKnown
-                        ? $"This machine is running from a {info.PowerRatingWatts} W USB-C Power Delivery supply. "
-                        : "This machine is running from a USB-C Power Delivery supply of unreported wattage. ";
+                        ? string.Format(global::OmenCore.Localization.Strings.CsThisMachineIsRunningFromAW, info.PowerRatingWatts)
+                        : global::OmenCore.Localization.Strings.CsThisMachineIsRunningFromAUSB;
 
                     // Two different reasons reach "under-rated" on Type-C, and they are not
                     // interchangeable. Either the chassis advertises a USB-C design rating and this
                     // supply came in under it, or it advertises none at all and expects a barrel
                     // adapter - in which case no USB-C source would satisfy it, whatever it offers.
                     var reason = info.UsbcDesignRatingWatts > 0
-                        ? $"That is below the {info.UsbcDesignRatingWatts} W this machine's USB-C input is designed for."
-                        : "This chassis expects a barrel adapter and advertises no USB-C design rating, so HP's " +
-                          "own rule treats any USB-C source as below its requirement.";
+                        ? string.Format(global::OmenCore.Localization.Strings.CsThatIsBelowTheWThisMachine, info.UsbcDesignRatingWatts)
+                        : global::OmenCore.Localization.Strings.CsThisChassisExpectsABarrelAdapterAnd
+;
 
-                    verdict = supply + "The firmware describes it as USB-C rather than calling it " +
+                    verdict = supply + global::OmenCore.Localization.Strings.CsTheFirmwareDescribesItAsUSBC +
                               $"under-rated. {reason}{required}";
                 }
                 else
                 {
-                    verdict = $"The firmware reports {connected} adapter as below this machine's requirement.{required}";
+                    verdict = string.Format(global::OmenCore.Localization.Strings.CsTheFirmwareReportsAdapterAsBelowThis, connected, required);
                 }
 
                 // Deliberately does not say the platform is "protecting" the supply, which is what
@@ -188,10 +188,10 @@ namespace OmenCore.ViewModels
                 // an advertised number, and telling a user their machine is defending itself sends
                 // them to buy a power supply they may well not need.
                 return verdict + " " +
-                       "Some HP firmware reduces CPU and GPU power limits in this state, which can look like a fault " +
-                       "in OmenCore or in the GPU driver but is a policy the firmware applies to a supply it does not " +
-                       "rate highly enough - a limit it advertises, rather than a measurement of what the supply can " +
-                       "deliver. If performance is lower than expected, this is the first thing to rule out.";
+                       global::OmenCore.Localization.Strings.CsSomeHPFirmwareReducesCPUAndGPU +
+                       global::OmenCore.Localization.Strings.CsInOmenCoreOrInTheGPUDriver +
+                       global::OmenCore.Localization.Strings.CsRateHighlyEnoughALimitItAdvertises +
+                       global::OmenCore.Localization.Strings.CsDeliverIfPerformanceIsLowerThanExpected;
             }
         }
 
@@ -265,11 +265,11 @@ namespace OmenCore.ViewModels
                 if (_gpuPowerLimits?.EnforcedWatts is not double enforced) return string.Empty;
 
                 var reference = _gpuPowerLimits.DefaultWatts is double standard
-                    ? $" of this card's own {standard:0.#} W limit"
+                    ? string.Format(global::OmenCore.Localization.Strings.CsOfThisCardSOwnWLimit, standard)
                     : string.Empty;
 
                 var when = _gpuPowerLimitReadAt is DateTime taken
-                    ? $" — read at {taken:HH:mm}"
+                    ? string.Format(global::OmenCore.Localization.Strings.CsReadAt, taken)
                     : string.Empty;
 
                 return $"{enforced:0.#} W{reference}{when}";
@@ -296,21 +296,21 @@ namespace OmenCore.ViewModels
 
                 if (limits.DefaultWatts is not double standard)
                 {
-                    return "Whether that is being held down cannot be told from here - nvidia-smi did " +
-                           "not report this card's default limit, so there is nothing to compare it to.";
+                    return global::OmenCore.Localization.Strings.CsWhetherThatIsBeingHeldDownCannot
+;
                 }
 
                 if (!limits.EnforcedIsBelowDefault)
                 {
-                    return "That is the card's own limit, so nothing is holding it down at the moment " +
-                           "and the restart below has no clamp to discard.";
+                    return global::OmenCore.Localization.Strings.CsThatIsTheCardSOwnLimit
+;
                 }
 
-                return $"Something is holding this card {standard - enforced:0.#} W below its own limit. " +
-                       "With an under-rated supply attached, that is what the firmware's clamp looks " +
-                       "like, and it is what the restart below discards. Another tool that sets a GPU " +
-                       "power limit would look the same from here, and restarting the device would not " +
-                       "clear that one.";
+                return string.Format(global::OmenCore.Localization.Strings.CsSomethingIsHoldingThisCardWBelow, standard - enforced) +
+                       global::OmenCore.Localization.Strings.CsWithAnUnderRatedSupplyAttachedThat +
+                       global::OmenCore.Localization.Strings.CsLikeAndItIsWhatTheRestart +
+                       global::OmenCore.Localization.Strings.CsPowerLimitWouldLookTheSameFrom +
+                       global::OmenCore.Localization.Strings.CsClearThatOne;
             }
         }
 
@@ -324,23 +324,23 @@ namespace OmenCore.ViewModels
         {
             get
             {
-                if (_gpuPowerLimitBusy) return "Reading the current limit...";
+                if (_gpuPowerLimitBusy) return global::OmenCore.Localization.Strings.CsReadingTheCurrentLimit;
                 if (HasGpuPowerLimitReading) return string.Empty;
 
                 if (!_adapterOverrideService.CanReadPowerLimit)
                 {
-                    return "The current limit cannot be read here: nvidia-smi is not installed, and it " +
-                           "is the only thing that reports it. It ships with the NVIDIA driver.";
+                    return global::OmenCore.Localization.Strings.CsTheCurrentLimitCannotBeReadHere
+;
                 }
 
                 if (_gpuPowerLimitUnanswered)
                 {
-                    return "The GPU did not report its power limit. It may have been busy waking up - " +
-                           "try again in a moment.";
+                    return global::OmenCore.Localization.Strings.CsTheGPUDidNotReportItsPower
+;
                 }
 
-                return "The GPU is parked and asleep. Reading its power limit wakes it, and the driver " +
-                       "keeps it awake for a couple of minutes afterwards.";
+                return global::OmenCore.Localization.Strings.CsTheGPUIsParkedAndAsleepReading
+;
             }
         }
 
@@ -348,7 +348,7 @@ namespace OmenCore.ViewModels
 
         /// <summary>Label that says which of the two things the button does.</summary>
         public string CheckGpuPowerLimitLabel =>
-            HasGpuPowerLimitReading ? "Read the limit again" : "Read the current limit";
+            HasGpuPowerLimitReading ? global::OmenCore.Localization.Strings.CsReadTheLimitAgain : global::OmenCore.Localization.Strings.CsReadTheCurrentLimit;
 
         public bool CanCheckGpuPowerLimit =>
             !_gpuPowerLimitBusy && _adapterOverrideService.CanReadPowerLimit && !_adapterOverrideBusy;
@@ -484,9 +484,9 @@ namespace OmenCore.ViewModels
                 return target.Source switch
                 {
                     ApuPowerClampService.TargetSource.UserSetting =>
-                        $"the {target.Watts} W you set in AMD CPU Power Limits",
+                        string.Format(global::OmenCore.Localization.Strings.CsTheWYouSetInAMDCPU, target.Watts),
                     ApuPowerClampService.TargetSource.Firmware =>
-                        $"the {target.Watts} W this machine's firmware states for a loaded CPU and GPU",
+                        string.Format(global::OmenCore.Localization.Strings.CsTheWThisMachineSFirmwareStates, target.Watts),
                     _ => string.Empty
                 };
             }
@@ -519,12 +519,12 @@ namespace OmenCore.ViewModels
 
                 if (CanOfferApuClampLift)
                 {
-                    return "This restarts the GPU to drop its clamp, and raises the four CPU power " +
+                    return global::OmenCore.Localization.Strings.CsThisRestartsTheGPUToDropIts +
                            $"limits to {ApuClampTargetDescription}.";
                 }
 
                 var why = ApuClampReason();
-                return "This restarts the GPU to drop its clamp. The CPU side is not included" +
+                return global::OmenCore.Localization.Strings.CsThisRestartsTheGPUToDropIts_7cdcc +
                        (why.Length > 0 ? $": {why}" : ".");
             }
         }
@@ -536,13 +536,13 @@ namespace OmenCore.ViewModels
         {
             if (ApuClamp == null || !ApuPowerClampService.CpuIsSupported(RyzenControl.Family))
             {
-                return "this CPU is not one whose SMU power-limit messages are known";
+                return global::OmenCore.Localization.Strings.CsThisCPUIsNotOneWhoseSMU;
             }
 
             if (ApuClampTargetWatts == 0)
             {
-                return "there is no CPU power limit to aim at - set one in AMD CPU Power Limits, or " +
-                       "this machine's firmware would have to report its own";
+                return global::OmenCore.Localization.Strings.CsThereIsNoCPUPowerLimitTo
+;
             }
 
             if (_adapterInfo is HpWmiBios.AdapterInfo info &&
@@ -586,9 +586,9 @@ namespace OmenCore.ViewModels
             _releaseApuClampCommand ??= new RelayCommand(_ =>
             {
                 _apuClampService?.Release();
-                ApuClampStatus = "OmenCore will no longer put the CPU power limits back. The " +
-                                 "platform reclaims them on the next resume or change of supply; a " +
-                                 "reboot restores stock.";
+                ApuClampStatus = global::OmenCore.Localization.Strings.CsOmenCoreWillNoLongerPutTheCPU
+
+;
                 OnPropertyChanged(nameof(IsApuClampHeld));
             }, _ => IsApuClampHeld);
 
@@ -694,7 +694,7 @@ namespace OmenCore.ViewModels
             if (service == null) return;
 
             GpuTgpUnlockBusy = true;
-            GpuTgpUnlockStatus = "Pinning the firmware's power gates and asking the driver to re-read them...";
+            GpuTgpUnlockStatus = global::OmenCore.Localization.Strings.CsPinningTheFirmwareSPowerGatesAnd;
 
             try
             {
@@ -774,7 +774,7 @@ namespace OmenCore.ViewModels
         private async Task ApplyAdapterOverrideAsync()
         {
             AdapterOverrideBusy = true;
-            AdapterOverrideStatus = "Restarting the GPU...";
+            AdapterOverrideStatus = global::OmenCore.Localization.Strings.CsRestartingTheGPU;
 
             try
             {
@@ -799,7 +799,7 @@ namespace OmenCore.ViewModels
                 // CPU limit is not the next thing anyone needs.
                 if (result.Applied && CanOfferApuClampLift && ApuClamp is ApuPowerClampService clamp)
                 {
-                    AdapterOverrideStatus = result.Message + " Now raising the CPU power limits...";
+                    AdapterOverrideStatus = result.Message + global::OmenCore.Localization.Strings.CsNowRaisingTheCPUPowerLimits;
 
                     var lift = await Task.Run(() => clamp.Engage(ApuClampTargetWatts))
                                          .ConfigureAwait(true);
@@ -1074,25 +1074,25 @@ namespace OmenCore.ViewModels
         {
             var parts = new List<string>();
 
-            if (cpu == ClampLiftDecision.Apply) parts.Add("CPU limits raised and held");
-            if (gpu == ClampLiftDecision.Apply) parts.Add("GPU restarted while it was parked");
+            if (cpu == ClampLiftDecision.Apply) parts.Add(global::OmenCore.Localization.Strings.CsCPULimitsRaisedAndHeld);
+            if (gpu == ClampLiftDecision.Apply) parts.Add(global::OmenCore.Localization.Strings.CsGPURestartedWhileItWasParked);
 
             if (gpu == ClampLiftDecision.DeferredGpuAwake)
             {
-                parts.Add("the GPU was awake, so it was left alone - use the button when nothing needs it");
+                parts.Add(global::OmenCore.Localization.Strings.CsTheGPUWasAwakeSoItWas);
             }
 
             if (gpu == ClampLiftDecision.DeferredDiscreteDisplay)
             {
-                parts.Add("the display is running on the discrete GPU, so restarting it would black " +
-                          "the screen - that one stays manual");
+                parts.Add(global::OmenCore.Localization.Strings.CsTheDisplayIsRunningOnTheDiscrete
+);
             }
 
             // Reported once for both halves: they refuse together, and saying it twice reads as two
             // separate problems rather than one machine that is simply not plugged in.
             if (cpu == ClampLiftDecision.DeferredOnBattery || gpu == ClampLiftDecision.DeferredOnBattery)
             {
-                parts.Add("running on battery, so there is no adapter clamp to lift");
+                parts.Add(global::OmenCore.Localization.Strings.CsRunningOnBatterySoThereIsNo);
             }
 
             return parts.Count == 0

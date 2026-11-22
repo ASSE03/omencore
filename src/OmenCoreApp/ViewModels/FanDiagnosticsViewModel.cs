@@ -76,7 +76,7 @@ namespace OmenCore.ViewModels
         /// </summary>
         public bool IsRgbCheckAvailable => _keyboardLightingService?.IsAvailable == true;
 
-        private string _rgbCheckStatus = "RGB check not run";
+        private string _rgbCheckStatus = global::OmenCore.Localization.Strings.CsRGBCheckNotRun;
         public string RgbCheckStatus
         {
             get => _rgbCheckStatus;
@@ -311,9 +311,9 @@ namespace OmenCore.ViewModels
             // A run that starts hot measures thermal protection, not the fans (8BC2, K.6): wait for it to cool first.
             if (!await WaitForCoolDownAsync())
             {
-                GuidedTestResult = $"Run not started: the CPU or GPU is at {HottestTemperatureC():0} C. Let the laptop cool below " +
-                                   $"{GuidedRunRules.StartBelowC:0} C and run the diagnostic again.";
-                GuidedTestStatus = "Too hot to start - cool down and run again";
+                GuidedTestResult = string.Format(global::OmenCore.Localization.Strings.CsRunNotStartedTheCPUOrGPU, HottestTemperatureC()) +
+                                   string.Format(global::OmenCore.Localization.Strings.CsCAndRunTheDiagnosticAgain, GuidedRunRules.StartBelowC);
+                GuidedTestStatus = global::OmenCore.Localization.Strings.CsTooHotToStartCoolDownAnd;
                 IsGuidedTestRunning = false;
                 IsDiagnosticActive = false;
                 return;
@@ -342,7 +342,7 @@ namespace OmenCore.ViewModels
                     for (int fanIndex = 0; fanIndex < fanNames.Length; fanIndex++)
                     {
                         var fanName = fanNames[fanIndex];
-                        GuidedTestStatus = $"Testing {fanName} fan at {targetPercent}%...";
+                        GuidedTestStatus = string.Format(global::OmenCore.Localization.Strings.CsTestingFanAt, fanName, targetPercent);
                         _logging.Info($"[GuidedDiagnostic] Testing {fanName} fan at {targetPercent}%");
                         
                         try
@@ -378,7 +378,7 @@ namespace OmenCore.ViewModels
                         catch (Exception ex)
                         {
                             _logging.Error($"[GuidedDiagnostic] {fanName} at {targetPercent}% FAILED: {ex.Message}");
-                            results.Add((fanName, targetPercent, false, "Physical RPM unavailable", 0, 0, "Failed", "None"));
+                            results.Add((fanName, targetPercent, false, global::OmenCore.Localization.Strings.CsPhysicalRPMUnavailable, 0, 0, "Failed", "None"));
                         }
                     }
                     
@@ -447,10 +447,10 @@ namespace OmenCore.ViewModels
 
                 GuidedTestResult = summary.ToString();
                 GuidedTestStatus = interrupted.Count > 0
-                    ? $"Interrupted by thermal protection ({interrupted.Count} step(s)) - cool down and re-run"
+                    ? string.Format(global::OmenCore.Localization.Strings.CsInterruptedByThermalProtectionStepSCool, interrupted.Count)
                     : overallPassed
-                        ? $"All tests passed! Score: {avgScore}/100 ({overallRating})"
-                        : $"Some tests failed - Score: {avgScore}/100 ({overallRating})";
+                        ? string.Format(global::OmenCore.Localization.Strings.CsAllTestsPassedScore100, avgScore, overallRating)
+                        : string.Format(global::OmenCore.Localization.Strings.CsSomeTestsFailedScore100, avgScore, overallRating);
                 
                 _logging.Info(summary.ToString());
             }
@@ -517,7 +517,7 @@ namespace OmenCore.ViewModels
             while (GuidedRunRules.NeedsCoolDown(HottestTemperatureC()))
             {
                 if (waited >= 180) return false;
-                GuidedTestStatus = $"Waiting for the laptop to cool below {GuidedRunRules.StartBelowC:0} C ({HottestTemperatureC():0} C now)...";
+                GuidedTestStatus = string.Format(global::OmenCore.Localization.Strings.CsWaitingForTheLaptopToCoolBelow, GuidedRunRules.StartBelowC, HottestTemperatureC());
                 await Task.Delay(5000);
                 waited += 5;
             }
@@ -528,7 +528,7 @@ namespace OmenCore.ViewModels
         {
             if (_keyboardLightingService?.IsAvailable != true)
             {
-                RgbCheckStatus = "Skipped: integrated RGB backend unavailable";
+                RgbCheckStatus = global::OmenCore.Localization.Strings.CsSkippedIntegratedRGBBackendUnavailable;
                 return RgbCheckStatus;
             }
 
@@ -539,7 +539,7 @@ namespace OmenCore.ViewModels
             var savedColors = ReadSavedZoneColorsForBackend();
             try
             {
-                RgbCheckStatus = "Look at your keyboard now";
+                RgbCheckStatus = global::OmenCore.Localization.Strings.CsLookAtYourKeyboardNow;
                 await _keyboardLightingService.SetAllZoneColors(new[]
                 {
                     Color.Red,
@@ -560,7 +560,7 @@ namespace OmenCore.ViewModels
 
                 if (!patternAccepted)
                 {
-                    RgbCheckStatus = $"Pattern write not accepted by {backend}";
+                    RgbCheckStatus = string.Format(global::OmenCore.Localization.Strings.CsPatternWriteNotAcceptedBy, backend);
                     _logging.Warn($"[GuidedDiagnostic] RGB pattern write not accepted by {backend}: {patternStatus}");
                     if (!restoreAccepted)
                         _logging.Warn($"[GuidedDiagnostic] Saved keyboard colors were not restored: {restoreStatus}");
@@ -569,12 +569,12 @@ namespace OmenCore.ViewModels
 
                 if (!restoreAccepted)
                 {
-                    RgbCheckStatus = $"Pattern applied; saved colors were not restored by {backend}";
+                    RgbCheckStatus = string.Format(global::OmenCore.Localization.Strings.CsPatternAppliedSavedColorsWereNotRestored, backend);
                     _logging.Warn($"[GuidedDiagnostic] Saved keyboard colors were not restored: {restoreStatus}");
                     return RgbCheckStatus;
                 }
 
-                RgbCheckStatus = "Pattern applied and saved colors restored; physical confirmation required";
+                RgbCheckStatus = global::OmenCore.Localization.Strings.CsPatternAppliedAndSavedColorsRestoredPhysical;
                 _logging.Info("[GuidedDiagnostic] RGB test pattern applied through the safe keyboard backend; physical confirmation is required");
                 return RgbCheckStatus;
             }

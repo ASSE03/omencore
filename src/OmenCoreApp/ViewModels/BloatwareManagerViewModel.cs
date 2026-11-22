@@ -26,7 +26,7 @@ namespace OmenCore.ViewModels
         private readonly LoggingService _logger;
         private bool _isScanning;
         private bool _isProcessing;
-        private string _statusMessage = "Done: Click Scan to detect bloatware";
+        private string _statusMessage = global::OmenCore.Localization.Strings.CsDoneClickScanToDetectBloatware;
         private string _filterText = "";
         private BloatwareCategory? _selectedCategory;
         private BloatwareApp? _selectedApp;
@@ -41,7 +41,7 @@ namespace OmenCore.ViewModels
         private CancellationTokenSource? _bulkOperationCancellation;
         private string? _lastReportPath;
         private bool _isRemovalPreviewVisible;
-        private string _removalPreviewTitle = "Removal Preview";
+        private string _removalPreviewTitle = global::OmenCore.Localization.Strings.CsRemovalPreview;
         private string _removalPreviewSummary = "";
         private int _removalPreviewEstimatedSeconds;
 
@@ -224,19 +224,19 @@ namespace OmenCore.ViewModels
         }
 
         public string RemovalPreviewEstimatedText => _removalPreviewEstimatedSeconds <= 0
-            ? "Estimated time: less than 1 minute"
-            : $"Estimated time: about {_removalPreviewEstimatedSeconds / 60 + 1} minute(s)";
+            ? global::OmenCore.Localization.Strings.CsEstimatedTimeLessThan1Minute
+            : string.Format(global::OmenCore.Localization.Strings.CsEstimatedTimeAboutMinuteS, _removalPreviewEstimatedSeconds / 60 + 1);
 
         public bool HasRemovalPreviewSelection => RemovalPreviewItems.Any(item => item.IsSelected);
 
         public bool CanCancelBulkOperation => IsBulkRemoving || IsBulkRestoring;
 
         public string BulkRemoveProgressText => BulkRemoveTotal > 0
-            ? $"{BulkRemoveProgress}/{BulkRemoveTotal} done"
+            ? string.Format(global::OmenCore.Localization.Strings.CsDone, BulkRemoveProgress, BulkRemoveTotal)
             : "Waiting...";
 
         public string BulkRestoreProgressText => BulkRestoreTotal > 0
-            ? $"{BulkRestoreProgress}/{BulkRestoreTotal} done"
+            ? string.Format(global::OmenCore.Localization.Strings.CsDone, BulkRestoreProgress, BulkRestoreTotal)
             : "Waiting...";
 
         public BloatwareManagerViewModel(LoggingService logger)
@@ -278,7 +278,7 @@ namespace OmenCore.ViewModels
             // Warn immediately if not running as admin
             if (!BloatwareManagerService.IsRunningAsAdmin)
             {
-                SetStatusFailed("OmenCore is not running as Administrator. Bloatware removal requires admin rights.");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsOmenCoreIsNotRunningAsAdministratorBloatware);
             }
         }
 
@@ -289,7 +289,7 @@ namespace OmenCore.ViewModels
             try
             {
                 IsScanning = true;
-                SetStatusAction("Scanning for bloatware");
+                SetStatusAction(global::OmenCore.Localization.Strings.CsScanningForBloatware);
                 AllApps.Clear();
                 FilteredApps.Clear();
 
@@ -302,12 +302,12 @@ namespace OmenCore.ViewModels
 
                 ApplyFilter();
                 UpdateCounts();
-                SetStatusDone($"Scan completed: {AllApps.Count} items detected");
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsScanCompletedItemsDetected, AllApps.Count));
             }
             catch (Exception ex)
             {
                 _logger.Error($"Bloatware scan failed: {ex.Message}");
-                SetStatusFailed($"Scan failed: {ex.Message}");
+                SetStatusFailed(string.Format(global::OmenCore.Localization.Strings.CsScanFailed_fd332, ex.Message));
             }
             finally
             {
@@ -319,7 +319,7 @@ namespace OmenCore.ViewModels
         {
             if (!BloatwareManagerService.IsRunningAsAdmin)
             {
-                SetStatusFailed("Cannot remove: OmenCore is not running as Administrator.");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsCannotRemoveOmenCoreIsNotRunningAs);
                 return;
             }
 
@@ -328,7 +328,7 @@ namespace OmenCore.ViewModels
                 return;
             }
 
-            BuildRemovalPreview("Remove Selected Item", new List<BloatwareApp> { SelectedApp });
+            BuildRemovalPreview(global::OmenCore.Localization.Strings.CsRemoveSelectedItem, new List<BloatwareApp> { SelectedApp });
             await Task.CompletedTask;
         }
 
@@ -366,7 +366,7 @@ namespace OmenCore.ViewModels
         {
             if (!BloatwareManagerService.IsRunningAsAdmin)
             {
-                SetStatusFailed("Cannot remove: OmenCore is not running as Administrator.");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsCannotRemoveOmenCoreIsNotRunningAs);
                 return;
             }
 
@@ -375,11 +375,11 @@ namespace OmenCore.ViewModels
             var lowRiskApps = AllApps.Where(a => a.RemovalRisk == RemovalRisk.Low && !a.IsRemoved).ToList();
             if (!lowRiskApps.Any())
             {
-                SetStatusDone("No low-risk installed items are currently available for removal");
+                SetStatusDone(global::OmenCore.Localization.Strings.CsNoLowRiskInstalledItemsAreCurrently);
                 return;
             }
 
-            BuildRemovalPreview("Remove Low-Risk Bloatware", lowRiskApps);
+            BuildRemovalPreview(global::OmenCore.Localization.Strings.CsRemoveLowRiskBloatware, lowRiskApps);
             await Task.CompletedTask;
         }
 
@@ -399,15 +399,15 @@ namespace OmenCore.ViewModels
                     {
                         BulkRemoveProgress = index;
                         OnPropertyChanged(nameof(BulkRemoveProgressText));
-                        SetStatusAction($"Removing {index}/{total}: {app.Name}");
+                        SetStatusAction(string.Format(global::OmenCore.Localization.Strings.CsRemoving, index, total, app.Name));
                     })),
                     cancellation.Token);
 
                 if (bulkResult.Canceled)
                 {
-                    var canceledAt = bulkResult.CanceledAt?.Name ?? "the current item";
+                    var canceledAt = bulkResult.CanceledAt?.Name ?? global::OmenCore.Localization.Strings.CsTheCurrentItem;
                     SetStatusFailed(
-                        $"Bulk remove canceled at {canceledAt}. {bulkResult.Succeeded.Count} removed, {bulkResult.Skipped.Count} skipped. Export log for details.");
+                        string.Format(global::OmenCore.Localization.Strings.CsBulkRemoveCanceledAtRemovedSkippedExport, canceledAt, bulkResult.Succeeded.Count, bulkResult.Skipped.Count));
                 }
                 else if (bulkResult.Completed)
                 {
@@ -418,12 +418,12 @@ namespace OmenCore.ViewModels
                     var failedName = bulkResult.FailedAt?.Name ?? "unknown item";
                     var failedDetail = string.IsNullOrWhiteSpace(bulkResult.FailedAt?.LastRemovalDetail)
                         ? string.IsNullOrWhiteSpace(bulkResult.FailedAt?.LastFailureReason)
-                            ? "No failure detail available"
+                            ? global::OmenCore.Localization.Strings.CsNoFailureDetailAvailable
                             : bulkResult.FailedAt!.LastFailureReason!
                         : bulkResult.FailedAt!.LastRemovalDetail!;
                     SetStatusFailed(
-                        $"Bulk remove stopped at {failedName}: {failedDetail}. Rollback restored {bulkResult.RollbackSucceeded.Count}, " +
-                        $"failed {bulkResult.RollbackFailed.Count}, skipped {bulkResult.RollbackSkipped.Count}. Export log for details.");
+                        string.Format(global::OmenCore.Localization.Strings.CsBulkRemoveStoppedAtRollbackRestored, failedName, failedDetail, bulkResult.RollbackSucceeded.Count) +
+                        string.Format(global::OmenCore.Localization.Strings.CsFailedSkippedExportLogForDetails, bulkResult.RollbackFailed.Count, bulkResult.RollbackSkipped.Count));
                 }
 
                 HasRemovalResults = true;
@@ -452,35 +452,35 @@ namespace OmenCore.ViewModels
             {
                 RemovalStatus.VerifiedSuccess or RemovalStatus.Succeeded => string.IsNullOrWhiteSpace(detail)
                     ? $"Removed {app.Name}"
-                    : $"Removed {app.Name}: {detail}",
+                    : string.Format(global::OmenCore.Localization.Strings.CsRemoved, app.Name, detail),
                 RemovalStatus.Skipped => string.IsNullOrWhiteSpace(detail)
-                    ? $"Skipped {app.Name}: no state change was required"
-                    : $"Skipped {app.Name}: {detail}",
+                    ? string.Format(global::OmenCore.Localization.Strings.CsSkippedNoStateChangeWasRequired, app.Name)
+                    : string.Format(global::OmenCore.Localization.Strings.CsSkipped, app.Name, detail),
                 RemovalStatus.Failed => string.IsNullOrWhiteSpace(detail)
-                    ? $"{app.Name} removal failed"
-                    : $"{app.Name} removal failed: {detail}",
-                RemovalStatus.Pending => $"{app.Name} removal is still pending",
+                    ? string.Format(global::OmenCore.Localization.Strings.CsRemovalFailed_9d467, app.Name)
+                    : string.Format(global::OmenCore.Localization.Strings.CsRemovalFailed_5dcfa, app.Name, detail),
+                RemovalStatus.Pending => string.Format(global::OmenCore.Localization.Strings.CsRemovalIsStillPending, app.Name),
                 _ => string.IsNullOrWhiteSpace(detail)
-                    ? $"{app.Name} removal completed with an unknown status"
-                    : $"{app.Name} removal completed: {detail}"
+                    ? string.Format(global::OmenCore.Localization.Strings.CsRemovalCompletedWithAnUnknownStatus, app.Name)
+                    : string.Format(global::OmenCore.Localization.Strings.CsRemovalCompleted, app.Name, detail)
             };
         }
 
         private static string BuildBulkRemovalCompletionMessage(BulkRemovalResult result)
         {
-            var summary = $"Bulk remove complete: {result.Succeeded.Count} removed";
+            var summary = string.Format(global::OmenCore.Localization.Strings.CsBulkRemoveCompleteRemoved, result.Succeeded.Count);
             if (result.Skipped.Count > 0)
             {
-                summary += $", {result.Skipped.Count} skipped";
+                summary += string.Format(global::OmenCore.Localization.Strings.CsSkipped_37157, result.Skipped.Count);
             }
 
-            summary += $" out of {result.RequestedTotal}.";
+            summary += string.Format(global::OmenCore.Localization.Strings.CsOutOf, result.RequestedTotal);
 
             var firstSkippedWithDetail = result.Skipped
                 .FirstOrDefault(app => !string.IsNullOrWhiteSpace(app.LastRemovalDetail));
             if (firstSkippedWithDetail != null)
             {
-                summary += $" Example skip: {firstSkippedWithDetail.Name} ({firstSkippedWithDetail.LastRemovalDetail})";
+                summary += string.Format(global::OmenCore.Localization.Strings.CsExampleSkip, firstSkippedWithDetail.Name, firstSkippedWithDetail.LastRemovalDetail);
             }
 
             return summary;
@@ -527,10 +527,10 @@ namespace OmenCore.ViewModels
                 .ToList();
             var conflictSensitiveCount = selectedApps.Count(app => app.ConflictSensitive || app.RequiresOmenCoreValidation);
 
-            RemovalPreviewSummary = $"Selected {selectedCount} of {totalCount} item(s).";
+            RemovalPreviewSummary = string.Format(global::OmenCore.Localization.Strings.CsSelectedOfItemS, selectedCount, totalCount);
             if (conflictSensitiveCount > 0)
             {
-                RemovalPreviewSummary += $" {conflictSensitiveCount} conflict-sensitive item(s): verify fan, RGB, hotkeys, update path, and restore point before removal.";
+                RemovalPreviewSummary += string.Format(global::OmenCore.Localization.Strings.CsConflictSensitiveItemSVerifyFanRGB, conflictSensitiveCount);
             }
 
             OnPropertyChanged(nameof(RemovalPreviewEstimatedText));
@@ -552,15 +552,15 @@ namespace OmenCore.ViewModels
 
             if (!selectedApps.Any())
             {
-                SetStatusFailed("No apps selected in removal preview.");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsNoAppsSelectedInRemovalPreview);
                 return;
             }
 
             if (selectedApps.Any(app => app.RemovalRisk >= RemovalRisk.Medium))
             {
                 var confirmation = MessageBox.Show(
-                    "One or more selected items are Medium/High risk. Continue with removal?",
-                    "Confirm Risky Removal",
+                    global::OmenCore.Localization.Strings.CsOneOrMoreSelectedItemsAreMedium,
+                    global::OmenCore.Localization.Strings.CsConfirmRiskyRemoval,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
 
@@ -595,40 +595,40 @@ namespace OmenCore.ViewModels
             }
 
             var createRestorePoint = MessageBox.Show(
-                $"Create a Windows restore point before removing {selectedCount} item(s)?\n\nRecommended for safety before system changes.",
-                "Create Restore Point",
+                string.Format(global::OmenCore.Localization.Strings.CsCreateAWindowsRestorePointBeforeRemoving, selectedCount),
+                global::OmenCore.Localization.Strings.CsCreateRestorePoint,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
             if (createRestorePoint != MessageBoxResult.Yes)
             {
-                SetStatusAction("Restore point creation skipped by user");
+                SetStatusAction(global::OmenCore.Localization.Strings.CsRestorePointCreationSkippedByUser);
                 return true;
             }
 
-            SetStatusAction("Creating pre-removal restore point");
+            SetStatusAction(global::OmenCore.Localization.Strings.CsCreatingPreRemovalRestorePoint);
             var restorePointResult = await _service.EnsurePreRemovalRestorePointAsync(selectedCount);
             if (restorePointResult.Success)
             {
                 var createdAtText = restorePointResult.CreatedAt?.ToString("yyyy-MM-dd HH:mm:ss") ?? "now";
-                var prefix = restorePointResult.ReusedExisting ? "Reusing recent restore point" : "Restore point created";
+                var prefix = restorePointResult.ReusedExisting ? global::OmenCore.Localization.Strings.CsReusingRecentRestorePoint : global::OmenCore.Localization.Strings.CsRestorePointCreated_5092b;
                 SetStatusDone($"{prefix} ({createdAtText})");
                 return true;
             }
 
             var continueWithoutRestorePoint = MessageBox.Show(
-                $"Restore point could not be created:\n{restorePointResult.Message}\n\nContinue removal without a restore point?",
-                "Restore Point Creation Failed",
+                string.Format(global::OmenCore.Localization.Strings.CsRestorePointCouldNotBeCreatedContinue, restorePointResult.Message),
+                global::OmenCore.Localization.Strings.CsRestorePointCreationFailed_067da,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
             if (continueWithoutRestorePoint == MessageBoxResult.Yes)
             {
-                SetStatusFailed("Proceeding without restore point by user choice");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsProceedingWithoutRestorePointByUserChoice);
                 return true;
             }
 
-            SetStatusFailed("Removal canceled because restore point was not created");
+            SetStatusFailed(global::OmenCore.Localization.Strings.CsRemovalCanceledBecauseRestorePointWasNot);
             return false;
         }
 
@@ -691,10 +691,10 @@ namespace OmenCore.ViewModels
 
             if (relatedCount <= 0)
             {
-                return "No obvious linked packages detected";
+                return global::OmenCore.Localization.Strings.CsNoObviousLinkedPackagesDetected;
             }
 
-            return $"Potentially related packages from same publisher: {relatedCount}";
+            return string.Format(global::OmenCore.Localization.Strings.CsPotentiallyRelatedPackagesFromSamePublisher, relatedCount);
         }
 
         private async Task RestoreSelectedAsync()
@@ -725,8 +725,8 @@ namespace OmenCore.ViewModels
             if (!removedApps.Any()) return;
 
             var result = MessageBox.Show(
-                $"This will restore {removedApps.Count} removed items.\n\nAny dependencies or settings will be re-installed from their original sources.\n\nContinue?",
-                "Restore All Removed Bloatware",
+                string.Format(global::OmenCore.Localization.Strings.CsThisWillRestoreRemovedItemsAnyDependencies, removedApps.Count),
+                global::OmenCore.Localization.Strings.CsRestoreAllRemovedBloatware,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -746,24 +746,24 @@ namespace OmenCore.ViewModels
                     {
                         BulkRestoreProgress = index;
                         OnPropertyChanged(nameof(BulkRestoreProgressText));
-                        SetStatusAction($"Restoring {index}/{total}: {app.Name}");
+                        SetStatusAction(string.Format(global::OmenCore.Localization.Strings.CsRestoring, index, total, app.Name));
                     })),
                     cancellation.Token);
 
                 if (restoreResult.Canceled)
                 {
-                    var canceledAt = restoreResult.CanceledAt?.Name ?? "the current item";
+                    var canceledAt = restoreResult.CanceledAt?.Name ?? global::OmenCore.Localization.Strings.CsTheCurrentItem;
                     SetStatusFailed(
-                        $"Bulk restore canceled at {canceledAt}. {restoreResult.Succeeded.Count} completed, {restoreResult.Skipped.Count} skipped.");
+                        string.Format(global::OmenCore.Localization.Strings.CsBulkRestoreCanceledAtCompletedSkipped, canceledAt, restoreResult.Succeeded.Count, restoreResult.Skipped.Count));
                 }
                 else if (restoreResult.Failed.Count > 0)
                 {
                     SetStatusFailed(
-                        $"Bulk restore finished with {restoreResult.Failed.Count} failures. Restored {restoreResult.Succeeded.Count}/{restoreResult.RequestedTotal} items.");
+                        string.Format(global::OmenCore.Localization.Strings.CsBulkRestoreFinishedWithFailuresRestoredItems, restoreResult.Failed.Count, restoreResult.Succeeded.Count, restoreResult.RequestedTotal));
                 }
                 else
                 {
-                    SetStatusDone($"Restored {restoreResult.Succeeded.Count} bloatware items");
+                    SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsRestoredBloatwareItems, restoreResult.Succeeded.Count));
                 }
 
                 UpdateCounts();
@@ -836,12 +836,12 @@ namespace OmenCore.ViewModels
             var path = _service.ExportDryRunReport(AllApps);
             if (path == null)
             {
-                SetStatusFailed("Nothing to export - scan first or no installed candidates are available.");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsNothingToExportScanFirstOrNo);
                 return;
             }
 
             LastReportPath = path;
-            SetStatusDone($"Dry-run report exported: {path}");
+            SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsDryRunReportExported, path));
             try { Process.Start("explorer.exe", $"/select,\"{path}\""); }
             catch { /* non-fatal; file is still created */ }
         }
@@ -851,12 +851,12 @@ namespace OmenCore.ViewModels
             var path = _service.ExportRemovalLog(AllApps);
             if (path == null)
             {
-                SetStatusFailed("Nothing to export — no removal attempts recorded in this session.");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsNothingToExportNoRemovalAttemptsRecorded);
                 return;
             }
 
             LastReportPath = path;
-            SetStatusDone($"Log exported: {path}");
+            SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsLogExported, path));
             try { Process.Start("explorer.exe", $"/select,\"{path}\""); }
             catch { /* non-fatal; file is still created */ }
         }
@@ -874,7 +874,7 @@ namespace OmenCore.ViewModels
         {
             if (!HasLastReport || string.IsNullOrWhiteSpace(LastReportPath))
             {
-                SetStatusFailed("No report is available yet.");
+                SetStatusFailed(global::OmenCore.Localization.Strings.CsNoReportIsAvailableYet);
                 return;
             }
 
@@ -928,7 +928,7 @@ namespace OmenCore.ViewModels
             }
 
             _bulkOperationCancellation?.Cancel();
-            SetStatusAction("Cancel requested");
+            SetStatusAction(global::OmenCore.Localization.Strings.CsCancelRequested);
         }
 
         private void RaiseCommandStates()
@@ -958,10 +958,10 @@ namespace OmenCore.ViewModels
                 .ToList();
             if (toRemove.Count == 0)
             {
-                SetStatusDone("No telemetry packages detected");
+                SetStatusDone(global::OmenCore.Localization.Strings.CsNoTelemetryPackagesDetected);
                 return;
             }
-            BuildRemovalPreview("Telemetry Only Preset", toRemove);
+            BuildRemovalPreview(global::OmenCore.Localization.Strings.CsTelemetryOnlyPreset, toRemove);
         }
 
         private void ApplyOmenConflictReducerPreset()
@@ -977,10 +977,10 @@ namespace OmenCore.ViewModels
                 .ToList();
             if (toRemove.Count == 0)
             {
-                SetStatusDone("No conflicting OMEN packages detected");
+                SetStatusDone(global::OmenCore.Localization.Strings.CsNoConflictingOMENPackagesDetected);
                 return;
             }
-            BuildRemovalPreview("OMEN Conflict Reducer Preset", toRemove);
+            BuildRemovalPreview(global::OmenCore.Localization.Strings.CsOMENConflictReducerPreset, toRemove);
         }
 
         private void ApplyWindowsConsumerAppsPreset()
@@ -990,10 +990,10 @@ namespace OmenCore.ViewModels
                 .ToList();
             if (toRemove.Count == 0)
             {
-                SetStatusDone("No Windows consumer apps detected");
+                SetStatusDone(global::OmenCore.Localization.Strings.CsNoWindowsConsumerAppsDetected);
                 return;
             }
-            BuildRemovalPreview("Windows Consumer Apps Preset", toRemove);
+            BuildRemovalPreview(global::OmenCore.Localization.Strings.CsWindowsConsumerAppsPreset, toRemove);
         }
 
         private void ApplyFullStandalonePreset()
@@ -1010,10 +1010,10 @@ namespace OmenCore.ViewModels
                 .ToList();
             if (toRemove.Count == 0)
             {
-                SetStatusDone("No packages match the Full Standalone preset criteria");
+                SetStatusDone(global::OmenCore.Localization.Strings.CsNoPackagesMatchTheFullStandalonePreset);
                 return;
             }
-            BuildRemovalPreview("Full Standalone Prep Preset", toRemove);
+            BuildRemovalPreview(global::OmenCore.Localization.Strings.CsFullStandalonePrepPreset, toRemove);
         }
 
         protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)

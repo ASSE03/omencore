@@ -58,8 +58,8 @@ namespace OmenCore.Controls
         {
             if (_fanVerifier == null)
             {
-                ModelInfoText.Text = "Fan calibration service is unavailable in this context.";
-                CalibrationStatusText.Text = "Calibration wizard cannot run: missing fan verification service.";
+                ModelInfoText.Text = global::OmenCore.Localization.Strings.CsFanCalibrationServiceIsUnavailableInThis;
+                CalibrationStatusText.Text = global::OmenCore.Localization.Strings.CsCalibrationWizardCannotRunMissingFanVerification;
                 CalibrationStatusText.Foreground = System.Windows.Media.Brushes.OrangeRed;
                 StartCalibrationButton.IsEnabled = false;
                 LoadCalibrationButton.IsEnabled = false;
@@ -91,18 +91,18 @@ namespace OmenCore.Controls
                     {
                         _logging.Warn($"[FanCalibrationControl] WMI model query failed: {ex.Message} — using fallback");
                     }
-                    return "Unknown Model";
+                    return global::OmenCore.Localization.Strings.CsUnknownModel;
                 });
 
                 // Generate model ID from model info
                 _currentModelId = GenerateModelId(modelInfo);
 
-                ModelInfoText.Text = $"Model: {modelInfo}\nModel ID: {_currentModelId}";
+                ModelInfoText.Text = string.Format(global::OmenCore.Localization.Strings.CsModelModelID, modelInfo, _currentModelId);
             }
             catch (Exception ex)
             {
                 _logging.Error($"Failed to load model information: {ex.Message}", ex);
-                ModelInfoText.Text = "Failed to detect model information";
+                ModelInfoText.Text = global::OmenCore.Localization.Strings.CsFailedToDetectModelInformation;
                 _currentModelId = "unknown";
             }
         }
@@ -112,13 +112,13 @@ namespace OmenCore.Controls
             if (_calibrationStorage.HasCalibration(_currentModelId))
             {
                 var calibration = _calibrationStorage.GetCalibration(_currentModelId);
-                CalibrationStatusText.Text = $"Calibration available (created {calibration?.CreatedDate.ToShortDateString()})";
+                CalibrationStatusText.Text = string.Format(global::OmenCore.Localization.Strings.CsCalibrationAvailableCreated, calibration?.CreatedDate.ToShortDateString());
                 CalibrationStatusText.Foreground = System.Windows.Media.Brushes.Green;
                 LoadCalibrationButton.IsEnabled = true;
             }
             else
             {
-                CalibrationStatusText.Text = "No calibration data found - run calibration first";
+                CalibrationStatusText.Text = global::OmenCore.Localization.Strings.CsNoCalibrationDataFoundRunCalibrationFirst;
                 CalibrationStatusText.Foreground = System.Windows.Media.Brushes.Orange;
                 LoadCalibrationButton.IsEnabled = false;
             }
@@ -140,7 +140,7 @@ namespace OmenCore.Controls
         {
             if (_fanVerifier == null)
             {
-                FanStatusText.Text = "Fan verification service is unavailable.";
+                FanStatusText.Text = global::OmenCore.Localization.Strings.CsFanVerificationServiceIsUnavailable;
                 return;
             }
 
@@ -149,11 +149,11 @@ namespace OmenCore.Controls
                 var (rpm, level, source) = _fanVerifier.GetCurrentFanStateWithSource(_selectedFanIndex);
                 var expectedPercent = _calibrationStorage.GetCalibratedPercent(_currentModelId, _selectedFanIndex, rpm);
 
-                FanStatusText.Text = $"Current: {rpm} RPM (Level: {level}, Source: {source})\nEstimated: ~{expectedPercent}% speed";
+                FanStatusText.Text = string.Format(global::OmenCore.Localization.Strings.CsCurrentRPMLevelSourceEstimatedSpeed, rpm, level, source, expectedPercent);
             }
             catch (Exception ex)
             {
-                FanStatusText.Text = $"Error reading fan status: {ex.Message}";
+                FanStatusText.Text = string.Format(global::OmenCore.Localization.Strings.CsErrorReadingFanStatus, ex.Message);
                 _logging.Error($"Failed to update fan status: {ex.Message}", ex);
             }
         }
@@ -162,18 +162,18 @@ namespace OmenCore.Controls
         {
             if (_fanVerifier == null || !_fanVerifier.IsAvailable)
             {
-                MessageBox.Show("Fan verification service is not available. Please check that hardware monitoring is working.",
-                              "Calibration Unavailable", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(global::OmenCore.Localization.Strings.CsFanVerificationServiceIsNotAvailablePlease,
+                              global::OmenCore.Localization.Strings.CsCalibrationUnavailable_715a2, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             var result = MessageBox.Show(
-                "Fan calibration will test speeds from 0% to 100% and may take 5-10 minutes.\n\n" +
-                "• Ensure your laptop has good ventilation\n" +
-                "• Do not interrupt the process\n" +
-                "• Fans will run at various speeds\n\n" +
-                "Continue with calibration?",
-                "Start Fan Calibration",
+                global::OmenCore.Localization.Strings.CsFanCalibrationWillTestSpeedsFrom0
+
+
+
+,
+                global::OmenCore.Localization.Strings.CsStartFanCalibration,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -202,14 +202,14 @@ namespace OmenCore.Controls
                 SaveCalibrationButton.Visibility = Visibility.Collapsed;
 
                 CalibrationProgress.Value = 0;
-                ProgressText.Text = "Starting calibration...";
+                ProgressText.Text = global::OmenCore.Localization.Strings.CsStartingCalibration;
 
                 // Perform calibration
                 var calibrationResult = await _fanVerifier.PerformFanCalibrationAsync(_selectedFanIndex, _calibrationCts.Token);
 
                 // Update progress
                 CalibrationProgress.Value = 100;
-                ProgressText.Text = "Calibration completed";
+                ProgressText.Text = global::OmenCore.Localization.Strings.CsCalibrationCompleted;
 
                 // Show results
                 await DisplayCalibrationResultsAsync(calibrationResult);
@@ -225,14 +225,14 @@ namespace OmenCore.Controls
             }
             catch (OperationCanceledException)
             {
-                ProgressText.Text = "Calibration cancelled";
+                ProgressText.Text = global::OmenCore.Localization.Strings.CsCalibrationCancelled;
                 _logging.Info("Fan calibration cancelled by user");
             }
             catch (Exception ex)
             {
-                ProgressText.Text = $"Calibration failed: {ex.Message}";
+                ProgressText.Text = string.Format(global::OmenCore.Localization.Strings.CsCalibrationFailed, ex.Message);
                 _logging.Error($"Fan calibration failed: {ex.Message}", ex);
-                MessageBox.Show($"Calibration failed: {ex.Message}", "Calibration Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsCalibrationFailed, ex.Message), global::OmenCore.Localization.Strings.CsCalibrationError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -250,12 +250,12 @@ namespace OmenCore.Controls
 
             if (result.Success)
             {
-                ResultsSummaryText.Text = $"Calibration successful - {result.CalibrationPoints.Count} test points completed in {result.Duration.TotalSeconds:F1} seconds";
+                ResultsSummaryText.Text = string.Format(global::OmenCore.Localization.Strings.CsCalibrationSuccessfulTestPointsCompletedInSeconds, result.CalibrationPoints.Count, result.Duration.TotalSeconds);
                 ResultsSummaryText.Foreground = System.Windows.Media.Brushes.Green;
             }
             else
             {
-                ResultsSummaryText.Text = $"Calibration completed with issues - {result.CalibrationPoints.Count} test points, {result.CalibrationPoints.Count(p => !p.VerificationPassed)} failed";
+                ResultsSummaryText.Text = string.Format(global::OmenCore.Localization.Strings.CsCalibrationCompletedWithIssuesTestPointsFailed, result.CalibrationPoints.Count, result.CalibrationPoints.Count(p => !p.VerificationPassed));
                 ResultsSummaryText.Foreground = System.Windows.Media.Brushes.Orange;
             }
 
@@ -266,7 +266,7 @@ namespace OmenCore.Controls
                 AppliedLevel = p.AppliedLevel,
                 MeasuredRpm = p.MeasuredRpm,
                 RpmRange = $"{p.RpmRangeMin}-{p.RpmRangeMax}",
-                Status = p.VerificationPassed ? "✓ Pass" : "✗ Fail",
+                Status = p.VerificationPassed ? global::OmenCore.Localization.Strings.CsPass : global::OmenCore.Localization.Strings.CsFail,
                 DurationFormatted = p.Duration.TotalSeconds.ToString("F1") + "s"
             }).ToList();
 
@@ -284,14 +284,14 @@ namespace OmenCore.Controls
         {
             if (_fanVerifier == null)
             {
-                MessageBox.Show("Fan verification service is unavailable.", "Restore Auto Unavailable", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(global::OmenCore.Localization.Strings.CsFanVerificationServiceIsUnavailable, global::OmenCore.Localization.Strings.CsRestoreAutoUnavailable, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             var restored = _fanVerifier.RestoreFanControlAfterCalibration();
             ProgressText.Text = restored
-                ? "BIOS auto fan control restored"
-                : "Could not restore BIOS auto fan control from this backend";
+                ? global::OmenCore.Localization.Strings.CsBIOSAutoFanControlRestored
+                : global::OmenCore.Localization.Strings.CsCouldNotRestoreBIOSAutoFanControl;
             ProgressGroup.Visibility = Visibility.Visible;
             UpdateFanStatus();
         }
@@ -303,8 +303,8 @@ namespace OmenCore.Controls
             var calibration = _calibrationStorage.GetCalibration(_currentModelId);
             var fanCount = calibration?.FanCalibrations.Count ?? 0;
             MessageBox.Show(
-                $"Loaded calibration data for {_currentModelId} ({fanCount} fan profile{(fanCount == 1 ? "" : "s")}).",
-                "Calibration Loaded",
+                string.Format(global::OmenCore.Localization.Strings.CsLoadedCalibrationDataForFanProfile, _currentModelId, fanCount, (fanCount == 1 ? "" : "s")),
+                global::OmenCore.Localization.Strings.CsCalibrationLoaded,
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         }
@@ -316,8 +316,8 @@ namespace OmenCore.Controls
                 if (_lastCalibrationResult == null || !_lastCalibrationResult.Success)
                 {
                     MessageBox.Show(
-                        "No successful calibration result is available to save. Run calibration first.",
-                        "Nothing to Save",
+                        global::OmenCore.Localization.Strings.CsNoSuccessfulCalibrationResultIsAvailableTo,
+                        global::OmenCore.Localization.Strings.CsNothingToSave,
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
                     return;
@@ -332,23 +332,23 @@ namespace OmenCore.Controls
                 SaveCalibrationButton.Visibility = Visibility.Collapsed;
 
                 MessageBox.Show(
-                    $"Calibration data saved for {_currentModelId}.",
-                    "Calibration Saved",
+                    string.Format(global::OmenCore.Localization.Strings.CsCalibrationDataSavedFor, _currentModelId),
+                    global::OmenCore.Localization.Strings.CsCalibrationSaved,
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
                 _logging.Error($"Failed to save calibration: {ex.Message}", ex);
-                MessageBox.Show($"Failed to save calibration: {ex.Message}", "Save Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Failed to save calibration: {ex.Message}", global::OmenCore.Localization.Strings.CsSaveError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void ClearCalibrationButton_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show(
-                "This will remove all calibration data for this model.\n\nAre you sure?",
-                "Clear Calibration Data",
+                global::OmenCore.Localization.Strings.CsThisWillRemoveAllCalibrationDataFor,
+                global::OmenCore.Localization.Strings.CsClearCalibrationData,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -356,7 +356,7 @@ namespace OmenCore.Controls
             {
                 // Clear calibration data
                 UpdateCalibrationStatus();
-                MessageBox.Show("Calibration data cleared.", "Data Cleared", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(global::OmenCore.Localization.Strings.CsCalibrationDataCleared, global::OmenCore.Localization.Strings.CsDataCleared, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

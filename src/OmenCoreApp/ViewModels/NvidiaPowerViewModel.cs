@@ -36,12 +36,12 @@ namespace OmenCore.ViewModels
                 _ => Enabled && !_busy && SelectedTarget > 0 && _status?.MaxReady == true);
             ApplyCurrentCommand = new AsyncRelayCommand(_ => RunAsync("CURRENT", w => _service.ApplyCurrent(w), false),
                 _ => Enabled && !_busy && SelectedTarget > 0 && _status?.CurrentReady == true);
-            RemoveMaxCommand = new AsyncRelayCommand(_ => RunAsync("remove MAX override", _ => _service.RemoveMax(), true),
+            RemoveMaxCommand = new AsyncRelayCommand(_ => RunAsync(global::OmenCore.Localization.Strings.CsRemoveMAXOverride, _ => _service.RemoveMax(), true),
                 _ => Enabled && !_busy && _status?.MaxReady == true);
             ResolveVbiosCommand = new AsyncRelayCommand(_ => ResolveAsync(null), _ => Enabled && !_busy);
             ResolveVbiosFromFileCommand = new AsyncRelayCommand(_ =>
             {
-                var dlg = new Microsoft.Win32.OpenFileDialog { Title = "Select a VBIOS dump", Filter = "VBIOS dump (*.rom;*.bin)|*.rom;*.bin|All files|*.*" };
+                var dlg = new Microsoft.Win32.OpenFileDialog { Title = global::OmenCore.Localization.Strings.CsSelectAVBIOSDump, Filter = "VBIOS dump (*.rom;*.bin)|*.rom;*.bin|All files|*.*" };
                 return dlg.ShowDialog() == true ? ResolveAsync(dlg.FileName) : Task.CompletedTask;
             }, _ => Enabled && !_busy);
             if (Enabled) _ = RefreshAsync();
@@ -56,7 +56,7 @@ namespace OmenCore.ViewModels
             try
             {
                 var r = await Task.Run(() => romPath == null ? _service.ResolveVbiosAuto() : _service.ResolveVbiosFromRom(romPath));
-                ResultText = (r.Success ? "Done: " : "Not resolved: ") + r.Message;
+                ResultText = (r.Success ? "Done: " : global::OmenCore.Localization.Strings.CsNotResolved) + r.Message;
             }
             finally
             {
@@ -103,7 +103,7 @@ namespace OmenCore.ViewModels
             try { s = _service.Assess(); }
             catch (Exception ex) when (ex is InvalidOperationException or System.ComponentModel.Win32Exception or DllNotFoundException)
             {
-                Post(() => StatusText = "Could not read the NVIDIA driver: " + ex.Message);
+                Post(() => StatusText = global::OmenCore.Localization.Strings.CsCouldNotReadTheNVIDIADriver + ex.Message);
                 return;
             }
             Post(() =>
@@ -113,9 +113,9 @@ namespace OmenCore.ViewModels
                 foreach (var t in s.Targets) Targets.Add(t);
                 if (!Targets.Contains(SelectedTarget)) SelectedTarget = Targets.FirstOrDefault();
                 var live = s.LiveCurrentW.HasValue && s.LiveMaxW.HasValue
-                    ? $"Live CURRENT {s.LiveCurrentW:0.#} W, live MAX {s.LiveMaxW:0.#} W. " : "";
+                    ? string.Format(global::OmenCore.Localization.Strings.CsLiveCURRENTWLiveMAXW, s.LiveCurrentW, s.LiveMaxW) : "";
                 StatusText = $"{(string.IsNullOrEmpty(s.Gpu) ? "NVIDIA GPU" : s.Gpu)}: {live}" +
-                             $"MAX writes {(s.MaxReady ? "ready" : "not ready")}, CURRENT writes {(s.CurrentReady ? "ready" : "not ready")}. {s.Reason}" +
+                             string.Format(global::OmenCore.Localization.Strings.CsMAXWritesCURRENTWrites, (s.MaxReady ? "ready" : "not ready"), (s.CurrentReady ? "ready" : "not ready"), s.Reason) +
                              StockMismatchNote(s.LiveMaxW, s.ExpectedStockW);
                 RaiseCommands();
             });
@@ -125,18 +125,18 @@ namespace OmenCore.ViewModels
         {
             var watts = SelectedTarget;
             var prompt = what.StartsWith("remove", StringComparison.Ordinal)
-                ? "Remove the MAX override? Windows must be restarted afterwards to restore the factory limit."
-                : $"Apply {what} {watts} W?\n\nThis changes the GPU's power limit beyond the laptop maker's setting. " +
-                  "Higher power means more heat, and the cooling was not designed for it. " +
-                  (mayNeedReboot ? "MAX needs a Windows restart to take effect. " : "CURRENT resets on reboot. ") +
-                  "Only continue if you understand the risk.";
-            if (MessageBox.Show(prompt, "NVIDIA power", MessageBoxButton.OKCancel, MessageBoxImage.Warning) != MessageBoxResult.OK) return;
+                ? global::OmenCore.Localization.Strings.CsRemoveTheMAXOverrideWindowsMustBe
+                : string.Format(global::OmenCore.Localization.Strings.CsApplyWThisChangesTheGPUS, what, watts) +
+                  global::OmenCore.Localization.Strings.CsHigherPowerMeansMoreHeatAndThe +
+                  (mayNeedReboot ? global::OmenCore.Localization.Strings.CsMAXNeedsAWindowsRestartToTake : global::OmenCore.Localization.Strings.CsCURRENTResetsOnReboot) +
+                  global::OmenCore.Localization.Strings.CsOnlyContinueIfYouUnderstandTheRisk;
+            if (MessageBox.Show(prompt, global::OmenCore.Localization.Strings.CsNVIDIAPower, MessageBoxButton.OKCancel, MessageBoxImage.Warning) != MessageBoxResult.OK) return;
 
             _busy = true; RaiseCommands();
             try
             {
                 var r = await Task.Run(() => op(watts));
-                ResultText = (r.Success ? "Done: " : "Not applied: ") + r.Message + (r.RebootRequired ? " Restart Windows to finish." : "");
+                ResultText = (r.Success ? "Done: " : global::OmenCore.Localization.Strings.CsNotApplied) + r.Message + (r.RebootRequired ? global::OmenCore.Localization.Strings.CsRestartWindowsToFinish : "");
                 _logging.Info("NVIDIA power panel: " + ResultText);
             }
             finally
@@ -155,8 +155,8 @@ namespace OmenCore.ViewModels
             if (!liveMaxW.HasValue || !expectedStockW.HasValue || Math.Abs(liveMaxW.Value - expectedStockW.Value) <= 1.0)
                 return string.Empty;
 
-            return $" Stock max read: {liveMaxW.Value:0.#} W, expected: {expectedStockW.Value} W. A difference is normal when a MAX override " +
-                   "is installed or the laptop maker set a lower limit; it is not an error by itself.";
+            return string.Format(global::OmenCore.Localization.Strings.CsStockMaxReadWExpectedWA, liveMaxW.Value, expectedStockW.Value) +
+                   global::OmenCore.Localization.Strings.CsIsInstalledOrTheLaptopMakerSet;
         }
 
         private void RaiseCommands()

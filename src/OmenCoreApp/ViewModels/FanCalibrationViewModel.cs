@@ -21,7 +21,7 @@ namespace OmenCore.ViewModels
         private readonly LoggingService _logging;
         private CancellationTokenSource? _cts;
 
-        private string _status = "Not started";
+        private string _status = global::OmenCore.Localization.Strings.CsNotStarted;
         private int _progress = 0;
         private bool _isCalibrating = false;
         private string _calibrationInfo = "";
@@ -97,7 +97,7 @@ namespace OmenCore.ViewModels
         private async Task StartCalibrationAsync()
         {
             IsCalibrating = true;
-            Status = "Preparing calibration...";
+            Status = global::OmenCore.Localization.Strings.CsPreparingCalibration;
             Progress = 0;
             CalibrationSteps.Clear();
 
@@ -105,12 +105,12 @@ namespace OmenCore.ViewModels
 
             try
             {
-                Status = "Running calibration wizard...";
+                Status = global::OmenCore.Localization.Strings.CsRunningCalibrationWizard;
                 await _calibrationService.StartCalibrationAsync(_cts.Token);
             }
             catch (OperationCanceledException)
             {
-                Status = "Calibration cancelled";
+                Status = global::OmenCore.Localization.Strings.CsCalibrationCancelled;
             }
             catch (Exception ex)
             {
@@ -142,11 +142,11 @@ namespace OmenCore.ViewModels
                     Level = step.Level,
                     Fan0Rpm = step.Fan0Rpm,
                     Fan1Rpm = step.Fan1Rpm,
-                    Status = "✓ Complete"
+                    Status = global::OmenCore.Localization.Strings.CsComplete
                 });
 
                 Progress = _calibrationService.CalibrationProgress;
-                Status = $"Testing level {step.Level}... ({Progress}% complete)";
+                Status = string.Format(global::OmenCore.Localization.Strings.CsTestingLevelComplete, step.Level, Progress);
             });
         }
 
@@ -154,7 +154,7 @@ namespace OmenCore.ViewModels
         {
             DispatcherHelper.RunOnUiThread(() =>
             {
-                Status = "✓ Calibration complete!";
+                Status = global::OmenCore.Localization.Strings.CsCalibrationComplete;
                 Progress = 100;
                 IsCalibrating = false;
                 UpdateCalibrationInfo();
@@ -166,7 +166,7 @@ namespace OmenCore.ViewModels
         {
             DispatcherHelper.RunOnUiThread(() =>
             {
-                Status = $"⚠ Error: {error}";
+                Status = string.Format(global::OmenCore.Localization.Strings.CsError, error);
                 IsCalibrating = false;
             });
         }
@@ -176,17 +176,17 @@ namespace OmenCore.ViewModels
             var profile = _calibrationService.ActiveProfile;
             if (profile == null || !profile.IsValid)
             {
-                CalibrationInfo = "No calibration data available. Run the calibration wizard to measure your fan's actual performance.";
+                CalibrationInfo = global::OmenCore.Localization.Strings.CsNoCalibrationDataAvailableRunTheCalibration;
             }
             else
             {
                 var age = DateTime.Now - profile.CalibratedAt;
-                CalibrationInfo = $"Calibrated for: {profile.ModelName}\n" +
-                                  $"Max Level: {profile.MaxLevel}\n" +
-                                  $"Min Spin Level: {profile.MinSpinLevel}\n" +
+                CalibrationInfo = string.Format(global::OmenCore.Localization.Strings.CsCalibratedFor, profile.ModelName) +
+                                  string.Format(global::OmenCore.Localization.Strings.CsMaxLevel, profile.MaxLevel) +
+                                  string.Format(global::OmenCore.Localization.Strings.CsMinSpinLevel, profile.MinSpinLevel) +
                                   $"CPU Fan Max: {profile.Fan0MaxRpm} RPM\n" +
                                   $"GPU Fan Max: {profile.Fan1MaxRpm} RPM\n" +
-                                  $"Last calibrated: {profile.CalibratedAt:g} ({age.TotalDays:F0} days ago)";
+                                  string.Format(global::OmenCore.Localization.Strings.CsLastCalibratedDaysAgo, profile.CalibratedAt, age.TotalDays);
             }
         }
 

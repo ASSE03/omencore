@@ -921,17 +921,17 @@ namespace OmenCore.ViewModels
         {
             if (HasDisplayablePower(watts, state))
             {
-                return $"{label} package power from monitoring telemetry.";
+                return string.Format(global::OmenCore.Localization.Strings.CsPackagePowerFromMonitoringTelemetry, label);
             }
 
             return state switch
             {
-                TelemetryDataState.Stale => $"{label} power telemetry is stale.",
-                TelemetryDataState.Invalid => $"{label} power telemetry returned an invalid value.",
-                TelemetryDataState.Unavailable => $"{label} power sensor is unavailable on this backend.",
-                TelemetryDataState.Inactive => $"{label} power telemetry is inactive.",
-                TelemetryDataState.Zero => $"{label} power sensor returned 0W; hiding it as unavailable.",
-                _ => $"{label} power telemetry is not available yet."
+                TelemetryDataState.Stale => string.Format(global::OmenCore.Localization.Strings.CsPowerTelemetryIsStale, label),
+                TelemetryDataState.Invalid => string.Format(global::OmenCore.Localization.Strings.CsPowerTelemetryReturnedAnInvalidValue, label),
+                TelemetryDataState.Unavailable => string.Format(global::OmenCore.Localization.Strings.CsPowerSensorIsUnavailableOnThisBackend, label),
+                TelemetryDataState.Inactive => string.Format(global::OmenCore.Localization.Strings.CsPowerTelemetryIsInactive, label),
+                TelemetryDataState.Zero => string.Format(global::OmenCore.Localization.Strings.CsPowerSensorReturned0WHidingItAs, label),
+                _ => string.Format(global::OmenCore.Localization.Strings.CsPowerTelemetryIsNotAvailableYet, label)
             };
         }
 

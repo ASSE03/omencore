@@ -51,18 +51,18 @@ namespace OmenCore.ViewModels
         private bool _respectExternalUndervolt = true;
         private bool _enablePerCoreUndervolt;
         private int?[]? _requestedPerCoreOffsets;
-        private string _undervoltLastActionText = "No recent undervolt action";
+        private string _undervoltLastActionText = global::OmenCore.Localization.Strings.CsNoRecentUndervoltAction;
         private System.Windows.Media.Brush _undervoltLastActionColor = System.Windows.Media.Brushes.Gray;
         private CancellationTokenSource? _gpuOcTestCancellation;
         private GpuOcSnapshot? _gpuOcTestSnapshot;
         private int _gpuOcTestCountdownSeconds;
         private bool _gpuOcTestPending;
-        private string _gpuOcTestStatusText = "Test Apply runs tuning temporarily and reverts automatically unless you keep it.";
+        private string _gpuOcTestStatusText = global::OmenCore.Localization.Strings.CsTestApplyRunsTuningTemporarilyAndReverts;
         private CancellationTokenSource? _cpuUndervoltTestCancellation;
         private (double CoreMv, double CacheMv)? _cpuUndervoltTestSnapshot;
         private bool _cpuUndervoltTestPending;
         private int _cpuUndervoltTestCountdownSeconds;
-        private string _cpuUndervoltTestStatusText = "Test Apply runs the undervolt temporarily and reverts automatically unless you keep it.";
+        private string _cpuUndervoltTestStatusText = global::OmenCore.Localization.Strings.CsTestApplyRunsTheUndervoltTemporarilyAnd;
 
         public ObservableCollection<PerformanceMode> PerformanceModes { get; } = new();
 
@@ -217,7 +217,7 @@ namespace OmenCore.ViewModels
                     var values = UndervoltStatus.CurrentPerCoreOffsetsMv.Where(x => x.HasValue).Select(x => x!.Value).ToArray();
                     var activeCores = values.Length;
                     var avgOffset = activeCores > 0 ? values.Average() : 0.0;
-                    return $"Per-Core: {activeCores} cores active | Avg {avgOffset:+0;-0;0} mV | {UndervoltSecondChannelLabel} {UndervoltStatus.CurrentCacheOffsetMv:+0;-0;0} mV";
+                    return string.Format(global::OmenCore.Localization.Strings.CsPerCoreCoresActiveAvgMVMV, activeCores, avgOffset, UndervoltSecondChannelLabel, UndervoltStatus.CurrentCacheOffsetMv);
                 }
                 else
                 {
@@ -269,13 +269,13 @@ namespace OmenCore.ViewModels
             }
         }
 
-        public string UndervoltSectionTitle => IsAmdCpu ? "CPU Curve Optimizer (AMD)" : "CPU Undervolting";
+        public string UndervoltSectionTitle => IsAmdCpu ? global::OmenCore.Localization.Strings.CsCPUCurveOptimizerAMD : global::OmenCore.Localization.Strings.CsCPUUndervolting;
 
-        public string UndervoltActionLabel => IsAmdCpu ? "Apply Curve Optimizer" : "Apply Undervolt";
+        public string UndervoltActionLabel => IsAmdCpu ? global::OmenCore.Localization.Strings.CsApplyCurveOptimizer : global::OmenCore.Localization.Strings.CsApplyUndervolt;
 
         public string UndervoltGuidanceText => IsAmdCpu
-            ? "AMD uses Curve Optimizer (CO) instead of direct mV offset writes. More negative values are stronger CO undervolt."
-            : "Reduce CPU voltage offset to lower temperature and power draw. More negative values apply stronger undervolt.";
+            ? global::OmenCore.Localization.Strings.CsAMDUsesCurveOptimizerCOInsteadOf
+            : global::OmenCore.Localization.Strings.CsReduceCPUVoltageOffsetToLowerTemperature;
 
         public string UndervoltBackendText
         {
@@ -283,7 +283,7 @@ namespace OmenCore.ViewModels
             {
                 if (_undervoltService == null)
                 {
-                    return "Backend: unavailable";
+                    return global::OmenCore.Localization.Strings.CsBackendUnavailable;
                 }
 
                 var provider = _undervoltService.Provider;
@@ -335,7 +335,7 @@ namespace OmenCore.ViewModels
             get
             {
                 if (_undervoltService == null)
-                    return "Undervolt service failed to initialize. This may be due to missing driver files or insufficient permissions.";
+                    return global::OmenCore.Localization.Strings.CsUndervoltServiceFailedToInitializeThisMay;
 
                 if (!UndervoltStatus.IsRuntimeReady && !string.IsNullOrWhiteSpace(UndervoltStatus.RuntimeBlockReason))
                     return UndervoltStatus.RuntimeBlockReason;
@@ -350,21 +350,21 @@ namespace OmenCore.ViewModels
                 
                 if (cpuVendor == Hardware.CpuUndervoltProviderFactory.CpuVendor.AMD)
                 {
-                    return $"AMD {cpuName} detected.\n\n" +
-                           "AMD Ryzen CPUs use Curve Optimizer (CO) instead of traditional voltage offset undervolting. " +
-                           "CO requires specific SMU (System Management Unit) commands that may not be available or working on all models.\n\n" +
-                           "Supported: Ryzen 5000+ series with PawnIO driver installed.\n" +
-                           "Alternative: Use Ryzen Master or BIOS Curve Optimizer settings.";
+                    return string.Format(global::OmenCore.Localization.Strings.CsAMDDetected, cpuName) +
+                           global::OmenCore.Localization.Strings.CsAMDRyzenCPUsUseCurveOptimizerCO +
+                           global::OmenCore.Localization.Strings.CsCORequiresSpecificSMUSystemManagementUnit +
+                           global::OmenCore.Localization.Strings.CsSupportedRyzen5000SeriesWithPawnIODriver +
+                           global::OmenCore.Localization.Strings.CsAlternativeUseRyzenMasterOrBIOSCurve;
                 }
                 else
                 {
                     return $"Intel {cpuName} detected.\n\n" +
-                           "CPU voltage control is blocked by Intel's Plundervolt security mitigations (CVE-2019-11157). " +
-                           "Most BIOS updates after 2020 lock MSR 0x150 (voltage offset register).\n\n" +
-                           "Possible solutions:\n" +
-                           "• Check if your BIOS has an option to unlock overclocking/undervolt\n" +
-                           "• Some manufacturers provide BIOS updates that re-enable voltage control\n" +
-                           "• Use Intel XTU if your system supports it";
+                           global::OmenCore.Localization.Strings.CsCPUVoltageControlIsBlockedByIntel +
+                           global::OmenCore.Localization.Strings.CsMostBIOSUpdatesAfter2020LockMSR +
+                           global::OmenCore.Localization.Strings.CsPossibleSolutions +
+                           global::OmenCore.Localization.Strings.CsCheckIfYourBIOSHasAnOption +
+                           global::OmenCore.Localization.Strings.CsSomeManufacturersProvideBIOSUpdatesThatRe +
+                           global::OmenCore.Localization.Strings.CsUseIntelXTUIfYourSystemSupports;
                 }
             }
         }
@@ -395,15 +395,15 @@ namespace OmenCore.ViewModels
         public string UndervoltSecondChannelLabel => IsAmdCpu ? "iGPU" : "Cache";
 
         /// <summary>Header on the second offset slider. "L3 Cache" is not what AMD writes here.</summary>
-        public string UndervoltSecondChannelHeader => IsAmdCpu ? "IGPU OFFSET" : "CACHE OFFSET";
+        public string UndervoltSecondChannelHeader => IsAmdCpu ? global::OmenCore.Localization.Strings.CsIGPUOFFSET : global::OmenCore.Localization.Strings.CsCACHEOFFSET;
 
-        public string UndervoltSecondChannelSubtitle => IsAmdCpu ? "Radeon graphics" : "L3 Cache";
+        public string UndervoltSecondChannelSubtitle => IsAmdCpu ? global::OmenCore.Localization.Strings.CsRadeonGraphics : global::OmenCore.Localization.Strings.CsL3Cache;
 
         public string UndervoltRequestedChipText =>
-            $"Requested: Core {RequestedCoreOffset:+0;-0;0} mV | {UndervoltSecondChannelLabel} {RequestedCacheOffset:+0;-0;0} mV";
+            string.Format(global::OmenCore.Localization.Strings.CsRequestedCoreMVMV, RequestedCoreOffset, UndervoltSecondChannelLabel, RequestedCacheOffset);
 
         public string UndervoltConfirmedChipText => UndervoltStatus == null
-            ? "Confirmed: n/a"
+            ? global::OmenCore.Localization.Strings.CsConfirmedNA
             : $"Confirmed: Core {UndervoltStatus.CurrentCoreOffsetMv:+0;-0;0} mV | {UndervoltSecondChannelLabel} {UndervoltStatus.CurrentCacheOffsetMv:+0;-0;0} mV";
 
         // Set once an apply, test-apply or startup reapply has actually been attempted. A slider that
@@ -482,39 +482,39 @@ namespace OmenCore.ViewModels
         
         public string ExternalControllerWarning => UndervoltStatus?.ExternalController switch
         {
-            "Intel XTU" => "Intel Extreme Tuning Utility (XTU) is controlling CPU voltage settings. XTU blocks MSR (Model Specific Register) access for other applications, preventing OmenCore from applying undervolts.",
-            "ThrottleStop" => "ThrottleStop is running and managing CPU voltage. It may conflict with OmenCore's undervolt settings.",
-            "Intel DTT" => "Intel Dynamic Tuning Technology service is active and may be controlling voltage settings.",
-            "OMEN Gaming Hub" => "OMEN Gaming Hub is managing CPU settings. While OGH is installed, some voltage controls may be handled by HP's software.",
+            "Intel XTU" => global::OmenCore.Localization.Strings.CsIntelExtremeTuningUtilityXTUIsControlling,
+            "ThrottleStop" => global::OmenCore.Localization.Strings.CsThrottleStopIsRunningAndManagingCPUVoltage,
+            "Intel DTT" => global::OmenCore.Localization.Strings.CsIntelDynamicTuningTechnologyServiceIsActive,
+            "OMEN Gaming Hub" => global::OmenCore.Localization.Strings.CsOMENGamingHubIsManagingCPUSettings,
             "HP OmenCap (DriverStore)" => "OmenCap.exe is running from Windows DriverStore. This HP component persists after OMEN Gaming Hub uninstall and blocks MSR access for undervolting.",
-            _ => $"{UndervoltStatus?.ExternalController ?? "An external program"} is controlling CPU voltage settings and may conflict with OmenCore."
+            _ => string.Format(global::OmenCore.Localization.Strings.CsIsControllingCPUVoltageSettingsAndMay, UndervoltStatus?.ExternalController ?? "An external program")
         };
         
         public string ExternalControllerHowToFix => UndervoltStatus?.ExternalController switch
         {
-            "Intel XTU" => "1. Open Services (Win+R → services.msc)\n" +
-                           "2. Find 'Intel(R) Extreme Tuning Utility' service\n" +
-                           "3. Right-click → Stop, then set Startup type to 'Disabled'\n" +
-                           "4. Optionally uninstall XTU from Control Panel\n" +
-                           "5. Restart OmenCore",
-            "ThrottleStop" => "1. Close ThrottleStop from the system tray\n" +
-                              "2. Disable ThrottleStop's auto-start (uncheck 'Start Minimized')\n" +
-                              "3. Restart OmenCore to take over voltage control",
-            "Intel DTT" => "1. Open Services (Win+R → services.msc)\n" +
-                           "2. Find 'Intel(R) Dynamic Tuning Service'\n" +
-                           "3. Stop and disable the service\n" +
-                           "4. Note: This may affect Intel thermal management",
-            "OMEN Gaming Hub" => "1. Use OmenCore's 'Clean OMEN Gaming Hub' feature in Settings\n" +
-                                 "2. Or uninstall OGH from Control Panel → Programs\n" +
-                                 "3. Restart your computer after removal",
-            "HP OmenCap (DriverStore)" => "OmenCap persists in Windows DriverStore after OGH uninstall:\n" +
-                                          "1. Open Admin Command Prompt\n" +
-                                          "2. Run: pnputil /enum-drivers | findstr /i omen\n" +
-                                          "3. Note the oem##.inf for hpomencustomcapcomp\n" +
-                                          "4. Run: pnputil /delete-driver oem##.inf /force\n" +
-                                          "5. Reboot your computer\n" +
-                                          "6. This fully removes HP's hardware access component",
-            _ => "Close or disable the external application, then restart OmenCore."
+            "Intel XTU" => global::OmenCore.Localization.Strings.Cs1OpenServicesWinRServicesMsc
+
+
+
+,
+            "ThrottleStop" => global::OmenCore.Localization.Strings.Cs1CloseThrottleStopFromTheSystemTray
+
+,
+            "Intel DTT" => global::OmenCore.Localization.Strings.Cs1OpenServicesWinRServicesMsc_a0218
+
+
+,
+            "OMEN Gaming Hub" => global::OmenCore.Localization.Strings.Cs1UseOmenCoreSCleanOMENGaming
+
+,
+            "HP OmenCap (DriverStore)" => global::OmenCore.Localization.Strings.CsOmenCapPersistsInWindowsDriverStoreAfterOGH
+
+
+
+
+
+,
+            _ => global::OmenCore.Localization.Strings.CsCloseOrDisableTheExternalApplicationThen
         };
 
         // CPU Vendor Properties (for UI display)
@@ -605,7 +605,7 @@ namespace OmenCore.ViewModels
 
         private AmdPowerLimitReadback? _amdLimitReadback;
         private string _amdLimitReadbackUnavailableReason =
-            "Not read yet - press Refresh to ask the SMU what it is running.";
+            global::OmenCore.Localization.Strings.CsNotReadYetPressRefreshToAsk;
 
         /// <summary>
         /// True once the SMU's own power table has been read. Everything else on this row is
@@ -634,7 +634,7 @@ namespace OmenCore.ViewModels
 
         public string AmdLimitReadbackSourceText =>
             _amdLimitReadback is AmdPowerLimitReadback r
-                ? $"Read from the SMU power table (version 0x{r.TableVersion:X})."
+                ? string.Format(global::OmenCore.Localization.Strings.CsReadFromTheSMUPowerTableVersion, r.TableVersion)
                 : string.Empty;
 
         /// <summary>
@@ -647,9 +647,9 @@ namespace OmenCore.ViewModels
 
         public string AmdLimitReadbackMismatchText =>
             _amdLimitReadback is AmdPowerLimitReadback r && AmdLimitReadbackDiffersFromRequest
-                ? $"The slider asks for {AmdStapmLimitWatts} W but the SMU is running " +
-                  $"{r.StapmWatts:F1} W. Press Apply, or check that another tool is not " +
-                  "re-asserting a limit."
+                ? string.Format(global::OmenCore.Localization.Strings.CsTheSliderAsksForWButThe, AmdStapmLimitWatts) +
+                  string.Format(global::OmenCore.Localization.Strings.CsWPressApplyOrCheckThatAnother, r.StapmWatts) +
+                  global::OmenCore.Localization.Strings.CsReAssertingALimit
                 : string.Empty;
 
         /// <summary>
@@ -662,14 +662,14 @@ namespace OmenCore.ViewModels
                 if (_undervoltService?.Provider is not AmdUndervoltProvider amdProvider)
                 {
                     _amdLimitReadback = null;
-                    _amdLimitReadbackUnavailableReason = "No AMD SMU provider on this system.";
+                    _amdLimitReadbackUnavailableReason = global::OmenCore.Localization.Strings.CsNoAMDSMUProviderOnThisSystem;
                 }
                 else if (string.Equals(amdProvider.ActiveBackend, "None", StringComparison.OrdinalIgnoreCase))
                 {
                     _amdLimitReadback = null;
                     _amdLimitReadbackUnavailableReason =
-                        "The SMU backend is unavailable, so the limits cannot be read. Install " +
-                        "PawnIO and run OmenCore as administrator.";
+                        global::OmenCore.Localization.Strings.CsTheSMUBackendIsUnavailableSoThe
+;
                 }
                 else
                 {
@@ -681,17 +681,17 @@ namespace OmenCore.ViewModels
                         // an unmapped table version is what sent someone chasing a driver problem
                         // that was really just a silicon we have not measured.
                         _amdLimitReadbackUnavailableReason =
-                            "This CPU's SMU power table layout has not been identified, so a " +
-                            "reading would come from an unknown slot. OmenCore reports nothing " +
-                            "rather than a plausible wrong number. tools/SmuProbe --pmtable adds " +
-                            "a new table version.";
+                            global::OmenCore.Localization.Strings.CsThisCPUSSMUPowerTableLayout
+
+
+;
                     }
                 }
             }
             catch (Exception ex)
             {
                 _amdLimitReadback = null;
-                _amdLimitReadbackUnavailableReason = $"The SMU read failed: {ex.Message}";
+                _amdLimitReadbackUnavailableReason = string.Format(global::OmenCore.Localization.Strings.CsTheSMUReadFailed, ex.Message);
                 _logging.Warn($"AMD power limit readback failed: {ex.Message}");
             }
 
@@ -717,40 +717,40 @@ namespace OmenCore.ViewModels
             {
                 if (!IsAmdCpu)
                 {
-                    return "AMD Ryzen CPU not detected.";
+                    return global::OmenCore.Localization.Strings.CsAMDRyzenCPUNotDetected;
                 }
 
                 if (_undervoltService?.Provider is AmdUndervoltProvider amdProvider)
                 {
                     if (string.Equals(amdProvider.ActiveBackend, "None", StringComparison.OrdinalIgnoreCase))
                     {
-                        return "AMD SMU backend unavailable. Install PawnIO and run OmenCore as administrator to enable STAPM/Tctl control.";
+                        return global::OmenCore.Localization.Strings.CsAMDSMUBackendUnavailableInstallPawnIOAnd;
                     }
 
                     return $"Backend: {amdProvider.ActiveBackend}. STAPM and Tctl writes are available for this Ryzen platform.";
                 }
 
-                return "AMD power tuning provider is unavailable on this system.";
+                return global::OmenCore.Localization.Strings.CsAMDPowerTuningProviderIsUnavailableOn;
             }
         }
 
         public string PerformanceModeDescription => SelectedPerformanceMode?.Description ?? SelectedPerformanceMode?.Name switch
         {
-            "Balanced" => "Normal mode - balanced performance",
-            "Performance" => "High performance - maximum GPU wattage",
-            "Eco" => "Power saving mode - reduced wattage",
-            _ => "Select a performance mode"
+            "Balanced" => global::OmenCore.Localization.Strings.CsNormalModeBalancedPerformance,
+            "Performance" => global::OmenCore.Localization.Strings.CsHighPerformanceMaximumGPUWattage,
+            "Eco" => global::OmenCore.Localization.Strings.CsPowerSavingModeReducedWattage,
+            _ => global::OmenCore.Localization.Strings.CsSelectAPerformanceMode
         };
 
         public bool IsFanPerformanceLinked => _configService.Config.LinkFanToPerformanceMode;
 
         public string FanPerformanceLinkBadgeText => IsFanPerformanceLinked
-            ? "Fan linked to performance"
-            : "Fan independent";
+            ? global::OmenCore.Localization.Strings.CsFanLinkedToPerformance
+            : global::OmenCore.Localization.Strings.CsFanIndependent;
 
         public string PerformanceModeFanPolicyHint => IsFanPerformanceLinked
-            ? "This mode can also update fan policy because linked mode is enabled."
-            : "This mode only changes power/performance behavior. Your current fan preset or custom curve stays active.";
+            ? global::OmenCore.Localization.Strings.CsThisModeCanAlsoUpdateFanPolicy
+            : global::OmenCore.Localization.Strings.CsThisModeOnlyChangesPowerPerformanceBehavior;
 
         public bool ShowFanPerformanceInfoBanner => !IsFanPerformanceLinked && !_configService.Config.DismissedFanPerformanceDecouplingNotice;
         
@@ -763,7 +763,7 @@ namespace OmenCore.ViewModels
         /// <summary>
         /// Human-readable description of what controls are available for performance modes.
         /// </summary>
-        public string PerformanceModeCapabilities => _performanceModeService?.ControlCapabilityDescription ?? "Windows Power Plan";
+        public string PerformanceModeCapabilities => _performanceModeService?.ControlCapabilityDescription ?? global::OmenCore.Localization.Strings.CsWindowsPowerPlan;
 
         /// <summary>Whether the model database (rather than runtime probing) says this board lacks a feature.</summary>
         public bool CapabilityDeniedByModelDatabase => CapabilityReasons.Any(r =>
@@ -777,14 +777,14 @@ namespace OmenCore.ViewModels
             get
             {
                 if (PerformanceModeEcControlAvailable)
-                    return "✓ Full control (Power Plan + Fan + CPU/GPU Limits)";
+                    return global::OmenCore.Localization.Strings.CsFullControlPowerPlanFanCPUGPU;
                 
                 // Check if this is a Spectre laptop - provide more specific guidance
                 var sysInfo = _systemInfoService?.GetSystemInfo();
                 if (sysInfo?.IsHpSpectre == true)
-                    return "ℹ️ HP Spectre: Power Plan + Fan only (use Intel XTU or ThrottleStop for CPU power limits)";
+                    return global::OmenCore.Localization.Strings.CsHPSpectrePowerPlanFanOnlyUse;
                 
-                return "ℹ️ Partial control (Power Plan + Fan only - EC unavailable)";
+                return global::OmenCore.Localization.Strings.CsPartialControlPowerPlanFanOnlyEC;
             }
         }
 
@@ -795,7 +795,7 @@ namespace OmenCore.ViewModels
             : "Degraded";
 
         private double _latestGpuPowerWatts;
-        private string _gpuFullPowerText = "Full power • waiting for telemetry";
+        private string _gpuFullPowerText = global::OmenCore.Localization.Strings.CsFullPowerWaitingForTelemetry;
 
         public bool IsGpuFullPowerActive => GpuPowerBoostAvailable &&
             (string.Equals(GpuPowerBoostLevel, "Maximum", StringComparison.OrdinalIgnoreCase) ||
@@ -1009,11 +1009,11 @@ namespace OmenCore.ViewModels
         
         public string GpuPowerBoostDescription => GpuPowerBoostLevel switch
         {
-            "Minimum" => "Base TGP only - Lower power, quieter operation, better battery life",
-            "Medium" => "Custom TGP enabled - Balanced performance and thermals",
-            "Maximum" => "Custom TGP + Dynamic Boost (PPAB) - Maximum GPU wattage (+15W boost)",
-            "Extended" => "Extended Boost (PPAB+) - Try if Maximum doesn't reach your GPU's rated TGP (RTX 50-series and up)",
-            _ => "Select GPU power level"
+            "Minimum" => global::OmenCore.Localization.Strings.CsBaseTGPOnlyLowerPowerQuieterOperation,
+            "Medium" => global::OmenCore.Localization.Strings.CsCustomTGPEnabledBalancedPerformanceAndThermals,
+            "Maximum" => global::OmenCore.Localization.Strings.CsCustomTGPDynamicBoostPPABMaximumGPU,
+            "Extended" => global::OmenCore.Localization.Strings.CsExtendedBoostPPABTryIfMaximumDoesn,
+            _ => global::OmenCore.Localization.Strings.CsSelectGPUPowerLevel
         };
 
         // "EXTRA POWER" badge on the GPU Power Boost card - was previously a hardcoded "+15W",
@@ -1035,10 +1035,10 @@ namespace OmenCore.ViewModels
             get
             {
                 if (!GpuPowerBoostAvailable)
-                    return "GPU Power Boost not available on this system";
+                    return global::OmenCore.Localization.Strings.CsGPUPowerBoostNotAvailableOnThis;
 
                 var nvapiNote = GpuPowerLimitAvailable ?
-                    " (NVAPI power limits available for fine-tuning)" : "";
+                    global::OmenCore.Localization.Strings.CsNVAPIPowerLimitsAvailableForFineTuning : "";
 
                 return $"{GpuPowerBoostDescription}{nvapiNote}";
             }
@@ -1111,7 +1111,7 @@ namespace OmenCore.ViewModels
         }
 
         public string GpuPowerLimitText => $"{GpuPowerLimitPercent}%";
-        public string GpuPowerLimitRangeText => $"{GpuPowerLimitMin}% to {GpuPowerLimitMax}%";
+        public string GpuPowerLimitRangeText => string.Format(global::OmenCore.Localization.Strings.CsTo, GpuPowerLimitMin, GpuPowerLimitMax);
 
         public bool IsGpuOcTestPending
         {
@@ -1160,8 +1160,8 @@ namespace OmenCore.ViewModels
         }
 
         public string GpuOcTestActionText => IsGpuOcTestPending
-            ? $"Test active: auto-revert in {GpuOcTestCountdownSeconds}s unless you press Keep"
-            : "Test Apply runs the selected tuning for 30 seconds, then restores the previous GPU state unless you keep it.";
+            ? string.Format(global::OmenCore.Localization.Strings.CsTestActiveAutoRevertInSUnless, GpuOcTestCountdownSeconds)
+            : global::OmenCore.Localization.Strings.CsTestApplyRunsTheSelectedTuningFor;
 
         public bool IsCpuUndervoltTestPending
         {
@@ -1209,21 +1209,21 @@ namespace OmenCore.ViewModels
         }
 
         public string CpuUndervoltTestActionText => IsCpuUndervoltTestPending
-            ? $"Test active: auto-revert in {CpuUndervoltTestCountdownSeconds}s unless you press Keep"
-            : "Test Apply runs the undervolt for 30 seconds, then restores the previous CPU voltage unless you keep it.";
+            ? string.Format(global::OmenCore.Localization.Strings.CsTestActiveAutoRevertInSUnless, CpuUndervoltTestCountdownSeconds)
+            : global::OmenCore.Localization.Strings.CsTestApplyRunsTheUndervoltFor30;
 
         // ---- Tuning conflict report ----
         private TuningConflictReport? _lastTuningConflictReport;
         private bool _startupRecoveryNoticeVisible;
         private string _startupRecoveryNoticeText = string.Empty;
-        private string _tuningRollbackStatusText = "Safe rollback has not been run this session.";
+        private string _tuningRollbackStatusText = global::OmenCore.Localization.Strings.CsSafeRollbackHasNotBeenRunThis;
 
         public string TuningConflictBannerText => _lastTuningConflictReport?.BannerText ?? string.Empty;
         public bool TuningConflictBannerVisible => _lastTuningConflictReport?.HasConflicts == true;
         public bool TuningConflictHighRisk => _lastTuningConflictReport?.HasHighRiskConflict == true;
 
         public string TuningDiagnosticsCompactSummary =>
-            $"CPU undervolt: {UndervoltStateLabel}  ·  GPU overclock: {GpuOcStateLabel}  ·  Conflicts: {(TuningConflictBannerVisible ? "detected" : "none")}";
+            string.Format(global::OmenCore.Localization.Strings.CsCPUUndervoltGPUOverclockConflicts, UndervoltStateLabel, GpuOcStateLabel, (TuningConflictBannerVisible ? "detected" : "none"));
 
         public string TuningDiagnosticsCompactDetail
         {
@@ -1231,8 +1231,8 @@ namespace OmenCore.ViewModels
             {
                 // The rollback status has its own line under this one on the Tuning page; repeating it here printed
                 // "Safe rollback has not been run this session" twice.
-                var startupRecovery = StartupRecoveryNoticeVisible ? "Startup recovery applied" : "No startup recovery this session";
-                var gpuBackend = GpuNvapiAvailable ? "NVIDIA API ready" : "NVIDIA API not available";
+                var startupRecovery = StartupRecoveryNoticeVisible ? global::OmenCore.Localization.Strings.CsStartupRecoveryApplied : global::OmenCore.Localization.Strings.CsNoStartupRecoveryThisSession;
+                var gpuBackend = GpuNvapiAvailable ? global::OmenCore.Localization.Strings.CsNVIDIAAPIReady : global::OmenCore.Localization.Strings.CsNVIDIAAPINotAvailable;
                 return $"{startupRecovery}  ·  {gpuBackend}";
             }
         }
@@ -1387,29 +1387,29 @@ namespace OmenCore.ViewModels
         public bool GpuOcNotAvailable => GpuNvapiAvailable && !GpuOcAvailable && GpuPowerLimitAvailable;
         public bool GpuPowerLimitUnavailable => GpuNvapiAvailable && !GpuPowerLimitAvailable;
         public bool GpuPowerLimitControlEnabled => GpuNvapiAvailable && GpuPowerLimitAvailable && !IsGpuOcTestPending;
-        public string GpuPowerLimitUnavailableText => "Power limit is locked by this NVIDIA driver or HP firmware path. Core and memory offsets can still be applied when available, but TGP changes must come from firmware/BIOS/OEM controls.";
+        public string GpuPowerLimitUnavailableText => global::OmenCore.Localization.Strings.CsPowerLimitIsLockedByThisNVIDIA;
         public bool GpuExtendedOffsetsAvailable => GpuCoreOffsetMax > 200 || GpuMemoryOffsetMax > 500 || (GpuPowerLimitAvailable && GpuPowerLimitMax > 115);
         public string GpuOcCapabilityBadgeText => GpuPowerLimitUnavailable
-            ? GpuOcAvailable ? "Power Locked" : "Locked"
-            : GpuOcNotAvailable ? "Power Limit Only" : GpuExtendedOffsetsAvailable ? "Extended Range" : "Detected Range";
+            ? GpuOcAvailable ? global::OmenCore.Localization.Strings.CsPowerLocked : "Locked"
+            : GpuOcNotAvailable ? global::OmenCore.Localization.Strings.CsPowerLimitOnly : GpuExtendedOffsetsAvailable ? global::OmenCore.Localization.Strings.CsExtendedRange : global::OmenCore.Localization.Strings.CsDetectedRange;
         public string GpuOcCapabilityDescription => GpuPowerLimitUnavailable
             ? GpuOcAvailable
-                ? "NVAPI clock offsets are available, but power limit writes are locked by the current driver or firmware path."
-                : "NVAPI detected the GPU, but both clock offsets and power limit writes are locked by the current driver or firmware path."
+                ? global::OmenCore.Localization.Strings.CsNVAPIClockOffsetsAreAvailableButPower
+                : global::OmenCore.Localization.Strings.CsNVAPIDetectedTheGPUButBothClock
             : GpuOcNotAvailable
-                ? "This GPU/driver exposes NVAPI power tuning, but clock and voltage offsets remain locked."
+                ? global::OmenCore.Localization.Strings.CsThisGPUDriverExposesNVAPIPowerTuning
                 : GpuExtendedOffsetsAvailable
-                ? "NVAPI reported a wider-than-default range for this GPU. Values near the top end should be treated as experimental."
-                : "This GPU is using the standard laptop-safe NVAPI range. Stability still varies by silicon and BIOS.";
+                ? global::OmenCore.Localization.Strings.CsNVAPIReportedAWiderThanDefaultRange
+                : global::OmenCore.Localization.Strings.CsThisGPUIsUsingTheStandardLaptop;
         public string GpuOcDetectedLimitHeadline => string.IsNullOrWhiteSpace(GpuDisplayName)
-            ? "Detected GPU tuning limits will appear after initialization."
+            ? global::OmenCore.Localization.Strings.CsDetectedGPUTuningLimitsWillAppearAfter
             : GpuPowerLimitUnavailable
                 ? GpuOcAvailable
-                    ? $"Detected clock limits for {GpuDisplayName}: Core {GpuCoreOffsetRangeText}, Memory {GpuMemoryOffsetRangeText}. Power limit writes are locked."
-                    : $"{GpuDisplayName} was detected, but NVAPI tuning writes are locked by the current driver or firmware path."
+                    ? string.Format(global::OmenCore.Localization.Strings.CsDetectedClockLimitsForCoreMemoryPower, GpuDisplayName, GpuCoreOffsetRangeText, GpuMemoryOffsetRangeText)
+                    : string.Format(global::OmenCore.Localization.Strings.CsWasDetectedButNVAPITuningWritesAre, GpuDisplayName)
             : GpuOcNotAvailable
-                ? $"Detected power range for {GpuDisplayName}: {GpuPowerLimitRangeText}. Clock offsets are blocked by the current driver or firmware path."
-                : $"Detected limits for {GpuDisplayName}: Core {GpuCoreOffsetRangeText}, Memory {GpuMemoryOffsetRangeText}, Power {GpuPowerLimitRangeText}.";
+                ? string.Format(global::OmenCore.Localization.Strings.CsDetectedPowerRangeForClockOffsetsAre, GpuDisplayName, GpuPowerLimitRangeText)
+                : string.Format(global::OmenCore.Localization.Strings.CsDetectedLimitsForCoreMemoryPower, GpuDisplayName, GpuCoreOffsetRangeText, GpuMemoryOffsetRangeText, GpuPowerLimitRangeText);
         public string GpuOcRecommendationText => BuildGpuOcRecommendationText();
         
         /// <summary>
@@ -1530,7 +1530,7 @@ namespace OmenCore.ViewModels
         }
 
         public string GpuOcRequestedChipText =>
-            $"Requested: Core {GpuCoreClockOffset:+0;-0;0} MHz | Memory {GpuMemoryClockOffset:+0;-0;0} MHz | Power {GpuPowerLimitPercent}% | Voltage {GpuVoltageOffsetMv:+0;-0;0} mV";
+            string.Format(global::OmenCore.Localization.Strings.CsRequestedCoreMHzMemoryMHzPowerVoltage, GpuCoreClockOffset, GpuMemoryClockOffset, GpuPowerLimitPercent, GpuVoltageOffsetMv);
 
         public string GpuOcConfirmedChipText
         {
@@ -1538,7 +1538,7 @@ namespace OmenCore.ViewModels
             {
                 if (_nvapiService == null || !GpuNvapiAvailable)
                 {
-                    return "Confirmed: n/a";
+                    return global::OmenCore.Localization.Strings.CsConfirmedNA;
                 }
 
                 return $"Confirmed: Core {_nvapiService.CoreClockOffsetMHz:+0;-0;0} MHz | Memory {_nvapiService.MemoryClockOffsetMHz:+0;-0;0} MHz | Power {_nvapiService.PowerLimitPercent}% | Voltage {_nvapiService.VoltageOffsetMv:+0;-0;0} mV";
@@ -1721,52 +1721,52 @@ namespace OmenCore.ViewModels
         {
             if (!GpuNvapiAvailable)
             {
-                return "NVAPI tuning guidance will appear after the GPU is detected.";
+                return global::OmenCore.Localization.Strings.CsNVAPITuningGuidanceWillAppearAfterThe;
             }
 
             if (!GpuOcAvailable && !GpuPowerLimitAvailable)
             {
-                return "NVAPI detected the GPU, but this driver/firmware path does not expose writable tuning controls.";
+                return global::OmenCore.Localization.Strings.CsNVAPIDetectedTheGPUButThisDriver;
             }
 
             if (GpuOcNotAvailable)
             {
-                return $"Model-aware guardrail: this {GetGpuOcPlatformLabel()} currently supports power tuning only. Start near {GetRecommendedGpuPowerLimit()}% and treat any clock work as an external-tool workflow.";
+                return string.Format(global::OmenCore.Localization.Strings.CsModelAwareGuardrailThisCurrentlySupportsPower, GetGpuOcPlatformLabel(), GetRecommendedGpuPowerLimit());
             }
 
             if (GpuPowerLimitUnavailable)
             {
                 return GpuOcAvailable
-                    ? $"Model-aware guardrail for {GetGpuOcPlatformLabel()}: start around Core {FormatSignedValue(GetRecommendedGpuCoreOffset(), "MHz")} and Memory {FormatSignedValue(GetRecommendedGpuMemoryOffset(), "MHz")}. Leave Power at 100% because NVAPI power policy writes are locked."
-                    : "NVAPI tuning writes are locked on this driver/firmware path. Use OEM performance modes for TGP behavior if the machine exposes them.";
+                    ? string.Format(global::OmenCore.Localization.Strings.CsModelAwareGuardrailForStartAroundCore, GetGpuOcPlatformLabel(), FormatSignedValue(GetRecommendedGpuCoreOffset(), "MHz"), FormatSignedValue(GetRecommendedGpuMemoryOffset(), "MHz"))
+                    : global::OmenCore.Localization.Strings.CsNVAPITuningWritesAreLockedOnThis;
             }
 
-            return $"Model-aware guardrail for {GetGpuOcPlatformLabel()}: start around Core {FormatSignedValue(GetRecommendedGpuCoreOffset(), "MHz")}, Memory {FormatSignedValue(GetRecommendedGpuMemoryOffset(), "MHz")}, Power {GetRecommendedGpuPowerLimit()}%. Values close to the detected max should be considered experimental until validated under load.";
+            return string.Format(global::OmenCore.Localization.Strings.CsModelAwareGuardrailForStartAroundCore_3a44c, GetGpuOcPlatformLabel(), FormatSignedValue(GetRecommendedGpuCoreOffset(), "MHz"), FormatSignedValue(GetRecommendedGpuMemoryOffset(), "MHz"), GetRecommendedGpuPowerLimit());
         }
 
         private string GetGpuOcPlatformLabel()
         {
             if (IsRtx50SeriesLaptop())
             {
-                return "RTX 50-series laptop GPUs";
+                return global::OmenCore.Localization.Strings.CsRTX50SeriesLaptopGPUs;
             }
 
             if (IsLaptopGpuModel())
             {
-                return "laptop NVIDIA GPUs";
+                return global::OmenCore.Localization.Strings.CsLaptopNVIDIAGPUs;
             }
 
             if (GpuDisplayName.Contains("RTX 40", StringComparison.OrdinalIgnoreCase))
             {
-                return "RTX 40-series GPUs";
+                return global::OmenCore.Localization.Strings.CsRTX40SeriesGPUs;
             }
 
             if (GpuDisplayName.Contains("RTX 30", StringComparison.OrdinalIgnoreCase))
             {
-                return "RTX 30-series GPUs";
+                return global::OmenCore.Localization.Strings.CsRTX30SeriesGPUs;
             }
 
-            return string.IsNullOrWhiteSpace(GpuDisplayName) ? "this GPU" : GpuDisplayName;
+            return string.IsNullOrWhiteSpace(GpuDisplayName) ? global::OmenCore.Localization.Strings.CsThisGPU : GpuDisplayName;
         }
 
         private string ApplyGpuOcRequestToUi(int requestedCoreOffset, int requestedMemoryOffset, int requestedPowerLimit, int requestedVoltageOffset)
@@ -1779,24 +1779,24 @@ namespace OmenCore.ViewModels
             var adjustments = new List<string>();
             if (requestedCoreOffset != GpuCoreClockOffset)
             {
-                adjustments.Add($"core {FormatSignedValue(requestedCoreOffset, "MHz")} -> {FormatSignedValue(GpuCoreClockOffset, "MHz")}");
+                adjustments.Add(string.Format(global::OmenCore.Localization.Strings.CsCore, FormatSignedValue(requestedCoreOffset, "MHz"), FormatSignedValue(GpuCoreClockOffset, "MHz")));
             }
 
             if (requestedMemoryOffset != GpuMemoryClockOffset)
             {
-                adjustments.Add($"memory {FormatSignedValue(requestedMemoryOffset, "MHz")} -> {FormatSignedValue(GpuMemoryClockOffset, "MHz")}");
+                adjustments.Add(string.Format(global::OmenCore.Localization.Strings.CsMemory, FormatSignedValue(requestedMemoryOffset, "MHz"), FormatSignedValue(GpuMemoryClockOffset, "MHz")));
             }
 
             if (requestedPowerLimit != GpuPowerLimitPercent)
             {
                 adjustments.Add(GpuPowerLimitAvailable
-                    ? $"power {requestedPowerLimit}% -> {GpuPowerLimitPercent}%"
-                    : $"power {requestedPowerLimit}% ignored (locked by driver/firmware)");
+                    ? string.Format(global::OmenCore.Localization.Strings.CsPower, requestedPowerLimit, GpuPowerLimitPercent)
+                    : string.Format(global::OmenCore.Localization.Strings.CsPowerIgnoredLockedByDriverFirmware, requestedPowerLimit));
             }
 
             if (requestedVoltageOffset != GpuVoltageOffsetMv)
             {
-                adjustments.Add($"voltage {FormatSignedValue(requestedVoltageOffset, "mV")} -> {FormatSignedValue(GpuVoltageOffsetMv, "mV")}");
+                adjustments.Add(string.Format(global::OmenCore.Localization.Strings.CsVoltage, FormatSignedValue(requestedVoltageOffset, "mV"), FormatSignedValue(GpuVoltageOffsetMv, "mV")));
             }
 
             return adjustments.Count == 0 ? string.Empty : string.Join(", ", adjustments);
@@ -1823,10 +1823,10 @@ namespace OmenCore.ViewModels
 
         private static readonly HashSet<string> BuiltInGpuOcProfileNames = new(StringComparer.OrdinalIgnoreCase)
         {
-            "Stock (Default)",
+            global::OmenCore.Localization.Strings.CsStockDefault,
             "Safe",
             "Balanced",
-            "Max Experimental"
+            global::OmenCore.Localization.Strings.CsMaxExperimental
         };
 
         private GpuOcSnapshot CaptureCurrentGpuOcSnapshot()
@@ -1872,7 +1872,7 @@ namespace OmenCore.ViewModels
                     MemoryClockOffsetMHz = 0,
                     PowerLimitPercent = 100,
                     VoltageOffsetMv = 0,
-                    Description = "Factory defaults - no overclocking"
+                    Description = global::OmenCore.Localization.Strings.CsFactoryDefaultsNoOverclocking
                 }
             };
 
@@ -1890,7 +1890,7 @@ namespace OmenCore.ViewModels
                     MemoryClockOffsetMHz = 0,
                     PowerLimitPercent = Math.Clamp(95, GpuPowerLimitMin, GpuPowerLimitMax),
                     VoltageOffsetMv = 0,
-                    Description = "Power-only profile for cooler, quieter GPU behavior"
+                    Description = global::OmenCore.Localization.Strings.CsPowerOnlyProfileForCoolerQuieterGPU
                 });
                 profiles.Add(new Models.GpuOcProfile
                 {
@@ -1899,7 +1899,7 @@ namespace OmenCore.ViewModels
                     MemoryClockOffsetMHz = 0,
                     PowerLimitPercent = Math.Clamp(100, GpuPowerLimitMin, GpuPowerLimitMax),
                     VoltageOffsetMv = 0,
-                    Description = "Power-only profile matching the detected stock envelope"
+                    Description = global::OmenCore.Localization.Strings.CsPowerOnlyProfileMatchingTheDetectedStock
                 });
                 profiles.Add(new Models.GpuOcProfile
                 {
@@ -1908,7 +1908,7 @@ namespace OmenCore.ViewModels
                     MemoryClockOffsetMHz = 0,
                     PowerLimitPercent = GpuPowerLimitMax,
                     VoltageOffsetMv = 0,
-                    Description = "Uses the highest detected power limit. Validate stability and temperatures before keeping it."
+                    Description = global::OmenCore.Localization.Strings.CsUsesTheHighestDetectedPowerLimitValidate
                 });
                 return profiles;
             }
@@ -1932,7 +1932,7 @@ namespace OmenCore.ViewModels
                 MemoryClockOffsetMHz = safeMemory,
                 PowerLimitPercent = safePower,
                 VoltageOffsetMv = 0,
-                Description = "Conservative starting point tuned to the detected GPU range"
+                Description = global::OmenCore.Localization.Strings.CsConservativeStartingPointTunedToTheDetected
             });
             profiles.Add(new Models.GpuOcProfile
             {
@@ -1941,7 +1941,7 @@ namespace OmenCore.ViewModels
                 MemoryClockOffsetMHz = balancedMemory,
                 PowerLimitPercent = balancedPower,
                 VoltageOffsetMv = 0,
-                Description = $"Device-aware daily profile for {GetGpuOcPlatformLabel()}"
+                Description = string.Format(global::OmenCore.Localization.Strings.CsDeviceAwareDailyProfileFor, GetGpuOcPlatformLabel())
             });
             profiles.Add(new Models.GpuOcProfile
             {
@@ -1950,7 +1950,7 @@ namespace OmenCore.ViewModels
                 MemoryClockOffsetMHz = maxMemory,
                 PowerLimitPercent = maxPower,
                 VoltageOffsetMv = 0,
-                Description = "Near-top detected range. Use Test Apply first and keep only after stability validation."
+                Description = global::OmenCore.Localization.Strings.CsNearTopDetectedRangeUseTestApply
             });
 
             return profiles;
@@ -1973,7 +1973,7 @@ namespace OmenCore.ViewModels
                     MemorySuccess = false,
                     PowerSuccess = false,
                     VoltageSuccess = false,
-                    StatusText = "GPU overclocking not available",
+                    StatusText = global::OmenCore.Localization.Strings.CsGPUOverclockingNotAvailable,
                     GuardrailNote = guardrailNote
                 };
             }
@@ -2007,7 +2007,7 @@ namespace OmenCore.ViewModels
                         OnPropertyChanged(nameof(GpuPowerLimitMax));
                         NotifyGpuOcMetadataChanged();
 
-                        var powerLockNote = "power limit ignored (locked by driver/firmware)";
+                        var powerLockNote = global::OmenCore.Localization.Strings.CsPowerLimitIgnoredLockedByDriverFirmware;
                         guardrailNote = string.IsNullOrEmpty(guardrailNote)
                             ? powerLockNote
                             : $"{guardrailNote}, {powerLockNote}";
@@ -2052,7 +2052,7 @@ namespace OmenCore.ViewModels
 
                     if (!string.IsNullOrEmpty(guardrailNote))
                     {
-                        statusText += $" | Guardrails: {guardrailNote}";
+                        statusText += string.Format(global::OmenCore.Localization.Strings.CsGuardrails, guardrailNote);
                     }
 
                     return new GpuOcApplyResult
@@ -2090,7 +2090,7 @@ namespace OmenCore.ViewModels
                     MemorySuccess = memSuccess,
                     PowerSuccess = powerSuccess,
                     VoltageSuccess = voltageSuccess,
-                    StatusText = $"⚠ Partial ({string.Join(", ", failures)} failed): {partialStatus}",
+                    StatusText = string.Format(global::OmenCore.Localization.Strings.CsPartialFailed, string.Join(", ", failures), partialStatus),
                     GuardrailNote = guardrailNote
                 };
             }
@@ -2127,8 +2127,8 @@ namespace OmenCore.ViewModels
             if (conflictReport.HasHighRiskConflict)
             {
                 var proceed = System.Windows.MessageBox.Show(
-                    $"A conflicting tool is running:\n\n{string.Join("\n", conflictReport.Conflicts.Select(c => $"• {c.Title}: {c.Suggestion}"))}\n\nApplying GPU overclocking while this tool is active may cause instability or a driver crash.\n\nDo you want to continue anyway?",
-                    "Tuning Conflict Detected",
+                    string.Format(global::OmenCore.Localization.Strings.CsAConflictingToolIsRunningApplyingGPU, string.Join("\n", conflictReport.Conflicts.Select(c => $"• {c.Title}: {c.Suggestion}"))),
+                    global::OmenCore.Localization.Strings.CsTuningConflictDetected,
                     System.Windows.MessageBoxButton.YesNo,
                     System.Windows.MessageBoxImage.Warning);
                 if (proceed != System.Windows.MessageBoxResult.Yes)
@@ -2136,8 +2136,8 @@ namespace OmenCore.ViewModels
             }
 
             var confirmation = System.Windows.MessageBox.Show(
-                "Test Apply will apply the current GPU tuning for 30 seconds and then automatically restore the previous GPU state unless you press Keep. Continue?",
-                "Test GPU Tuning",
+                global::OmenCore.Localization.Strings.CsTestApplyWillApplyTheCurrentGPU,
+                global::OmenCore.Localization.Strings.CsTestGPUTuning,
                 System.Windows.MessageBoxButton.YesNo,
                 System.Windows.MessageBoxImage.Warning);
 
@@ -2148,14 +2148,14 @@ namespace OmenCore.ViewModels
 
             SetGpuOcTestPendingFlag(true);
             _gpuOcTestSnapshot = CaptureCurrentGpuOcSnapshot();
-            var testResult = ApplyGpuOcValues(GpuCoreClockOffset, GpuMemoryClockOffset, GpuPowerLimitPercent, GpuVoltageOffsetMv, false, "✓ Test applied");
+            var testResult = ApplyGpuOcValues(GpuCoreClockOffset, GpuMemoryClockOffset, GpuPowerLimitPercent, GpuVoltageOffsetMv, false, global::OmenCore.Localization.Strings.CsTestApplied);
             GpuOcStatus = testResult.StatusText;
 
             if (!testResult.Success)
             {
                 SetGpuOcTestPendingFlag(false);
                 _gpuOcTestSnapshot = null;
-                GpuOcTestStatusText = "Test Apply did not start because one or more GPU settings failed to apply.";
+                GpuOcTestStatusText = global::OmenCore.Localization.Strings.CsTestApplyDidNotStartBecauseOne;
                 return;
             }
 
@@ -2165,7 +2165,7 @@ namespace OmenCore.ViewModels
 
             IsGpuOcTestPending = true;
             GpuOcTestCountdownSeconds = 30;
-            GpuOcTestStatusText = "Test tuning is live. Run a quick benchmark or game, then press Keep if stable.";
+            GpuOcTestStatusText = global::OmenCore.Localization.Strings.CsTestTuningIsLiveRunAQuick;
             _logging.Info("GPU OC test apply started for 30 seconds");
 
             try
@@ -2176,7 +2176,7 @@ namespace OmenCore.ViewModels
                     GpuOcTestCountdownSeconds--;
                 }
 
-                RevertGpuOcTest("GPU test expired; previous tuning restored.");
+                RevertGpuOcTest(global::OmenCore.Localization.Strings.CsGPUTestExpiredPreviousTuningRestored);
             }
             catch (OperationCanceledException)
             {
@@ -2201,11 +2201,11 @@ namespace OmenCore.ViewModels
             RecordConfirmedGpuOcMetadata();
             SaveGpuOcToConfig(applyOnStartup: true);
             GpuOcStatus = GpuOcAvailable
-                ? $"✓ Test confirmed: Core {GpuCoreClockOffsetText}, Mem {GpuMemoryClockOffsetText}, Power {GpuPowerLimitText}, Voltage {GpuVoltageOffsetText}"
+                ? string.Format(global::OmenCore.Localization.Strings.CsTestConfirmedCoreMemPowerVoltage, GpuCoreClockOffsetText, GpuMemoryClockOffsetText, GpuPowerLimitText, GpuVoltageOffsetText)
                 : GpuPowerLimitAvailable
-                    ? $"✓ Test confirmed: Power {GpuPowerLimitText}"
-                    : "✓ Test confirmed: supported GPU tuning kept";
-            GpuOcTestStatusText = "Test tuning was kept and saved for startup reapply.";
+                    ? string.Format(global::OmenCore.Localization.Strings.CsTestConfirmedPower, GpuPowerLimitText)
+                    : global::OmenCore.Localization.Strings.CsTestConfirmedSupportedGPUTuningKept;
+            GpuOcTestStatusText = global::OmenCore.Localization.Strings.CsTestTuningWasKeptAndSavedFor;
             _logging.Info("GPU OC test apply confirmed by user");
         }
 
@@ -2220,7 +2220,7 @@ namespace OmenCore.ViewModels
             if (IsGpuOcTestPending)
             {
                 _gpuOcTestCancellation?.Cancel();
-                try { RevertGpuOcTest("OmenCore closed during the GPU test; previous tuning restored."); }
+                try { RevertGpuOcTest(global::OmenCore.Localization.Strings.CsOmenCoreClosedDuringTheGPUTestPrevious); }
                 catch (Exception ex) { _logging.Warn($"GPU OC test revert on exit failed: {ex.Message}"); }
             }
 
@@ -2260,7 +2260,7 @@ namespace OmenCore.ViewModels
 
             if (snapshot == null)
             {
-                GpuOcTestStatusText = "No test snapshot was available to restore.";
+                GpuOcTestStatusText = global::OmenCore.Localization.Strings.CsNoTestSnapshotWasAvailableToRestore;
                 return;
             }
 
@@ -2270,7 +2270,7 @@ namespace OmenCore.ViewModels
                 snapshot.PowerLimitPercent,
                 snapshot.VoltageOffsetMv,
                 false,
-                "✓ Reverted");
+                global::OmenCore.Localization.Strings.CsReverted);
 
             GpuOcStatus = revertResult.StatusText;
             GpuOcTestStatusText = statusText;
@@ -2292,8 +2292,8 @@ namespace OmenCore.ViewModels
             if (conflictReport.HasHighRiskConflict)
             {
                 var proceed = System.Windows.MessageBox.Show(
-                    $"A conflicting tool is running:\n\n{string.Join("\n", conflictReport.Conflicts.Select(c => $"• {c.Title}: {c.Suggestion}"))}\n\nApplying a CPU undervolt while this tool is active may cause instability or a crash.\n\nDo you want to continue anyway?",
-                    "Tuning Conflict Detected",
+                    string.Format(global::OmenCore.Localization.Strings.CsAConflictingToolIsRunningApplyingA, string.Join("\n", conflictReport.Conflicts.Select(c => $"• {c.Title}: {c.Suggestion}"))),
+                    global::OmenCore.Localization.Strings.CsTuningConflictDetected,
                     System.Windows.MessageBoxButton.YesNo,
                     System.Windows.MessageBoxImage.Warning);
                 if (proceed != System.Windows.MessageBoxResult.Yes)
@@ -2301,8 +2301,8 @@ namespace OmenCore.ViewModels
             }
 
             var confirmation = System.Windows.MessageBox.Show(
-                "Test Apply will apply the current CPU undervolt for 30 seconds and then automatically restore the previous CPU voltage unless you press Keep. Continue?",
-                "Test CPU Undervolt",
+                global::OmenCore.Localization.Strings.CsTestApplyWillApplyTheCurrentCPU,
+                global::OmenCore.Localization.Strings.CsTestCPUUndervolt,
                 System.Windows.MessageBoxButton.YesNo,
                 System.Windows.MessageBoxImage.Warning);
 
@@ -2318,7 +2318,7 @@ namespace OmenCore.ViewModels
             // Apply requested values (hardware-only, no config save)
             try
             {
-                UndervoltLastActionText = "Applying test CPU undervolt...";
+                UndervoltLastActionText = global::OmenCore.Localization.Strings.CsApplyingTestCPUUndervolt;
                 UndervoltLastActionColor = System.Windows.Media.Brushes.SkyBlue;
 
                 var testOffset = new UndervoltOffset
@@ -2337,8 +2337,8 @@ namespace OmenCore.ViewModels
                 _logging.Error("CPU undervolt test apply failed", ex);
                 SetUndervoltTestPendingFlag(false);
                 _cpuUndervoltTestSnapshot = null;
-                CpuUndervoltTestStatusText = $"Test Apply did not start: {ex.Message}";
-                UndervoltLastActionText = $"Test failed: {ex.Message}";
+                CpuUndervoltTestStatusText = string.Format(global::OmenCore.Localization.Strings.CsTestApplyDidNotStart, ex.Message);
+                UndervoltLastActionText = string.Format(global::OmenCore.Localization.Strings.CsTestFailed, ex.Message);
                 UndervoltLastActionColor = System.Windows.Media.Brushes.OrangeRed;
                 return;
             }
@@ -2349,10 +2349,10 @@ namespace OmenCore.ViewModels
 
             IsCpuUndervoltTestPending = true;
             CpuUndervoltTestCountdownSeconds = 30;
-            CpuUndervoltTestStatusText = "Test undervolt is live. Run a stress test or game, then press Keep if stable.";
+            CpuUndervoltTestStatusText = global::OmenCore.Localization.Strings.CsTestUndervoltIsLiveRunAStress;
             UndervoltLastActionText = IsAmdCpu
-                ? $"Test CO applied: Core {RequestedCoreOffset:+0;-0;0} mV eq."
-                : $"Test undervolt applied: Core {RequestedCoreOffset:+0;-0;0} mV, Cache {RequestedCacheOffset:+0;-0;0} mV";
+                ? string.Format(global::OmenCore.Localization.Strings.CsTestCOAppliedCoreMVEq, RequestedCoreOffset)
+                : string.Format(global::OmenCore.Localization.Strings.CsTestUndervoltAppliedCoreMVCacheMV, RequestedCoreOffset, RequestedCacheOffset);
             UndervoltLastActionColor = System.Windows.Media.Brushes.SkyBlue;
             _logging.Info($"CPU undervolt test apply started: Core={RequestedCoreOffset} mV, Cache={RequestedCacheOffset} mV");
 
@@ -2365,7 +2365,7 @@ namespace OmenCore.ViewModels
                     CpuUndervoltTestCountdownSeconds--;
                 }
 
-                RevertCpuUndervoltTest("CPU undervolt test expired; previous voltage restored.");
+                RevertCpuUndervoltTest(global::OmenCore.Localization.Strings.CsCPUUndervoltTestExpiredPreviousVoltageRestored);
             }
             catch (OperationCanceledException)
             {
@@ -2410,10 +2410,10 @@ namespace OmenCore.ViewModels
             config.Undervolt.LastStartupHadUnconfirmedState = false;
             _configService.Save(config);
 
-            CpuUndervoltTestStatusText = "Test undervolt was kept and saved for startup reapply.";
+            CpuUndervoltTestStatusText = global::OmenCore.Localization.Strings.CsTestUndervoltWasKeptAndSavedFor;
             UndervoltLastActionText = IsAmdCpu
-                ? $"✓ Test confirmed: Core {RequestedCoreOffset:+0;-0;0} mV eq. (startup reapply enabled)"
-                : $"✓ Test confirmed: Core {RequestedCoreOffset:+0;-0;0} mV, Cache {RequestedCacheOffset:+0;-0;0} mV (startup reapply enabled)";
+                ? string.Format(global::OmenCore.Localization.Strings.CsTestConfirmedCoreMVEqStartupReapply, RequestedCoreOffset)
+                : string.Format(global::OmenCore.Localization.Strings.CsTestConfirmedCoreMVCacheMVStartup, RequestedCoreOffset, RequestedCacheOffset);
             UndervoltLastActionColor = System.Windows.Media.Brushes.Lime;
             _logging.Info($"CPU undervolt test confirmed, startup reapply enabled: Core={RequestedCoreOffset} mV, Cache={RequestedCacheOffset} mV");
         }
@@ -2431,7 +2431,7 @@ namespace OmenCore.ViewModels
 
             if (snapshot == null)
             {
-                CpuUndervoltTestStatusText = "No test snapshot was available to restore.";
+                CpuUndervoltTestStatusText = global::OmenCore.Localization.Strings.CsNoTestSnapshotWasAvailableToRestore;
                 return;
             }
 
@@ -2457,8 +2457,8 @@ namespace OmenCore.ViewModels
             });
 
             UndervoltLastActionText = IsAmdCpu
-                ? $"Test reverted: Core {snapshot.Value.CoreMv:+0;-0;0} mV eq. restored"
-                : $"Test reverted: Core {snapshot.Value.CoreMv:+0;-0;0} mV, Cache {snapshot.Value.CacheMv:+0;-0;0} mV restored";
+                ? string.Format(global::OmenCore.Localization.Strings.CsTestRevertedCoreMVEqRestored, snapshot.Value.CoreMv)
+                : string.Format(global::OmenCore.Localization.Strings.CsTestRevertedCoreMVCacheMVRestored, snapshot.Value.CoreMv, snapshot.Value.CacheMv);
             UndervoltLastActionColor = System.Windows.Media.Brushes.Orange;
             CpuUndervoltTestStatusText = statusText;
             _logging.Info(statusText);
@@ -2596,7 +2596,7 @@ namespace OmenCore.ViewModels
             }
         }
 
-        public string CurrentPl1Text => $"Current: {CurrentPl1Watts:F0}W";
+        public string CurrentPl1Text => string.Format(global::OmenCore.Localization.Strings.CsCurrentW, CurrentPl1Watts);
 
         private double _currentPl2Watts;
         public double CurrentPl2Watts
@@ -2613,10 +2613,10 @@ namespace OmenCore.ViewModels
             }
         }
 
-        public string CurrentPl2Text => $"Current: {CurrentPl2Watts:F0}W";
+        public string CurrentPl2Text => string.Format(global::OmenCore.Localization.Strings.CsCurrentW, CurrentPl2Watts);
 
-        public string CpuPl1Description => "Sustained power limit (PL1) - Long-term sustained TDP";
-        public string CpuPl2Description => "Burst power limit (PL2) - Short-term turbo boost power";
+        public string CpuPl1Description => global::OmenCore.Localization.Strings.CsSustainedPowerLimitPL1LongTermSustained;
+        public string CpuPl2Description => global::OmenCore.Localization.Strings.CsBurstPowerLimitPL2ShortTermTurbo;
 
         // CPU PL limits (vary by CPU model)
         public int CpuPl1Min { get; private set; } = 15;
@@ -2848,13 +2848,13 @@ namespace OmenCore.ViewModels
                     // Schedule with delay to ensure BIOS is ready
                     RunStartupTask(
                         () => ReapplySettingWithRetryAsync(
-                            "Performance Mode",
+                            global::OmenCore.Localization.Strings.CsPerformanceMode,
                             () => ReapplySavedPerformanceMode(savedMode),
                             maxRetries: 3,
                             initialDelayMs: 2000,
                             maxDelayMs: 5000
                         ),
-                        "Performance Mode restore");
+                        global::OmenCore.Localization.Strings.CsPerformanceModeRestore);
                 }
                 else
                 {
@@ -2876,13 +2876,13 @@ namespace OmenCore.ViewModels
                     // This fixes the issue where GPU TGP resets to Minimum after reboot
                     RunStartupTask(
                         () => ReapplySettingWithRetryAsync(
-                            "GPU Power Boost",
+                            global::OmenCore.Localization.Strings.CsGPUPowerBoost,
                             () => ReapplySavedGpuPowerBoost(savedGpuBoostLevel),
                             maxRetries: 5,
                             initialDelayMs: 1500,
                             maxDelayMs: 5000
                         ),
-                        "GPU Power Boost restore");
+                        global::OmenCore.Localization.Strings.CsGPUPowerBoostRestore);
                 }
                 else
                 {
@@ -2917,7 +2917,7 @@ namespace OmenCore.ViewModels
                 _logging.Info($"Scheduling startup CPU undervolt reapply: Core={coreToRestore} mV, Cache={cacheToRestore} mV");
                 RunStartupTask(
                     () => ReapplySettingWithRetryAsync(
-                        "CPU Undervolt",
+                        global::OmenCore.Localization.Strings.CsCPUUndervolt,
                         async () =>
                         {
                             var offset = new UndervoltOffset { CoreMv = coreToRestore, CacheMv = cacheToRestore };
@@ -2928,7 +2928,7 @@ namespace OmenCore.ViewModels
                         initialDelayMs: 3000,
                         maxDelayMs: 8000
                     ),
-                    "CPU Undervolt startup restore");
+                    global::OmenCore.Localization.Strings.CsCPUUndervoltStartupRestore);
             }
 
             
@@ -2949,7 +2949,7 @@ namespace OmenCore.ViewModels
                 _msrAccess = MsrAccessFactory.Create(_logging);
                 if (_msrAccess == null || !_msrAccess.IsAvailable)
                 {
-                    TccStatus = TccOffsetStatus.CreateUnsupported("No MSR access available (install PawnIO for TCC control)");
+                    TccStatus = TccOffsetStatus.CreateUnsupported(global::OmenCore.Localization.Strings.CsNoMSRAccessAvailableInstallPawnIOFor);
                     _msrAccess = null;
                     return;
                 }
@@ -2980,13 +2980,13 @@ namespace OmenCore.ViewModels
                         _logging.Info($"TCC offset needs restoration: saved {savedOffset.Value}°C differs from current {currentOffset}°C");
                         RunStartupTask(
                             () => ReapplySettingWithRetryAsync(
-                                "TCC Offset",
+                                global::OmenCore.Localization.Strings.CsTCCOffset,
                                 () => ReapplySavedTccOffset(savedOffset.Value),
                                 maxRetries: 8,
                                 initialDelayMs: 1500,
                                 maxDelayMs: 8000
                             ),
-                            "TCC Offset restore");
+                            global::OmenCore.Localization.Strings.CsTCCOffsetRestore);
                     }
                     else
                     {
@@ -3179,8 +3179,8 @@ namespace OmenCore.ViewModels
             var applied = new List<string>();
             var skipped = new List<string>();
 
-            TuningRollbackStatusText = "Applying safe rollback...";
-            UndervoltLastActionText = "Safe rollback is clearing persisted tuning state...";
+            TuningRollbackStatusText = global::OmenCore.Localization.Strings.CsApplyingSafeRollback;
+            UndervoltLastActionText = global::OmenCore.Localization.Strings.CsSafeRollbackIsClearingPersistedTuningState;
             UndervoltLastActionColor = System.Windows.Media.Brushes.SkyBlue;
 
             try
@@ -3192,11 +3192,11 @@ namespace OmenCore.ViewModels
                 _configService.Save(config);
 
                 applied.Add(outcome.ConfigChanged
-                    ? $"saved safe startup state ({string.Join(", ", outcome.ChangedAreas)})"
-                    : "startup state already safe");
+                    ? string.Format(global::OmenCore.Localization.Strings.CsSavedSafeStartupState, string.Join(", ", outcome.ChangedAreas))
+                    : global::OmenCore.Localization.Strings.CsStartupStateAlreadySafe);
 
                 TryRunTuningRollbackStep(
-                    "fan OEM auto",
+                    global::OmenCore.Localization.Strings.CsFanOEMAuto,
                     () =>
                     {
                         if (_fanService == null)
@@ -3209,7 +3209,7 @@ namespace OmenCore.ViewModels
                     skipped);
 
                 TryRunTuningRollbackStep(
-                    "Balanced performance mode",
+                    global::OmenCore.Localization.Strings.CsBalancedPerformanceMode,
                     () => SelectPerformanceModeWithoutSave(TuningRollbackCoordinator.SafePerformanceMode),
                     applied,
                     skipped);
@@ -3217,7 +3217,7 @@ namespace OmenCore.ViewModels
                 if (GpuPowerBoostAvailable)
                 {
                     TryRunTuningRollbackStep(
-                        "GPU power Minimum",
+                        global::OmenCore.Localization.Strings.CsGPUPowerMinimum,
                         () =>
                         {
                             GpuPowerBoostLevel = TuningRollbackCoordinator.SafeGpuPowerBoostLevel;
@@ -3228,25 +3228,25 @@ namespace OmenCore.ViewModels
                 }
                 else
                 {
-                    skipped.Add("GPU power boost backend unavailable");
+                    skipped.Add(global::OmenCore.Localization.Strings.CsGPUPowerBoostBackendUnavailable);
                 }
 
                 if (CpuPowerLimitsAvailable && !CpuPowerLimitsLocked)
                 {
-                    TryRunTuningRollbackStep("CPU PL1/PL2 startup reset", ResetCpuPowerLimits, applied, skipped);
+                    TryRunTuningRollbackStep(global::OmenCore.Localization.Strings.CsCPUPL1PL2StartupReset, ResetCpuPowerLimits, applied, skipped);
                 }
                 else
                 {
-                    skipped.Add(CpuPowerLimitsAvailable ? "CPU power limits locked/read-only" : "CPU power limits unavailable");
+                    skipped.Add(CpuPowerLimitsAvailable ? global::OmenCore.Localization.Strings.CsCPUPowerLimitsLockedReadOnly : global::OmenCore.Localization.Strings.CsCPUPowerLimitsUnavailable);
                 }
 
                 if (TccStatus.IsSupported)
                 {
-                    TryRunTuningRollbackStep("TCC offset reset", ResetTccOffset, applied, skipped);
+                    TryRunTuningRollbackStep(global::OmenCore.Localization.Strings.CsTCCOffsetReset, ResetTccOffset, applied, skipped);
                 }
                 else
                 {
-                    skipped.Add("TCC offset unavailable");
+                    skipped.Add(global::OmenCore.Localization.Strings.CsTCCOffsetUnavailable);
                 }
 
                 RequestedCoreOffset = 0;
@@ -3263,48 +3263,48 @@ namespace OmenCore.ViewModels
                     try
                     {
                         await ResetUndervoltAsync();
-                        applied.Add("CPU undervolt reset");
+                        applied.Add(global::OmenCore.Localization.Strings.CsCPUUndervoltReset);
                     }
                     catch (Exception ex)
                     {
-                        skipped.Add($"CPU undervolt reset failed: {ex.Message}");
+                        skipped.Add(string.Format(global::OmenCore.Localization.Strings.CsCPUUndervoltResetFailed, ex.Message));
                         _logging.Warn($"Safe tuning rollback CPU undervolt reset failed: {ex.Message}");
                     }
                 }
                 else
                 {
-                    skipped.Add("CPU undervolt backend unavailable");
-                    UndervoltLastActionText = "Safe rollback cleared saved undervolt startup state; live CPU undervolt backend unavailable.";
+                    skipped.Add(global::OmenCore.Localization.Strings.CsCPUUndervoltBackendUnavailable);
+                    UndervoltLastActionText = global::OmenCore.Localization.Strings.CsSafeRollbackClearedSavedUndervoltStartupState;
                     UndervoltLastActionColor = System.Windows.Media.Brushes.Gold;
                 }
 
                 if (GpuNvapiAvailable && (GpuOcAvailable || GpuPowerLimitAvailable))
                 {
-                    TryRunTuningRollbackStep("NVIDIA GPU tuning reset", ResetGpuOc, applied, skipped);
+                    TryRunTuningRollbackStep(global::OmenCore.Localization.Strings.CsNVIDIAGPUTuningReset, ResetGpuOc, applied, skipped);
                 }
                 else if (_amdGpuService?.IsAvailable == true)
                 {
-                    TryRunTuningRollbackStep("AMD GPU tuning reset", ResetAmdGpuOc, applied, skipped);
+                    TryRunTuningRollbackStep(global::OmenCore.Localization.Strings.CsAMDGPUTuningReset, ResetAmdGpuOc, applied, skipped);
                 }
                 else
                 {
-                    skipped.Add("GPU OC backend unavailable");
+                    skipped.Add(global::OmenCore.Localization.Strings.CsGPUOCBackendUnavailable);
                 }
 
                 if (AmdPowerLimitsAvailable)
                 {
-                    TryRunTuningRollbackStep("AMD CPU power defaults", ResetAmdPowerLimits, applied, skipped);
+                    TryRunTuningRollbackStep(global::OmenCore.Localization.Strings.CsAMDCPUPowerDefaults, ResetAmdPowerLimits, applied, skipped);
                 }
                 else if (IsAmdCpu)
                 {
-                    skipped.Add("AMD CPU power backend unavailable");
+                    skipped.Add(global::OmenCore.Localization.Strings.CsAMDCPUPowerBackendUnavailable);
                 }
 
                 StartupRecoveryNoticeVisible = true;
-                StartupRecoveryNoticeText = "Safe tuning rollback applied. Startup tuning state has been normalized to Balanced/Auto defaults; unavailable live hardware backends were skipped.";
+                StartupRecoveryNoticeText = global::OmenCore.Localization.Strings.CsSafeTuningRollbackAppliedStartupTuningState;
 
-                var skippedText = skipped.Count > 0 ? $" Skipped: {string.Join("; ", skipped)}." : string.Empty;
-                TuningRollbackStatusText = $"Applied: {string.Join("; ", applied)}.{skippedText}";
+                var skippedText = skipped.Count > 0 ? string.Format(global::OmenCore.Localization.Strings.CsSkipped_4909e, string.Join("; ", skipped)) : string.Empty;
+                TuningRollbackStatusText = string.Format(global::OmenCore.Localization.Strings.CsApplied_76880, string.Join("; ", applied), skippedText);
                 _logging.Info($"Safe tuning rollback completed. Applied=[{string.Join("; ", applied)}], Skipped=[{string.Join("; ", skipped)}]");
 
                 OnPropertyChanged(nameof(CurrentPerformanceModeName));
@@ -3317,8 +3317,8 @@ namespace OmenCore.ViewModels
             }
             catch (Exception ex)
             {
-                TuningRollbackStatusText = $"Safe rollback failed: {ex.Message}";
-                UndervoltLastActionText = $"Safe rollback failed: {ex.Message}";
+                TuningRollbackStatusText = string.Format(global::OmenCore.Localization.Strings.CsSafeRollbackFailed, ex.Message);
+                UndervoltLastActionText = string.Format(global::OmenCore.Localization.Strings.CsSafeRollbackFailed, ex.Message);
                 UndervoltLastActionColor = System.Windows.Media.Brushes.OrangeRed;
                 _logging.Error($"Safe tuning rollback failed: {ex.Message}", ex);
             }
@@ -3348,10 +3348,10 @@ namespace OmenCore.ViewModels
             {
                 _logging.Warn("Cannot apply TCC offset: MSR access not available (install PawnIO)");
                 System.Windows.MessageBox.Show(
-                    "TCC offset cannot be applied - MSR access not available.\n\n" +
-                    "This requires PawnIO driver access (pawnio.eu).\n\n" +
-                    "Without MSR access, CPU temperature limits cannot be modified.",
-                    "TCC Offset Unavailable",
+                    global::OmenCore.Localization.Strings.CsTCCOffsetCannotBeAppliedMSRAccess
+
+,
+                    global::OmenCore.Localization.Strings.CsTCCOffsetUnavailable_f2b2d,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Warning);
                 return;
@@ -3390,16 +3390,16 @@ namespace OmenCore.ViewModels
                     _logging.Warn($"× TCC offset write failed - value unchanged at {offsetBefore}°C. " +
                                   "This may indicate HVCI/Secure Boot is blocking MSR writes.");
                     System.Windows.MessageBox.Show(
-                        $"TCC offset could not be changed - the value remained at {offsetBefore}°C.\n\n" +
-                        "This usually means:\n" +
-                        "• Hyper-V/HVCI (Core Isolation) is blocking MSR writes\n" +
-                        "• Secure Boot is preventing kernel-mode access\n\n" +
-                        "To fix:\n" +
-                        "1. Open Windows Security → Device Security → Core Isolation\n" +
-                        "2. Disable 'Memory Integrity'\n" +
-                        "3. Restart your computer\n\n" +
-                        "Or use Intel XTU which has a signed driver.",
-                        "TCC Offset Write Failed",
+                        string.Format(global::OmenCore.Localization.Strings.CsTCCOffsetCouldNotBeChangedThe, offsetBefore) +
+                        global::OmenCore.Localization.Strings.CsThisUsuallyMeans +
+                        global::OmenCore.Localization.Strings.CsHyperVHVCICoreIsolationIsBlocking +
+                        global::OmenCore.Localization.Strings.CsSecureBootIsPreventingKernelModeAccess +
+                        global::OmenCore.Localization.Strings.CsToFix +
+                        global::OmenCore.Localization.Strings.Cs1OpenWindowsSecurityDeviceSecurityCore +
+                        global::OmenCore.Localization.Strings.Cs2DisableMemoryIntegrity +
+                        global::OmenCore.Localization.Strings.Cs3RestartYourComputer +
+                        global::OmenCore.Localization.Strings.CsOrUseIntelXTUWhichHasA,
+                        global::OmenCore.Localization.Strings.CsTCCOffsetWriteFailed,
                         System.Windows.MessageBoxButton.OK,
                         System.Windows.MessageBoxImage.Warning);
                 }
@@ -3416,8 +3416,8 @@ namespace OmenCore.ViewModels
                 _logging.Error($"Failed to apply TCC offset: {ex.Message}", ex);
                 System.Windows.MessageBox.Show(
                     $"Failed to apply TCC offset: {ex.Message}\n\n" +
-                    "Ensure you have MSR access via PawnIO.",
-                    "TCC Offset Error",
+                    global::OmenCore.Localization.Strings.CsEnsureYouHaveMSRAccessViaPawnIO,
+                    global::OmenCore.Localization.Strings.CsTCCOffsetError,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Error);
             }
@@ -3469,7 +3469,7 @@ namespace OmenCore.ViewModels
             if (_msrAccess == null || !_msrAccess.IsAvailable)
             {
                 CpuPowerLimitsAvailable = false;
-                CpuPowerLimitsStatus = "No MSR access (install PawnIO for power limit control)";
+                CpuPowerLimitsStatus = global::OmenCore.Localization.Strings.CsNoMSRAccessInstallPawnIOForPower;
                 CpuPowerLimitsLocked = true;
                 return;
             }
@@ -3499,8 +3499,8 @@ namespace OmenCore.ViewModels
                     CpuPl1Watts = Math.Max(CpuPl1Watts, 15);
                     CpuPl2Watts = Math.Max(CpuPl2Watts, 25);
                     CpuPowerLimitsStatus = is8d2fIntelCoreUltra
-                        ? "MSR package limits unavailable on 8D2F Intel path - use OMEN/OGH mode policy control"
-                        : "MSR package limits unavailable - HP firmware may require OMEN performance modes/Unleashed mode";
+                        ? global::OmenCore.Localization.Strings.CsMSRPackageLimitsUnavailableOn8D2FIntel
+                        : global::OmenCore.Localization.Strings.CsMSRPackageLimitsUnavailableHPFirmwareMay;
                     _logging.Warn(is8d2fIntelCoreUltra
                         ? "CPU power limit MSR readback returned 0W/0W on 8D2F Intel Core Ultra path; treating direct PL1/PL2 sliders as firmware-managed while allowing OMEN/OGH mode policy control"
                         : "CPU power limit MSR readback returned 0W/0W; treating direct PL1/PL2 sliders as unavailable instead of projecting writable limits");
@@ -3511,8 +3511,8 @@ namespace OmenCore.ViewModels
                 {
                     CpuPowerLimitsAvailable = true;
                     CpuPowerLimitsStatus = is8d2fIntelCoreUltra
-                        ? $"⚠️ BIOS Locked - Read-only (PL1: {pl1:F0}W, PL2: {pl2:F0}W). Mode policy still applies via OMEN/OGH"
-                        : $"⚠️ BIOS Locked - Read-only (PL1: {pl1:F0}W, PL2: {pl2:F0}W)";
+                        ? string.Format(global::OmenCore.Localization.Strings.CsBIOSLockedReadOnlyPL1WPL2, pl1, pl2)
+                        : string.Format(global::OmenCore.Localization.Strings.CsBIOSLockedReadOnlyPL1WPL2_b384e, pl1, pl2);
                     _logging.Warn(is8d2fIntelCoreUltra
                         ? "CPU power limits are BIOS-locked on 8D2F Intel Core Ultra path; direct PL1/PL2 writes disabled while OMEN/OGH mode policy remains available"
                         : "CPU power limits are locked by BIOS - cannot modify until next reboot");
@@ -3520,7 +3520,7 @@ namespace OmenCore.ViewModels
                 else
                 {
                     CpuPowerLimitsAvailable = true;
-                    CpuPowerLimitsStatus = $"✓ Available (PL1: {pl1:F0}W, PL2: {pl2:F0}W)";
+                    CpuPowerLimitsStatus = string.Format(global::OmenCore.Localization.Strings.CsAvailablePL1WPL2W, pl1, pl2);
                     _logging.Info($"CPU power limits initialized: PL1={pl1:F0}W, PL2={pl2:F0}W, Locked={isLocked}");
                 }
 
@@ -3551,9 +3551,9 @@ namespace OmenCore.ViewModels
             {
                 _logging.Warn("Cannot apply CPU power limits: MSR access not available");
                 System.Windows.MessageBox.Show(
-                    "CPU power limits cannot be applied - MSR access not available.\n\n" +
-                    "Install PawnIO driver from pawnio.eu to enable power limit control.",
-                    "Power Limits Unavailable",
+                    global::OmenCore.Localization.Strings.CsCPUPowerLimitsCannotBeAppliedMSR
+,
+                    global::OmenCore.Localization.Strings.CsPowerLimitsUnavailable,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Warning);
                 return;
@@ -3563,11 +3563,11 @@ namespace OmenCore.ViewModels
             {
                 _logging.Warn("Cannot apply CPU power limits: locked by BIOS");
                 System.Windows.MessageBox.Show(
-                    "CPU power limits are locked by BIOS and cannot be modified.\n\n" +
-                    "This lock is set during boot and persists until the next restart.\n" +
-                    "Some laptops may require specific BIOS settings or Unleashed Mode to unlock.\n\n" +
-                    "If you are on OMEN 16-am0xxx (8D2F) Intel Core Ultra, direct PL1/PL2 sliders may stay locked while OMEN/OGH performance mode policy still works.",
-                    "Power Limits Locked",
+                    global::OmenCore.Localization.Strings.CsCPUPowerLimitsAreLockedByBIOS
+
+
+,
+                    global::OmenCore.Localization.Strings.CsPowerLimitsLocked,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Warning);
                 return;
@@ -3591,7 +3591,7 @@ namespace OmenCore.ViewModels
                     CurrentPl2Watts = newPl2;
                     
                     _logging.Info($"✓ CPU power limits applied: PL1={newPl1:F0}W, PL2={newPl2:F0}W");
-                    CpuPowerLimitsStatus = $"✓ Applied (PL1: {newPl1:F0}W, PL2: {newPl2:F0}W)";
+                    CpuPowerLimitsStatus = string.Format(global::OmenCore.Localization.Strings.CsAppliedPL1WPL2W, newPl1, newPl2);
 
                     // Save to config
                     SaveCpuPowerLimitsToConfig(pl1, pl2);
@@ -3600,9 +3600,9 @@ namespace OmenCore.ViewModels
                 {
                     _logging.Warn("CPU power limits write returned false - may be locked");
                     System.Windows.MessageBox.Show(
-                        "Failed to apply CPU power limits.\n\n" +
-                        "The BIOS may have locked the MSR registers during boot.",
-                        "Power Limits Failed",
+                        global::OmenCore.Localization.Strings.CsFailedToApplyCPUPowerLimitsThe
+,
+                        global::OmenCore.Localization.Strings.CsPowerLimitsFailed,
                         System.Windows.MessageBoxButton.OK,
                         System.Windows.MessageBoxImage.Warning);
                 }
@@ -3611,8 +3611,8 @@ namespace OmenCore.ViewModels
             {
                 _logging.Error($"Failed to apply CPU power limits: {ex.Message}", ex);
                 System.Windows.MessageBox.Show(
-                    $"Error applying CPU power limits: {ex.Message}",
-                    "Power Limits Error",
+                    string.Format(global::OmenCore.Localization.Strings.CsErrorApplyingCPUPowerLimits, ex.Message),
+                    global::OmenCore.Localization.Strings.CsPowerLimitsError,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Error);
             }
@@ -3659,7 +3659,7 @@ namespace OmenCore.ViewModels
                 var (newPl1, newPl2, _, _, _) = _msrAccess.GetPowerLimitStatus();
                 CurrentPl1Watts = newPl1;
                 CurrentPl2Watts = newPl2;
-                CpuPowerLimitsStatus = $"✓ Reset to startup values (PL1: {newPl1:F0}W, PL2: {newPl2:F0}W)";
+                CpuPowerLimitsStatus = string.Format(global::OmenCore.Localization.Strings.CsResetToStartupValuesPL1WPL2, newPl1, newPl2);
 
                 _logging.Info($"CPU power limits reset to startup-read values (PL1={defaultPl1}W, PL2={defaultPl2}W)");
             }
@@ -3688,8 +3688,8 @@ namespace OmenCore.ViewModels
         private void RefreshGpuPowerPill()
         {
             var text = _latestGpuPowerWatts > 0
-                ? $"Full power • {_latestGpuPowerWatts:F0}W"
-                : "Full power • waiting for telemetry";
+                ? string.Format(global::OmenCore.Localization.Strings.CsFullPowerW, _latestGpuPowerWatts)
+                : global::OmenCore.Localization.Strings.CsFullPowerWaitingForTelemetry;
             GpuFullPowerText = text;
         }
 
@@ -3731,7 +3731,7 @@ namespace OmenCore.ViewModels
                 if (victusModelConfig?.SupportsGpuPowerBoost != true)
                 {
                     GpuPowerBoostAvailable = false;
-                    GpuPowerBoostStatus = "Not supported — HP Victus BIOS does not expose custom TGP/PPAB control";
+                    GpuPowerBoostStatus = global::OmenCore.Localization.Strings.CsNotSupportedHPVictusBIOSDoesNot;
                     _logging.Info("GPU Power Boost: skipped — HP Victus does not support WMI TGP/PPAB control");
                     return;
                 }
@@ -3783,8 +3783,8 @@ namespace OmenCore.ViewModels
                     // make the status text say so explicitly instead of just naming the detected
                     // level, so this doesn't read as "Maximum is active" when it isn't yet.
                     GpuPowerBoostStatus = (hasSavedPreference && !string.Equals(detectedLevel, savedLevel, StringComparison.OrdinalIgnoreCase))
-                        ? $"{detectedLevel} (detected via WMI; saved preference '{savedLevel}' not yet applied)"
-                        : $"{detectedLevel} (detected via WMI)";
+                        ? string.Format(global::OmenCore.Localization.Strings.CsDetectedViaWMISavedPreferenceNotYet, detectedLevel, savedLevel)
+                        : string.Format(global::OmenCore.Localization.Strings.CsDetectedViaWMI, detectedLevel);
                     _logging.Info($"✓ GPU Power Boost available via WMI BIOS. Detected: {detectedLevel}, User pref: {savedLevel ?? "none"}");
                     return;
                 }
@@ -3814,7 +3814,7 @@ namespace OmenCore.ViewModels
                     {
                         GpuPowerBoostLevel = mappedLevel;
                     }
-                    GpuPowerBoostStatus = $"{mappedLevel} (detected via OGH)";
+                    GpuPowerBoostStatus = string.Format(global::OmenCore.Localization.Strings.CsDetectedViaOGH, mappedLevel);
                     _logging.Info($"✓ GPU Power Boost available via OGH. Detected: {mappedLevel}, User pref: {savedLevel ?? "none"}");
                     return;
                 }
@@ -3856,7 +3856,7 @@ namespace OmenCore.ViewModels
                                 _ => "Medium"
                             };
                         }
-                        GpuPowerBoostStatus = $"EC mode 0x{perfMode:X2} (experimental) - User setting will be applied";
+                        GpuPowerBoostStatus = string.Format(global::OmenCore.Localization.Strings.CsECMode0xExperimentalUserSettingWill, perfMode);
                         _logging.Info($"✓ GPU Power Boost enabled via EC. EC=0x{perfMode:X2}, User pref: {savedLevel ?? "none"}");
                         return;
                     }
@@ -3871,7 +3871,7 @@ namespace OmenCore.ViewModels
             if (!GpuPowerBoostAvailable)
             {
                 GpuPowerBoostAvailable = false;
-                GpuPowerBoostStatus = "Not available on this model";
+                GpuPowerBoostStatus = global::OmenCore.Localization.Strings.CsNotAvailableOnThisModel;
                 _logging.Info("GPU Power Boost: No functional backend found");
             }
             else
@@ -3960,10 +3960,10 @@ namespace OmenCore.ViewModels
 
                     var baseStatus = GpuPowerBoostLevel switch
                     {
-                        "Minimum" => "✓ Minimum (Base TGP only)",
-                        "Medium" => "✓ Medium (Custom TGP enabled)",
-                        "Maximum" => "✓ Maximum (Custom TGP + Dynamic Boost +15W)",
-                        "Extended" => "✓ Extended (PPAB+ for RTX 5080, +25W if supported)",
+                        "Minimum" => global::OmenCore.Localization.Strings.CsMinimumBaseTGPOnly,
+                        "Medium" => global::OmenCore.Localization.Strings.CsMediumCustomTGPEnabled,
+                        "Maximum" => global::OmenCore.Localization.Strings.CsMaximumCustomTGPDynamicBoost15W,
+                        "Extended" => global::OmenCore.Localization.Strings.CsExtendedPPABForRTX508025WIf,
                         _ => "Applied"
                     };
 
@@ -3971,7 +3971,7 @@ namespace OmenCore.ViewModels
                     {
                         // BIOS accepted the command but hardware state didn't change — surface this clearly.
                         _logging.Warn($"⚠️ GPU power command accepted by BIOS but readback shows no change. This BIOS may not support WMI GPU power control (BIOS WMI reliability may be degraded).");
-                        GpuPowerBoostStatus = "⚠️ Command sent but GPU power may not have changed (BIOS WMI degraded)";
+                        GpuPowerBoostStatus = global::OmenCore.Localization.Strings.CsCommandSentButGPUPowerMayNot;
                         // Still save so it re-attempts on next launch
                         SaveGpuPowerBoostToConfig();
                         return;
@@ -3986,11 +3986,11 @@ namespace OmenCore.ViewModels
                     // available" - misleading, since none were.
                     if (GpuPowerLimitAvailable && GpuPowerLimitPercent != 100)
                     {
-                        GpuPowerBoostStatus = $"{baseStatus} + NVAPI {GpuPowerLimitPercent}% limit";
+                        GpuPowerBoostStatus = string.Format(global::OmenCore.Localization.Strings.CsNVAPILimit, baseStatus, GpuPowerLimitPercent);
                     }
                     else if (GpuPowerLimitAvailable)
                     {
-                        GpuPowerBoostStatus = $"{baseStatus} (NVAPI power limits available)";
+                        GpuPowerBoostStatus = string.Format(global::OmenCore.Localization.Strings.CsNVAPIPowerLimitsAvailable, baseStatus);
                     }
                     else
                     {
@@ -4021,11 +4021,11 @@ namespace OmenCore.ViewModels
                 {
                     GpuPowerBoostStatus = GpuPowerBoostLevel switch
                     {
-                        "Minimum" => "✓ Minimum (Base TGP only, via OGH)",
-                        "Medium" => "✓ Medium (Custom TGP, via OGH)",
+                        "Minimum" => global::OmenCore.Localization.Strings.CsMinimumBaseTGPOnlyViaOGH,
+                        "Medium" => global::OmenCore.Localization.Strings.CsMediumCustomTGPViaOGH,
                         "Maximum" => "✓ Maximum (Dynamic Boost, via OGH)",
-                        "Extended" => "✓ Extended (PPAB+, via OGH)",
-                        _ => "Applied via OGH"
+                        "Extended" => global::OmenCore.Localization.Strings.CsExtendedPPABViaOGH,
+                        _ => global::OmenCore.Localization.Strings.CsAppliedViaOGH
                     };
                     _logging.Info($"✓ GPU Power Boost set to: {GpuPowerBoostLevel} via OGH");
                     
@@ -4042,10 +4042,10 @@ namespace OmenCore.ViewModels
             {
                 GpuPowerBoostStatus = GpuPowerBoostLevel switch
                 {
-                    "Minimum" => "✓ Minimum (Base TGP, via EC)",
-                    "Medium" => "✓ Medium (Custom TGP, via EC)",
-                    "Maximum" => "✓ Maximum (Dynamic Boost +15W, via EC)",
-                    _ => "Applied via EC"
+                    "Minimum" => global::OmenCore.Localization.Strings.CsMinimumBaseTGPViaEC,
+                    "Medium" => global::OmenCore.Localization.Strings.CsMediumCustomTGPViaEC,
+                    "Maximum" => global::OmenCore.Localization.Strings.CsMaximumDynamicBoost15WViaEC,
+                    _ => global::OmenCore.Localization.Strings.CsAppliedViaEC
                 };
                 _logging.Info($"✓ GPU Power Boost set to: {GpuPowerBoostLevel} via EC (experimental)");
 
@@ -4058,8 +4058,8 @@ namespace OmenCore.ViewModels
             // identical to Maximum, so there is nothing distinct to fall back to. Say so
             // instead of the generic message, which read as if EC support were simply missing.
             GpuPowerBoostStatus = string.Equals(GpuPowerBoostLevel, "Extended", StringComparison.OrdinalIgnoreCase)
-                ? "Not available - this BIOS doesn't apply Extended via WMI, and no distinct EC fallback level exists beyond Maximum"
-                : "Failed - WMI/EC commands not supported on this model";
+                ? global::OmenCore.Localization.Strings.CsNotAvailableThisBIOSDoesnTApply
+                : global::OmenCore.Localization.Strings.CsFailedWMIECCommandsNotSupportedOn;
             _logging.Warn($"Failed to set GPU Power Boost to: {GpuPowerBoostLevel} - WMI and EC methods unavailable");
         }
 
@@ -4205,13 +4205,13 @@ namespace OmenCore.ViewModels
                         GpuPowerBoostStatus = readbackOk
                             ? savedLevel switch
                             {
-                                "Minimum" => "✓ Minimum (Base TGP only) - Restored",
-                                "Medium" => "✓ Medium (Custom TGP) - Restored",
-                                "Maximum" => "✓ Maximum (Dynamic Boost) - Restored",
-                                "Extended" => "✓ Extended (PPAB+) - Restored",
-                                _ => $"✓ {savedLevel} - Restored"
+                                "Minimum" => global::OmenCore.Localization.Strings.CsMinimumBaseTGPOnlyRestored,
+                                "Medium" => global::OmenCore.Localization.Strings.CsMediumCustomTGPRestored,
+                                "Maximum" => global::OmenCore.Localization.Strings.CsMaximumDynamicBoostRestored,
+                                "Extended" => global::OmenCore.Localization.Strings.CsExtendedPPABRestored,
+                                _ => string.Format(global::OmenCore.Localization.Strings.CsRestored, savedLevel)
                             }
-                            : "⚠️ GPU power restore attempted but BIOS readback shows no change";
+                            : global::OmenCore.Localization.Strings.CsGPUPowerRestoreAttemptedButBIOSReadback;
                     });
                     return;
                 }
@@ -4237,7 +4237,7 @@ namespace OmenCore.ViewModels
                     {
                         GpuPowerBoostAvailable = true;
                         GpuPowerBoostLevel = savedLevel;
-                        GpuPowerBoostStatus = $"✓ {savedLevel} (via OGH) - Restored";
+                        GpuPowerBoostStatus = string.Format(global::OmenCore.Localization.Strings.CsViaOGHRestored, savedLevel);
                     });
                     return;
                 }
@@ -4283,11 +4283,11 @@ namespace OmenCore.ViewModels
                                 GpuPowerBoostLevel = savedLevel;
                                 GpuPowerBoostStatus = savedLevel switch
                                 {
-                                    "Minimum" => "✓ Minimum (Base TGP, via EC) - Restored",
-                                    "Medium" => "✓ Medium (Custom TGP, via EC) - Restored",
-                                    "Maximum" => "✓ Maximum (Dynamic Boost +15W, via EC) - Restored",
-                                    "Extended" => "✓ Extended (PPAB+ +25W, via EC) - Restored",
-                                    _ => $"✓ {savedLevel} (via EC) - Restored"
+                                    "Minimum" => global::OmenCore.Localization.Strings.CsMinimumBaseTGPViaECRestored,
+                                    "Medium" => global::OmenCore.Localization.Strings.CsMediumCustomTGPViaECRestored,
+                                    "Maximum" => global::OmenCore.Localization.Strings.CsMaximumDynamicBoost15WViaECRestored,
+                                    "Extended" => global::OmenCore.Localization.Strings.CsExtendedPPAB25WViaECRestored,
+                                    _ => string.Format(global::OmenCore.Localization.Strings.CsViaECRestored, savedLevel)
                                 };
                             });
                             return;
@@ -4364,10 +4364,10 @@ namespace OmenCore.ViewModels
         {
             return modeName?.Trim().ToLowerInvariant() switch
             {
-                "quiet" or "silent" or "powersaver" => "Power saving mode - reduced fan noise, lower power limits. Best for quiet environments and light tasks.",
-                "performance" => "High performance mode - higher CPU/GPU power targets for gaming and heavy workloads.",
-                "turbo" or "extreme" => "Maximum configured performance profile for short high-load sessions.",
-                _ => "Default mode - balanced performance and power consumption. Good for everyday use."
+                "quiet" or "silent" or "powersaver" => global::OmenCore.Localization.Strings.CsPowerSavingModeReducedFanNoiseLower,
+                "performance" => global::OmenCore.Localization.Strings.CsHighPerformanceModeHigherCPUGPUPower,
+                "turbo" or "extreme" => global::OmenCore.Localization.Strings.CsMaximumConfiguredPerformanceProfileForShortHigh,
+                _ => global::OmenCore.Localization.Strings.CsDefaultModeBalancedPerformanceAndPowerConsumption
             };
         }
         
@@ -4385,7 +4385,7 @@ namespace OmenCore.ViewModels
             {
                 GpuOcAvailable = false;
                 GpuPowerLimitAvailable = false;
-                GpuOcStatus = "NVAPI not available";
+                GpuOcStatus = global::OmenCore.Localization.Strings.CsNVAPINotAvailable;
                 return;
             }
             
@@ -4433,18 +4433,18 @@ namespace OmenCore.ViewModels
                     if (GpuOcAvailable)
                     {
                         GpuOcStatus = GpuPowerLimitAvailable
-                            ? $"✓ {_nvapiService.GpuName} - Ready"
-                            : $"✓ {_nvapiService.GpuName} - Clock OC ready, power limit locked";
+                            ? string.Format(global::OmenCore.Localization.Strings.CsReady, _nvapiService.GpuName)
+                            : string.Format(global::OmenCore.Localization.Strings.CsClockOCReadyPowerLimitLocked, _nvapiService.GpuName);
                         _logging.Info($"GPU OC initialized: {_nvapiService.GpuName}, Supports OC: {_nvapiService.SupportsOverclocking}, Supports Power Limit: {_nvapiService.SupportsPowerLimit}");
                     }
                     else if (GpuPowerLimitAvailable)
                     {
-                        GpuOcStatus = $"{_nvapiService.GpuName} - Power limit tuning available, clock offsets blocked";
+                        GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsPowerLimitTuningAvailableClockOffsetsBlocked, _nvapiService.GpuName);
                         _logging.Info($"GPU detected with power-only NVAPI tuning: {_nvapiService.GpuName}");
                     }
                     else
                     {
-                        GpuOcStatus = $"{_nvapiService.GpuName} - NVAPI tuning locked by driver/firmware";
+                        GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsNVAPITuningLockedByDriverFirmware, _nvapiService.GpuName);
                         _logging.Info($"GPU detected but NVAPI tuning writes are locked: {_nvapiService.GpuName}. Power status: {_nvapiService.PowerLimitStatusMessage}");
                     }
 
@@ -4455,7 +4455,7 @@ namespace OmenCore.ViewModels
                 {
                     GpuOcAvailable = false;
                     GpuPowerLimitAvailable = false;
-                    GpuOcStatus = "NVIDIA GPU not detected";
+                    GpuOcStatus = global::OmenCore.Localization.Strings.CsNVIDIAGPUNotDetected;
                     
                     // Try AMD GPU initialization
                     InitializeAmdGpu();
@@ -4465,7 +4465,7 @@ namespace OmenCore.ViewModels
             {
                 GpuOcAvailable = false;
                 GpuPowerLimitAvailable = false;
-                GpuOcStatus = $"Initialization failed: {ex.Message}";
+                GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsInitializationFailed, ex.Message);
                 _logging.Error($"GPU OC initialization failed: {ex.Message}", ex);
             }
             
@@ -4547,12 +4547,12 @@ namespace OmenCore.ViewModels
             
             if (_amdGpuService?.IsAvailable == true)
             {
-                GpuOcStatus = $"✓ {GpuDisplayName} - AMD overclocking available via ADL2";
+                GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsAMDOverclockingAvailableViaADL2, GpuDisplayName);
                 _logging.Info($"AMD GPU OC available: {GpuDisplayName} via ADL2");
             }
             else
             {
-                GpuOcStatus = $"⚠ {GpuDisplayName} - Install AMD Adrenalin drivers for GPU tuning";
+                GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsInstallAMDAdrenalinDriversForGPUTuning, GpuDisplayName);
                 _logging.Info($"AMD GPU detected: {GpuDisplayName}. ADL2 not available (Adrenalin drivers required).");
             }
         }
@@ -4567,7 +4567,7 @@ namespace OmenCore.ViewModels
                 return;
             }
 
-            var result = ApplyGpuOcValues(GpuCoreClockOffset, GpuMemoryClockOffset, GpuPowerLimitPercent, GpuVoltageOffsetMv, true, "✓ Applied");
+            var result = ApplyGpuOcValues(GpuCoreClockOffset, GpuMemoryClockOffset, GpuPowerLimitPercent, GpuVoltageOffsetMv, true, global::OmenCore.Localization.Strings.CsApplied);
             GpuOcStatus = result.StatusText;
         }
 
@@ -4614,15 +4614,15 @@ namespace OmenCore.ViewModels
             if (showDialogIfBlocked)
             {
                 System.Windows.MessageBox.Show(
-                    "GPU OC increase detected while running on battery power.\n\n" +
-                    "Applying higher clocks/power limits on battery can cause unstable clocks, rapid battery drain, and sudden throttling.\n\n" +
-                    "Connect AC power before increasing GPU OC settings.",
-                    "AC Power Recommended",
+                    global::OmenCore.Localization.Strings.CsGPUOCIncreaseDetectedWhileRunningOn
+
+,
+                    global::OmenCore.Localization.Strings.CsACPowerRecommended,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Warning);
             }
 
-            GpuOcStatus = "GPU OC increase blocked: connect AC power first";
+            GpuOcStatus = global::OmenCore.Localization.Strings.CsGPUOCIncreaseBlockedConnectACPower;
             _logging.Warn("Blocked GPU OC increase because the system is on battery power.");
             return false;
         }
@@ -4669,10 +4669,10 @@ namespace OmenCore.ViewModels
             }
             
             GpuOcStatus = GpuOcAvailable
-                ? "Reset to defaults (Core: 0 MHz, Memory: 0 MHz, Power: 100%, Voltage: 0 mV)"
+                ? global::OmenCore.Localization.Strings.CsResetToDefaultsCore0MHzMemory
                 : GpuPowerLimitAvailable
-                    ? "Reset to defaults (Power: 100%)"
-                    : "Reset to defaults for supported GPU tuning controls";
+                    ? global::OmenCore.Localization.Strings.CsResetToDefaultsPower100
+                    : global::OmenCore.Localization.Strings.CsResetToDefaultsForSupportedGPUTuning;
             SaveGpuOcToConfig(applyOnStartup: false);
             _logging.Info("GPU OC reset to defaults");
         }
@@ -4695,18 +4695,18 @@ namespace OmenCore.ViewModels
 
                 if (coreSuccess && memSuccess && powerSuccess)
                 {
-                    GpuOcStatus = $"AMD GPU OC Applied: Core {AmdCoreClockOffset:+#;-#;0} MHz, Mem {AmdMemoryClockOffset:+#;-#;0} MHz, Power {AmdPowerLimitPercent}%";
+                    GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsAMDGPUOCAppliedCoreMHzMem, AmdCoreClockOffset, AmdMemoryClockOffset, AmdPowerLimitPercent);
                     _logging.Info($"✓ AMD GPU OC applied: Core={AmdCoreClockOffset}, Mem={AmdMemoryClockOffset}, Power={AmdPowerLimitPercent}%");
                 }
                 else
                 {
-                    GpuOcStatus = "AMD GPU OC: Some settings failed to apply";
+                    GpuOcStatus = global::OmenCore.Localization.Strings.CsAMDGPUOCSomeSettingsFailedTo;
                     _logging.Warn($"AMD GPU OC partial failure: Core={coreSuccess}, Mem={memSuccess}, Power={powerSuccess}");
                 }
             }
             catch (Exception ex)
             {
-                GpuOcStatus = $"AMD GPU OC Error: {ex.Message}";
+                GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsAMDGPUOCError, ex.Message);
                 _logging.Error($"AMD GPU OC failed: {ex.Message}", ex);
             }
         }
@@ -4722,7 +4722,7 @@ namespace OmenCore.ViewModels
                 _amdGpuService.ResetToDefaults();
             }
 
-            GpuOcStatus = "AMD GPU OC reset to defaults";
+            GpuOcStatus = global::OmenCore.Localization.Strings.CsAMDGPUOCResetToDefaults;
             _logging.Info("AMD GPU OC reset to defaults");
         }
 
@@ -4765,14 +4765,14 @@ namespace OmenCore.ViewModels
                         _amdGpuService.ResetToDefaults();
                         _logging.Warn("Startup recovery: AMD GPU tuning written back to defaults (previous session ended during a Test Apply).");
                     }
-                }), "GPU OC recovery reset");
+                }), global::OmenCore.Localization.Strings.CsGPUOCRecoveryReset);
             }
 
             if (cpu && IsUndervoltSupported)
             {
                 RunStartupTask(
                     () => ReapplySettingWithRetryAsync(
-                        "CPU Undervolt recovery reset",
+                        global::OmenCore.Localization.Strings.CsCPUUndervoltRecoveryReset,
                         async () =>
                         {
                             await _undervoltService.ResetAsync();
@@ -4781,7 +4781,7 @@ namespace OmenCore.ViewModels
                         maxRetries: 3,
                         initialDelayMs: 3000,
                         maxDelayMs: 8000),
-                    "CPU undervolt recovery reset");
+                    global::OmenCore.Localization.Strings.CsCPUUndervoltRecoveryReset_e9726);
             }
         }
 
@@ -4831,17 +4831,17 @@ namespace OmenCore.ViewModels
         {
             if (outcome.CpuUndervoltReset && outcome.GpuOcReset)
             {
-                return "Startup safety reset applied: an unconfirmed CPU undervolt test and GPU OC test were detected from the previous session. Tuning has been reset to safe defaults.";
+                return global::OmenCore.Localization.Strings.CsStartupSafetyResetAppliedAnUnconfirmedCPU;
             }
 
             if (outcome.CpuUndervoltReset)
             {
-                return "Startup safety reset applied: an unconfirmed CPU undervolt test was detected from the previous session. CPU undervolt has been reset to safe defaults.";
+                return global::OmenCore.Localization.Strings.CsStartupSafetyResetAppliedAnUnconfirmedCPU_1e773;
             }
 
             if (outcome.GpuOcReset)
             {
-                return "Startup safety reset applied: an unconfirmed GPU OC test was detected from the previous session. GPU tuning has been reset to safe defaults.";
+                return global::OmenCore.Localization.Strings.CsStartupSafetyResetAppliedAnUnconfirmedGPU;
             }
 
             return string.Empty;
@@ -4962,8 +4962,8 @@ namespace OmenCore.ViewModels
                     {
                         _logging.Warn("Last session ended in a crash - not reapplying the GPU OC automatically. " +
                                       "The saved offsets are unchanged; use Test Apply, then Keep, to re-confirm.");
-                        GpuOcStatus = "Startup reapply held back - the last session ended in a crash. " +
-                                      "Use Test Apply, then Keep, to re-confirm.";
+                        GpuOcStatus = global::OmenCore.Localization.Strings.CsStartupReapplyHeldBackTheLastSession
+;
                         return;
                     }
 
@@ -4976,7 +4976,7 @@ namespace OmenCore.ViewModels
                     _logging.Info($"GPU OC settings restored from config: Core={GpuCoreClockOffset}, Mem={GpuMemoryClockOffset}, Power={GpuPowerLimitPercent}%, Voltage={GpuVoltageOffsetMv}mV");
                     if (!string.IsNullOrEmpty(guardrailNote))
                     {
-                        GpuOcStatus = $"Restored with guardrails: {guardrailNote}";
+                        GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsRestoredWithGuardrails, guardrailNote);
                         _logging.Info($"GPU OC restore adjusted to detected limits: {guardrailNote}");
                     }
                     
@@ -4993,7 +4993,7 @@ namespace OmenCore.ViewModels
                         {
                             ApplyGpuOcStartupRestore();
                         }
-                    }, "GPU OC restore");
+                    }, global::OmenCore.Localization.Strings.CsGPUOCRestore);
                 }
             }
             catch (Exception ex)
@@ -5056,8 +5056,8 @@ namespace OmenCore.ViewModels
             
             _logging.Info($"Loaded GPU OC profile: {profile.Name} (Core: {profile.CoreClockOffsetMHz}, Mem: {profile.MemoryClockOffsetMHz}, Power: {profile.PowerLimitPercent}%, Voltage: {profile.VoltageOffsetMv}mV)");
             GpuOcStatus = string.IsNullOrEmpty(guardrailNote)
-                ? $"Loaded profile: {profile.Name}"
-                : $"Loaded '{profile.Name}' with guardrails: {guardrailNote}";
+                ? string.Format(global::OmenCore.Localization.Strings.CsLoadedProfile, profile.Name)
+                : string.Format(global::OmenCore.Localization.Strings.CsLoadedWithGuardrails, profile.Name, guardrailNote);
             
             // Save last selected profile
             var config = _configService.Config;
@@ -5072,7 +5072,7 @@ namespace OmenCore.ViewModels
         {
             if (string.IsNullOrWhiteSpace(NewGpuOcProfileName))
             {
-                System.Windows.MessageBox.Show("Please enter a name for the profile.", "Profile Name Required",
+                System.Windows.MessageBox.Show(global::OmenCore.Localization.Strings.CsPleaseEnterANameForTheProfile, global::OmenCore.Localization.Strings.CsProfileNameRequired,
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 return;
             }
@@ -5081,8 +5081,8 @@ namespace OmenCore.ViewModels
             if (GpuOcProfiles.Any(p => p.Name == NewGpuOcProfileName && 
                 IsBuiltInGpuOcProfile(p.Name)))
             {
-                System.Windows.MessageBox.Show("Cannot overwrite built-in profiles. Please choose a different name.",
-                    "Invalid Name", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                System.Windows.MessageBox.Show(global::OmenCore.Localization.Strings.CsCannotOverwriteBuiltInProfilesPleaseChoose,
+                    global::OmenCore.Localization.Strings.CsInvalidName, System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                 return;
             }
             
@@ -5115,7 +5115,7 @@ namespace OmenCore.ViewModels
             // Clear input
             NewGpuOcProfileName = "";
             
-            GpuOcStatus = $"✓ Saved profile: {profile.Name}";
+            GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsSavedProfile, profile.Name);
             _logging.Info($"Saved GPU OC profile: {profile.Name}");
         }
         
@@ -5130,7 +5130,7 @@ namespace OmenCore.ViewModels
             // Don't allow deleting built-in profiles
             if (IsBuiltInGpuOcProfile(SelectedGpuOcProfile.Name))
             {
-                System.Windows.MessageBox.Show("Cannot delete built-in profiles.", "Delete Profile",
+                System.Windows.MessageBox.Show(global::OmenCore.Localization.Strings.CsCannotDeleteBuiltInProfiles, global::OmenCore.Localization.Strings.CsDeleteProfile_3e998,
                     System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                 return;
             }
@@ -5142,7 +5142,7 @@ namespace OmenCore.ViewModels
             // Save to config
             SaveGpuOcProfilesToConfig();
             
-            GpuOcStatus = $"Deleted profile: {profileName}";
+            GpuOcStatus = string.Format(global::OmenCore.Localization.Strings.CsDeletedProfile, profileName);
             _logging.Info($"Deleted GPU OC profile: {profileName}");
         }
         
@@ -5298,16 +5298,16 @@ namespace OmenCore.ViewModels
 
                 if (!GpuPowerBoostAvailable)
                 {
-                    return $"{modeName} • GPU Power: base";
+                    return string.Format(global::OmenCore.Localization.Strings.CsGPUPowerBase, modeName);
                 }
 
                 var boostText = GpuPowerBoostLevel switch
                 {
-                    "Maximum" => "+15W GPU Boost",
-                    "Extended" => "+25W GPU Boost",
-                    "Medium" => "Balanced GPU power",
-                    "Minimum" => "Base TGP",
-                    _ => "GPU power unknown"
+                    "Maximum" => global::OmenCore.Localization.Strings.Cs15WGPUBoost,
+                    "Extended" => global::OmenCore.Localization.Strings.Cs25WGPUBoost,
+                    "Medium" => global::OmenCore.Localization.Strings.CsBalancedGPUPower,
+                    "Minimum" => global::OmenCore.Localization.Strings.CsBaseTGP,
+                    _ => global::OmenCore.Localization.Strings.CsGPUPowerUnknown
                 };
 
                 return $"{modeName} • {boostText}";
@@ -5327,7 +5327,7 @@ namespace OmenCore.ViewModels
 
         /// <summary>What the selected mode will change beyond its power limits (5.0.0, WP-43).</summary>
         public string SelectedPerformanceModeEffectsSummary =>
-            SelectedPerformanceMode?.RememberedEffectsSummary ?? "Nothing yet - power limits only";
+            SelectedPerformanceMode?.RememberedEffectsSummary ?? global::OmenCore.Localization.Strings.CsNothingYetPowerLimitsOnly;
 
         private string _modeMemoryStatusText = string.Empty;
 
@@ -5363,7 +5363,7 @@ namespace OmenCore.ViewModels
             var snapshot = _performanceModeService.CaptureCurrentState();
             if (snapshot == null)
             {
-                ModeMemoryStatusText = "Could not read the current settings on this machine.";
+                ModeMemoryStatusText = global::OmenCore.Localization.Strings.CsCouldNotReadTheCurrentSettingsOn;
                 return;
             }
 
@@ -5373,7 +5373,7 @@ namespace OmenCore.ViewModels
 
             if (stored == null)
             {
-                ModeMemoryStatusText = $"'{selected.Name}' is not a saved mode, so there is nowhere to store this.";
+                ModeMemoryStatusText = string.Format(global::OmenCore.Localization.Strings.CsIsNotASavedModeSoThere, selected.Name);
                 return;
             }
 
@@ -5385,8 +5385,8 @@ namespace OmenCore.ViewModels
             OnPropertyChanged(nameof(SelectedPerformanceModeEffectsSummary));
 
             ModeMemoryStatusText = selected.HasRememberedEffects
-                ? $"'{selected.Name}' now remembers: {selected.RememberedEffectsSummary}"
-                : $"'{selected.Name}' has nothing to remember - the fan state could not be read.";
+                ? string.Format(global::OmenCore.Localization.Strings.CsNowRemembers, selected.Name, selected.RememberedEffectsSummary)
+                : string.Format(global::OmenCore.Localization.Strings.CsHasNothingToRememberTheFanState, selected.Name);
 
             _logging.Info($"Performance mode '{selected.Name}' remembered current state: {selected.RememberedEffectsSummary}");
         }
@@ -5478,7 +5478,7 @@ namespace OmenCore.ViewModels
         {
             try
             {
-                UndervoltLastActionText = "Applying CPU tuning settings...";
+                UndervoltLastActionText = global::OmenCore.Localization.Strings.CsApplyingCPUTuningSettings;
                 UndervoltLastActionColor = System.Windows.Media.Brushes.SkyBlue;
                 await ExecuteWithLoadingAsync(async () =>
                 {
@@ -5510,11 +5510,11 @@ namespace OmenCore.ViewModels
                     config.Undervolt.RespectExternalControllers = RespectExternalUndervolt;
                     // Do not modify ApplyOnStartup here — preserve the previously confirmed state.
                     _configService.Save(config);
-                }, "Applying undervolt settings...");
+                }, global::OmenCore.Localization.Strings.CsApplyingUndervoltSettings);
 
                 UndervoltLastActionText = IsAmdCpu
-                    ? $"Curve Optimizer applied: Core {RequestedCoreOffset:+0;-0;0} mV eq., iGPU {RequestedCacheOffset:+0;-0;0} mV eq."
-                    : $"Undervolt applied: Core {RequestedCoreOffset:+0;-0;0} mV, Cache {RequestedCacheOffset:+0;-0;0} mV";
+                    ? string.Format(global::OmenCore.Localization.Strings.CsCurveOptimizerAppliedCoreMVEqIGPU, RequestedCoreOffset, RequestedCacheOffset)
+                    : string.Format(global::OmenCore.Localization.Strings.CsUndervoltAppliedCoreMVCacheMV, RequestedCoreOffset, RequestedCacheOffset);
                 UndervoltLastActionColor = System.Windows.Media.Brushes.Lime;
             }
             catch (Exception ex)
@@ -5524,15 +5524,15 @@ namespace OmenCore.ViewModels
                     operation: "ApplyUndervoltAsync",
                     message: "Failed to apply undervolt",
                     ex: ex);
-                UndervoltLastActionText = $"Apply failed: {ex.Message}";
+                UndervoltLastActionText = string.Format(global::OmenCore.Localization.Strings.CsApplyFailed, ex.Message);
                 UndervoltLastActionColor = System.Windows.Media.Brushes.OrangeRed;
                 System.Windows.MessageBox.Show(
                     $"Failed to apply undervolt settings:\n\n{ex.Message}\n\n" +
-                    "This may be caused by:\n" +
-                    "• MSR access blocked (install PawnIO or disable Secure Boot)\n" +
-                    "• HVCI/Core Isolation enabled\n" +
-                    "• Unsupported CPU",
-                    "Undervolt Failed",
+                    global::OmenCore.Localization.Strings.CsThisMayBeCausedBy +
+                    global::OmenCore.Localization.Strings.CsMSRAccessBlockedInstallPawnIOOrDisable +
+                    global::OmenCore.Localization.Strings.CsHVCICoreIsolationEnabled +
+                    global::OmenCore.Localization.Strings.CsUnsupportedCPU,
+                    global::OmenCore.Localization.Strings.CsUndervoltFailed,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Error);
             }
@@ -5542,10 +5542,10 @@ namespace OmenCore.ViewModels
         {
             try
             {
-                UndervoltLastActionText = IsAmdCpu ? "Resetting Curve Optimizer offsets..." : "Resetting undervolt offsets...";
+                UndervoltLastActionText = IsAmdCpu ? global::OmenCore.Localization.Strings.CsResettingCurveOptimizerOffsets : global::OmenCore.Localization.Strings.CsResettingUndervoltOffsets;
                 UndervoltLastActionColor = System.Windows.Media.Brushes.SkyBlue;
                 await _undervoltService.ResetAsync();
-                UndervoltLastActionText = IsAmdCpu ? "Curve Optimizer offsets reset to defaults" : "Undervolt offsets reset to defaults";
+                UndervoltLastActionText = IsAmdCpu ? global::OmenCore.Localization.Strings.CsCurveOptimizerOffsetsResetToDefaults : global::OmenCore.Localization.Strings.CsUndervoltOffsetsResetToDefaults;
                 UndervoltLastActionColor = System.Windows.Media.Brushes.Lime;
             }
             catch (Exception ex)
@@ -5555,7 +5555,7 @@ namespace OmenCore.ViewModels
                     operation: "ResetUndervoltAsync",
                     message: "Failed to reset undervolt",
                     ex: ex);
-                UndervoltLastActionText = $"Reset failed: {ex.Message}";
+                UndervoltLastActionText = string.Format(global::OmenCore.Localization.Strings.CsResetFailed, ex.Message);
                 UndervoltLastActionColor = System.Windows.Media.Brushes.OrangeRed;
             }
         }
@@ -5577,18 +5577,18 @@ namespace OmenCore.ViewModels
         private async Task ApplyAggressiveUndervoltAsync()
         {
             var result = System.Windows.MessageBox.Show(
-                "⚠️ WARNING: Aggressive Undervolt\n\n" +
-                "You are about to apply a -140mV undervolt offset.\n\n" +
-                "This is an aggressive setting that may cause:\n" +
-                "• Blue screen crashes (BSOD)\n" +
-                "• Application crashes or freezes\n" +
-                "• System instability under load\n\n" +
-                "Only proceed if you understand the risks and are prepared to:\n" +
-                "• Reboot if your system becomes unstable\n" +
-                "• Test thoroughly with stress tests (Prime95, OCCT)\n\n" +
-                "The undervolt will not persist after reboot, so a crash will reset it.\n\n" +
-                "Continue with -140mV undervolt?",
-                "Aggressive Undervolt Warning",
+                global::OmenCore.Localization.Strings.CsWARNINGAggressiveUndervoltYouAreAboutTo
+
+
+
+
+
+
+
+
+
+,
+                global::OmenCore.Localization.Strings.CsAggressiveUndervoltWarning,
                 System.Windows.MessageBoxButton.YesNo,
                 System.Windows.MessageBoxImage.Warning,
                 System.Windows.MessageBoxResult.No);
@@ -5739,7 +5739,7 @@ namespace OmenCore.ViewModels
                         {
                             ApplyAmdPowerLimits();
                         }
-                    }, "AMD power limits restore");
+                    }, global::OmenCore.Localization.Strings.CsAMDPowerLimitsRestore);
                 }
             }
             catch (Exception ex)

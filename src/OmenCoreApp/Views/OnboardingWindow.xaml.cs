@@ -39,9 +39,9 @@ namespace OmenCore.Views
                 FanBackendDot.Fill = (Brush)FindResource("WarningBrush");
             }
 
-            MonitoringText.Text = "Hardware monitoring active";
+            MonitoringText.Text = global::OmenCore.Localization.Strings.CsHardwareMonitoringActive;
             MonitoringDot.Fill = (Brush)FindResource("SuccessBrush");
-            DriverText.Text = "Check Settings → Status for driver details";
+            DriverText.Text = global::OmenCore.Localization.Strings.CsCheckSettingsStatusForDriverDetails;
             DriverDot.Fill = (Brush)FindResource("TextTertiaryBrush");
         }
 

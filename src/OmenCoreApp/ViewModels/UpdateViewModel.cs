@@ -157,7 +157,7 @@ namespace OmenCore.ViewModels
                 if (showStatus)
                 {
                     UpdateBannerVisible = true;
-                    UpdateBannerMessage = "Checking for updates...";
+                    UpdateBannerMessage = global::OmenCore.Localization.Strings.CsCheckingForUpdates;
                 }
 
                 var result = await _autoUpdateService.CheckForUpdatesAsync();
@@ -180,7 +180,7 @@ namespace OmenCore.ViewModels
 
                     _availableUpdate = result.LatestVersion;
                     _updateInstallBlocked = false;
-                    UpdateBannerMessage = $"Update available: v{_availableUpdate.VersionString} (Current {AppVersionLabel})";
+                    UpdateBannerMessage = string.Format(global::OmenCore.Localization.Strings.CsUpdateAvailableVCurrent, _availableUpdate.VersionString, AppVersionLabel);
                     UpdateBannerVisible = true;
                 }
                 else
@@ -240,7 +240,7 @@ namespace OmenCore.ViewModels
                 UpdateDownloadInProgress = true;
                 UpdateDownloadProgress = 0;
                 UpdateBannerMessage = $"Downloading v{_availableUpdate.VersionString} ({_availableUpdate.FileSizeFormatted})";
-                UpdateDownloadStatus = "Initializing download...";
+                UpdateDownloadStatus = global::OmenCore.Localization.Strings.CsInitializingDownload;
 
                 _logging.Info($"Starting update download: v{_availableUpdate.VersionString}");
 
@@ -250,17 +250,17 @@ namespace OmenCore.ViewModels
                 {
                     var hashMissing = string.IsNullOrWhiteSpace(_availableUpdate?.Sha256Hash);
                     UpdateBannerMessage = hashMissing
-                        ? "Update requires manual download (missing SHA256 in release notes)."
-                        : "Download failed. Check Release Notes for manual download.";
-                    UpdateDownloadStatus = hashMissing ? "Install blocked until SHA256 is provided" : "Download failed";
+                        ? global::OmenCore.Localization.Strings.CsUpdateRequiresManualDownloadMissingSHA256In
+                        : global::OmenCore.Localization.Strings.CsDownloadFailedCheckReleaseNotesForManual;
+                    UpdateDownloadStatus = hashMissing ? global::OmenCore.Localization.Strings.CsInstallBlockedUntilSHA256IsProvided : global::OmenCore.Localization.Strings.CsDownloadFailed;
                     _updateInstallBlocked = hashMissing;
                     _logging.Warn("Update download unavailable; missing hash or download error");
                     RefreshUpdateCommands();
                     return;
                 }
 
-                UpdateBannerMessage = "Installing update...";
-                UpdateDownloadStatus = "Launching installer...";
+                UpdateBannerMessage = global::OmenCore.Localization.Strings.CsInstallingUpdate;
+                UpdateDownloadStatus = global::OmenCore.Localization.Strings.CsLaunchingInstaller;
 
                 _logging.Info($"Installing update from {System.IO.Path.GetFileName(installerPath)}");
 
@@ -269,7 +269,7 @@ namespace OmenCore.ViewModels
                 if (!installResult.Success)
                 {
                     UpdateBannerMessage = installResult.Message;
-                    UpdateDownloadStatus = "Installation failed";
+                    UpdateDownloadStatus = global::OmenCore.Localization.Strings.CsInstallationFailed;
                     _logging.ErrorWithContext(
                         component: "UpdateViewModel",
                         operation: "InstallUpdateAsync",
@@ -287,8 +287,8 @@ namespace OmenCore.ViewModels
                     operation: "InstallUpdateAsync.Security",
                     message: "Update security verification failed",
                     ex: ex);
-                UpdateBannerMessage = "Security verification failed";
-                UpdateDownloadStatus = "Hash verification failed - update rejected for security";
+                UpdateBannerMessage = global::OmenCore.Localization.Strings.CsSecurityVerificationFailed;
+                UpdateDownloadStatus = global::OmenCore.Localization.Strings.CsHashVerificationFailedUpdateRejectedForSecurity;
             }
             catch (Exception ex)
             {
@@ -297,8 +297,8 @@ namespace OmenCore.ViewModels
                     operation: "InstallUpdateAsync",
                     message: "Update installation failed",
                     ex: ex);
-                UpdateBannerMessage = $"Update failed: {ex.Message}";
-                UpdateDownloadStatus = "Error occurred";
+                UpdateBannerMessage = string.Format(global::OmenCore.Localization.Strings.CsUpdateFailed, ex.Message);
+                UpdateDownloadStatus = global::OmenCore.Localization.Strings.CsErrorOccurred;
             }
             finally
             {
@@ -313,7 +313,7 @@ namespace OmenCore.ViewModels
             Application.Current?.Dispatcher?.BeginInvoke(() =>
             {
                 UpdateDownloadProgress = progress.ProgressPercent;
-                UpdateDownloadStatus = $"{progress.ProgressPercent:F1}% • {progress.DownloadSpeedMbps:F2} MB/s • {FormatTimeSpan(progress.EstimatedTimeRemaining)} remaining";
+                UpdateDownloadStatus = string.Format(global::OmenCore.Localization.Strings.CsMBSRemaining, progress.ProgressPercent, progress.DownloadSpeedMbps, FormatTimeSpan(progress.EstimatedTimeRemaining));
             });
         }
 
@@ -326,7 +326,7 @@ namespace OmenCore.ViewModels
                     _availableUpdate = result.LatestVersion;
                     _updateInstallBlocked = false;
                     UpdateBannerVisible = true;
-                    UpdateBannerMessage = $"v{result.LatestVersion.VersionString} is now available";
+                    UpdateBannerMessage = string.Format(global::OmenCore.Localization.Strings.CsVIsNowAvailable, result.LatestVersion.VersionString);
                     _logging.Info($"Background check found update: v{result.LatestVersion.VersionString}");
                     RefreshUpdateCommands();
                 }

@@ -15,7 +15,7 @@ namespace OmenCore.Utils
         public TrayIconManager(TaskbarIcon trayIcon)
         {
             _trayIcon = trayIcon;
-            _trayIcon.ToolTipText = "OmenCore - Gaming Laptop Control";
+            _trayIcon.ToolTipText = global::OmenCore.Localization.Strings.CsOmenCoreGamingLaptopControl;
         }
 
         /// <summary>

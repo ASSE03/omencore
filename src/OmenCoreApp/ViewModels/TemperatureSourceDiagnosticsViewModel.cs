@@ -45,7 +45,7 @@ namespace OmenCore.ViewModels
 
         public ICommand RunComparisonCommand { get; }
 
-        public string RunButtonLabel => IsRunning ? "Checking..." : "Check Temperature Sources";
+        public string RunButtonLabel => IsRunning ? "Checking..." : global::OmenCore.Localization.Strings.CsCheckTemperatureSources;
 
         public TemperatureSourceDiagnosticsViewModel(ICpuTemperatureSourceComparer? comparer, LoggingService logging)
         {
@@ -88,7 +88,7 @@ namespace OmenCore.ViewModels
             }
             catch (Exception ex)
             {
-                Result = $"Comparison failed: {ex.Message}";
+                Result = string.Format(global::OmenCore.Localization.Strings.CsComparisonFailed, ex.Message);
                 _logging.Warn($"[TemperatureSourceDiagnostic] Comparison failed: {ex.Message}");
             }
             finally

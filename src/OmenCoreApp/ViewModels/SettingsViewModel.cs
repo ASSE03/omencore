@@ -79,7 +79,7 @@ namespace OmenCore.ViewModels
         private string _batteryFanPreset = "Quiet";
         private string _batteryPerformanceMode = "Silent";
         
-        private string _fanCleaningStatusText = "Checking hardware...";
+        private string _fanCleaningStatusText = global::OmenCore.Localization.Strings.CsCheckingHardware;
         private string _fanCleaningStatusIcon = "M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z";
         private Brush _fanCleaningStatusColor = Brushes.Gray;
         private bool _canStartFanCleaning;
@@ -98,11 +98,11 @@ namespace OmenCore.ViewModels
         private bool _secureBootEnabled;
         private bool _pawnIOAvailable;
         private bool _oghInstalled;
-        private string _resumeRecoveryStatus = "No recent resume activity";
-        private string _resumeRecoverySummary = "No suspend/resume recovery timeline recorded yet.";
-        private string _resumeRecoveryTimeline = "No timeline recorded yet.";
-        private string _resumeRecoveryLastUpdated = "No recent resume event";
-        private string _modelIdentitySummary = "Model identity has not been analyzed yet.";
+        private string _resumeRecoveryStatus = global::OmenCore.Localization.Strings.CsNoRecentResumeActivity;
+        private string _resumeRecoverySummary = global::OmenCore.Localization.Strings.CsNoSuspendResumeRecoveryTimelineRecordedYet;
+        private string _resumeRecoveryTimeline = global::OmenCore.Localization.Strings.CsNoTimelineRecordedYet;
+        private string _resumeRecoveryLastUpdated = global::OmenCore.Localization.Strings.CsNoRecentResumeEvent;
+        private string _modelIdentitySummary = global::OmenCore.Localization.Strings.CsModelIdentityHasNotBeenAnalyzedYet;
         private string _modelIdentityResolvedModel = "Unknown";
         private string _modelIdentityResolutionSource = "Unknown";
         private string _modelIdentityConfidence = "Unknown";
@@ -122,7 +122,7 @@ namespace OmenCore.ViewModels
         private string _latestBiosVersion = "";
         private bool _biosUpdateAvailable;
         private string _biosDownloadUrl = "";
-        private string _biosCheckStatus = "Not checked";
+        private string _biosCheckStatus = global::OmenCore.Localization.Strings.CsNotChecked;
         private bool _isBiosCheckInProgress;
         private Brush _biosStatusColor = Brushes.Gray;
         
@@ -576,8 +576,8 @@ namespace OmenCore.ViewModels
         public string StartupHardwareRestoreStatus => EnableStartupHardwareRestore
             ? $"{StartupRestorePolicy.BuildSummary(BuildStartupRestorePreviewConfig())}. " +
               (AllowStartupRestoreOnOmen16OrVictus
-                  ? "OMEN 16/Victus guardrail override is enabled."
-                  : "OMEN 16/Victus guardrail override is off.")
+                  ? global::OmenCore.Localization.Strings.CsOMEN16VictusGuardrailOverrideIsEnabled
+                  : global::OmenCore.Localization.Strings.CsOMEN16VictusGuardrailOverrideIsOff)
             : "Disabled";
 
         private AppConfig BuildStartupRestorePreviewConfig() => new()
@@ -756,16 +756,16 @@ namespace OmenCore.ViewModels
                 var intervalMs = _hardwareMonitoringService?.CurrentCadenceIntervalMs ?? 0;
                 return intervalMs switch
                 {
-                    1000 => "Active (1s)",
-                    5000 => "Idle background (5s)",
-                    10000 => "Tray-only ultra-low (10s)",
+                    1000 => global::OmenCore.Localization.Strings.CsActive1s,
+                    5000 => global::OmenCore.Localization.Strings.CsIdleBackground5s,
+                    10000 => global::OmenCore.Localization.Strings.CsTrayOnlyUltraLow10s,
                     > 0 => $"Custom ({intervalMs} ms)",
                     _ => "Initializing"
                 };
             }
         }
 
-        public string MonitoringCadenceReason => _hardwareMonitoringService?.CurrentCadenceReason ?? "Cadence unavailable";
+        public string MonitoringCadenceReason => _hardwareMonitoringService?.CurrentCadenceReason ?? global::OmenCore.Localization.Strings.CsCadenceUnavailable;
 
         public string MonitoringCadenceBlockers
         {
@@ -809,7 +809,7 @@ namespace OmenCore.ViewModels
                 }
 
                 return blockers.Count == 0
-                    ? "None - ultra-low cadence eligible when the app is hidden to tray"
+                    ? global::OmenCore.Localization.Strings.CsNoneUltraLowCadenceEligibleWhenThe
                     : string.Join(", ", blockers.Distinct(StringComparer.Ordinal));
             }
         }
@@ -996,8 +996,8 @@ namespace OmenCore.ViewModels
             {
                 var powerStatus = System.Windows.Forms.SystemInformation.PowerStatus;
                 CurrentPowerStatus = powerStatus.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Online
-                    ? "⚡ AC Power Connected"
-                    : "🔋 On Battery";
+                    ? global::OmenCore.Localization.Strings.CsACPowerConnected
+                    : global::OmenCore.Localization.Strings.CsOnBattery;
             }
             catch
             {
@@ -1528,14 +1528,14 @@ namespace OmenCore.ViewModels
 
         internal static readonly IReadOnlyList<KeyValuePair<string, string>> OmenKeyActionChoices = new[]
         {
-            new KeyValuePair<string, string>("ShowQuickPopup", "Open the quick panel"),
-            new KeyValuePair<string, string>("ShowWindow", "Show or hide OmenCore"),
-            new KeyValuePair<string, string>("CyclePerformance", "Cycle performance modes"),
-            new KeyValuePair<string, string>("CycleFanMode", "Cycle fan modes"),
-            new KeyValuePair<string, string>("ToggleMaxCooling", "Max cooling on / off"),
-            new KeyValuePair<string, string>("ToggleOsd", "Show or hide the on-screen display"),
-            new KeyValuePair<string, string>("LaunchExternalApp", "Launch an app"),
-            new KeyValuePair<string, string>("DoNothing", "Do nothing (block the key)"),
+            new KeyValuePair<string, string>("ShowQuickPopup", global::OmenCore.Localization.Strings.CsOpenTheQuickPanel),
+            new KeyValuePair<string, string>("ShowWindow", global::OmenCore.Localization.Strings.CsShowOrHideOmenCore),
+            new KeyValuePair<string, string>("CyclePerformance", global::OmenCore.Localization.Strings.CsCyclePerformanceModes),
+            new KeyValuePair<string, string>("CycleFanMode", global::OmenCore.Localization.Strings.CsCycleFanModes),
+            new KeyValuePair<string, string>("ToggleMaxCooling", global::OmenCore.Localization.Strings.CsMaxCoolingOnOff),
+            new KeyValuePair<string, string>("ToggleOsd", global::OmenCore.Localization.Strings.CsShowOrHideTheOnScreenDisplay),
+            new KeyValuePair<string, string>("LaunchExternalApp", global::OmenCore.Localization.Strings.CsLaunchAnApp),
+            new KeyValuePair<string, string>("DoNothing", global::OmenCore.Localization.Strings.CsDoNothingBlockTheKey),
         };
 
         internal static string NormalizeOmenKeyAction(string? action) => action switch
@@ -1587,21 +1587,21 @@ namespace OmenCore.ViewModels
                     if (value)
                     {
                         var result = MessageBox.Show(
-                            "🛑 DANGER: HIGH-RISK EXPERIMENTAL FEATURE 🛑\n\n" +
-                            "Direct EC keyboard writes can cause:\n" +
-                            "• HARD SYSTEM CRASHES requiring forced restart\n" +
-                            "• Screen brightness stuck at minimum (black screen)\n" +
-                            "• Keyboard/display controller malfunction\n" +
-                            "• Other unpredictable EC-related issues\n\n" +
-                            "EC keyboard registers (0xB2-0xBE) vary by laptop model. Writing to wrong addresses " +
-                            "has caused system crashes and display issues on various OMEN models.\n\n" +
-                            "If your screen goes black after enabling this:\n" +
-                            "1. Restart your laptop (hold power 10 seconds)\n" +
+                            global::OmenCore.Localization.Strings.CsDANGERHIGHRISKEXPERIMENTALFEATURE +
+                            global::OmenCore.Localization.Strings.CsDirectECKeyboardWritesCanCause +
+                            global::OmenCore.Localization.Strings.CsHARDSYSTEMCRASHESRequiringForcedRestart +
+                            global::OmenCore.Localization.Strings.CsScreenBrightnessStuckAtMinimumBlackScreen +
+                            global::OmenCore.Localization.Strings.CsKeyboardDisplayControllerMalfunction +
+                            global::OmenCore.Localization.Strings.CsOtherUnpredictableECRelatedIssues +
+                            global::OmenCore.Localization.Strings.CsECKeyboardRegisters0xB20xBEVaryBy +
+                            global::OmenCore.Localization.Strings.CsHasCausedSystemCrashesAndDisplayIssues +
+                            global::OmenCore.Localization.Strings.CsIfYourScreenGoesBlackAfterEnabling +
+                            global::OmenCore.Localization.Strings.Cs1RestartYourLaptopHoldPower10 +
                             "2. Delete config: %APPDATA%\\OmenCore\\config.json\n" +
-                            "3. Or reinstall OmenCore\n\n" +
-                            "Only enable this if WMI keyboard lighting doesn't work on your model.\n\n" +
-                            "ENABLE AT YOUR OWN RISK?",
-                            "⚠️ Experimental Feature Warning",
+                            global::OmenCore.Localization.Strings.Cs3OrReinstallOmenCore +
+                            global::OmenCore.Localization.Strings.CsOnlyEnableThisIfWMIKeyboardLighting +
+                            global::OmenCore.Localization.Strings.CsENABLEATYOUROWNRISK,
+                            global::OmenCore.Localization.Strings.CsExperimentalFeatureWarning,
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Stop,
                             MessageBoxResult.No);
@@ -1637,16 +1637,16 @@ namespace OmenCore.ViewModels
                     if (value)
                     {
                         var result = MessageBox.Show(
-                            "⚠️ EXCLUSIVE EC ACCESS DIAGNOSTICS ⚠️\n\n" +
-                            "This diagnostic mode will:\n" +
-                            "• Acquire exclusive access to EC registers\n" +
-                            "• Block other applications from accessing EC\n" +
-                            "• Log detailed contention information\n" +
-                            "• May interfere with OMEN Gaming Hub or other fan control apps\n\n" +
-                            "Use this only for troubleshooting EC register conflicts.\n" +
-                            "It will help identify if other apps are causing fan RPM 0 issues.\n\n" +
-                            "Enable exclusive diagnostics mode?",
-                            "Exclusive EC Access Diagnostics",
+                            global::OmenCore.Localization.Strings.CsEXCLUSIVEECACCESSDIAGNOSTICSThisDiagnosticMode
+
+
+
+
+
+
+
+,
+                            global::OmenCore.Localization.Strings.CsExclusiveECAccessDiagnostics,
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning,
                             MessageBoxResult.No);
@@ -1690,11 +1690,11 @@ namespace OmenCore.ViewModels
                     if (value == "Ec" && !_config.ExperimentalEcKeyboardEnabled)
                     {
                         var result = MessageBox.Show(
-                            "⚠️ EC Backend Selected ⚠️\n\n" +
-                            "Using EC for keyboard control requires 'Enable EC keyboard' to be checked.\n\n" +
-                            "Would you like to enable experimental EC keyboard support?\n" +
-                            "(Warning: This may cause system crashes on some models)",
-                            "Enable EC Keyboard?",
+                            global::OmenCore.Localization.Strings.CsECBackendSelectedUsingECForKeyboard
+
+
+,
+                            global::OmenCore.Localization.Strings.CsEnableECKeyboard,
                             MessageBoxButton.YesNo,
                             MessageBoxImage.Warning,
                             MessageBoxResult.No);
@@ -1720,8 +1720,8 @@ namespace OmenCore.ViewModels
                     // Note: Service restart required for change to take effect
                     MessageBox.Show(
                         $"Keyboard backend set to: {value}\n\n" +
-                        "This change will take effect after restarting OmenCore.",
-                        "Backend Changed",
+                        global::OmenCore.Localization.Strings.CsThisChangeWillTakeEffectAfterRestarting,
+                        global::OmenCore.Localization.Strings.CsBackendChanged,
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
                 }
@@ -2351,9 +2351,9 @@ namespace OmenCore.ViewModels
                 {
                     _logging.Warn("Cannot apply battery charge limit: WMI BIOS not available");
                     System.Windows.MessageBox.Show(
-                        "Battery charge limit cannot be set - HP WMI BIOS interface not available.\n\n" +
-                        "This feature requires HP OMEN/Victus laptop with WMI BIOS support.",
-                        "Battery Care Unavailable",
+                        global::OmenCore.Localization.Strings.CsBatteryChargeLimitCannotBeSetHP
+,
+                        global::OmenCore.Localization.Strings.CsBatteryCareUnavailable,
                         System.Windows.MessageBoxButton.OK,
                         System.Windows.MessageBoxImage.Warning);
                     return;
@@ -2382,13 +2382,13 @@ namespace OmenCore.ViewModels
                 {
                     _logging.Warn("Battery charge limit WMI command returned failure");
                     System.Windows.MessageBox.Show(
-                        "Battery charge limit command failed.\n\n" +
-                        "This may indicate:\n" +
-                        "• Your laptop model doesn't support this feature\n" +
-                        "• The HP BIOS needs an update\n" +
-                        "• AC adapter is not connected\n\n" +
-                        "Try toggling the setting in OMEN Gaming Hub to compare behavior.",
-                        "Battery Care Failed",
+                        global::OmenCore.Localization.Strings.CsBatteryChargeLimitCommandFailedThisMay
+
+
+
+
+,
+                        global::OmenCore.Localization.Strings.CsBatteryCareFailed,
                         System.Windows.MessageBoxButton.OK,
                         System.Windows.MessageBoxImage.Warning);
                 }
@@ -2398,7 +2398,7 @@ namespace OmenCore.ViewModels
                 _logging.Error($"Failed to apply battery charge limit: {ex.Message}", ex);
                 System.Windows.MessageBox.Show(
                     $"Failed to apply battery charge limit: {ex.Message}",
-                    "Battery Care Error",
+                    global::OmenCore.Localization.Strings.CsBatteryCareError,
                     System.Windows.MessageBoxButton.OK,
                     System.Windows.MessageBoxImage.Error);
             }
@@ -2679,28 +2679,28 @@ namespace OmenCore.ViewModels
 
         private static readonly (string Term, string TabName, string Description)[] _searchCatalog = new[]
         {
-            ("startup", "General", "Start with Windows"),
-            ("tray", "General", "Minimize to tray on close"),
-            ("polling", "General", "Monitoring polling interval"),
-            ("update", "General", "Automatic update checks"),
-            ("theme", "Appearance", "Dark / light theme selection"),
-            ("color", "Appearance", "Accent colour customisation"),
-            ("fan", "Fan Control", "Fan presets and custom curve"),
-            ("temperature", "Fan Control", "Fan curve temperature points"),
-            ("performance", "Advanced", "Performance and power modes"),
-            ("undervolt", "Advanced", "CPU undervolting settings"),
-            ("gpu", "Advanced", "GPU overclocking and power boost"),
-            ("lighting", "Lighting", "Keyboard 4-zone RGB lighting"),
-            ("schedule", "Scheduler", "Time-of-day automation rules"),
-            ("automation", "Scheduler", "Battery and AC-based automation rules"),
-            ("lite", "General", "Beginner-friendly UI mode that hides advanced tabs"),
-            ("driver", "Status", "PawnIO driver status"),
-            ("bios", "Status", "BIOS version and update check"),
-            ("log", "General", "Log verbosity and diagnostics"),
-            ("hotkey", "General", "Hotkey enable/focus settings"),
-            ("notification", "General", "System notifications"),
-            ("battery", "Advanced", "Battery charge limit"),
-            ("macro", "Advanced", "Keyboard macro profiles"),
+            ("startup", "General", global::OmenCore.Localization.Strings.CsStartWithWindows),
+            ("tray", "General", global::OmenCore.Localization.Strings.CsMinimizeToTrayOnClose),
+            ("polling", "General", global::OmenCore.Localization.Strings.CsMonitoringPollingInterval),
+            ("update", "General", global::OmenCore.Localization.Strings.CsAutomaticUpdateChecks),
+            ("theme", "Appearance", global::OmenCore.Localization.Strings.CsDarkLightThemeSelection),
+            ("color", "Appearance", global::OmenCore.Localization.Strings.CsAccentColourCustomisation),
+            ("fan", "Fan Control", global::OmenCore.Localization.Strings.CsFanPresetsAndCustomCurve),
+            ("temperature", "Fan Control", global::OmenCore.Localization.Strings.CsFanCurveTemperaturePoints),
+            ("performance", "Advanced", global::OmenCore.Localization.Strings.CsPerformanceAndPowerModes),
+            ("undervolt", "Advanced", global::OmenCore.Localization.Strings.CsCPUUndervoltingSettings),
+            ("gpu", "Advanced", global::OmenCore.Localization.Strings.CsGPUOverclockingAndPowerBoost),
+            ("lighting", "Lighting", global::OmenCore.Localization.Strings.CsKeyboard4ZoneRGBLighting),
+            ("schedule", "Scheduler", global::OmenCore.Localization.Strings.CsTimeOfDayAutomationRules),
+            ("automation", "Scheduler", global::OmenCore.Localization.Strings.CsBatteryAndACBasedAutomationRules),
+            ("lite", "General", global::OmenCore.Localization.Strings.CsBeginnerFriendlyUIModeThatHidesAdvanced),
+            ("driver", "Status", global::OmenCore.Localization.Strings.CsPawnIODriverStatus),
+            ("bios", "Status", global::OmenCore.Localization.Strings.CsBIOSVersionAndUpdateCheck),
+            ("log", "General", global::OmenCore.Localization.Strings.CsLogVerbosityAndDiagnostics),
+            ("hotkey", "General", global::OmenCore.Localization.Strings.CsHotkeyEnableFocusSettings),
+            ("notification", "General", global::OmenCore.Localization.Strings.CsSystemNotifications),
+            ("battery", "Advanced", global::OmenCore.Localization.Strings.CsBatteryChargeLimit),
+            ("macro", "Advanced", global::OmenCore.Localization.Strings.CsKeyboardMacroProfiles),
         };
 
         public IEnumerable<SettingsSearchResult> SettingsSearchResults
@@ -3011,7 +3011,7 @@ namespace OmenCore.ViewModels
                 _logging.Error($"Failed to perform dependency audit: {ex.Message}", ex);
                 StandaloneStatus = "Error";
                 StandaloneStatusColor = "#FF6B6B";
-                StandaloneStatusSummary = $"Audit failed: {ex.Message}";
+                StandaloneStatusSummary = string.Format(global::OmenCore.Localization.Strings.CsAuditFailed, ex.Message);
             }
         }
 
@@ -3063,7 +3063,7 @@ namespace OmenCore.ViewModels
             catch (Exception ex)
             {
                 _logging.Warn($"Failed to build model identity summary: {ex.Message}");
-                ModelIdentitySummary = "Model identity analysis failed.";
+                ModelIdentitySummary = global::OmenCore.Localization.Strings.CsModelIdentityAnalysisFailed;
                 ModelIdentityResolvedModel = "Unknown";
                 ModelIdentityResolutionSource = "Unavailable";
                 ModelIdentityConfidence = "Unknown";
@@ -3588,12 +3588,12 @@ namespace OmenCore.ViewModels
                             OnPropertyChanged(nameof(StartWithWindows));
                             
                             System.Windows.MessageBox.Show(
-                                "Auto-start requires administrator privileges to create a scheduled task.\n\n" +
-                                "To enable auto-start:\n" +
-                                "1. Right-click OmenCore and select 'Run as administrator'\n" +
-                                "2. Go to Settings and enable 'Start with Windows' again\n\n" +
-                                "Or, re-run the installer with the 'Start with Windows' option checked.",
-                                "Administrator Required",
+                                global::OmenCore.Localization.Strings.CsAutoStartRequiresAdministratorPrivilegesToCreate
+
+
+
+,
+                                global::OmenCore.Localization.Strings.CsAdministratorRequired,
                                 System.Windows.MessageBoxButton.OK,
                                 System.Windows.MessageBoxImage.Warning);
                         }
@@ -3784,7 +3784,7 @@ namespace OmenCore.ViewModels
                 var canClean = _fanCleaningService.IsSupported;
                 if (canClean)
                 {
-                    FanCleaningStatusText = $"✓ HP OMEN detected: {systemInfo.Model}. Fan cleaning available.";
+                    FanCleaningStatusText = string.Format(global::OmenCore.Localization.Strings.CsHPOMENDetectedFanCleaningAvailable, systemInfo.Model);
                     FanCleaningStatusIcon = "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"; // Checkmark
                     FanCleaningStatusColor = new SolidColorBrush(Color.FromRgb(129, 199, 132)); // Green
                     CanStartFanCleaning = true;
@@ -3801,7 +3801,7 @@ namespace OmenCore.ViewModels
             }
             else
             {
-                FanCleaningStatusText = $"✗ Non-HP OMEN system detected: {systemInfo.Manufacturer} {systemInfo.Model}. Fan cleaning unavailable.";
+                FanCleaningStatusText = string.Format(global::OmenCore.Localization.Strings.CsNonHPOMENSystemDetectedFanCleaning, systemInfo.Manufacturer, systemInfo.Model);
                 FanCleaningStatusIcon = "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"; // X
                 FanCleaningStatusColor = new SolidColorBrush(Color.FromRgb(229, 115, 115)); // Red
                 CanStartFanCleaning = false;
@@ -3811,14 +3811,14 @@ namespace OmenCore.ViewModels
         private async Task StartFanCleaningAsync()
         {
             var result = MessageBox.Show(
-                "This will run the fan cleaning cycle for 20 seconds.\n\n" +
-                "⚠️ IMPORTANT:\n" +
-                "• Place your laptop on a flat, stable surface\n" +
-                "• Ensure vents are not blocked\n" +
-                "• The fans will briefly reverse direction\n" +
-                "• You may hear unusual fan sounds - this is normal\n\n" +
-                "Continue with fan cleaning?",
-                "Fan Dust Cleaning",
+                global::OmenCore.Localization.Strings.CsThisWillRunTheFanCleaningCycle
+
+
+
+
+
+,
+                global::OmenCore.Localization.Strings.CsFanDustCleaning,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -3849,7 +3849,7 @@ namespace OmenCore.ViewModels
                     _fanCleaningCts.Token);
 
                 _logging.Info("Fan cleaning cycle completed successfully");
-                MessageBox.Show("Fan cleaning cycle completed successfully!", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(global::OmenCore.Localization.Strings.CsFanCleaningCycleCompletedSuccessfully, "Done", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (OperationCanceledException)
             {
@@ -3862,7 +3862,7 @@ namespace OmenCore.ViewModels
                     operation: "StartFanCleaningAsync",
                     message: "Fan cleaning failed",
                     ex: ex);
-                MessageBox.Show($"Fan cleaning failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsFanCleaningFailed, ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -3903,14 +3903,14 @@ namespace OmenCore.ViewModels
         private void ResetToDefaults()
         {
             var result = MessageBox.Show(
-                "This will reset all settings to their default values.\n\n" +
-                "This includes:\n" +
-                "• Monitoring settings\n" +
-                "• Notification preferences\n" +
-                "• Hotkey settings\n" +
-                "• Update preferences\n\n" +
-                "Continue with reset?",
-                "Reset to Defaults",
+                global::OmenCore.Localization.Strings.CsThisWillResetAllSettingsToTheir
+
+
+
+
+
+,
+                global::OmenCore.Localization.Strings.CsResetToDefaults,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question);
 
@@ -3942,8 +3942,8 @@ namespace OmenCore.ViewModels
                 SaveSettings();
                 
                 _logging.Info("Settings reset to defaults");
-                MessageBox.Show("All settings have been reset to their default values.", 
-                    "Settings Reset", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(global::OmenCore.Localization.Strings.CsAllSettingsHaveBeenResetToTheir, 
+                    global::OmenCore.Localization.Strings.CsSettingsReset, MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
@@ -4002,34 +4002,34 @@ namespace OmenCore.ViewModels
 
                 if (pawnIoAvailable)
                 {
-                    DriverStatusText = "PawnIO Installed";
-                    DriverStatusDetail = "✓ Secure Boot compatible driver backend available (recommended). Won't trigger Windows Defender false positives.";
+                    DriverStatusText = global::OmenCore.Localization.Strings.CsPawnIOInstalled;
+                    DriverStatusDetail = global::OmenCore.Localization.Strings.CsSecureBootCompatibleDriverBackendAvailableRecommended;
                     DriverStatusColor = new SolidColorBrush(Color.FromRgb(102, 187, 106)); // Green
                 }
                 else if (xtuRunning)
                 {
-                    DriverStatusText = "XTU Conflict Detected";
+                    DriverStatusText = global::OmenCore.Localization.Strings.CsXTUConflictDetected;
                     DriverStatusDetail = $"Intel XTU service ({xtuServiceName}) may block undervolting. Stop XTU to use OmenCore undervolting. PawnIO remains the recommended backend.";
                     DriverStatusColor = new SolidColorBrush(Color.FromRgb(255, 183, 77)); // Orange
                 }
                 else
                 {
-                    DriverStatusText = "No Driver Backend Detected";
+                    DriverStatusText = global::OmenCore.Localization.Strings.CsNoDriverBackendDetected;
 
                     if (secureBootEnabled || memoryIntegrityEnabled)
                     {
                         var reasons = new List<string>();
-                        if (secureBootEnabled) reasons.Add("Secure Boot is enabled");
-                        if (memoryIntegrityEnabled) reasons.Add("Memory Integrity (HVCI) is enabled");
+                        if (secureBootEnabled) reasons.Add(global::OmenCore.Localization.Strings.CsSecureBootIsEnabled);
+                        if (memoryIntegrityEnabled) reasons.Add(global::OmenCore.Localization.Strings.CsMemoryIntegrityHVCIIsEnabled);
 
                         DriverStatusDetail =
-                            $"Legacy drivers blocked ({string.Join(", ", reasons)}). " +
-                            "Install PawnIO (pawnio.eu) for Secure Boot compatible MSR/EC access - avoids Defender false positives and works with security features enabled.";
+                            string.Format(global::OmenCore.Localization.Strings.CsLegacyDriversBlocked, string.Join(", ", reasons)) +
+                            global::OmenCore.Localization.Strings.CsInstallPawnIOPawnioEuForSecureBoot;
                     }
                     else
                     {
                         DriverStatusDetail =
-                            "Install PawnIO (recommended - no Defender false positives). OmenCore no longer supports the legacy low-level backend.";
+                            global::OmenCore.Localization.Strings.CsInstallPawnIORecommendedNoDefenderFalsePositives;
                     }
 
                     DriverStatusColor = new SolidColorBrush(Color.FromRgb(239, 83, 80)); // Red
@@ -4037,7 +4037,7 @@ namespace OmenCore.ViewModels
             }
             catch (Exception ex)
             {
-                DriverStatusText = "Check Failed";
+                DriverStatusText = global::OmenCore.Localization.Strings.CsCheckFailed;
                 DriverStatusDetail = ex.Message;
                 DriverStatusColor = new SolidColorBrush(Color.FromRgb(255, 183, 77)); // Orange
             }
@@ -4109,19 +4109,19 @@ namespace OmenCore.ViewModels
         private void ResetEcToDefaults()
         {
             var result = MessageBox.Show(
-                "This will reset the Embedded Controller (EC) to factory defaults.\n\n" +
-                "This action will:\n" +
-                "• Restore BIOS control of fans\n" +
-                "• Clear all manual fan speed overrides\n" +
-                "• Reset fan boost mode\n" +
-                "• Reset thermal policy timers\n\n" +
-                "Use this if:\n" +
-                "• Fan speeds appear stuck in BIOS\n" +
-                "• BIOS shows incorrect fan readings\n" +
-                "• You want to completely restore factory fan behavior\n\n" +
-                "The app will apply Auto mode after reset.\n\n" +
-                "Do you want to continue?",
-                "Reset EC to Defaults",
+                global::OmenCore.Localization.Strings.CsThisWillResetTheEmbeddedControllerEC
+
+
+
+
+
+
+
+
+
+
+,
+                global::OmenCore.Localization.Strings.CsResetECToDefaults,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
             
@@ -4135,8 +4135,8 @@ namespace OmenCore.ViewModels
                 if (_fanService == null)
                 {
                     MessageBox.Show(
-                        "Fan service is not available. EC reset cannot be performed.",
-                        "EC Reset Failed",
+                        global::OmenCore.Localization.Strings.CsFanServiceIsNotAvailableECReset,
+                        global::OmenCore.Localization.Strings.CsECResetFailed,
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                     return;
@@ -4147,11 +4147,11 @@ namespace OmenCore.ViewModels
                 if (success)
                 {
                     MessageBox.Show(
-                        "EC has been reset to factory defaults.\n\n" +
-                        "BIOS should now have full control of fans.\n" +
-                        "If your BIOS displays still show incorrect values,\n" +
-                        "try restarting your laptop.",
-                        "EC Reset Successful",
+                        global::OmenCore.Localization.Strings.CsECHasBeenResetToFactoryDefaults
+
+
+,
+                        global::OmenCore.Localization.Strings.CsECResetSuccessful,
                         MessageBoxButton.OK,
                         MessageBoxImage.Information);
                     
@@ -4160,10 +4160,10 @@ namespace OmenCore.ViewModels
                 else
                 {
                     MessageBox.Show(
-                        "EC reset may have partially completed.\n\n" +
-                        "Some systems may require a full restart\n" +
-                        "for all changes to take effect.",
-                        "EC Reset Result",
+                        global::OmenCore.Localization.Strings.CsECResetMayHavePartiallyCompletedSome
+
+,
+                        global::OmenCore.Localization.Strings.CsECResetResult,
                         MessageBoxButton.OK,
                         MessageBoxImage.Warning);
                     
@@ -4179,7 +4179,7 @@ namespace OmenCore.ViewModels
                     ex: ex);
                 MessageBox.Show(
                     $"Failed to reset EC: {ex.Message}",
-                    "EC Reset Failed",
+                    global::OmenCore.Localization.Strings.CsECResetFailed,
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
             }
@@ -4189,13 +4189,13 @@ namespace OmenCore.ViewModels
         {
             // Show info about what will be installed
             var result = MessageBox.Show(
-                "OmenCore recommends PawnIO for advanced hardware features.\n\n" +
-                "PawnIO provides Secure Boot compatible MSR/EC access for:\n" +
-                "• CPU undervolting (Intel/AMD)\n" +
-                "• TCC offset control\n" +
-                "• EC-based fan control fallback\n\n" +
-                "Click OK to open the PawnIO website.",
-                "Install PawnIO Driver", 
+                global::OmenCore.Localization.Strings.CsOmenCoreRecommendsPawnIOForAdvancedHardwareFeatures
+
+
+
+
+,
+                global::OmenCore.Localization.Strings.CsInstallPawnIODriver, 
                 MessageBoxButton.OKCancel, 
                 MessageBoxImage.Information);
                 
@@ -4270,7 +4270,7 @@ namespace OmenCore.ViewModels
                             if (sc.Status == System.ServiceProcess.ServiceControllerStatus.Running)
                             {
                                 OghInstalled = true;
-                                detectedItems.Add($"Service: {serviceName} (running)");
+                                detectedItems.Add(string.Format(global::OmenCore.Localization.Strings.CsServiceRunning, serviceName));
                             }
                         }
                         catch (InvalidOperationException)
@@ -4300,7 +4300,7 @@ namespace OmenCore.ViewModels
                                 {
                                     _logging.Debug($"Unable to read OGH process path for '{proc}': {ex.Message}");
                                 }
-                                var detail = string.IsNullOrEmpty(path) ? $"Process: {proc}" : $"Process: {proc} ({path})";
+                                var detail = string.IsNullOrEmpty(path) ? $"Process: {proc}" : string.Format(global::OmenCore.Localization.Strings.CsProcess, proc, path);
                                 detectedItems.Add(detail);
                                 foreach (var p in procs) p.Dispose();
                             }
@@ -4313,7 +4313,7 @@ namespace OmenCore.ViewModels
                     
                     OghDetectionDetail = detectedItems.Count > 0 
                         ? string.Join("\n", detectedItems) 
-                        : "Not detected";
+                        : global::OmenCore.Localization.Strings.CsNotDetected;
                 }
                 catch
                 {
@@ -4326,7 +4326,7 @@ namespace OmenCore.ViewModels
                 else if (OghInstalled)
                     FanBackend = "WMI BIOS (OGH)";
                 else if (!SecureBootEnabled)
-                    FanBackend = "WMI BIOS + Optional Legacy EC Path";
+                    FanBackend = global::OmenCore.Localization.Strings.CsWMIBIOSOptionalLegacyECPath;
                 else
                     FanBackend = "WMI BIOS";
                     
@@ -4346,9 +4346,9 @@ namespace OmenCore.ViewModels
             {
                 var sysInfo = _systemInfoService.GetSystemInfo();
                 // Use Model for display (full name like "HP OMEN by HP Laptop 17-ck2xxx")
-                SystemModel = !string.IsNullOrEmpty(sysInfo.Model) ? sysInfo.Model : sysInfo.ProductName ?? "Unknown HP Product";
+                SystemModel = !string.IsNullOrEmpty(sysInfo.Model) ? sysInfo.Model : sysInfo.ProductName ?? global::OmenCore.Localization.Strings.CsUnknownHPProduct;
                 CurrentBiosVersion = sysInfo.BiosVersion ?? "Unknown";
-                BiosCheckStatus = "Click 'Check for Updates' to check HP for BIOS updates";
+                BiosCheckStatus = global::OmenCore.Localization.Strings.CsClickCheckForUpdatesToCheckHP;
                 BiosStatusColor = Brushes.Gray;
             }
             catch (Exception ex)
@@ -4358,9 +4358,9 @@ namespace OmenCore.ViewModels
                     operation: "LoadSystemInfo",
                     message: "Failed to load system info for BIOS display",
                     ex: ex);
-                SystemModel = "Unable to detect";
-                CurrentBiosVersion = "Unable to detect";
-                BiosCheckStatus = "Could not read system information";
+                SystemModel = global::OmenCore.Localization.Strings.CsUnableToDetect;
+                CurrentBiosVersion = global::OmenCore.Localization.Strings.CsUnableToDetect;
+                BiosCheckStatus = global::OmenCore.Localization.Strings.CsCouldNotReadSystemInformation;
                 BiosStatusColor = new SolidColorBrush(Color.FromRgb(255, 183, 77)); // Orange
             }
         }
@@ -4371,7 +4371,7 @@ namespace OmenCore.ViewModels
                 return;
                 
             IsBiosCheckInProgress = true;
-            BiosCheckStatus = "Checking HP for BIOS updates...";
+            BiosCheckStatus = global::OmenCore.Localization.Strings.CsCheckingHPForBIOSUpdates;
             BiosStatusColor = Brushes.Gray;
             
             try
@@ -4385,12 +4385,12 @@ namespace OmenCore.ViewModels
                 
                 if (result.UpdateAvailable)
                 {
-                    BiosCheckStatus = $"⬆️ Update available: {result.LatestBiosVersion}";
+                    BiosCheckStatus = string.Format(global::OmenCore.Localization.Strings.CsUpdateAvailable, result.LatestBiosVersion);
                     BiosStatusColor = new SolidColorBrush(Color.FromRgb(102, 187, 106)); // Green
                 }
                 else if (!string.IsNullOrEmpty(result.LatestBiosVersion))
                 {
-                    BiosCheckStatus = "✓ Your BIOS is up to date";
+                    BiosCheckStatus = global::OmenCore.Localization.Strings.CsYourBIOSIsUpToDate;
                     BiosStatusColor = new SolidColorBrush(Color.FromRgb(102, 187, 106)); // Green
                 }
                 else
@@ -4488,8 +4488,8 @@ namespace OmenCore.ViewModels
             if (IsScanningBloatware) return;
             
             IsScanningBloatware = true;
-            BloatwareProgress = "Scanning for HP bloatware packages...";
-            BloatwareList = "Scanning for HP bloatware...";
+            BloatwareProgress = global::OmenCore.Localization.Strings.CsScanningForHPBloatwarePackages;
+            BloatwareList = global::OmenCore.Localization.Strings.CsScanningForHPBloatware;
             BloatwareCount = 0;
             
             try
@@ -4582,11 +4582,11 @@ namespace OmenCore.ViewModels
                 
                 if (bloatware.Count == 0)
                 {
-                    BloatwareList = "✓ No HP bloatware detected!\n\nYour system is clean.";
+                    BloatwareList = global::OmenCore.Localization.Strings.CsNoHPBloatwareDetectedYourSystemIs;
                 }
                 else
                 {
-                    BloatwareList = $"Found {bloatware.Count} HP bloatware package(s):\n\n" +
+                    BloatwareList = string.Format(global::OmenCore.Localization.Strings.CsFoundHPBloatwarePackageS, bloatware.Count) +
                                   string.Join("\n", bloatware.Select(p => $"• {p.Replace("AD2F1837.", "").Replace("HPInc.", "")}"));
                 }
                 
@@ -4599,7 +4599,7 @@ namespace OmenCore.ViewModels
                     operation: "ScanBloatwareAsync",
                     message: "Failed to scan for bloatware",
                     ex: ex);
-                BloatwareList = $"❌ Scan failed: {ex.Message}";
+                BloatwareList = string.Format(global::OmenCore.Localization.Strings.CsScanFailed, ex.Message);
             }
             finally
             {
@@ -4611,20 +4611,20 @@ namespace OmenCore.ViewModels
         {
             if (BloatwareCount == 0)
             {
-                MessageBox.Show("No bloatware detected. Run a scan first.", "OmenCore", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(global::OmenCore.Localization.Strings.CsNoBloatwareDetectedRunAScanFirst, "OmenCore", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             
             var result = MessageBox.Show(
-                $"This will remove {BloatwareCount} HP bloatware package(s).\n\n" +
-                "⚠️ WARNING:\n" +
-                "• This action cannot be undone\n" +
-                "• Some HP features may stop working\n" +
-                "• HP Support Assistant will NOT be removed\n" +
-                "• Realtek audio/network drivers will NOT be touched\n" +
-                "• System restart may be required\n\n" +
-                "Continue with removal?",
-                "Remove HP Bloatware - Confirmation Required",
+                string.Format(global::OmenCore.Localization.Strings.CsThisWillRemoveHPBloatwarePackageS, BloatwareCount) +
+                global::OmenCore.Localization.Strings.CsWARNING +
+                global::OmenCore.Localization.Strings.CsThisActionCannotBeUndone +
+                global::OmenCore.Localization.Strings.CsSomeHPFeaturesMayStopWorking +
+                global::OmenCore.Localization.Strings.CsHPSupportAssistantWillNOTBeRemoved +
+                global::OmenCore.Localization.Strings.CsRealtekAudioNetworkDriversWillNOTBe +
+                global::OmenCore.Localization.Strings.CsSystemRestartMayBeRequired +
+                global::OmenCore.Localization.Strings.CsContinueWithRemoval,
+                global::OmenCore.Localization.Strings.CsRemoveHPBloatwareConfirmationRequired,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
                 
@@ -4632,8 +4632,8 @@ namespace OmenCore.ViewModels
                 return;
                 
             IsScanningBloatware = true;
-            BloatwareProgress = "Starting bloatware removal...";
-            BloatwareList = "Removing HP bloatware packages...\n\nThis may take a few minutes...";
+            BloatwareProgress = global::OmenCore.Localization.Strings.CsStartingBloatwareRemoval;
+            BloatwareList = global::OmenCore.Localization.Strings.CsRemovingHPBloatwarePackagesThisMayTake;
             
             try
             {
@@ -4643,7 +4643,7 @@ namespace OmenCore.ViewModels
                 var packageNames = new System.Collections.Generic.List<string>();
                 
                 // First get the list of packages to remove — matches scan filter exactly
-                BloatwareProgress = "[1/3] Getting package list...";
+                BloatwareProgress = global::OmenCore.Localization.Strings.Cs13GettingPackageList;
                 await Task.Run(() =>
                 {
                     var psi = new ProcessStartInfo
@@ -4671,7 +4671,7 @@ namespace OmenCore.ViewModels
                     }
                 });
                 
-                BloatwareProgress = $"[2/3] Removing {packageNames.Count} packages...";
+                BloatwareProgress = string.Format(global::OmenCore.Localization.Strings.Cs23RemovingPackages, packageNames.Count);
                 var total = packageNames.Count;
                 var current = 0;
                 
@@ -4681,7 +4681,7 @@ namespace OmenCore.ViewModels
                 {
                     current++;
                     var friendlyName = packageName.Replace("AD2F1837.", "").Replace("HPInc.", "");
-                    BloatwareProgress = $"[2/3] Removing {current}/{total}: {friendlyName}...";
+                    BloatwareProgress = string.Format(global::OmenCore.Localization.Strings.Cs23Removing, current, total, friendlyName);
                     
                     await Task.Run(() =>
                     {
@@ -4716,7 +4716,7 @@ namespace OmenCore.ViewModels
                             if (!exited)
                             {
                                 failed++;
-                                failedNames.Add($"{friendlyName} (timed out)");
+                                failedNames.Add(string.Format(global::OmenCore.Localization.Strings.CsTimedOut, friendlyName));
                                 _logging.Warn($"Removal timed out after 60s: {packageName}");
                             }
                             else if (process.ExitCode == 0 || string.IsNullOrWhiteSpace(stderr))
@@ -4731,7 +4731,7 @@ namespace OmenCore.ViewModels
                                     stderr.Contains("0x80070005", StringComparison.OrdinalIgnoreCase))
                                 {
                                     failed++;
-                                    failedNames.Add($"{friendlyName} (needs admin)");
+                                    failedNames.Add(string.Format(global::OmenCore.Localization.Strings.CsNeedsAdmin, friendlyName));
                                     _logging.Warn($"Access denied removing: {packageName} - needs elevation");
                                 }
                                 else
@@ -4745,41 +4745,41 @@ namespace OmenCore.ViewModels
                     });
                 }
                 
-                BloatwareProgress = "[3/3] Cleanup complete!";
+                BloatwareProgress = global::OmenCore.Localization.Strings.Cs33CleanupComplete;
                 
-                var resultText = $"✓ Bloatware removal complete!\n\n" +
-                              $"• Removed: {removed} package(s)\n" +
-                              $"• Failed: {failed} package(s)\n";
+                var resultText = global::OmenCore.Localization.Strings.CsBloatwareRemovalComplete_252f4 +
+                              string.Format(global::OmenCore.Localization.Strings.CsRemovedPackageS, removed) +
+                              string.Format(global::OmenCore.Localization.Strings.CsFailedPackageS, failed);
                 
                 if (failedNames.Count > 0)
                 {
-                    resultText += $"\nFailed packages:\n" + string.Join("\n", failedNames.Select(n => $"  ✗ {n}"));
+                    resultText += global::OmenCore.Localization.Strings.CsFailedPackages + string.Join("\n", failedNames.Select(n => $"  ✗ {n}"));
                     
                     if (failedNames.Any(n => n.Contains("needs admin")))
                     {
-                        resultText += "\n\n💡 Tip: Run OmenCore as Administrator to remove provisioned packages.";
+                        resultText += global::OmenCore.Localization.Strings.CsTipRunOmenCoreAsAdministratorToRemove;
                     }
                 }
                 
-                resultText += "\n\nRun a new scan to verify.";
+                resultText += global::OmenCore.Localization.Strings.CsRunANewScanToVerify;
                 BloatwareList = resultText;
                 BloatwareCount = 0;
                 
                 _logging.Info($"Bloatware removal complete: {removed} removed, {failed} failed");
                 
-                var msgText = $"Removed {removed} bloatware package(s).";
+                var msgText = string.Format(global::OmenCore.Localization.Strings.CsRemovedBloatwarePackageS, removed);
                 if (failed > 0)
                 {
-                    msgText += $"\n\n{failed} package(s) could not be removed.";
+                    msgText += string.Format(global::OmenCore.Localization.Strings.CsPackageSCouldNotBeRemoved, failed);
                     if (failedNames.Any(n => n.Contains("needs admin")))
                     {
-                        msgText += "\n\nSome packages require administrator privileges.\nRight-click OmenCore → 'Run as administrator' and try again.";
+                        msgText += global::OmenCore.Localization.Strings.CsSomePackagesRequireAdministratorPrivilegesRightClick;
                     }
                 }
-                msgText += "\n\nSome changes may require a system restart.";
+                msgText += global::OmenCore.Localization.Strings.CsSomeChangesMayRequireASystemRestart;
                 
                 MessageBox.Show(msgText,
-                    "Bloatware Removal Complete",
+                    global::OmenCore.Localization.Strings.CsBloatwareRemovalComplete,
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -4790,7 +4790,7 @@ namespace OmenCore.ViewModels
                     operation: "RemoveBloatwareAsync",
                     message: "Failed to remove bloatware",
                     ex: ex);
-                BloatwareList = $"❌ Removal failed: {ex.Message}";
+                BloatwareList = string.Format(global::OmenCore.Localization.Strings.CsRemovalFailed, ex.Message);
                 MessageBox.Show($"Failed to remove bloatware: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -4809,7 +4809,7 @@ namespace OmenCore.ViewModels
             {
                 var dialog = new Microsoft.Win32.OpenFileDialog
                 {
-                    Title = "Import OmenCore Profile",
+                    Title = global::OmenCore.Localization.Strings.CsImportOmenCoreProfile,
                     Filter = "OmenCore Profile (*.omencore)|*.omencore|All Files (*.*)|*.*",
                     DefaultExt = ".omencore"
                 };
@@ -4825,8 +4825,8 @@ namespace OmenCore.ViewModels
                 if (profile == null)
                 {
                     MessageBox.Show(
-                        "Failed to import profile. The file may be corrupted or incompatible.",
-                        "Import Failed",
+                        global::OmenCore.Localization.Strings.CsFailedToImportProfileTheFileMay,
+                        global::OmenCore.Localization.Strings.CsImportFailed,
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                     return;
@@ -4834,14 +4834,14 @@ namespace OmenCore.ViewModels
                 
                 // Show import options dialog
                 var result = MessageBox.Show(
-                    $"Import profile from {Path.GetFileName(fileName)}?\n\n" +
-                    $"This will apply:\n" +
-                    $"• {profile.FanPresets?.Count ?? 0} fan preset(s)\n" +
-                    $"• {profile.PerformanceModes?.Count ?? 0} performance mode(s)\n" +
-                    $"• {profile.GpuOcProfiles?.Count ?? 0} GPU OC profile(s)\n" +
-                    $"• Battery & hysteresis settings\n\n" +
-                    "Existing settings will be overwritten.",
-                    "Import Profile",
+                    string.Format(global::OmenCore.Localization.Strings.CsImportProfileFrom, Path.GetFileName(fileName)) +
+                    global::OmenCore.Localization.Strings.CsThisWillApply +
+                    string.Format(global::OmenCore.Localization.Strings.CsFanPresetS, profile.FanPresets?.Count ?? 0) +
+                    string.Format(global::OmenCore.Localization.Strings.CsPerformanceModeS, profile.PerformanceModes?.Count ?? 0) +
+                    string.Format(global::OmenCore.Localization.Strings.CsGPUOCProfileS, profile.GpuOcProfiles?.Count ?? 0) +
+                    global::OmenCore.Localization.Strings.CsBatteryHysteresisSettings +
+                    global::OmenCore.Localization.Strings.CsExistingSettingsWillBeOverwritten,
+                    global::OmenCore.Localization.Strings.CsImportProfile,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question);
                 
@@ -4854,9 +4854,9 @@ namespace OmenCore.ViewModels
                 _logging.Info($"Profile imported successfully from {fileName}");
                 
                 MessageBox.Show(
-                    "Profile imported successfully!\n\n" +
-                    "Settings have been applied. Some changes may require restarting the app.",
-                    "Import Complete",
+                    global::OmenCore.Localization.Strings.CsProfileImportedSuccessfullySettingsHaveBeenApplied
+,
+                    global::OmenCore.Localization.Strings.CsImportComplete,
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -4867,7 +4867,7 @@ namespace OmenCore.ViewModels
                     operation: "ImportProfileAsync",
                     message: "Failed to import profile",
                     ex: ex);
-                MessageBox.Show($"Failed to import profile: {ex.Message}", "Import Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Failed to import profile: {ex.Message}", global::OmenCore.Localization.Strings.CsImportError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
@@ -4877,7 +4877,7 @@ namespace OmenCore.ViewModels
             {
                 var dialog = new Microsoft.Win32.SaveFileDialog
                 {
-                    Title = "Export OmenCore Profile",
+                    Title = global::OmenCore.Localization.Strings.CsExportOmenCoreProfile,
                     Filter = "OmenCore Profile (*.omencore)|*.omencore|All Files (*.*)|*.*",
                     DefaultExt = ".omencore",
                     FileName = $"omencore-profile-{DateTime.Now:yyyy-MM-dd}.omencore"
@@ -4894,7 +4894,7 @@ namespace OmenCore.ViewModels
                     $"Profile exported successfully!\\n\\n" +
                     $"File: {Path.GetFileName(dialog.FileName)}\\n" +
                     $"Location: {Path.GetDirectoryName(dialog.FileName)}",
-                    "Export Complete",
+                    global::OmenCore.Localization.Strings.CsExportComplete,
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -4905,7 +4905,7 @@ namespace OmenCore.ViewModels
                     operation: "ExportProfileAsync",
                     message: "Failed to export profile",
                     ex: ex);
-                MessageBox.Show($"Failed to export profile: {ex.Message}", "Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Failed to export profile: {ex.Message}", global::OmenCore.Localization.Strings.CsExportError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         
@@ -4915,7 +4915,7 @@ namespace OmenCore.ViewModels
             {
                 var dialog = new Microsoft.Win32.SaveFileDialog
                 {
-                    Title = "Export Diagnostics Bundle",
+                    Title = global::OmenCore.Localization.Strings.CsExportDiagnosticsBundle,
                     Filter = "ZIP Archive (*.zip)|*.zip|All Files (*.*)|*.*",
                     DefaultExt = ".zip",
                     FileName = $"omencore-diagnostics-{DateTime.Now:yyyy-MM-dd-HHmmss}.zip"
@@ -4946,8 +4946,8 @@ namespace OmenCore.ViewModels
                     $"Diagnostics bundle exported successfully!\\n\\n" +
                     $"File: {Path.GetFileName(dialog.FileName)}\\n" +
                     $"Location: {Path.GetDirectoryName(dialog.FileName)}\\n\\n" +
-                    "You can attach this ZIP file to GitHub issues for troubleshooting.",
-                    "Export Complete",
+                    global::OmenCore.Localization.Strings.CsYouCanAttachThisZIPFileTo,
+                    global::OmenCore.Localization.Strings.CsExportComplete,
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -4958,7 +4958,7 @@ namespace OmenCore.ViewModels
                     operation: "ExportDiagnosticsAsync",
                     message: "Failed to export diagnostics",
                     ex: ex);
-                MessageBox.Show($"Failed to export diagnostics: {ex.Message}", "Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Failed to export diagnostics: {ex.Message}", global::OmenCore.Localization.Strings.CsExportError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         

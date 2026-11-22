@@ -145,27 +145,27 @@ namespace OmenCore.Utils
             contextMenu.Items.Add(new Separator());
 
             // ═══ LIVE STATUS ═══
-            _cpuTempMenuItem = new MenuItem { Header = "CPU: --°C · --%", IsEnabled = false };
+            _cpuTempMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsCPUC, IsEnabled = false };
             _cpuTempMenuItem.FontFamily = AppFonts.Monospace;
             contextMenu.Items.Add(_cpuTempMenuItem);
 
-            _gpuTempMenuItem = new MenuItem { Header = "GPU: --°C · --%", IsEnabled = false };
+            _gpuTempMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsGPUC, IsEnabled = false };
             _gpuTempMenuItem.FontFamily = AppFonts.Monospace;
             contextMenu.Items.Add(_gpuTempMenuItem);
 
-            _monitoringHealthMenuItem = new MenuItem { Header = "Monitor: Unknown", IsEnabled = false };
+            _monitoringHealthMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsMonitorUnknown, IsEnabled = false };
             _monitoringHealthMenuItem.FontFamily = AppFonts.Monospace;
             contextMenu.Items.Add(_monitoringHealthMenuItem);
 
-            _ramMenuItem = new MenuItem { Header = "RAM: —/— GB", IsEnabled = false };
+            _ramMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsRAMGB, IsEnabled = false };
             _ramMenuItem.FontFamily = AppFonts.Monospace;
             contextMenu.Items.Add(_ramMenuItem);
 
-            _fanStatusMenuItem = new MenuItem { Header = "Fan: Auto · —", IsEnabled = false };
+            _fanStatusMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsFanAuto, IsEnabled = false };
             _fanStatusMenuItem.FontFamily = AppFonts.Monospace;
             contextMenu.Items.Add(_fanStatusMenuItem);
 
-            _batteryMenuItem = new MenuItem { Header = "Battery: —", IsEnabled = false };
+            _batteryMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsBattery, IsEnabled = false };
             _batteryMenuItem.FontFamily = AppFonts.Monospace;
             _batteryMenuItem.Visibility = Visibility.Collapsed;
             contextMenu.Items.Add(_batteryMenuItem);
@@ -173,15 +173,15 @@ namespace OmenCore.Utils
             contextMenu.Items.Add(new Separator());
 
             // ═══ QUICK PROFILES (Combined Fan + Performance) ═══
-            var quickProfileMenuItem = new MenuItem { Header = "Quick Profile" };
+            var quickProfileMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsQuickProfile };
 
-            var profilePerformance = new MenuItem { Header = "Performance — Gaming cooling + Performance mode" };
+            var profilePerformance = new MenuItem { Header = global::OmenCore.Localization.Strings.CsPerformanceGamingCoolingPerformanceMode };
             profilePerformance.Click += (s, e) => QuickProfileChangeRequested?.Invoke("Performance");
-            var profileBalanced = new MenuItem { Header = "Balanced — Auto cooling + Balanced mode" };
+            var profileBalanced = new MenuItem { Header = global::OmenCore.Localization.Strings.CsBalancedAutoCoolingBalancedMode };
             profileBalanced.Click += (s, e) => QuickProfileChangeRequested?.Invoke("Balanced");
-            var profileQuiet = new MenuItem { Header = "Quiet — Quiet fans + Power saving" };
+            var profileQuiet = new MenuItem { Header = global::OmenCore.Localization.Strings.CsQuietQuietFansPowerSaving };
             profileQuiet.Click += (s, e) => QuickProfileChangeRequested?.Invoke("Quiet");
-            var profileCustom = new MenuItem { Header = "Custom — User-defined fans + power settings" };
+            var profileCustom = new MenuItem { Header = global::OmenCore.Localization.Strings.CsCustomUserDefinedFansPowerSettings };
             profileCustom.Click += (s, e) => QuickProfileChangeRequested?.Invoke("Custom");
 
             quickProfileMenuItem.Items.Add(profilePerformance);
@@ -220,7 +220,7 @@ namespace OmenCore.Utils
             // Single-click Max Fan shortcut — previously only reachable via Advanced > Fan
             // Control > Max (three menu levels deep). Kept alongside that entry rather than
             // replacing it; this mirrors how OGH exposes a single-click Max option.
-            var maxFanQuickItem = new MenuItem { Header = "Max Fan" };
+            var maxFanQuickItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsMaxFan };
             maxFanQuickItem.Click += (s, e) => SetFanMode("Max");
             contextMenu.Items.Add(maxFanQuickItem);
 
@@ -229,7 +229,7 @@ namespace OmenCore.Utils
             // matching the lazy-refresh pattern used by the other dynamic submenus below.
             if (_notificationService != null)
             {
-                var notificationsMenuItem = new MenuItem { Header = "Recent Notifications" };
+                var notificationsMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsRecentNotifications };
                 notificationsMenuItem.ItemContainerStyle = menuItemStyle;
                 notificationsMenuItem.SubmenuOpened += (s, e) =>
                 {
@@ -238,7 +238,7 @@ namespace OmenCore.Utils
                     var recent = _notificationService.GetRecentNotifications(10).ToList();
                     if (recent.Count == 0)
                     {
-                        notificationsMenuItem.Items.Add(new MenuItem { Header = "No notifications yet", IsEnabled = false });
+                        notificationsMenuItem.Items.Add(new MenuItem { Header = global::OmenCore.Localization.Strings.CsNoNotificationsYet, IsEnabled = false });
                     }
                     else
                     {
@@ -256,7 +256,7 @@ namespace OmenCore.Utils
                         }
 
                         notificationsMenuItem.Items.Add(new Separator());
-                        var clearItem = new MenuItem { Header = "Clear All" };
+                        var clearItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsClearAll };
                         clearItem.Click += (s2, e2) => _notificationService.ClearAllNotifications();
                         notificationsMenuItem.Items.Add(clearItem);
                     }
@@ -288,7 +288,7 @@ namespace OmenCore.Utils
             // Report a Problem — always-visible entry point for diagnostics export, independent
             // of Lite/Advanced mode. Previously only reachable via Settings (gated behind
             // ShowAdvancedControls/non-Lite mode) or a command buried in SettingsView.xaml.
-            var reportProblemItem = new MenuItem { Header = "Report a Problem" };
+            var reportProblemItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsReportAProblem };
             reportProblemItem.Click += (s, e) => ReportProblemRequested?.Invoke();
             contextMenu.Items.Add(reportProblemItem);
 
@@ -298,11 +298,11 @@ namespace OmenCore.Utils
             // Fan submenu
             _fanModeMenuItem = new MenuItem { Header = "Fan Control" };
             
-            _fanAutoMenuItem = new MenuItem { Header = "✓ Auto — System controlled" };
+            _fanAutoMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsAutoSystemControlled };
             _fanAutoMenuItem.Click += (s, e) => SetFanMode("Auto");
-            _fanMaxMenuItem = new MenuItem { Header = "   Max — Maximum cooling" };
+            _fanMaxMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsMaxMaximumCooling };
             _fanMaxMenuItem.Click += (s, e) => SetFanMode("Max");
-            _fanQuietMenuItem = new MenuItem { Header = "   Quiet — Reduced noise" };
+            _fanQuietMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsQuietReducedNoise };
             _fanQuietMenuItem.Click += (s, e) => SetFanMode("Quiet");
             
             _fanModeMenuItem.Items.Add(_fanAutoMenuItem);
@@ -335,13 +335,13 @@ namespace OmenCore.Utils
             advancedMenuItem.Items.Add(_fanModeMenuItem);
 
             // Performance submenu
-            _performanceModeMenuItem = new MenuItem { Header = "Power Profile" };
+            _performanceModeMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsPowerProfile };
             
-            _perfQuietMenuItem = new MenuItem { Header = "   Power Saver — Battery life" };
+            _perfQuietMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsPowerSaverBatteryLife };
             _perfQuietMenuItem.Click += (s, e) => SetPerformanceMode("Quiet");
-            _perfBalancedMenuItem = new MenuItem { Header = "✓ Balanced — Default" };
+            _perfBalancedMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsBalancedDefault };
             _perfBalancedMenuItem.Click += (s, e) => SetPerformanceMode("Balanced");
-            _perfPerformanceMenuItem = new MenuItem { Header = "   Performance — Max power" };
+            _perfPerformanceMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsPerformanceMaxPower };
             _perfPerformanceMenuItem.Click += (s, e) => SetPerformanceMode("Performance");
             
             _performanceModeMenuItem.Items.Add(_perfQuietMenuItem);
@@ -376,11 +376,11 @@ namespace OmenCore.Utils
             // Display submenu
             _displayMenuItem = new MenuItem { Header = "Display" };
 
-            var refreshHigh = new MenuItem { Header = "High Refresh — Gaming mode" };
+            var refreshHigh = new MenuItem { Header = global::OmenCore.Localization.Strings.CsHighRefreshGamingMode };
             refreshHigh.Click += (s, e) => SetHighRefreshRate();
-            var refreshLow = new MenuItem { Header = "Low Refresh — Save power" };
+            var refreshLow = new MenuItem { Header = global::OmenCore.Localization.Strings.CsLowRefreshSavePower };
             refreshLow.Click += (s, e) => SetLowRefreshRate();
-            var refreshToggle = new MenuItem { Header = "Toggle Refresh Rate" };
+            var refreshToggle = new MenuItem { Header = global::OmenCore.Localization.Strings.CsToggleRefreshRate };
             refreshToggle.Click += (s, e) => ToggleRefreshRate();
             
             _displayMenuItem.Items.Add(refreshHigh);
@@ -388,7 +388,7 @@ namespace OmenCore.Utils
             _displayMenuItem.Items.Add(refreshToggle);
             _displayMenuItem.Items.Add(new Separator());
 
-            var displayOff = new MenuItem { Header = "Turn Off Display" };
+            var displayOff = new MenuItem { Header = global::OmenCore.Localization.Strings.CsTurnOffDisplay };
             displayOff.Click += (s, e) => TurnOffDisplay();
             _displayMenuItem.Items.Add(displayOff);
 
@@ -420,11 +420,11 @@ namespace OmenCore.Utils
             advancedMenuItem.Items.Add(_displayMenuItem);
             
             // GPU Power submenu (v2.7.0)
-            _gpuPowerMenuItem = new MenuItem { Header = "GPU Power" };
+            _gpuPowerMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsGPUPower };
             
-            _gpuPowerMinMenuItem = new MenuItem { Header = "   Minimum — Base TGP, best battery" };
+            _gpuPowerMinMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsMinimumBaseTGPBestBattery };
             _gpuPowerMinMenuItem.Click += (s, e) => RequestGpuPowerChange("Minimum");
-            _gpuPowerMedMenuItem = new MenuItem { Header = "✓ Medium — Custom TGP" };
+            _gpuPowerMedMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsMediumCustomTGP };
             _gpuPowerMedMenuItem.Click += (s, e) => RequestGpuPowerChange("Medium");
             _gpuPowerMaxMenuItem = new MenuItem { Header = "   Maximum — TGP + Dynamic Boost" };
             _gpuPowerMaxMenuItem.Click += (s, e) => RequestGpuPowerChange("Maximum");
@@ -463,7 +463,7 @@ namespace OmenCore.Utils
             advancedMenuItem.Items.Add(_gpuPowerMenuItem);
             
             // Keyboard backlight toggle (v2.7.0)
-            _keyboardBacklightMenuItem = new MenuItem { Header = "Keyboard Backlight" };
+            _keyboardBacklightMenuItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsKeyboardBacklight };
             
             var kbOff = new MenuItem { Header = "   Off" };
             kbOff.Click += (s, e) => RequestKeyboardBacklight(0);
@@ -471,7 +471,7 @@ namespace OmenCore.Utils
             kbLow.Click += (s, e) => RequestKeyboardBacklight(1);
             var kbMed = new MenuItem { Header = "   Medium" };
             kbMed.Click += (s, e) => RequestKeyboardBacklight(2);
-            var kbHigh = new MenuItem { Header = "✓ High" };
+            var kbHigh = new MenuItem { Header = global::OmenCore.Localization.Strings.CsHigh };
             kbHigh.Click += (s, e) => RequestKeyboardBacklight(3);
             var kbToggle = new MenuItem { Header = "Toggle" };
             kbToggle.Click += (s, e) => RequestKeyboardBacklightToggle();
@@ -538,24 +538,24 @@ namespace OmenCore.Utils
             contextMenu.Items.Add(new Separator());
 
             // ═══ ACTIONS ═══
-            var showItem = new MenuItem { Header = "Open Dashboard" };
+            var showItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsOpenDashboard };
             showItem.Click += (s, e) => _showMainWindow();
             contextMenu.Items.Add(showItem);
             
             var stayOnTopEnabled = App.Configuration.Config.StayOnTop;
             _stayOnTopMenuItem = new MenuItem
             {
-                Header = stayOnTopEnabled ? "Stay on Top ✓" : "Stay on Top",
+                Header = stayOnTopEnabled ? global::OmenCore.Localization.Strings.CsStayOnTop : global::OmenCore.Localization.Strings.CsStayOnTop_e8d3a,
                 ToolTip = stayOnTopEnabled
-                    ? "Keep OmenCore above other windows (On)"
-                    : "Keep OmenCore above other windows (Off)"
+                    ? global::OmenCore.Localization.Strings.CsKeepOmenCoreAboveOtherWindowsOn
+                    : global::OmenCore.Localization.Strings.CsKeepOmenCoreAboveOtherWindowsOff
             };
             _stayOnTopMenuItem.Click += (s, e) => ToggleStayOnTop();
             contextMenu.Items.Add(_stayOnTopMenuItem);
 
             contextMenu.Items.Add(new Separator());
 
-            var checkUpdateItem = new MenuItem { Header = "Check for Updates" };
+            var checkUpdateItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsCheckForUpdates };
             checkUpdateItem.Click += (s, e) => CheckForUpdatesRequested?.Invoke();
             contextMenu.Items.Add(checkUpdateItem);
 
@@ -564,7 +564,7 @@ namespace OmenCore.Utils
             // from "Check for Updates" right above it, same convention most tray apps use.
             contextMenu.Items.Add(new Separator());
 
-            var exitItem = new MenuItem { Header = "Exit OmenCore" };
+            var exitItem = new MenuItem { Header = global::OmenCore.Localization.Strings.CsExitOmenCore };
             exitItem.Click += (s, e) => _shutdownApp();
             contextMenu.Items.Add(exitItem);
 
@@ -635,7 +635,7 @@ namespace OmenCore.Utils
                 var fan2Rpm = _latestSample.Fan2Rpm;
                 var fanLine = fan2Rpm > 0 
                     ? $"CPU Fan: {fan1Rpm} · GPU Fan: {fan2Rpm} RPM" 
-                    : (fan1Rpm > 0 ? $"Fan: {fan1Rpm} RPM" : "Fan: —");
+                    : (fan1Rpm > 0 ? string.Format(global::OmenCore.Localization.Strings.CsFanRPM, fan1Rpm) : global::OmenCore.Localization.Strings.CsFan);
                     
                 var gpuPower = _latestSample.GpuPowerWatts;
                 var gpuPowerDisplay = gpuPower > 0 ? $" · {gpuPower:F0}W" : "";
@@ -648,30 +648,30 @@ namespace OmenCore.Utils
                 
                 var toolTipText = $"OmenCore v{_appVersion}\n" +
                                   $"━━━━━━━━━━━━━━━━━━\n" +
-                                  $"CPU: {cpuTempStr} @ {cpuLoad:F0}%\n" +
-                                  $"GPU: {gpuTempStr} @ {gpuLoad:F0}%{gpuPowerDisplay}\n" +
-                                  $"RAM: {memUsedGb:F1}/{memTotalGb:F1} GB ({memPercent:F0}%)\n" +
+                                  string.Format(global::OmenCore.Localization.Strings.CsCPU, cpuTempStr, cpuLoad) +
+                                  string.Format(global::OmenCore.Localization.Strings.CsGPU, gpuTempStr, gpuLoad, gpuPowerDisplay) +
+                                  string.Format(global::OmenCore.Localization.Strings.CsRAMGB_e88dd, memUsedGb, memTotalGb, memPercent) +
                                   $"{fanLine} | {_currentPerformanceMode}\n" +
                                   $"Fan/Perf: {(_linkFanToPerformanceMode ? "Linked" : "Decoupled")}\n" +
                                   (powerLine.Length > 0 ? $"{powerLine}\n" : "") +
                                   $"Monitor: {_monitoringHealth}\n" +
                                   $"━━━━━━━━━━━━━━━━━━\n" +
-                                  $"Left-click to open dashboard";
+                                  global::OmenCore.Localization.Strings.CsLeftClickToOpenDashboard;
                 if (!string.Equals(_lastTooltipText, toolTipText, StringComparison.Ordinal))
                 {
                     _trayIcon.ToolTipText = toolTipText;
                     _lastTooltipText = toolTipText;
                 }
 
-                SetMenuHeaderIfChanged(_cpuTempMenuItem, $"CPU: {cpuTempStr} · {cpuLoad:F0}%");
-                SetMenuHeaderIfChanged(_gpuTempMenuItem, $"GPU: {gpuTempStr} · {gpuLoad:F0}%");
+                SetMenuHeaderIfChanged(_cpuTempMenuItem, string.Format(global::OmenCore.Localization.Strings.CsCPU_f8abe, cpuTempStr, cpuLoad));
+                SetMenuHeaderIfChanged(_gpuTempMenuItem, string.Format(global::OmenCore.Localization.Strings.CsGPU_dbd29, gpuTempStr, gpuLoad));
                 SetMenuHeaderIfChanged(_monitoringHealthMenuItem, BuildMonitoringHealthHeaderText(_monitoringHealth));
-                SetMenuHeaderIfChanged(_ramMenuItem, $"RAM: {memUsedGb:F1}/{memTotalGb:F1} GB ({memPercent:F0}%)");
+                SetMenuHeaderIfChanged(_ramMenuItem, string.Format(global::OmenCore.Localization.Strings.CsRAMGB_17c10, memUsedGb, memTotalGb, memPercent));
 
                 var fanRpmStr = fan2Rpm > 0
-                    ? $"CPU {fan1Rpm} · GPU {fan2Rpm} RPM"
+                    ? string.Format(global::OmenCore.Localization.Strings.CsCPUGPURPM, fan1Rpm, fan2Rpm)
                     : (fan1Rpm > 0 ? $"{fan1Rpm} RPM" : "—");
-                SetMenuHeaderIfChanged(_fanStatusMenuItem, $"Fan: {_currentFanMode} · {fanRpmStr}");
+                SetMenuHeaderIfChanged(_fanStatusMenuItem, string.Format(global::OmenCore.Localization.Strings.CsFan_d9789, _currentFanMode, fanRpmStr));
 
                 if (_batteryMenuItem != null)
                 {
@@ -757,11 +757,11 @@ namespace OmenCore.Utils
             var isQuiet = FanModeNameResolver.IsQuietAlias(activeMode);
 
             if (_fanAutoMenuItem != null)
-                _fanAutoMenuItem.Header = (isAuto ? "✓" : "  ") + " Auto — System controlled";
+                _fanAutoMenuItem.Header = (isAuto ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsAutoSystemControlled_17f40;
             if (_fanMaxMenuItem != null)
-                _fanMaxMenuItem.Header = (isMax ? "✓" : "  ") + " Max — Maximum cooling";
+                _fanMaxMenuItem.Header = (isMax ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsMaxMaximumCooling_63936;
             if (_fanQuietMenuItem != null)
-                _fanQuietMenuItem.Header = (isQuiet ? "✓" : "  ") + " Quiet — Reduced noise";
+                _fanQuietMenuItem.Header = (isQuiet ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsQuietReducedNoise_47c57;
         }
 
         private void SetPerformanceMode(string mode)
@@ -786,11 +786,11 @@ namespace OmenCore.Utils
         {
             var canonicalMode = PerformanceModeNameResolver.Normalize(activeMode);
             if (_perfBalancedMenuItem != null)
-                _perfBalancedMenuItem.Header = (canonicalMode == "Balanced" ? "✓" : "  ") + " Balanced — Default";
+                _perfBalancedMenuItem.Header = (canonicalMode == "Balanced" ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsBalancedDefault_07625;
             if (_perfPerformanceMenuItem != null)
-                _perfPerformanceMenuItem.Header = (canonicalMode == "Performance" ? "✓" : "  ") + " Performance — Max power";
+                _perfPerformanceMenuItem.Header = (canonicalMode == "Performance" ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsPerformanceMaxPower_3c109;
             if (_perfQuietMenuItem != null)
-                _perfQuietMenuItem.Header = (canonicalMode == "Quiet" ? "✓" : "  ") + " Power Saver — Battery life";
+                _perfQuietMenuItem.Header = (canonicalMode == "Quiet" ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsPowerSaverBatteryLife_0321a;
         }
         
         /// <summary>
@@ -810,9 +810,9 @@ namespace OmenCore.Utils
         private void UpdateGpuPowerCheckmarks(string activeLevel)
         {
             if (_gpuPowerMinMenuItem != null)
-                _gpuPowerMinMenuItem.Header = (activeLevel == "Minimum" ? "✓" : "  ") + " Minimum — Base TGP, best battery";
+                _gpuPowerMinMenuItem.Header = (activeLevel == "Minimum" ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsMinimumBaseTGPBestBattery_61745;
             if (_gpuPowerMedMenuItem != null)
-                _gpuPowerMedMenuItem.Header = (activeLevel == "Medium" ? "✓" : "  ") + " Medium — Custom TGP";
+                _gpuPowerMedMenuItem.Header = (activeLevel == "Medium" ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsMediumCustomTGP_b0d30;
             if (_gpuPowerMaxMenuItem != null)
                 _gpuPowerMaxMenuItem.Header = (activeLevel == "Maximum" ? "✓" : "  ") + " Maximum — TGP + Dynamic Boost";
             if (_gpuPowerExtMenuItem != null)
@@ -821,7 +821,7 @@ namespace OmenCore.Utils
 
         /// <summary>Header text for the Extended tray item: ticked only when Extended is the active level.</summary>
         internal static string GpuPowerExtendedHeader(string activeLevel) =>
-            (activeLevel == "Extended" ? "✓" : "  ") + " Extended — PPAB+, try if Maximum falls short";
+            (activeLevel == "Extended" ? "✓" : "  ") + global::OmenCore.Localization.Strings.CsExtendedPPABTryIfMaximumFallsShort;
         
         /// <summary>
         /// Update GPU power level from external source (v2.7.0)
@@ -960,10 +960,10 @@ namespace OmenCore.Utils
             // Update the menu item
             if (_stayOnTopMenuItem != null)
             {
-                _stayOnTopMenuItem.Header = newValue ? "Stay on Top ✓" : "Stay on Top";
+                _stayOnTopMenuItem.Header = newValue ? global::OmenCore.Localization.Strings.CsStayOnTop : global::OmenCore.Localization.Strings.CsStayOnTop_e8d3a;
                 _stayOnTopMenuItem.ToolTip = newValue
-                    ? "Keep OmenCore above other windows (On)"
-                    : "Keep OmenCore above other windows (Off)";
+                    ? global::OmenCore.Localization.Strings.CsKeepOmenCoreAboveOtherWindowsOn
+                    : global::OmenCore.Localization.Strings.CsKeepOmenCoreAboveOtherWindowsOff;
             }
             
             // Notify the main window to update
@@ -1133,10 +1133,10 @@ namespace OmenCore.Utils
             if (normalizedPendingRequest != null &&
                 !string.Equals(normalizedPendingRequest, normalizedCurrentMode, StringComparison.OrdinalIgnoreCase))
             {
-                return $"Fan Mode: {normalizedCurrentMode}{suffix} (requested: {normalizedPendingRequest})";
+                return string.Format(global::OmenCore.Localization.Strings.CsFanModeRequested, normalizedCurrentMode, suffix, normalizedPendingRequest);
             }
 
-            return $"Fan Mode: {normalizedCurrentMode}{suffix}";
+            return string.Format(global::OmenCore.Localization.Strings.CsFanMode, normalizedCurrentMode, suffix);
         }
 
         /// <summary>
@@ -1306,8 +1306,8 @@ namespace OmenCore.Utils
 
         private static string BuildTrayRefreshTimerDescription(bool showTempOnTray) =>
             showTempOnTray
-                ? "Tray tooltip/menu refresh plus live temperature badge redraw"
-                : "Tray tooltip/menu refresh with static icon";
+                ? global::OmenCore.Localization.Strings.CsTrayTooltipMenuRefreshPlusLiveTemperature
+                : global::OmenCore.Localization.Strings.CsTrayTooltipMenuRefreshWithStaticIcon;
 
         private ImageSource? LoadBaseIcon()
         {

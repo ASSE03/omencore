@@ -37,6 +37,16 @@ namespace OmenCoreApp.Tests
             // Anything that genuinely needs a worker starts one deliberately. Nothing should get one
             // as a side effect of constructing a monitor.
             Environment.SetEnvironmentVariable("OMENCORE_DISABLE_LHM", "1");
+
+            // UI language. Tests assert the English text that view models and services produce, and
+            // those strings now come from Strings.resx, so on a French (or any non-English) Windows
+            // they would resolve to the translation and fail. Pinning the UI culture to English keeps
+            // the suite independent of the machine's display language; the localization tests that
+            // need another language set it themselves and restore it afterwards. Number formatting
+            // (CurrentCulture) is deliberately left alone.
+            var english = System.Globalization.CultureInfo.GetCultureInfo("en");
+            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = english;
+            System.Globalization.CultureInfo.CurrentUICulture = english;
         }
     }
 }

@@ -85,11 +85,11 @@ namespace OmenCoreApp.Services
                     // ApplyCustomCurve returns void (FanService logs and records its own refusal
                     // reasons), so a throw is the only failure this caller can observe.
                     _fanService.ApplyCustomCurve(mode.FanCurve, immediate: true);
-                    result.Applied.Add("remembered fan curve");
+                    result.Applied.Add(global::OmenCore.Localization.Strings.CsRememberedFanCurve);
                 }
                 catch (Exception ex)
                 {
-                    result.Failed.Add($"remembered fan curve ({ex.Message})");
+                    result.Failed.Add(string.Format(global::OmenCore.Localization.Strings.CsRememberedFanCurve_9ffc2, ex.Message));
                 }
 
                 return;
@@ -103,7 +103,7 @@ namespace OmenCoreApp.Services
             var preset = _resolveFanPreset(mode.FanPresetName);
             if (preset == null)
             {
-                result.Skipped.Add($"fan preset '{mode.FanPresetName}' (not found)");
+                result.Skipped.Add(string.Format(global::OmenCore.Localization.Strings.CsFanPresetNotFound, mode.FanPresetName));
                 return;
             }
 
@@ -111,16 +111,16 @@ namespace OmenCoreApp.Services
             {
                 if (_fanService.ApplyPreset(preset, immediate: true))
                 {
-                    result.Applied.Add($"fan preset '{preset.Name}'");
+                    result.Applied.Add(string.Format(global::OmenCore.Localization.Strings.CsFanPreset, preset.Name));
                 }
                 else
                 {
-                    result.Failed.Add($"fan preset '{preset.Name}'");
+                    result.Failed.Add(string.Format(global::OmenCore.Localization.Strings.CsFanPreset, preset.Name));
                 }
             }
             catch (Exception ex)
             {
-                result.Failed.Add($"fan preset '{preset.Name}' ({ex.Message})");
+                result.Failed.Add(string.Format(global::OmenCore.Localization.Strings.CsFanPreset_88751, preset.Name, ex.Message));
             }
         }
 
@@ -162,7 +162,7 @@ namespace OmenCoreApp.Services
                 }
                 else
                 {
-                    result.Skipped.Add($"{target} Hz (mode not offered by this panel)");
+                    result.Skipped.Add(string.Format(global::OmenCore.Localization.Strings.CsHzModeNotOfferedByThisPanel, target));
                 }
             }
             catch (Exception ex)
@@ -206,7 +206,7 @@ namespace OmenCoreApp.Services
 
             if (_wmiBios == null || !_wmiBios.IsAvailable)
             {
-                result.Skipped.Add("charge limit (HP WMI BIOS unavailable)");
+                result.Skipped.Add(global::OmenCore.Localization.Strings.CsChargeLimitHPWMIBIOSUnavailable);
                 return;
             }
 
@@ -214,26 +214,26 @@ namespace OmenCoreApp.Services
             {
                 if (!_wmiBios.SetBatteryCareMode(enabled))
                 {
-                    result.Failed.Add("charge limit (WMI command refused)");
+                    result.Failed.Add(global::OmenCore.Localization.Strings.CsChargeLimitWMICommandRefused);
                     return;
                 }
 
                 var observed = _wmiBios.GetBatteryCareMode();
                 if (observed.HasValue && observed.Value != enabled)
                 {
-                    result.Failed.Add($"charge limit (read back {observed.Value})");
+                    result.Failed.Add(string.Format(global::OmenCore.Localization.Strings.CsChargeLimitReadBack, observed.Value));
                     return;
                 }
 
                 result.Applied.Add(enabled
                     ? mode.ChargeThresholdPercent.HasValue
-                        ? $"charge limit {mode.ChargeThresholdPercent}%"
-                        : "charge limit on"
-                    : "full charge");
+                        ? string.Format(global::OmenCore.Localization.Strings.CsChargeLimit, mode.ChargeThresholdPercent)
+                        : global::OmenCore.Localization.Strings.CsChargeLimitOn
+                    : global::OmenCore.Localization.Strings.CsFullCharge);
             }
             catch (Exception ex)
             {
-                result.Failed.Add($"charge limit ({ex.Message})");
+                result.Failed.Add(string.Format(global::OmenCore.Localization.Strings.CsChargeLimit_64283, ex.Message));
             }
         }
 

@@ -339,7 +339,7 @@ namespace OmenCore.Controls
                 {
                     if (!hasBatteryHealth)
                     {
-                        BatteryHealthStatus.Text = "Capacity unavailable";
+                        BatteryHealthStatus.Text = global::OmenCore.Localization.Strings.CsCapacityUnavailable;
                         BatteryHealthStatus.Foreground = Brushes.Gray;
                     }
                     else if (batteryHealth >= 80)
@@ -433,7 +433,7 @@ namespace OmenCore.Controls
                 if (GpuLoadValue != null) GpuLoadValue.Text = gpuLoadStr;
                 
                 var avgCpuClockStr = (sample.CpuCoreClocksMhz?.Count > 0)
-                    ? $"{sample.CpuCoreClocksMhz.Average():F0} MHz ({sample.CpuCoreClocksMhz.Count} cores)"
+                    ? string.Format(global::OmenCore.Localization.Strings.CsMHzCores, sample.CpuCoreClocksMhz.Average(), sample.CpuCoreClocksMhz.Count)
                     : "--";
                 // Update progress bars
                 if (CpuLoadBar != null) CpuLoadBar.Value = Math.Min(100, sample.CpuLoadPercent);
@@ -498,10 +498,10 @@ namespace OmenCore.Controls
                     BatteryLifeEstimate.Text =
                         batteryInfo.FullChargedCapacityMilliwattHours is int full &&
                         batteryInfo.DesignedCapacityMilliwattHours is int design
-                            ? $"{full:N0} of {design:N0} mWh"
+                            ? string.Format(global::OmenCore.Localization.Strings.CsOfMWh, full, design)
                             : batteryInfo.CycleCount == null
-                                ? "Not reported by this battery"
-                                : "Capacity unavailable";
+                                ? global::OmenCore.Localization.Strings.CsNotReportedByThisBattery
+                                : global::OmenCore.Localization.Strings.CsCapacityUnavailable;
                 }
 
                 if (ThermalStatusValue != null)
@@ -509,7 +509,7 @@ namespace OmenCore.Controls
                     ThermalStatusValue.Text = GetThermalStatus(avgTemp);
                     ThermalStatusValue.Foreground = GetTemperatureBrush(avgTemp);
                 }
-                if (ThermalEfficiency != null) ThermalEfficiency.Text = $"Fan: {CalculateFanEfficiency(sample):F0}% efficient";
+                if (ThermalEfficiency != null) ThermalEfficiency.Text = string.Format(global::OmenCore.Localization.Strings.CsFanEfficient, CalculateFanEfficiency(sample));
 
 
             }
@@ -527,19 +527,19 @@ namespace OmenCore.Controls
                 _showingNoDataPlaceholders = true;
             }
             if (PowerConsumptionValue != null) PowerConsumptionValue.Text = "--";
-            if (PowerConsumptionTrend != null) PowerConsumptionTrend.Text = "No data";
+            if (PowerConsumptionTrend != null) PowerConsumptionTrend.Text = global::OmenCore.Localization.Strings.CsNoData;
             if (BatteryHealthValue != null) BatteryHealthValue.Text = "--";
-            if (BatteryHealthStatus != null) BatteryHealthStatus.Text = "Capacity unavailable";
+            if (BatteryHealthStatus != null) BatteryHealthStatus.Text = global::OmenCore.Localization.Strings.CsCapacityUnavailable;
             if (CpuTempValue != null) CpuTempValue.Text = "--";
-            if (CpuTempStatus != null) CpuTempStatus.Text = "No data";
+            if (CpuTempStatus != null) CpuTempStatus.Text = global::OmenCore.Localization.Strings.CsNoData;
             if (GpuTempValue != null) GpuTempValue.Text = "--";
-            if (GpuTempStatus != null) GpuTempStatus.Text = "No data";
+            if (GpuTempStatus != null) GpuTempStatus.Text = global::OmenCore.Localization.Strings.CsNoData;
             if (PowerEfficiencyValue != null) PowerEfficiencyValue.Text = "--";
             if (PowerEfficiencyRating != null) PowerEfficiencyRating.Text = "Unknown";
             if (BatteryCyclesValue != null) BatteryCyclesValue.Text = "--";
-            if (BatteryLifeEstimate != null) BatteryLifeEstimate.Text = "No data";
+            if (BatteryLifeEstimate != null) BatteryLifeEstimate.Text = global::OmenCore.Localization.Strings.CsNoData;
             if (ThermalStatusValue != null) ThermalStatusValue.Text = "Unknown";
-            if (ThermalEfficiency != null) ThermalEfficiency.Text = "No data";
+            if (ThermalEfficiency != null) ThermalEfficiency.Text = global::OmenCore.Localization.Strings.CsNoData;
             
             // System Activity fields
             if (CpuLoadValue != null) CpuLoadValue.Text = "--";
@@ -812,7 +812,7 @@ namespace OmenCore.Controls
             {
                 var noData = new TextBlock
                 {
-                    Text = "Collecting data...",
+                    Text = global::OmenCore.Localization.Strings.CsCollectingData,
                     Foreground = ChartMutedTextBrush,
                     FontSize = 14,
                     FontWeight = FontWeights.SemiBold
@@ -822,7 +822,7 @@ namespace OmenCore.Controls
                 Canvas.SetLeft(noData, Math.Max(12, emptyStateWidth / 2 - 60));
                 Canvas.SetTop(noData, emptyStateHeight / 2 - 10);
                 canvas.Children.Add(noData);
-                statsBlock.Text = "Waiting for historical data (displays after 2+ samples)";
+                statsBlock.Text = global::OmenCore.Localization.Strings.CsWaitingForHistoricalDataDisplaysAfter2;
                 statsBlock.Foreground = ChartMutedTextBrush;
                 return;
             }
@@ -941,7 +941,7 @@ namespace OmenCore.Controls
             var trend = data.Count > 10 ? data[data.Count - 1].Value - data[data.Count - 10].Value : 0;
             var trendLabel = Math.Abs(trend) < 0.1 ? "flat" : trend > 0 ? "up" : "down";
             
-            statsBlock.Text = $"{minValue:F1}-{maxValue:F1} {unit} | Avg {avgValue:F1} {unit} | {data.Count} samples | Trend {trendLabel} {trend:+0.0;-0.0;0.0} {unit}";
+            statsBlock.Text = string.Format(global::OmenCore.Localization.Strings.CsAvgSamplesTrend, minValue, maxValue, unit, avgValue, unit, data.Count, trendLabel, trend, unit);
             statsBlock.Foreground = ChartMutedTextBrush;
         }
 
@@ -976,12 +976,12 @@ namespace OmenCore.Controls
                 if (saveDialog.ShowDialog() == true)
                 {
                     await System.IO.File.WriteAllTextAsync(saveDialog.FileName, exportData);
-                    MessageBox.Show("Data exported successfully!", "Export Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(global::OmenCore.Localization.Strings.CsDataExportedSuccessfully, global::OmenCore.Localization.Strings.CsExportComplete, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Export failed: {ex.Message}", "Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsExportFailed_cf000, ex.Message), global::OmenCore.Localization.Strings.CsExportError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -989,11 +989,11 @@ namespace OmenCore.Controls
         {
             return chartType switch
             {
-                ChartType.PowerConsumption => "Power Consumption History",
-                ChartType.BatteryHealth => "Battery Charge History",
-                ChartType.Temperature => "Temperature History",
-                ChartType.FanSpeeds => "Fan Speeds History",
-                _ => "Historical Data"
+                ChartType.PowerConsumption => global::OmenCore.Localization.Strings.CsPowerConsumptionHistory,
+                ChartType.BatteryHealth => global::OmenCore.Localization.Strings.CsBatteryChargeHistory,
+                ChartType.Temperature => global::OmenCore.Localization.Strings.CsTemperatureHistory,
+                ChartType.FanSpeeds => global::OmenCore.Localization.Strings.CsFanSpeedsHistory,
+                _ => global::OmenCore.Localization.Strings.CsHistoricalData
             };
         }
 

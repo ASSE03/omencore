@@ -61,7 +61,7 @@ namespace OmenCore.Controls
         {
             var saveDialog = new SaveFileDialog
             {
-                Title = "Save Diagnostic Export",
+                Title = global::OmenCore.Localization.Strings.CsSaveDiagnosticExport,
                 Filter = GetFileFilter(),
                 FileName = $"OmenCore_Diagnostics_{DateTime.Now:yyyyMMdd_HHmmss}",
                 DefaultExt = GetDefaultExtension()
@@ -88,14 +88,14 @@ namespace OmenCore.Controls
                 CopyPathButton.Visibility = Visibility.Collapsed;
 
                 ExportProgress.Value = 0;
-                ProgressText.Text = "Starting diagnostic export...";
+                ProgressText.Text = global::OmenCore.Localization.Strings.CsStartingDiagnosticExport;
 
                 // Perform export
                 var exportResult = await PerformDiagnosticExportAsync(filePath, _exportCts.Token);
 
                 // Update progress
                 ExportProgress.Value = 100;
-                ProgressText.Text = "Export completed";
+                ProgressText.Text = global::OmenCore.Localization.Strings.CsExportCompleted;
 
                 // Show results
                 DisplayExportResults(exportResult);
@@ -105,14 +105,14 @@ namespace OmenCore.Controls
             }
             catch (OperationCanceledException)
             {
-                ProgressText.Text = "Export cancelled";
+                ProgressText.Text = global::OmenCore.Localization.Strings.CsExportCancelled;
                 _logging.Info("Diagnostic export cancelled by user");
             }
             catch (Exception ex)
             {
-                ProgressText.Text = $"Export failed: {ex.Message}";
+                ProgressText.Text = string.Format(global::OmenCore.Localization.Strings.CsExportFailed_cf000, ex.Message);
                 _logging.Error($"Diagnostic export failed: {ex.Message}", ex);
-                MessageBox.Show($"Export failed: {ex.Message}", "Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsExportFailed_cf000, ex.Message), global::OmenCore.Localization.Strings.CsExportError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -145,7 +145,7 @@ namespace OmenCore.Controls
                 // Collect system information
                 if (IncludeSystemInfoCheck.IsChecked == true)
                 {
-                    UpdateProgress("Collecting system information...", 10);
+                    UpdateProgress(global::OmenCore.Localization.Strings.CsCollectingSystemInformation, 10);
                     diagnosticData.Sections["SystemInfo"] = await CollectSystemInfoAsync(ct);
                     result.Sections.Add("System Information");
                 }
@@ -153,7 +153,7 @@ namespace OmenCore.Controls
                 // Collect hardware data
                 if (IncludeHardwareDataCheck.IsChecked == true)
                 {
-                    UpdateProgress("Collecting hardware monitoring data...", 30);
+                    UpdateProgress(global::OmenCore.Localization.Strings.CsCollectingHardwareMonitoringData, 30);
                     diagnosticData.Sections["HardwareData"] = await CollectHardwareDataAsync(ct);
                     result.Sections.Add("Hardware Monitoring Data");
                 }
@@ -161,7 +161,7 @@ namespace OmenCore.Controls
                 // Collect logs
                 if (IncludeLogsCheck.IsChecked == true)
                 {
-                    UpdateProgress("Collecting application logs...", 50);
+                    UpdateProgress(global::OmenCore.Localization.Strings.CsCollectingApplicationLogs, 50);
                     diagnosticData.Sections["Logs"] = await CollectLogsAsync(ct);
                     result.Sections.Add("Application Logs");
                 }
@@ -169,7 +169,7 @@ namespace OmenCore.Controls
                 // Collect settings
                 if (IncludeSettingsCheck.IsChecked == true)
                 {
-                    UpdateProgress("Collecting settings and configuration...", 70);
+                    UpdateProgress(global::OmenCore.Localization.Strings.CsCollectingSettingsAndConfiguration, 70);
                     diagnosticData.Sections["Settings"] = CollectSettings();
                     result.Sections.Add("Settings & Configuration");
                 }
@@ -177,19 +177,19 @@ namespace OmenCore.Controls
                 // Collect performance data
                 if (IncludePerformanceDataCheck.IsChecked == true)
                 {
-                    UpdateProgress("Collecting performance mode data...", 85);
+                    UpdateProgress(global::OmenCore.Localization.Strings.CsCollectingPerformanceModeData, 85);
                     diagnosticData.Sections["PerformanceData"] = CollectPerformanceData();
                     result.Sections.Add("Performance Mode Data");
                 }
 
-                UpdateProgress("Collecting core control readiness...", 90);
+                UpdateProgress(global::OmenCore.Localization.Strings.CsCollectingCoreControlReadiness, 90);
                 diagnosticData.Sections["CoreControlReadiness"] = CollectCoreControlReadinessData();
                 result.Sections.Add("Core Control Readiness");
 
                 // Collect fan calibration
                 if (IncludeFanCalibrationCheck.IsChecked == true)
                 {
-                    UpdateProgress("Collecting fan calibration data...", 95);
+                    UpdateProgress(global::OmenCore.Localization.Strings.CsCollectingFanCalibrationData, 95);
                     diagnosticData.Sections["FanCalibration"] = CollectFanCalibrationData();
                     result.Sections.Add("Fan Calibration Data");
                 }
@@ -197,7 +197,7 @@ namespace OmenCore.Controls
                 // Optional: Run quick fan verification to check 'Max' preset application
                 if (IncludeFanVerificationCheck.IsChecked == true)
                 {
-                    UpdateProgress("Running fan Max verification...", 96);
+                    UpdateProgress(global::OmenCore.Localization.Strings.CsRunningFanMaxVerification, 96);
                     try
                     {
                         if (_fanService != null)
@@ -228,7 +228,7 @@ namespace OmenCore.Controls
                         {
                             CollectionTimestamp = DateTime.Now,
                             Success = false,
-                            Details = $"Verification failed: {ex.Message}"
+                            Details = string.Format(global::OmenCore.Localization.Strings.CsVerificationFailed_33e15, ex.Message)
                         };
                         result.Sections.Add("Fan Verification");
                     }
@@ -237,19 +237,19 @@ namespace OmenCore.Controls
                 // Anonymize if requested
                 if (AnonymizeDataCheck.IsChecked == true)
                 {
-                    UpdateProgress("Anonymizing data...", 98);
+                    UpdateProgress(global::OmenCore.Localization.Strings.CsAnonymizingData, 98);
                     AnonymizeData(diagnosticData);
                 }
 
                 // Save to file
-                UpdateProgress("Saving diagnostic file...", 99);
+                UpdateProgress(global::OmenCore.Localization.Strings.CsSavingDiagnosticFile, 99);
                 await SaveDiagnosticDataAsync(diagnosticData, filePath, ct);
 
                 result.EndTime = DateTime.Now;
                 result.Success = true;
                 result.FileSize = new FileInfo(filePath).Length;
 
-                UpdateProgress("Export completed successfully", 100);
+                UpdateProgress(global::OmenCore.Localization.Strings.CsExportCompletedSuccessfully, 100);
             }
             catch (Exception ex)
             {
@@ -379,7 +379,7 @@ namespace OmenCore.Controls
                 var logDir = _logging.LogDirectory;
                 if (!Directory.Exists(logDir))
                 {
-                    logData.ErrorMessage = $"Log directory not found: {logDir}";
+                    logData.ErrorMessage = string.Format(global::OmenCore.Localization.Strings.CsLogDirectoryNotFound, logDir);
                     return Task.FromResult(logData);
                 }
 
@@ -844,15 +844,15 @@ namespace OmenCore.Controls
 
             if (result.Success)
             {
-                ResultsText.Text = "Export completed successfully";
+                ResultsText.Text = global::OmenCore.Localization.Strings.CsExportCompletedSuccessfully;
                 ResultsText.Foreground = System.Windows.Media.Brushes.Green;
-                FilePathText.Text = $"File saved to: {result.ExportPath}";
-                FileSizeText.Text = $"File size: {FormatFileSize(result.FileSize)}";
+                FilePathText.Text = string.Format(global::OmenCore.Localization.Strings.CsFileSavedTo, result.ExportPath);
+                FileSizeText.Text = string.Format(global::OmenCore.Localization.Strings.CsFileSize, FormatFileSize(result.FileSize));
                 ExportSummaryText.Text = $"Contains: {string.Join(", ", result.Sections)}";
             }
             else
             {
-                ResultsText.Text = $"Export failed: {result.ErrorMessage}";
+                ResultsText.Text = string.Format(global::OmenCore.Localization.Strings.CsExportFailed_cf000, result.ErrorMessage);
                 ResultsText.Foreground = System.Windows.Media.Brushes.Red;
             }
         }
@@ -860,9 +860,9 @@ namespace OmenCore.Controls
         private string GetFileFilter()
         {
             if (CompressedFormatRadio.IsChecked == true)
-                return "ZIP files (*.zip)|*.zip";
+                return global::OmenCore.Localization.Strings.CsZIPFilesZipZip;
             else if (TextFormatRadio.IsChecked == true)
-                return "Text files (*.txt)|*.txt";
+                return global::OmenCore.Localization.Strings.CsTextFilesTxtTxt;
             else
                 return "JSON files (*.json)|*.json";
         }
@@ -923,7 +923,7 @@ namespace OmenCore.Controls
             if (!string.IsNullOrEmpty(_lastExportPath))
             {
                 Clipboard.SetText(_lastExportPath);
-                MessageBox.Show("File path copied to clipboard", "Copied", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(global::OmenCore.Localization.Strings.CsFilePathCopiedToClipboard, "Copied", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 

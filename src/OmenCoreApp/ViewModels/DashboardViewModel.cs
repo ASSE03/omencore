@@ -41,7 +41,7 @@ namespace OmenCore.ViewModels
         private bool _monitoringLowOverhead;
         private string _currentPerformanceMode = "Auto";
         private string _currentFanMode = "Auto";
-        private string _modeLinkStatus = "Decoupled fan/perf";
+        private string _modeLinkStatus = global::OmenCore.Localization.Strings.CsDecoupledFanPerf;
         private bool _disposed;
         private volatile bool _pendingUIUpdate; // Throttle BeginInvoke backlog
         private volatile bool _pendingFanTelemetryUIUpdate;
@@ -426,13 +426,13 @@ namespace OmenCore.ViewModels
                 var source = LatestMonitoringSample?.CpuTemperatureSource;
                 if (string.IsNullOrWhiteSpace(source))
                 {
-                    return "Temperature status";
+                    return global::OmenCore.Localization.Strings.CsTemperatureStatus;
                 }
 
                 var reason = LatestMonitoringSample?.CpuTemperatureSourceReason;
                 return string.IsNullOrWhiteSpace(reason)
-                    ? $"CPU temperature source: {source}"
-                    : $"CPU temperature source: {source}\n{reason}";
+                    ? string.Format(global::OmenCore.Localization.Strings.CsCPUTemperatureSource, source)
+                    : string.Format(global::OmenCore.Localization.Strings.CsCPUTemperatureSource_10524, source, reason);
             }
         }
 
@@ -454,39 +454,39 @@ namespace OmenCore.ViewModels
         public string SsdTempDisplay => FormatTemperature(LatestMonitoringSample?.SsdTemperatureC ?? 0);
 
         public string CpuSummary => LatestMonitoringSample == null 
-            ? "CPU telemetry unavailable" 
+            ? global::OmenCore.Localization.Strings.CsCPUTelemetryUnavailable 
             : LatestMonitoringSample.CpuPowerWatts > 0 
                 ? $"{(LatestMonitoringSample.CpuTemperatureC > 0 ? $"{LatestMonitoringSample.CpuTemperatureC:F0}°C" : "—°C")} • {LatestMonitoringSample.CpuLoadPercent:F0}% • {LatestMonitoringSample.CpuPowerWatts:F0}W"
-                : $"{(LatestMonitoringSample.CpuTemperatureC > 0 ? $"{LatestMonitoringSample.CpuTemperatureC:F0}°C" : "—°C")} • {LatestMonitoringSample.CpuLoadPercent:F0}% load";
+                : string.Format(global::OmenCore.Localization.Strings.CsLoad, (LatestMonitoringSample.CpuTemperatureC > 0 ? $"{LatestMonitoringSample.CpuTemperatureC:F0}°C" : "—°C"), LatestMonitoringSample.CpuLoadPercent);
         public string GpuSummary => LatestMonitoringSample == null
-            ? "GPU telemetry unavailable"
+            ? global::OmenCore.Localization.Strings.CsGPUTelemetryUnavailable
             : LatestMonitoringSample.GpuTemperatureState == TelemetryDataState.Inactive
-                ? $"dGPU idle • {LatestMonitoringSample.GpuLoadPercent:F0}% load{(LatestMonitoringSample.GpuVramUsageMb > 0 ? $" • {LatestMonitoringSample.GpuVramUsageMb:F0} MB VRAM" : string.Empty)}"
-                : $"{(LatestMonitoringSample.GpuTemperatureC > 0 ? $"{LatestMonitoringSample.GpuTemperatureC:F0}°C" : "—°C")} • {LatestMonitoringSample.GpuLoadPercent:F0}% load{(LatestMonitoringSample.GpuVramUsageMb > 0 ? $" • {LatestMonitoringSample.GpuVramUsageMb:F0} MB VRAM" : string.Empty)}";
-        public string MemorySummary => LatestMonitoringSample == null ? "Memory telemetry unavailable" : $"{LatestMonitoringSample.RamUsageGb:F1} / {LatestMonitoringSample.RamTotalGb:F0} GB";
-        public string StorageSummary => LatestMonitoringSample == null ? "Storage telemetry unavailable" 
+                ? string.Format(global::OmenCore.Localization.Strings.CsDGPUIdleLoad, LatestMonitoringSample.GpuLoadPercent, (LatestMonitoringSample.GpuVramUsageMb > 0 ? $" • {LatestMonitoringSample.GpuVramUsageMb:F0} MB VRAM" : string.Empty))
+                : string.Format(global::OmenCore.Localization.Strings.CsLoad_1c6d0, (LatestMonitoringSample.GpuTemperatureC > 0 ? $"{LatestMonitoringSample.GpuTemperatureC:F0}°C" : "—°C"), LatestMonitoringSample.GpuLoadPercent, (LatestMonitoringSample.GpuVramUsageMb > 0 ? $" • {LatestMonitoringSample.GpuVramUsageMb:F0} MB VRAM" : string.Empty));
+        public string MemorySummary => LatestMonitoringSample == null ? global::OmenCore.Localization.Strings.CsMemoryTelemetryUnavailable : string.Format(global::OmenCore.Localization.Strings.CsGB_3431c, LatestMonitoringSample.RamUsageGb, LatestMonitoringSample.RamTotalGb);
+        public string StorageSummary => LatestMonitoringSample == null ? global::OmenCore.Localization.Strings.CsStorageTelemetryUnavailable 
             : LatestMonitoringSample.SsdTemperatureC > 0 
-                ? $"SSD {LatestMonitoringSample.SsdTemperatureC:F0}°C • {LatestMonitoringSample.DiskUsagePercent:F0}% active"
-                : $"SSD —°C • {LatestMonitoringSample.DiskUsagePercent:F0}% active";
-        public string BatterySummary => LatestMonitoringSample == null ? "Battery unavailable" 
+                ? string.Format(global::OmenCore.Localization.Strings.CsSSDCActive, LatestMonitoringSample.SsdTemperatureC, LatestMonitoringSample.DiskUsagePercent)
+                : string.Format(global::OmenCore.Localization.Strings.CsSSDCActive_707c8, LatestMonitoringSample.DiskUsagePercent);
+        public string BatterySummary => LatestMonitoringSample == null ? global::OmenCore.Localization.Strings.CsBatteryUnavailable 
             : LatestMonitoringSample.IsOnAcPower 
-                ? $"{LatestMonitoringSample.BatteryChargePercent:F0}% • AC Power" 
+                ? string.Format(global::OmenCore.Localization.Strings.CsACPower, LatestMonitoringSample.BatteryChargePercent) 
                 : $"{LatestMonitoringSample.BatteryChargePercent:F0}% • {LatestMonitoringSample.BatteryTimeRemaining}";
         public string CpuSummaryDisplay => LatestMonitoringSample == null
-            ? "CPU telemetry unavailable"
+            ? global::OmenCore.Localization.Strings.CsCPUTelemetryUnavailable
             : LatestMonitoringSample.CpuPowerWatts > 0
                 ? $"{FormatTemperature(LatestMonitoringSample.CpuTemperatureC)} | {LatestMonitoringSample.CpuLoadPercent:F0}% | {LatestMonitoringSample.CpuPowerWatts:F0}W"
-                : $"{FormatTemperature(LatestMonitoringSample.CpuTemperatureC)} | {LatestMonitoringSample.CpuLoadPercent:F0}% load";
+                : string.Format(global::OmenCore.Localization.Strings.CsLoad_e0f39, FormatTemperature(LatestMonitoringSample.CpuTemperatureC), LatestMonitoringSample.CpuLoadPercent);
 
         public string GpuSummaryDisplay => LatestMonitoringSample == null
-            ? "GPU telemetry unavailable"
+            ? global::OmenCore.Localization.Strings.CsGPUTelemetryUnavailable
             : LatestMonitoringSample.GpuTemperatureState == TelemetryDataState.Inactive
-                ? $"dGPU idle | {LatestMonitoringSample.GpuLoadPercent:F0}% load{(LatestMonitoringSample.GpuVramUsageMb > 0 ? $" | {LatestMonitoringSample.GpuVramUsageMb:F0} MB VRAM" : string.Empty)}"
-                : $"{FormatTemperature(LatestMonitoringSample.GpuTemperatureC)} | {LatestMonitoringSample.GpuLoadPercent:F0}% load{(LatestMonitoringSample.GpuVramUsageMb > 0 ? $" | {LatestMonitoringSample.GpuVramUsageMb:F0} MB VRAM" : string.Empty)}";
+                ? string.Format(global::OmenCore.Localization.Strings.CsDGPUIdleLoad_6f2aa, LatestMonitoringSample.GpuLoadPercent, (LatestMonitoringSample.GpuVramUsageMb > 0 ? $" | {LatestMonitoringSample.GpuVramUsageMb:F0} MB VRAM" : string.Empty))
+                : string.Format(global::OmenCore.Localization.Strings.CsLoad_973a4, FormatTemperature(LatestMonitoringSample.GpuTemperatureC), LatestMonitoringSample.GpuLoadPercent, (LatestMonitoringSample.GpuVramUsageMb > 0 ? $" | {LatestMonitoringSample.GpuVramUsageMb:F0} MB VRAM" : string.Empty));
 
         public string StorageSummaryDisplay => LatestMonitoringSample == null
-            ? "Storage telemetry unavailable"
-            : $"SSD {FormatTemperature(LatestMonitoringSample.SsdTemperatureC)} | {LatestMonitoringSample.DiskUsagePercent:F0}% active";
+            ? global::OmenCore.Localization.Strings.CsStorageTelemetryUnavailable
+            : string.Format(global::OmenCore.Localization.Strings.CsSSDActive_8dcf7, FormatTemperature(LatestMonitoringSample.SsdTemperatureC), LatestMonitoringSample.DiskUsagePercent);
 
         private static string FormatTemperature(double temperature) =>
             temperature > 0 ? $"{temperature:F0}{CelsiusSuffix}" : MissingTemperatureDisplay;
@@ -501,7 +501,7 @@ namespace OmenCore.ViewModels
             };
 
         public string CpuClockSummary => LatestMonitoringSample == null || LatestMonitoringSample.CpuCoreClocksMhz.Count == 0
-            ? "Per-core clocks unavailable"
+            ? global::OmenCore.Localization.Strings.CsPerCoreClocksUnavailable
             : string.Join(", ", LatestMonitoringSample.CpuCoreClocksMhz.Select((c, i) => $"C{i + 1}:{c:F0}MHz"));
         
         /// <summary>
@@ -524,12 +524,12 @@ namespace OmenCore.ViewModels
         
         // Power consumption and efficiency properties
         public string PowerConsumptionSummary => LatestMonitoringSample == null 
-            ? "Power telemetry unavailable"
+            ? global::OmenCore.Localization.Strings.CsPowerTelemetryUnavailable
             : LatestMonitoringSample.GpuTemperatureState == TelemetryDataState.Inactive
-                ? $"CPU: {LatestMonitoringSample.CpuPowerWatts:F0}W • GPU: inactive (Optimus)"
+                ? string.Format(global::OmenCore.Localization.Strings.CsCPUWGPUInactiveOptimus, LatestMonitoringSample.CpuPowerWatts)
             : LatestMonitoringSample.CpuPowerWatts > 0 || LatestMonitoringSample.GpuPowerWatts > 0
-                ? $"CPU: {LatestMonitoringSample.CpuPowerWatts:F0}W • GPU: {LatestMonitoringSample.GpuPowerWatts:F0}W • Total: {LatestMonitoringSample.CpuPowerWatts + LatestMonitoringSample.GpuPowerWatts:F0}W"
-                : "Power sensors unavailable";
+                ? string.Format(global::OmenCore.Localization.Strings.CsCPUWGPUWTotalW, LatestMonitoringSample.CpuPowerWatts, LatestMonitoringSample.GpuPowerWatts, LatestMonitoringSample.CpuPowerWatts + LatestMonitoringSample.GpuPowerWatts)
+                : global::OmenCore.Localization.Strings.CsPowerSensorsUnavailable;
 
         public string PowerTotalDisplay
         {
@@ -552,20 +552,20 @@ namespace OmenCore.ViewModels
         {
             get
             {
-                if (LatestMonitoringSample == null) return "Efficiency data unavailable";
+                if (LatestMonitoringSample == null) return global::OmenCore.Localization.Strings.CsEfficiencyDataUnavailable;
                 
                 var totalPower = LatestMonitoringSample.CpuPowerWatts + LatestMonitoringSample.GpuPowerWatts;
-                if (totalPower <= 0) return "Power data required for efficiency";
+                if (totalPower <= 0) return global::OmenCore.Localization.Strings.CsPowerDataRequiredForEfficiency;
                 
                 // Calculate performance per watt (rough estimate)
                 var cpuPerf = LatestMonitoringSample.CpuLoadPercent * LatestMonitoringSample.CpuCoreClocksMhz.Count;
                 var gpuPerf = LatestMonitoringSample.GpuLoadPercent;
                 var totalPerf = cpuPerf + gpuPerf;
                 
-                if (totalPerf <= 0) return "Performance data required";
+                if (totalPerf <= 0) return global::OmenCore.Localization.Strings.CsPerformanceDataRequired;
                 
                 var efficiency = totalPerf / totalPower;
-                return $"{efficiency:F1} perf/W • {totalPower:F0}W total";
+                return string.Format(global::OmenCore.Localization.Strings.CsPerfWWTotal, efficiency, totalPower);
             }
         }
         
@@ -576,9 +576,9 @@ namespace OmenCore.ViewModels
             get
             {
                 if (LatestMonitoringSample == null || LatestMonitoringSample.BatteryChargePercent <= 0)
-                    return "Battery capacity health unavailable";
+                    return global::OmenCore.Localization.Strings.CsBatteryCapacityHealthUnavailable;
                 
-                return "Capacity health unavailable";
+                return global::OmenCore.Localization.Strings.CsCapacityHealthUnavailable;
             }
         }
         
@@ -591,7 +591,7 @@ namespace OmenCore.ViewModels
             get
             {
                 if (_fanService?.FanTelemetry == null || _fanService.FanTelemetry.Count == 0)
-                    return "Fan curve unavailable";
+                    return global::OmenCore.Localization.Strings.CsFanCurveUnavailable;
                 
                 var avgTemp = LatestMonitoringSample is { } sample
                     ? GetDashboardThermalProjectionTemps(sample).DefaultIfEmpty(0).Average()
@@ -600,7 +600,7 @@ namespace OmenCore.ViewModels
                 var cpuFan = CpuFanDisplay;
                 var gpuFan = GpuFanDisplay;
                 
-                return $"{avgTemp:F0}{CelsiusSuffix} -> CPU: {cpuFan} | GPU: {gpuFan}";
+                return string.Format(global::OmenCore.Localization.Strings.CsCPUGPU, avgTemp, CelsiusSuffix, cpuFan, gpuFan);
             }
         }
 
@@ -645,7 +645,7 @@ namespace OmenCore.ViewModels
                 
                 var fan1 = CpuFanDisplay;
                 var fan2 = GpuFanDisplay;
-                return $"CPU: {fan1} • GPU: {fan2}";
+                return string.Format(global::OmenCore.Localization.Strings.CsCPUGPU_a020d, fan1, fan2);
             }
         }
 
@@ -661,7 +661,7 @@ namespace OmenCore.ViewModels
         {
             if (telemetry.RpmState == TelemetryDataState.Unavailable)
             {
-                return "RPM unavailable (fan responding)";
+                return global::OmenCore.Localization.Strings.CsRPMUnavailableFanResponding;
             }
 
             return $"{telemetry.SpeedRpm} RPM";
@@ -896,10 +896,10 @@ namespace OmenCore.ViewModels
         /// </summary>
         public string MonitoringHealthStatusText => _monitoringService.HealthStatus switch
         {
-            MonitoringHealthStatus.Healthy => "✓ Healthy",
-            MonitoringHealthStatus.Degraded => "⚠ Degraded",
-            MonitoringHealthStatus.Stale => "⛔ Stale",
-            _ => "? Unknown"
+            MonitoringHealthStatus.Healthy => global::OmenCore.Localization.Strings.CsHealthy,
+            MonitoringHealthStatus.Degraded => global::OmenCore.Localization.Strings.CsDegraded,
+            MonitoringHealthStatus.Stale => global::OmenCore.Localization.Strings.CsStale,
+            _ => global::OmenCore.Localization.Strings.CsUnknown
         };
 
         public string MonitoringVisualState => _monitoringService.HealthStatus switch
@@ -962,15 +962,15 @@ namespace OmenCore.ViewModels
                     ? string.Empty
                     : $" Reason: {sample.AmdGpuTelemetryQuarantineReason}";
 
-                return "AMD GPU telemetry is temporarily quarantined after a driver/library fault. " +
-                       "CPU, fan, memory, and system telemetry continue normally." + reason;
+                return global::OmenCore.Localization.Strings.CsAMDGPUTelemetryIsTemporarilyQuarantinedAfter +
+                       global::OmenCore.Localization.Strings.CsCPUFanMemoryAndSystemTelemetryContinue + reason;
             }
         }
 
         public string TelemetryStateBannerText => _monitoringService.HealthStatus switch
         {
-            MonitoringHealthStatus.Stale => "Telemetry stale: sensor data is delayed or frozen. OmenCore is attempting automatic recovery.",
-            MonitoringHealthStatus.Degraded => "Telemetry degraded: data quality reduced. Monitoring recovery is in progress.",
+            MonitoringHealthStatus.Stale => global::OmenCore.Localization.Strings.CsTelemetryStaleSensorDataIsDelayedOr,
+            MonitoringHealthStatus.Degraded => global::OmenCore.Localization.Strings.CsTelemetryDegradedDataQualityReducedMonitoringRecovery,
             _ => string.Empty
         };
         
@@ -982,10 +982,10 @@ namespace OmenCore.ViewModels
             get
             {
                 var age = _monitoringService.LastSampleAge;
-                if (age == TimeSpan.MaxValue) return "No data";
-                if (age.TotalSeconds < 2) return "Just now";
-                if (age.TotalSeconds < 60) return $"{age.TotalSeconds:F0}s ago";
-                return $"{age.TotalMinutes:F0}m ago";
+                if (age == TimeSpan.MaxValue) return global::OmenCore.Localization.Strings.CsNoData;
+                if (age.TotalSeconds < 2) return global::OmenCore.Localization.Strings.CsJustNow;
+                if (age.TotalSeconds < 60) return string.Format(global::OmenCore.Localization.Strings.CsSAgo, age.TotalSeconds);
+                return string.Format(global::OmenCore.Localization.Strings.CsMAgo, age.TotalMinutes);
             }
         }
         

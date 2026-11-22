@@ -91,11 +91,11 @@ namespace OmenCore.ViewModels
         private const int ThrottlingLightingMinIntervalSeconds = 10;
 
         // RGB sync trust signals
-        private string _lastRgbSyncSummary = "Ready to sync";
-        private string _lastRgbSyncDetail = "No sync has run this session.";
+        private string _lastRgbSyncSummary = global::OmenCore.Localization.Strings.CsReadyToSync;
+        private string _lastRgbSyncDetail = global::OmenCore.Localization.Strings.CsNoSyncHasRunThisSession;
         private System.Windows.Media.SolidColorBrush _lastRgbSyncBrush =
             new(System.Windows.Media.Color.FromRgb(0x75, 0x75, 0x75));
-        private string _keyboardRestoreStatusText = "Ready to restore saved keyboard colors.";
+        private string _keyboardRestoreStatusText = global::OmenCore.Localization.Strings.CsReadyToRestoreSavedKeyboardColors;
         
         // Performance mode colors
         private string _balancedModeColorHex = "#0096FF"; // Blue
@@ -111,7 +111,7 @@ namespace OmenCore.ViewModels
         private const string RgbObservationNotRecorded = "Not recorded";
         private const string RgbObservationProbeColorHex = "#00FF66";
         private string _selectedObservedRgbSurface = RgbObservationNotRecorded;
-        private string _rgbSurfaceObservationStatusText = "No RGB surface observation recorded.";
+        private string _rgbSurfaceObservationStatusText = global::OmenCore.Localization.Strings.CsNoRGBSurfaceObservationRecorded;
 
         public ReadOnlyObservableCollection<CorsairDevice> CorsairDevices => _corsairService?.Devices ?? _emptyCorsairDevices;
         public ReadOnlyObservableCollection<LogitechDevice> LogitechDevices => _logitechService?.Devices ?? _emptyLogitechDevices;
@@ -120,12 +120,12 @@ namespace OmenCore.ViewModels
         public ObservableCollection<string> RgbObservedSurfaceOptions { get; } = new()
         {
             RgbObservationNotRecorded,
-            "Keyboard zones changed",
-            "Per-key keys changed",
-            "Light bar changed",
-            "Single backlight changed",
-            "Nothing changed",
-            "Different or unknown surface changed"
+            global::OmenCore.Localization.Strings.CsKeyboardZonesChanged,
+            global::OmenCore.Localization.Strings.CsPerKeyKeysChanged,
+            global::OmenCore.Localization.Strings.CsLightBarChanged,
+            global::OmenCore.Localization.Strings.CsSingleBacklightChanged,
+            global::OmenCore.Localization.Strings.CsNothingChanged,
+            global::OmenCore.Localization.Strings.CsDifferentOrUnknownSurfaceChanged
         };
         public ICommand ApplyCorsairPresetToSystemCommand { get; }
         public ICommand SyncAllRgbCommand { get; }
@@ -149,9 +149,9 @@ namespace OmenCore.ViewModels
             if (isPerKey || state == null || !state.DeviceFound || !state.WillRepaintWhenReleased)
                 return string.Empty;
 
-            return "Windows Dynamic Lighting is controlling this keyboard. Windows repaints it on its own " +
-                   "schedule, so colours set here may not appear or may revert. Turn Dynamic Lighting off " +
-                   "for the HP keyboard (or \"Use Dynamic Lighting on my devices\") to let OmenCore keep them.";
+            return global::OmenCore.Localization.Strings.CsWindowsDynamicLightingIsControllingThisKeyboard
+
+;
         }
 
         private void OpenDynamicLightingSettings()
@@ -277,7 +277,7 @@ namespace OmenCore.ViewModels
         }
 
         public string AudioReactiveLevelText => _audioReactiveRgbService == null
-            ? "Audio capture unavailable"
+            ? global::OmenCore.Localization.Strings.CsAudioCaptureUnavailable
             : $"Level: {Math.Round(_audioReactiveRgbService.CurrentLevel * 100)}%";
         
         /// <summary>
@@ -414,13 +414,13 @@ namespace OmenCore.ViewModels
             };
 
         public System.Windows.Media.SolidColorBrush CorsairStatusBrush => StatusToBrush(GetProviderStatus("corsair"));
-        public string CorsairStatusDetail => _rgbManager?.GetProvider("corsair")?.StatusDetail ?? "Corsair iCUE not configured";
+        public string CorsairStatusDetail => _rgbManager?.GetProvider("corsair")?.StatusDetail ?? global::OmenCore.Localization.Strings.CsCorsairICUENotConfigured;
 
         public System.Windows.Media.SolidColorBrush LogitechStatusBrush => StatusToBrush(GetProviderStatus("logitech"));
-        public string LogitechStatusDetail => _rgbManager?.GetProvider("logitech")?.StatusDetail ?? "Logitech G HUB not configured";
+        public string LogitechStatusDetail => _rgbManager?.GetProvider("logitech")?.StatusDetail ?? global::OmenCore.Localization.Strings.CsLogitechGHUBNotConfigured;
 
         public System.Windows.Media.SolidColorBrush RazerStatusBrush => StatusToBrush(GetProviderStatus("razer"));
-        public string RazerStatusDetail => _rgbManager?.GetProvider("razer")?.StatusDetail ?? "Razer Synapse not configured";
+        public string RazerStatusDetail => _rgbManager?.GetProvider("razer")?.StatusDetail ?? global::OmenCore.Localization.Strings.CsRazerSynapseNotConfigured;
 
         /// <summary>
         /// Human-readable summary of which RGB backends are currently in control.
@@ -434,11 +434,11 @@ namespace OmenCore.ViewModels
 
                 if (IsKeyboardLightingAvailable && _keyboardLightingService != null)
                 {
-                    parts.Add($"HP Keyboard ({_keyboardLightingService.BackendType})");
+                    parts.Add(string.Format(global::OmenCore.Localization.Strings.CsHPKeyboard, _keyboardLightingService.BackendType));
                 }
                 else if (_keyboardLightingService?.IsPerKeyCapableHardware == true)
                 {
-                    parts.Add("HP Keyboard (unavailable)");
+                    parts.Add(global::OmenCore.Localization.Strings.CsHPKeyboardUnavailable);
                 }
 
                 var providers = _rgbManager?.AvailableProviders
@@ -449,13 +449,13 @@ namespace OmenCore.ViewModels
                 {
                     foreach (var p in providers)
                     {
-                        var deviceInfo = p.DeviceCount > 0 ? $"{p.DeviceCount} device{(p.DeviceCount == 1 ? "" : "s")}" : "no devices";
+                        var deviceInfo = p.DeviceCount > 0 ? $"{p.DeviceCount} device{(p.DeviceCount == 1 ? "" : "s")}" : global::OmenCore.Localization.Strings.CsNoDevices;
                         parts.Add($"{p.ProviderName} ({deviceInfo})");
                     }
                 }
 
                 if (parts.Count == 0)
-                    return "No active RGB controllers detected";
+                    return global::OmenCore.Localization.Strings.CsNoActiveRGBControllersDetected;
 
                 return string.Join(", ", parts);
             }
@@ -474,7 +474,7 @@ namespace OmenCore.ViewModels
 
         public string RgbOwnershipVisualLabel => RgbOwnershipVisualState switch
         {
-            "overwritten" => "Overwritten risk",
+            "overwritten" => global::OmenCore.Localization.Strings.CsOverwrittenRisk,
             "degraded" => "Degraded",
             _ => "Confirmed"
         };
@@ -499,7 +499,7 @@ namespace OmenCore.ViewModels
                 var conflict = DetectRgbConflictProcess();
                 return conflict == null
                     ? string.Empty
-                    : $"{conflict} is running and may override OmenCore keyboard lighting. Close it to allow OmenCore full control.";
+                    : string.Format(global::OmenCore.Localization.Strings.CsIsRunningAndMayOverrideOmenCoreKeyboard, conflict);
             }
         }
 
@@ -541,8 +541,8 @@ namespace OmenCore.ViewModels
 
         public string RgbSyncParticipantSummary =>
             ActiveRgbTargetCount == 1
-                ? "1 active lighting target"
-                : $"{ActiveRgbTargetCount} active lighting targets";
+                ? global::OmenCore.Localization.Strings.Cs1ActiveLightingTarget
+                : string.Format(global::OmenCore.Localization.Strings.CsActiveLightingTargets, ActiveRgbTargetCount);
 
         public string LastRgbSyncSummary
         {
@@ -605,8 +605,8 @@ namespace OmenCore.ViewModels
         public bool HasRazerDevices => _razerDevices.Count > 0;
         public bool IsRazerAvailable => _razerService?.IsAvailable ?? false;
         public string RazerDeviceStatusText => IsRazerAvailable 
-            ? $"{_razerDevices.Count} device(s) detected" 
-            : "Razer Synapse not detected";
+            ? string.Format(global::OmenCore.Localization.Strings.CsDeviceSDetected, _razerDevices.Count) 
+            : global::OmenCore.Localization.Strings.CsRazerSynapseNotDetected;
         
         public string RazerColorHex
         {
@@ -667,8 +667,8 @@ namespace OmenCore.ViewModels
         public bool HasOpenRgbDevices => _openRgbProvider?.IsAvailable ?? false;
         public int OpenRgbDeviceCount => _openRgbProvider?.DeviceCount ?? 0;
         public string OpenRgbStatusText => HasOpenRgbDevices 
-            ? $"{OpenRgbDeviceCount} device(s) via OpenRGB" 
-            : "OpenRGB server not detected";
+            ? string.Format(global::OmenCore.Localization.Strings.CsDeviceSViaOpenRGB, OpenRgbDeviceCount) 
+            : global::OmenCore.Localization.Strings.CsOpenRGBServerNotDetected;
         public System.Collections.Generic.IReadOnlyList<OmenCore.Services.Rgb.OpenRgbDevice> OpenRgbDevices => 
             _openRgbProvider?.Devices ?? new System.Collections.Generic.List<OmenCore.Services.Rgb.OpenRgbDevice>();
         
@@ -698,8 +698,8 @@ namespace OmenCore.ViewModels
             _keyboardLightingService?.IsBacklightOnlyKeyboard ?? false);
 
         internal static string BuildKeyboardUnavailableMessage(bool backlightOnly) => backlightOnly
-            ? "This laptop has a single-colour backlit keyboard, so there are no colours to set (the firmware and OmenCore's model database agree). Use the Fn keys to adjust brightness."
-            : "Keyboard lighting control is not available on this system.";
+            ? global::OmenCore.Localization.Strings.CsThisLaptopHasASingleColourBacklit
+            : global::OmenCore.Localization.Strings.CsKeyboardLightingControlIsNotAvailableOn;
 
         public bool IsPerKeyLightingAvailable => _keyboardLightingService?.IsPerKey ?? false;
 
@@ -759,15 +759,15 @@ namespace OmenCore.ViewModels
         {
             if (isPerKeyLightingAvailable)
             {
-                return "Per-key RGB editor is active for this keyboard.";
+                return global::OmenCore.Localization.Strings.CsPerKeyRGBEditorIsActiveFor;
             }
 
             if (isPerKeyHardwareCapable)
             {
-                return "Per-key RGB capable hardware detected. OmenCore currently cannot open the per-key editor on this backend yet; zone lighting remains available in this build.";
+                return global::OmenCore.Localization.Strings.CsPerKeyRGBCapableHardwareDetectedOmenCore;
             }
 
-            return "Per-key RGB is available on select OMEN Max models with HID per-key keyboards. This keyboard does not support per-key control.";
+            return global::OmenCore.Localization.Strings.CsPerKeyRGBIsAvailableOnSelect;
         }
         
         /// <summary>
@@ -784,20 +784,20 @@ namespace OmenCore.ViewModels
             get
             {
                 if (!IsKeyboardLightingAvailable)
-                    return "Keyboard RGB not detected on this system.";
+                    return global::OmenCore.Localization.Strings.CsKeyboardRGBNotDetectedOnThisSystem;
                 
                 var backend = KeyboardLightingBackend;
                 if (backend.Contains("WMI"))
                 {
-                    return "💡 If colors don't change, try enabling 'Experimental EC Keyboard' in Settings → Hardware.";
+                    return global::OmenCore.Localization.Strings.CsIfColorsDonTChangeTryEnabling;
                 }
                 else if (backend.Contains("EC"))
                 {
-                    return "Using EC direct access (experimental). Changes may take a moment to apply.";
+                    return global::OmenCore.Localization.Strings.CsUsingECDirectAccessExperimentalChangesMay;
                 }
                 else if (backend.Contains("OGH"))
                 {
-                    return "Using OMEN Gaming Hub proxy. Ensure Gaming Hub services are running.";
+                    return global::OmenCore.Localization.Strings.CsUsingOMENGamingHubProxyEnsureGaming;
                 }
                 return string.Empty;
             }
@@ -1364,8 +1364,8 @@ namespace OmenCore.ViewModels
             await _rgbManager.ApplyEffectToAllAsync($"color:{SystemColorHex}");
         }
 
-        public string CorsairDeviceStatusText => $"{CorsairDevices.Count} device(s) detected";
-        public string LogitechDeviceStatusText => $"{LogitechDevices.Count} device(s) detected";
+        public string CorsairDeviceStatusText => string.Format(global::OmenCore.Localization.Strings.CsDeviceSDetected, CorsairDevices.Count);
+        public string LogitechDeviceStatusText => string.Format(global::OmenCore.Localization.Strings.CsDeviceSDetected, LogitechDevices.Count);
         public bool HasCorsairMouse => CorsairDevices.Any(d => d.DeviceType == CorsairDeviceType.Mouse);
         public ObservableCollection<CorsairDpiStage> CorsairDpiStages { get; } = new();
         public ObservableCollection<OmenCore.Corsair.CorsairDpiProfile> CorsairDpiProfiles { get; } = new();
@@ -1522,7 +1522,7 @@ namespace OmenCore.ViewModels
             SetZone1ColorCommand = new RelayCommand(_ => OpenColorPickerForZone(1, "WASD"));
             SetZone2ColorCommand = new RelayCommand(_ => OpenColorPickerForZone(2, "Left"));
             SetZone3ColorCommand = new RelayCommand(_ => OpenColorPickerForZone(3, "Right"));
-            SetZone4ColorCommand = new RelayCommand(_ => OpenColorPickerForZone(4, "Far Right"));
+            SetZone4ColorCommand = new RelayCommand(_ => OpenColorPickerForZone(4, global::OmenCore.Localization.Strings.CsFarRight));
             SetZoneColorByIndexCommand = new RelayCommand(param =>
             {
                 var zoneName = param switch
@@ -1530,7 +1530,7 @@ namespace OmenCore.ViewModels
                     1 => "WASD",
                     2 => "Left",
                     3 => "Right",
-                    4 => "Far Right",
+                    4 => global::OmenCore.Localization.Strings.CsFarRight,
                     _ => null
                 };
                 if (zoneName != null && param is int zoneIndex)
@@ -1805,8 +1805,8 @@ namespace OmenCore.ViewModels
                 if (e.ProvidersFailed == 0)
                 {
                     LastRgbSyncSummary = totalAttempted == 1
-                        ? "Sync complete: 1 provider updated"
-                        : $"Sync complete: {totalAttempted} providers updated";
+                        ? global::OmenCore.Localization.Strings.CsSyncComplete1ProviderUpdated
+                        : string.Format(global::OmenCore.Localization.Strings.CsSyncCompleteProvidersUpdated, totalAttempted);
                     LastRgbSyncBrush = StatusToBrush(OmenCore.Services.Rgb.RgbProviderConnectionStatus.Connected);
                 }
                 else if (totalSucceeded > 0)
@@ -1816,7 +1816,7 @@ namespace OmenCore.ViewModels
                 }
                 else
                 {
-                    LastRgbSyncSummary = "Sync failed: no providers updated";
+                    LastRgbSyncSummary = global::OmenCore.Localization.Strings.CsSyncFailedNoProvidersUpdated;
                     LastRgbSyncBrush = StatusToBrush(OmenCore.Services.Rgb.RgbProviderConnectionStatus.Error);
                 }
 
@@ -1834,14 +1834,14 @@ namespace OmenCore.ViewModels
         {
             if (attempted == 0)
             {
-                LastRgbSyncSummary = "No RGB targets available";
+                LastRgbSyncSummary = global::OmenCore.Localization.Strings.CsNoRGBTargetsAvailable;
                 LastRgbSyncBrush = StatusToBrush(OmenCore.Services.Rgb.RgbProviderConnectionStatus.NoDevices);
             }
             else if (failed == 0)
             {
                 LastRgbSyncSummary = attempted == 1
-                    ? "Sync complete: 1 target updated"
-                    : $"Sync complete: {attempted} targets updated";
+                    ? global::OmenCore.Localization.Strings.CsSyncComplete1TargetUpdated
+                    : string.Format(global::OmenCore.Localization.Strings.CsSyncCompleteTargetsUpdated, attempted);
                 LastRgbSyncBrush = StatusToBrush(OmenCore.Services.Rgb.RgbProviderConnectionStatus.Connected);
             }
             else if (succeeded > 0)
@@ -1851,11 +1851,11 @@ namespace OmenCore.ViewModels
             }
             else
             {
-                LastRgbSyncSummary = "Sync failed: no targets updated";
+                LastRgbSyncSummary = global::OmenCore.Localization.Strings.CsSyncFailedNoTargetsUpdated;
                 LastRgbSyncBrush = StatusToBrush(OmenCore.Services.Rgb.RgbProviderConnectionStatus.Error);
             }
 
-            LastRgbSyncDetail = $"{DateTime.Now:HH:mm:ss} - Static {colorHex}";
+            LastRgbSyncDetail = string.Format(global::OmenCore.Localization.Strings.CsStatic, DateTime.Now, colorHex);
             RefreshRgbStatus();
         }
 
@@ -1880,7 +1880,7 @@ namespace OmenCore.ViewModels
                 OnPropertyChanged(nameof(RazerDeviceStatusText));
                 RefreshRgbStatus();
                 await Task.CompletedTask;
-            }, "Discovering Razer devices...");
+            }, global::OmenCore.Localization.Strings.CsDiscoveringRazerDevices);
         }
 
         private async Task ApplyRazerColorAsync()
@@ -1891,7 +1891,7 @@ namespace OmenCore.ViewModels
                 _razerService?.SetStaticColor((byte)_razerRedValue, (byte)_razerGreenValue, (byte)_razerBlueValue);
                 _logging.Info($"Applied Razer static color: {RazerColorHex}");
                 await Task.CompletedTask;
-            }, "Applying Razer color...");
+            }, global::OmenCore.Localization.Strings.CsApplyingRazerColor);
         }
 
         private async Task ApplyRazerBreathingAsync()
@@ -1902,7 +1902,7 @@ namespace OmenCore.ViewModels
                 _razerService?.SetBreathingEffect((byte)_razerRedValue, (byte)_razerGreenValue, (byte)_razerBlueValue);
                 _logging.Info($"Applied Razer breathing effect: {RazerColorHex}");
                 await Task.CompletedTask;
-            }, "Applying Razer breathing...");
+            }, global::OmenCore.Localization.Strings.CsApplyingRazerBreathing);
         }
 
         private async Task ApplyRazerSpectrumAsync()
@@ -1913,7 +1913,7 @@ namespace OmenCore.ViewModels
                 _razerService?.SetSpectrumEffect();
                 _logging.Info("Applied Razer spectrum cycling effect");
                 await Task.CompletedTask;
-            }, "Applying Razer spectrum...");
+            }, global::OmenCore.Localization.Strings.CsApplyingRazerSpectrum);
         }
         
         private async Task ApplyOpenRgbColorAsync(string? colorHex)
@@ -1934,7 +1934,7 @@ namespace OmenCore.ViewModels
                 {
                     _logging.Error($"Failed to apply OpenRGB color: {ex.Message}");
                 }
-            }, "Applying OpenRGB color...");
+            }, global::OmenCore.Localization.Strings.CsApplyingOpenRGBColor);
         }
 
         #endregion
@@ -1947,7 +1947,7 @@ namespace OmenCore.ViewModels
                 {
                     await _corsairService.ApplyLightingToAllAsync(SelectedCorsairPreset.ColorHex);
                     _logging.Info($"Applied Corsair lighting preset: {SelectedCorsairPreset.Name}");
-                }, "Applying Corsair lighting...");
+                }, global::OmenCore.Localization.Strings.CsApplyingCorsairLighting);
             }
         }
 
@@ -1959,7 +1959,7 @@ namespace OmenCore.ViewModels
             {
                 await _rgbManager.ApplyEffectToAllAsync($"preset:{SelectedCorsairPreset.Name}");
                 _logging.Info($"Applied Corsair preset '{SelectedCorsairPreset.Name}' to system");
-            }, "Applying lighting preset to system...");
+            }, global::OmenCore.Localization.Strings.CsApplyingLightingPresetToSystem);
         }
         
         /// <summary>
@@ -2023,7 +2023,7 @@ namespace OmenCore.ViewModels
 
                 UpdateLastRgbSyncResult(syncColor, totalAttempted, totalSucceeded, totalFailed);
                 _logging.Info($"RGB Sync complete: {totalSucceeded}/{totalAttempted} target(s) updated");
-            }, "Syncing color to all RGB devices...");
+            }, global::OmenCore.Localization.Strings.CsSyncingColorToAllRGBDevices);
         }
 
         private async Task ApplyCorsairCustomColorAsync()
@@ -2033,7 +2033,7 @@ namespace OmenCore.ViewModels
             {
                 await _corsairService.ApplyLightingToAllAsync(CorsairColorHex);
                 _logging.Info($"Applied custom Corsair color: {CorsairColorHex}");
-            }, "Applying custom color...");
+            }, global::OmenCore.Localization.Strings.CsApplyingCustomColor);
         }
 
         public async Task ApplyCorsairDpiAsync(bool skipConfirmation = false)
@@ -2047,8 +2047,8 @@ namespace OmenCore.ViewModels
             if (!skipConfirmation)
             {
                 var res = MessageBox.Show(
-                    "This will change the hardware DPI settings on the selected device. Do you want to continue?",
-                    "Confirm DPI Change",
+                    global::OmenCore.Localization.Strings.CsThisWillChangeTheHardwareDPISettings,
+                    global::OmenCore.Localization.Strings.CsConfirmDPIChange,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning,
                     MessageBoxResult.No);
@@ -2077,8 +2077,8 @@ namespace OmenCore.ViewModels
                     {
                         _logging.Warn("DPI settings were not applied - active Corsair backend does not support writing DPI to this device");
                         MessageBox.Show(
-                            "OmenCore couldn't actually write these DPI settings to the device - the active Corsair connection (RGB.NET/iCUE) doesn't support DPI configuration. Nothing on the mouse changed.",
-                            "DPI Settings Not Applied",
+                            global::OmenCore.Localization.Strings.CsOmenCoreCouldnTActuallyWriteTheseDPI,
+                            global::OmenCore.Localization.Strings.CsDPISettingsNotApplied,
                             MessageBoxButton.OK,
                             MessageBoxImage.Warning);
                         return;
@@ -2131,7 +2131,7 @@ namespace OmenCore.ViewModels
                 }
 
                 await Task.CompletedTask;
-            }, "Applying DPI settings...");
+            }, global::OmenCore.Localization.Strings.CsApplyingDPISettings);
         }
 
         private async Task ApplyLogitechColorAsync()
@@ -2141,7 +2141,7 @@ namespace OmenCore.ViewModels
                 await ExecuteWithLoadingAsync(async () =>
                 {
                     await _logitechService.ApplyStaticColorAsync(SelectedLogitechDevice, LogitechColorHex, LogitechBrightness);
-                }, "Applying Logitech lighting...");
+                }, global::OmenCore.Localization.Strings.CsApplyingLogitechLighting);
             }
         }
 
@@ -2150,8 +2150,8 @@ namespace OmenCore.ViewModels
             if (!skipConfirmation)
             {
                 var res = MessageBox.Show(
-                    "This will restore DPI stages to their saved defaults (or built-in defaults if none). Continue?",
-                    "Restore DPI Defaults",
+                    global::OmenCore.Localization.Strings.CsThisWillRestoreDPIStagesToTheir,
+                    global::OmenCore.Localization.Strings.CsRestoreDPIDefaults,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Question,
                     MessageBoxResult.No);
@@ -2247,7 +2247,7 @@ namespace OmenCore.ViewModels
         private async Task SaveCorsairDpiProfileAsync()
         {
             // Prompt for a profile name
-            var namePrompt = new InputPromptWindow("Save DPI Profile", "Enter a name for the DPI profile:")
+            var namePrompt = new InputPromptWindow(global::OmenCore.Localization.Strings.CsSaveDPIProfile, global::OmenCore.Localization.Strings.CsEnterANameForTheDPIProfile)
             {
                 Owner = Application.Current.MainWindow
             };
@@ -2261,7 +2261,7 @@ namespace OmenCore.ViewModels
             var exists = CorsairDpiProfiles.Any(p => p.Name == name);
             if (exists)
             {
-                var res = MessageBox.Show($"A DPI profile named '{name}' already exists. Overwrite it?", "Overwrite DPI Profile", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+                var res = MessageBox.Show(string.Format(global::OmenCore.Localization.Strings.CsADPIProfileNamedAlreadyExistsOverwrite, name), global::OmenCore.Localization.Strings.CsOverwriteDPIProfile, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
                 if (res != MessageBoxResult.Yes)
                 {
                     _logging.Info("User declined to overwrite existing DPI profile");
@@ -2300,8 +2300,8 @@ namespace OmenCore.ViewModels
             }
 
             var res = MessageBox.Show(
-                $"Are you sure you want to delete the DPI profile '{SelectedCorsairDpiProfile.Name}'? This cannot be undone.",
-                "Delete DPI Profile",
+                string.Format(global::OmenCore.Localization.Strings.CsAreYouSureYouWantToDelete, SelectedCorsairDpiProfile.Name),
+                global::OmenCore.Localization.Strings.CsDeleteDPIProfile,
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning,
                 MessageBoxResult.No);
@@ -2325,7 +2325,7 @@ namespace OmenCore.ViewModels
                     // Note: Full macro implementation would require iCUE/G HUB SDK integration
                     _logging.Warn("Macro profiles are UI placeholders - use iCUE or G HUB for macro configuration");
                     await Task.CompletedTask;
-                }, "Loading macro profile...");
+                }, global::OmenCore.Localization.Strings.CsLoadingMacroProfile);
             }
         }
         
@@ -2336,7 +2336,7 @@ namespace OmenCore.ViewModels
             if (_keyboardLightingService == null || !_keyboardLightingService.IsAvailable)
             {
                 _logging.Warn("Keyboard lighting not available");
-                KeyboardRestoreStatusText = "Keyboard lighting is unavailable on this backend.";
+                KeyboardRestoreStatusText = global::OmenCore.Localization.Strings.CsKeyboardLightingIsUnavailableOnThisBackend;
                 return;
             }
             
@@ -2362,22 +2362,22 @@ namespace OmenCore.ViewModels
                     // status text the page already shows.
                     if (telemetry.WmiSuccessCount == 0 && telemetry.WmiFailureCount > 0)
                     {
-                        backendHint = " WMI keyboard commands aren't verifying on your model - try enabling 'Experimental EC Keyboard' in Settings if colors don't visibly change.";
+                        backendHint = global::OmenCore.Localization.Strings.CsWMIKeyboardCommandsArenTVerifyingOn;
                         _logging.Warn($"💡{backendHint}");
                     }
                 }
 
                 _logging.Info($"✓ Applied keyboard zone colors: Z1={_zone1ColorHex}, Z2={_zone2ColorHex}, Z3={_zone3ColorHex}, Z4={_zone4ColorHex}");
-                KeyboardRestoreStatusText = $"{_keyboardLightingService.LastApplyStatus} Surface: {_keyboardLightingService.LastApplySurface}.{backendHint}";
+                KeyboardRestoreStatusText = string.Format(global::OmenCore.Localization.Strings.CsSurface, _keyboardLightingService.LastApplyStatus, _keyboardLightingService.LastApplySurface, backendHint);
                 await Task.CompletedTask;
-            }, "Applying keyboard colors...");
+            }, global::OmenCore.Localization.Strings.CsApplyingKeyboardColors);
         }
 
         private async Task RestoreKeyboardLightingAsync()
         {
             if (_keyboardLightingService == null || !_keyboardLightingService.IsAvailable)
             {
-                KeyboardRestoreStatusText = "Keyboard lighting is unavailable; check backend detection or Settings > Hardware.";
+                KeyboardRestoreStatusText = global::OmenCore.Localization.Strings.CsKeyboardLightingIsUnavailableCheckBackendDetection;
                 _logging.Warn("Keyboard lighting restore requested, but no keyboard backend is available");
                 return;
             }
@@ -2386,16 +2386,16 @@ namespace OmenCore.ViewModels
             {
                 LoadKeyboardColorsFromConfig();
                 await ApplyCurrentKeyboardZonesToBackendAsync();
-                KeyboardRestoreStatusText = $"Restored saved keyboard colors. {_keyboardLightingService.LastApplyStatus} Surface: {_keyboardLightingService.LastApplySurface}.";
+                KeyboardRestoreStatusText = string.Format(global::OmenCore.Localization.Strings.CsRestoredSavedKeyboardColorsSurface, _keyboardLightingService.LastApplyStatus, _keyboardLightingService.LastApplySurface);
                 _logging.Info($"Restored keyboard lighting from saved colors via {KeyboardLightingBackend}: Z1={_zone1ColorHex}, Z2={_zone2ColorHex}, Z3={_zone3ColorHex}, Z4={_zone4ColorHex}");
-            }, "Restoring keyboard lighting...");
+            }, global::OmenCore.Localization.Strings.CsRestoringKeyboardLighting);
         }
 
         private async Task RunRgbSurfaceProbeAsync()
         {
             if (_keyboardLightingService == null || !_keyboardLightingService.IsAvailable)
             {
-                RgbSurfaceObservationStatusText = "RGB probe unavailable because no HP keyboard lighting backend is active.";
+                RgbSurfaceObservationStatusText = global::OmenCore.Localization.Strings.CsRGBProbeUnavailableBecauseNoHPKeyboard;
                 _logging.Warn("RGB observed-surface probe requested, but no keyboard backend is available");
                 return;
             }
@@ -2407,9 +2407,9 @@ namespace OmenCore.ViewModels
 
                 SaveRgbSurfaceObservationProbeMetadata(updateSurface: false);
                 RgbSurfaceObservationStatusText =
-                    $"Probe sent via {KeyboardLightingBackend}; select what changed and save. {_keyboardLightingService.LastApplyStatus}";
+                    string.Format(global::OmenCore.Localization.Strings.CsProbeSentViaSelectWhatChangedAnd, KeyboardLightingBackend, _keyboardLightingService.LastApplyStatus);
                 _logging.Info($"RGB observed-surface probe applied {RgbObservationProbeColorHex} via {KeyboardLightingBackend}; surface selection pending");
-            }, "Probing RGB surface...");
+            }, global::OmenCore.Localization.Strings.CsProbingRGBSurface);
         }
 
         private void SaveRgbSurfaceObservation()
@@ -2418,7 +2418,7 @@ namespace OmenCore.ViewModels
             {
                 if (_configService == null)
                 {
-                    RgbSurfaceObservationStatusText = "RGB observation could not be saved because configuration is unavailable.";
+                    RgbSurfaceObservationStatusText = global::OmenCore.Localization.Strings.CsRGBObservationCouldNotBeSavedBecause;
                     return;
                 }
 
@@ -2428,7 +2428,7 @@ namespace OmenCore.ViewModels
             }
             catch (Exception ex)
             {
-                RgbSurfaceObservationStatusText = $"RGB observation save failed: {ex.Message}";
+                RgbSurfaceObservationStatusText = string.Format(global::OmenCore.Localization.Strings.CsRGBObservationSaveFailed, ex.Message);
                 _logging.Warn($"Failed to save RGB observed surface: {ex.Message}");
             }
         }
@@ -2450,7 +2450,7 @@ namespace OmenCore.ViewModels
 
             settings.ObservedProbeColorHex = RgbObservationProbeColorHex;
             settings.ObservedBackend = KeyboardLightingBackend;
-            settings.ObservedApplyStatus = _keyboardLightingService?.LastApplyStatus ?? "No keyboard lighting apply attempted this session.";
+            settings.ObservedApplyStatus = _keyboardLightingService?.LastApplyStatus ?? global::OmenCore.Localization.Strings.CsNoKeyboardLightingApplyAttemptedThisSession;
             settings.ObservedAtUtc = DateTime.UtcNow;
             _configService.Save(_configService.Config);
         }
@@ -2497,7 +2497,7 @@ namespace OmenCore.ViewModels
                 
                 _logging.Info($"✓ Applied {_zone1ColorHex} to all keyboard zones");
                 await Task.CompletedTask;
-            }, "Applying color to all zones...");
+            }, global::OmenCore.Localization.Strings.CsApplyingColorToAllZones);
         }
         
         /// <summary>
@@ -2576,7 +2576,7 @@ namespace OmenCore.ViewModels
                 if (config == null)
                 {
                     SelectedObservedRgbSurface = RgbObservationNotRecorded;
-                    RgbSurfaceObservationStatusText = "No RGB surface observation recorded.";
+                    RgbSurfaceObservationStatusText = global::OmenCore.Localization.Strings.CsNoRGBSurfaceObservationRecorded;
                     return;
                 }
 
@@ -2604,17 +2604,17 @@ namespace OmenCore.ViewModels
                 string.IsNullOrWhiteSpace(settings.ObservedSurface) ||
                 string.Equals(settings.ObservedSurface, RgbObservationNotRecorded, StringComparison.OrdinalIgnoreCase))
             {
-                return "No RGB surface observation recorded.";
+                return global::OmenCore.Localization.Strings.CsNoRGBSurfaceObservationRecorded;
             }
 
             var backend = string.IsNullOrWhiteSpace(settings.ObservedBackend)
-                ? "unknown backend"
+                ? global::OmenCore.Localization.Strings.CsUnknownBackend
                 : settings.ObservedBackend.Trim();
             var color = string.IsNullOrWhiteSpace(settings.ObservedProbeColorHex)
                 ? RgbObservationProbeColorHex
                 : settings.ObservedProbeColorHex.Trim();
 
-            return $"Observed {settings.ObservedSurface} using {backend} at {settings.ObservedAtUtc.Value.ToLocalTime():g}; probe {color}.";
+            return string.Format(global::OmenCore.Localization.Strings.CsObservedUsingAtProbe, settings.ObservedSurface, backend, settings.ObservedAtUtc.Value.ToLocalTime(), color);
         }
         
         private void SaveKeyboardColorsToConfig()
@@ -2830,7 +2830,7 @@ namespace OmenCore.ViewModels
 
         private void StartThrottlingMonitoring()
         {
-            if (!WarnIfMonitoringUnavailable("throttling indicator")) return;
+            if (!WarnIfMonitoringUnavailable(global::OmenCore.Localization.Strings.CsThrottlingIndicator)) return;
 
             _logging.Info("Started throttling indicator lighting monitoring");
 
@@ -3027,7 +3027,7 @@ namespace OmenCore.ViewModels
             try
             {
                 await FanOutLightingColorAsync(
-                    ThrottlingColorHex, $"pulse:{ThrottlingColorHex}:1000", "throttling indicator");
+                    ThrottlingColorHex, $"pulse:{ThrottlingColorHex}:1000", global::OmenCore.Localization.Strings.CsThrottlingIndicator);
             }
             catch (Exception ex)
             {

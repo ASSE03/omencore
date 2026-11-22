@@ -143,7 +143,7 @@ namespace OmenCore.Views
 
             _curvePresetName = presetName;
             var tooltip = string.IsNullOrWhiteSpace(presetName)
-                ? "Apply saved fan curve"
+                ? global::OmenCore.Localization.Strings.CsApplySavedFanCurve
                 : $"Curve: {presetName}";
             if (!string.Equals(FanCustomBtn.ToolTip as string, tooltip, StringComparison.Ordinal))
             {
@@ -228,8 +228,8 @@ namespace OmenCore.Views
                 ? new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0x00, 0xC8, 0xC8))
                 : new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0x9C, 0xA3, 0xAF));
             LinkModeText.ToolTip = linked
-                ? "Linked mode is enabled. Performance changes may also rewrite fan policy."
-                : "Decoupled mode is enabled. Performance changes leave your current fan preset or curve untouched.";
+                ? global::OmenCore.Localization.Strings.CsLinkedModeIsEnabledPerformanceChangesMay
+                : global::OmenCore.Localization.Strings.CsDecoupledModeIsEnabledPerformanceChangesLeave;
             UpdatePerformanceModeTooltips();
         }
 
@@ -279,19 +279,19 @@ namespace OmenCore.Views
         private string BuildLinkModeText()
         {
             return _isFanPerformanceLinked
-                ? "Fan/Perf: Linked"
-                : "Fan/Perf: Decoupled - fan stays";
+                ? global::OmenCore.Localization.Strings.CsFanPerfLinked
+                : global::OmenCore.Localization.Strings.CsFanPerfDecoupledFanStays;
         }
 
         private void UpdatePerformanceModeTooltips()
         {
             var preservedFanText = string.IsNullOrWhiteSpace(_curvePresetName)
-                ? "your current fan preset"
-                : $"the active curve preset '{_curvePresetName}'";
+                ? global::OmenCore.Localization.Strings.CsYourCurrentFanPreset
+                : string.Format(global::OmenCore.Localization.Strings.CsTheActiveCurvePreset, _curvePresetName);
 
             var tooltip = _isFanPerformanceLinked
-                ? "Apply this performance mode. Linked mode can also update fan policy."
-                : $"Apply this performance mode. Decoupled mode keeps {preservedFanText} active.";
+                ? global::OmenCore.Localization.Strings.CsApplyThisPerformanceModeLinkedModeCan
+                : string.Format(global::OmenCore.Localization.Strings.CsApplyThisPerformanceModeDecoupledModeKeeps, preservedFanText);
 
             QuickQuietBtn.ToolTip = tooltip;
             QuickBalancedBtn.ToolTip = tooltip;
@@ -355,13 +355,13 @@ namespace OmenCore.Views
             if (target == null)
             {
                 RefreshRateText.Text = currentRate > 0 ? $"{currentRate}Hz" : "N/A";
-                RefreshRateBtn.ToolTip = "Toggle refresh rate";
+                RefreshRateBtn.ToolTip = global::OmenCore.Localization.Strings.CsToggleRefreshRate_ecf4e;
                 return;
             }
 
             var targetLabel = $"D{_activeDisplayTargetIndex + 1}";
             RefreshRateText.Text = currentRate > 0 ? $"{targetLabel} {currentRate}Hz" : $"{targetLabel} N/A";
-            RefreshRateBtn.ToolTip = $"Toggle refresh rate for {target.FriendlyName}. Click again to move to the next display.";
+            RefreshRateBtn.ToolTip = string.Format(global::OmenCore.Localization.Strings.CsToggleRefreshRateForClickAgainTo, target.FriendlyName);
         }
 
         private void RefreshDisplayTargets()
@@ -462,7 +462,7 @@ namespace OmenCore.Views
                 default:
                     DisplayOffBtn.Visibility = Visibility.Visible;
                     DisplayOffBtn.Tag = "DisplayOff";
-                    DisplayOffBtn.ToolTip = "Turn off display";
+                    DisplayOffBtn.ToolTip = global::OmenCore.Localization.Strings.CsTurnOffDisplay_d6360;
                     QuickActionIcon.Text = "🌙";
                     QuickActionText.Text = "Display Off";
                     break;

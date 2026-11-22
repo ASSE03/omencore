@@ -47,9 +47,9 @@ namespace OmenCore.ViewModels
         {
             get
             {
-                if (_keyboardLightingService == null) return "No keyboard lighting service";
+                if (_keyboardLightingService == null) return global::OmenCore.Localization.Strings.CsNoKeyboardLightingService;
                 var stats = _keyboardLightingService.GetTelemetry();
-                return $"Attempts: {stats.TotalAttempts} | WMI: {stats.WmiSuccessCount}✓/{stats.WmiFailureCount}✗ ({stats.WmiSuccessRate:F0}%) | OGH: {stats.OghSuccessCount}✓/{stats.OghFailureCount}✗ ({stats.OghSuccessRate:F0}%) | EC: {stats.EcSuccessCount}✓/{stats.EcFailureCount}✗ ({stats.EcSuccessRate:F0}%)";
+                return string.Format(global::OmenCore.Localization.Strings.CsAttemptsWMIOGHEC, stats.TotalAttempts, stats.WmiSuccessCount, stats.WmiFailureCount, stats.WmiSuccessRate, stats.OghSuccessCount, stats.OghFailureCount, stats.OghSuccessRate, stats.EcSuccessCount, stats.EcFailureCount, stats.EcSuccessRate);
             }
         }
 
@@ -89,7 +89,7 @@ namespace OmenCore.ViewModels
         {
             try
             {
-                DiagnosticStatus = "Detecting devices...";
+                DiagnosticStatus = global::OmenCore.Localization.Strings.CsDetectingDevices;
                 DetectedDevices.Clear();
 
                 // Detect Corsair devices
@@ -156,12 +156,12 @@ namespace OmenCore.ViewModels
                     });
                 }
 
-                DiagnosticStatus = $"Detection complete. Found {DetectedDevices.Count} device(s).";
+                DiagnosticStatus = string.Format(global::OmenCore.Localization.Strings.CsDetectionCompleteFoundDeviceS, DetectedDevices.Count);
                 OnPropertyChanged(nameof(KeyboardLightingTelemetry));
             }
             catch (Exception ex)
             {
-                DiagnosticStatus = $"Detection failed: {ex.Message}";
+                DiagnosticStatus = string.Format(global::OmenCore.Localization.Strings.CsDetectionFailed_86f41, ex.Message);
                 _logging.Error("Device detection failed", ex);
             }
         }
@@ -174,10 +174,10 @@ namespace OmenCore.ViewModels
         {
             if (_wmiBios == null) return;
             var confirm = System.Windows.MessageBox.Show(
-                $"This sends {OmenCore.Hardware.ColorTableProbe.Variants.Count} experimental keyboard colour commands, one every 4 seconds, each in red.\n\n" +
-                "Watch the keyboard and note the NUMBER of the step during which it turns red, then report it on the GitHub issue. " +
-                "Your current keyboard colours are saved first and put back when the probe finishes.",
-                "RGB payload probe", System.Windows.MessageBoxButton.OKCancel, System.Windows.MessageBoxImage.Information);
+                string.Format(global::OmenCore.Localization.Strings.CsThisSendsExperimentalKeyboardColourCommandsOne, OmenCore.Hardware.ColorTableProbe.Variants.Count) +
+                global::OmenCore.Localization.Strings.CsWatchTheKeyboardAndNoteTheNUMBER +
+                global::OmenCore.Localization.Strings.CsYourCurrentKeyboardColoursAreSavedFirst,
+                global::OmenCore.Localization.Strings.CsRGBPayloadProbe, System.Windows.MessageBoxButton.OKCancel, System.Windows.MessageBoxImage.Information);
             if (confirm != System.Windows.MessageBoxResult.OK) return;
 
             IsRunningTest = true;
@@ -197,10 +197,10 @@ namespace OmenCore.ViewModels
                     var line = $"PROBE {i + 1}/{variants.Count} {v.Id}: sent={(ok ? "ok" : "refused")}, readback@25=#{rb}, readback@1=#{rb1} - {v.Description}";
                     _logging.Info(line);
                     DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - {line}");
-                    DiagnosticStatus = $"Probe step {i + 1} of {variants.Count}: is the keyboard red now?";
+                    DiagnosticStatus = string.Format(global::OmenCore.Localization.Strings.CsProbeStepOfIsTheKeyboardRed, i + 1, variants.Count);
                     await Task.Delay(3500);
                 }
-                DiagnosticStatus = "Probe finished. Report which step number (if any) turned the keyboard red.";
+                DiagnosticStatus = global::OmenCore.Localization.Strings.CsProbeFinishedReportWhichStepNumberIf;
             }
             finally
             {
@@ -218,7 +218,7 @@ namespace OmenCore.ViewModels
             try
             {
                 IsRunningTest = true;
-                DiagnosticStatus = "Running test pattern...";
+                DiagnosticStatus = global::OmenCore.Localization.Strings.CsRunningTestPattern;
                 DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - Starting test pattern");
 
                 // Test Corsair devices
@@ -278,12 +278,12 @@ namespace OmenCore.ViewModels
                     DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - Applied all-white verification pattern");
                 }
 
-                DiagnosticStatus = "Test pattern applied successfully.";
+                DiagnosticStatus = global::OmenCore.Localization.Strings.CsTestPatternAppliedSuccessfully;
                 DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - Test pattern completed");
             }
             catch (Exception ex)
             {
-                DiagnosticStatus = $"Test pattern failed: {ex.Message}";
+                DiagnosticStatus = string.Format(global::OmenCore.Localization.Strings.CsTestPatternFailed, ex.Message);
                 DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - Test pattern failed: {ex.Message}");
                 _logging.Error("Test pattern failed", ex);
             }
@@ -299,7 +299,7 @@ namespace OmenCore.ViewModels
             try
             {
                 IsRunningTest = true;
-                DiagnosticStatus = "Clearing test pattern...";
+                DiagnosticStatus = global::OmenCore.Localization.Strings.CsClearingTestPattern;
                 DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - Clearing test patterns");
 
                 // Clear Corsair devices
@@ -330,12 +330,12 @@ namespace OmenCore.ViewModels
                     DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - Restored HP Omen keyboard defaults");
                 }
 
-                DiagnosticStatus = "Test pattern cleared.";
+                DiagnosticStatus = global::OmenCore.Localization.Strings.CsTestPatternCleared;
                 DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - Clear completed");
             }
             catch (Exception ex)
             {
-                DiagnosticStatus = $"Clear failed: {ex.Message}";
+                DiagnosticStatus = string.Format(global::OmenCore.Localization.Strings.CsClearFailed, ex.Message);
                 DiagnosticLogs.Insert(0, $"{DateTime.Now:HH:mm:ss} - Clear failed: {ex.Message}");
                 _logging.Error("Clear test pattern failed", ex);
             }

@@ -322,16 +322,16 @@ namespace OmenCore
             {
                 Logging.Warn("OMEN Desktop PC detected - desktop support is experimental");
                 var result = MessageBox.Show(
-                    "⚠️ OMEN Desktop PC Detected ⚠️\n\n" +
-                    "OmenCore has experimental support for OMEN Desktop systems (25L, 30L, 35L, 40L, 45L).\n\n" +
-                    "Desktop fan control uses different hardware interfaces than laptops. " +
-                    "Some features may not work correctly:\n\n" +
-                    "• Fan speed control may be limited or unavailable\n" +
-                    "• Temperature monitoring should work normally\n" +
-                    "• RGB control is supported\n\n" +
-                    "If you experience any issues, please report them on GitHub or Discord.\n\n" +
-                    "Do you want to continue?",
-                    "OMEN Desktop - Experimental Support",
+                    global::OmenCore.Localization.Strings.CsOMENDesktopPCDetectedOmenCoreHasExperimental
+
+
+
+
+
+
+
+,
+                    global::OmenCore.Localization.Strings.CsOMENDesktopExperimentalSupport,
                     MessageBoxButton.YesNo,
                     MessageBoxImage.Warning);
                 
@@ -653,7 +653,7 @@ namespace OmenCore
             {
                 IconSource = new System.Windows.Media.Imaging.BitmapImage(
                     new Uri("pack://application:,,,/Assets/OmenCore.ico")),
-                ToolTipText = "OmenCore - Gaming Laptop Control\n\nLeft-click: Quick Popup\nDouble-click: Open Dashboard\nRight-click: Menu"
+                ToolTipText = global::OmenCore.Localization.Strings.CsOmenCoreGamingLaptopControlLeftClickQuick
             };
             
             // Retry tray icon visibility after boot (Windows sometimes fails to show icons during login)
@@ -1182,19 +1182,19 @@ namespace OmenCore
 
         private void PromptDriverInstallation()
         {
-            var recommendedBackend = "PawnIO (bundled with installer builds)";
+            var recommendedBackend = global::OmenCore.Localization.Strings.CsPawnIOBundledWithInstallerBuilds;
 
             var result = MessageBox.Show(
-                "Some hardware-control features require a driver backend.\n\n" +
-                "Depending on your system, you can use:\n" +
-                "• PawnIO (Secure Boot compatible)\n" +
-                "• WMI-only mode (monitoring and many controls still work)\n\n" +
-                "Without a supported driver backend, these features may be disabled:\n" +
-                "• Direct EC fan control (some models)\n" +
-                "• CPU undervolting and TCC offset (Intel MSR)\n\n" +
+                global::OmenCore.Localization.Strings.CsSomeHardwareControlFeaturesRequireADriver +
+                global::OmenCore.Localization.Strings.CsDependingOnYourSystemYouCanUse +
+                global::OmenCore.Localization.Strings.CsPawnIOSecureBootCompatible +
+                global::OmenCore.Localization.Strings.CsWMIOnlyModeMonitoringAndManyControls +
+                global::OmenCore.Localization.Strings.CsWithoutASupportedDriverBackendTheseFeatures +
+                global::OmenCore.Localization.Strings.CsDirectECFanControlSomeModels +
+                global::OmenCore.Localization.Strings.CsCPUUndervoltingAndTCCOffsetIntelMSR +
                 $"Recommended: {recommendedBackend}\n\n" +
-                "Use the OmenCore installer to add PawnIO, or continue without driver-dependent features.",
-                "Optional Driver Backend - OmenCore",
+                global::OmenCore.Localization.Strings.CsUseTheOmenCoreInstallerToAddPawnIO,
+                global::OmenCore.Localization.Strings.CsOptionalDriverBackendOmenCore,
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
 
@@ -1494,17 +1494,17 @@ namespace OmenCore
 
                 bool rtssRunning = IsRtssRunning();
                 string detail = rtssRunning
-                    ? "RivaTuner Statistics Server (RTSS) is running and its D3D hooks have corrupted OmenCore's render thread."
-                    : "A D3D/DXGI overlay hook (possibly RTSS, an overlay tool, or a game anti-cheat) has corrupted OmenCore's render thread.";
+                    ? global::OmenCore.Localization.Strings.CsRivaTunerStatisticsServerRTSSIsRunningAnd
+                    : global::OmenCore.Localization.Strings.CsAD3DDXGIOverlayHookPossiblyRTSS;
 
                 MessageBox.Show(
                     $"{detail}\n\n" +
-                    "OmenCore has switched to software rendering for this session to prevent further crashes.\n\n" +
-                    "To permanently fix this:\n" +
-                    "  • Close RTSS / MSI Afterburner overlay before starting OmenCore, OR\n" +
-                    "  • Enable 'Software Rendering' in OmenCore Settings → General\n\n" +
-                    "OmenCore will continue running. Restart the app for full GPU-accelerated rendering once the overlay is closed.",
-                    "OmenCore — Render Conflict Detected",
+                    global::OmenCore.Localization.Strings.CsOmenCoreHasSwitchedToSoftwareRenderingFor +
+                    global::OmenCore.Localization.Strings.CsToPermanentlyFixThis +
+                    global::OmenCore.Localization.Strings.CsCloseRTSSMSIAfterburnerOverlayBeforeStarting +
+                    global::OmenCore.Localization.Strings.CsEnableSoftwareRenderingInOmenCoreSettingsGeneral +
+                    global::OmenCore.Localization.Strings.CsOmenCoreWillContinueRunningRestartTheApp,
+                    global::OmenCore.Localization.Strings.CsOmenCoreRenderConflictDetected,
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
                 return;
@@ -1629,7 +1629,7 @@ namespace OmenCore
             if (IsNonFatalAsyncException(innerException))
             {
                 // These are non-fatal connection/IO errors - just log them
-                var suppressedMessage = innerException?.Message ?? "Unknown non-fatal async error";
+                var suppressedMessage = innerException?.Message ?? global::OmenCore.Localization.Strings.CsUnknownNonFatalAsyncError;
                 Logging.Warn($"Non-fatal async error (suppressed): {suppressedMessage}");
                 return;
             }
@@ -1658,9 +1658,9 @@ namespace OmenCore
             if (isNvmlCrash)
             {
                 message = $"OmenCore crashed due to an NVIDIA driver issue.\n\n" +
-                          $"This is a known issue with NVML (NVIDIA Management Library) during high GPU load " +
-                          $"such as gaming or benchmarks.\n\n" +
-                          $"Recommendation: Update your NVIDIA drivers to the latest version.\n\n" +
+                          global::OmenCore.Localization.Strings.CsThisIsAKnownIssueWithNVML +
+                          global::OmenCore.Localization.Strings.CsSuchAsGamingOrBenchmarks +
+                          global::OmenCore.Localization.Strings.CsRecommendationUpdateYourNVIDIADriversToThe +
                           $"Error: {ex.Message}";
             }
             else
@@ -1668,7 +1668,7 @@ namespace OmenCore
                 message = $"OmenCore hit an unexpected error:\n{ex.Message}\n\nSee %LOCALAPPDATA%\\OmenCore for full logs.";
             }
             
-            MessageBox.Show(message, "OmenCore Crash", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(message, global::OmenCore.Localization.Strings.CsOmenCoreCrash, MessageBoxButton.OK, MessageBoxImage.Error);
             Current?.Shutdown();
         }
     }

@@ -117,7 +117,7 @@ namespace OmenCore.Views
         private double _cpuLoad;
         private double _gpuLoad;
         private string _fanSpeed = "-- / --";
-        private string _ramUsage = "-- GB";
+        private string _ramUsage = global::OmenCore.Localization.Strings.CsGB_02be1;
         private string _cpuPower = "";
         private string _gpuPower = "";
         private bool _isThrottling;
@@ -134,7 +134,7 @@ namespace OmenCore.Views
         private string _clockTime = "";
         private string _networkLatency = "--";
         private Brush _networkLatencyColor = Brushes.Gray;
-        private string _vramUsage = "-- GB";
+        private string _vramUsage = global::OmenCore.Localization.Strings.CsGB_02be1;
         private string _packagePower = "";
         private double _gpuHotspotTemp;
         private Brush _cpuTempColor = Brushes.White;
@@ -781,8 +781,8 @@ namespace OmenCore.Views
 
                             fpsSnapshot = OsdFpsDisplayFormatter.Unavailable(
                                 _rtssService == null
-                                    ? "RTSS disabled"
-                                    : "FPS needs RTSS running (RivaTuner Statistics Server)");
+                                    ? global::OmenCore.Localization.Strings.CsRTSSDisabled
+                                    : global::OmenCore.Localization.Strings.CsFPSNeedsRTSSRunningRivaTunerStatisticsServer);
                         }
 
                         ApplyFpsSnapshot(fpsSnapshot);
@@ -881,7 +881,7 @@ namespace OmenCore.Views
                 if (_showRamUsage && sample != null)
                 {
                     if (sample.RamUsageGb > 0 && sample.RamTotalGb > 0)
-                        RamUsage = $"{sample.RamUsageGb:F1} / {sample.RamTotalGb:F0} GB";
+                        RamUsage = string.Format(global::OmenCore.Localization.Strings.CsGB_3431c, sample.RamUsageGb, sample.RamTotalGb);
                     else if (sample.RamUsageGb > 0)
                         RamUsage = $"{sample.RamUsageGb:F1} GB";
                     else
@@ -892,7 +892,7 @@ namespace OmenCore.Views
                 if (_showVramUsage && sample != null)
                 {
                     if (sample.GpuVramUsageMb > 0 && sample.GpuVramTotalMb > 0)
-                        VramUsage = $"{sample.GpuVramUsageMb / 1024.0:F1} / {sample.GpuVramTotalMb / 1024.0:F0} GB";
+                        VramUsage = string.Format(global::OmenCore.Localization.Strings.CsGB_3431c, sample.GpuVramUsageMb / 1024.0, sample.GpuVramTotalMb / 1024.0);
                     else if (sample.GpuVramUsageMb > 0)
                         VramUsage = $"{sample.GpuVramUsageMb / 1024.0:F1} GB";
                     else

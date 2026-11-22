@@ -479,9 +479,9 @@ namespace OmenCore.ViewModels
         private bool _monitoringLowOverhead;
         private bool _monitoringInitialized;
         private bool _restorePointInProgress;
-        private string _restorePointStatus = "No restore point created";
+        private string _restorePointStatus = global::OmenCore.Localization.Strings.CsNoRestorePointCreated;
         private bool _cleanupInProgress;
-        private string _cleanupStatus = "Status: Not checked";
+        private string _cleanupStatus = global::OmenCore.Localization.Strings.CsStatusNotChecked;
         private bool _cleanupRemoveStorePackage = true;
         private bool _cleanupRemoveLegacyInstallers = true;
         private bool _cleanupRemoveRegistry = true;
@@ -571,8 +571,8 @@ namespace OmenCore.ViewModels
         /// Monitoring diagnostics line indicating whether a model-specific CPU temperature override is active.
         /// </summary>
         public string CpuTempOverrideDiagnosticText => _wmiBiosMonitor?.IsModelCpuTempOverrideActive == true
-            ? $"Model override active (GitHub #78): worker CPU sensor prioritized for {_wmiBiosMonitor.ModelName}"
-            : "Model override inactive: standard WMI/ACPI CPU temperature path";
+            ? string.Format(global::OmenCore.Localization.Strings.CsModelOverrideActiveGitHub78WorkerCPU, _wmiBiosMonitor.ModelName)
+            : global::OmenCore.Localization.Strings.CsModelOverrideInactiveStandardWMIACPICPU;
 
         /// <summary>
         /// Power automation service for AC/Battery profile switching.
@@ -635,8 +635,8 @@ namespace OmenCore.ViewModels
         }
 
         public string FanPerformanceLinkStatus => IsFanPerformanceLinked
-            ? "Linked: fan follows performance"
-            : "Decoupled: fan independent";
+            ? global::OmenCore.Localization.Strings.CsLinkedFanFollowsPerformance
+            : global::OmenCore.Localization.Strings.CsDecoupledFanIndependent;
 
         /// <summary>
         /// Re-applies the Settings > Notifications toggles to the live NotificationService.
@@ -662,8 +662,8 @@ namespace OmenCore.ViewModels
             if (_dashboard != null)
             {
                 _dashboard.ModeLinkStatus = linked
-                    ? "Linked: fan follows performance"
-                    : "Decoupled: fan independent";
+                    ? global::OmenCore.Localization.Strings.CsLinkedFanFollowsPerformance
+                    : global::OmenCore.Localization.Strings.CsDecoupledFanIndependent;
             }
         }
         
@@ -833,15 +833,15 @@ namespace OmenCore.ViewModels
         {
             if (sample == null)
             {
-                return "CPU telemetry unavailable";
+                return global::OmenCore.Localization.Strings.CsCPUTelemetryUnavailable;
             }
 
             return sample.CpuTemperatureState switch
             {
                 TelemetryDataState.Unavailable => $"Unavailable • {sample.CpuLoadPercent:F0}% load",
-                TelemetryDataState.Stale => $"{(sample.CpuTemperatureC > 0 ? $"{sample.CpuTemperatureC:F0}°C (stale)" : "Stale")} • {sample.CpuLoadPercent:F0}% load",
-                TelemetryDataState.Invalid => $"Invalid • {sample.CpuLoadPercent:F0}% load",
-                _ => $"{(sample.CpuTemperatureC > 0 ? $"{sample.CpuTemperatureC:F0}°C" : "—°C")} • {sample.CpuLoadPercent:F0}% load"
+                TelemetryDataState.Stale => string.Format(global::OmenCore.Localization.Strings.CsLoad, (sample.CpuTemperatureC > 0 ? $"{sample.CpuTemperatureC:F0}°C (stale)" : "Stale"), sample.CpuLoadPercent),
+                TelemetryDataState.Invalid => string.Format(global::OmenCore.Localization.Strings.CsInvalidLoad, sample.CpuLoadPercent),
+                _ => string.Format(global::OmenCore.Localization.Strings.CsLoad, (sample.CpuTemperatureC > 0 ? $"{sample.CpuTemperatureC:F0}°C" : "—°C"), sample.CpuLoadPercent)
             };
         }
 
@@ -849,23 +849,23 @@ namespace OmenCore.ViewModels
         {
             if (sample == null)
             {
-                return "GPU telemetry unavailable";
+                return global::OmenCore.Localization.Strings.CsGPUTelemetryUnavailable;
             }
 
             return sample.GpuTemperatureState == TelemetryDataState.Inactive
-                ? $"dGPU idle • {sample.GpuLoadPercent:F0}% load{(sample.GpuVramUsageMb > 0 ? $" • {sample.GpuVramUsageMb:F0} MB VRAM" : string.Empty)}"
-                : $"{(sample.GpuTemperatureC > 0 ? $"{sample.GpuTemperatureC:F0}°C" : "—°C")} • {sample.GpuLoadPercent:F0}% load{(sample.GpuVramUsageMb > 0 ? $" • {sample.GpuVramUsageMb:F0} MB VRAM" : string.Empty)}";
+                ? string.Format(global::OmenCore.Localization.Strings.CsDGPUIdleLoad, sample.GpuLoadPercent, (sample.GpuVramUsageMb > 0 ? $" • {sample.GpuVramUsageMb:F0} MB VRAM" : string.Empty))
+                : string.Format(global::OmenCore.Localization.Strings.CsLoad_1c6d0, (sample.GpuTemperatureC > 0 ? $"{sample.GpuTemperatureC:F0}°C" : "—°C"), sample.GpuLoadPercent, (sample.GpuVramUsageMb > 0 ? $" • {sample.GpuVramUsageMb:F0} MB VRAM" : string.Empty));
         }
 
         private static string BuildMemorySummary(MonitoringSample? sample)
-            => sample == null ? "Memory telemetry unavailable" : $"{sample.RamUsageGb:F1} / {sample.RamTotalGb:F0} GB";
+            => sample == null ? global::OmenCore.Localization.Strings.CsMemoryTelemetryUnavailable : string.Format(global::OmenCore.Localization.Strings.CsGB_3431c, sample.RamUsageGb, sample.RamTotalGb);
 
         private static string BuildStorageSummary(MonitoringSample? sample)
-            => sample == null ? "Storage telemetry unavailable" : $"SSD {(sample.SsdTemperatureC > 0 ? $"{sample.SsdTemperatureC:F0}°C" : "—°C")} • {sample.DiskUsagePercent:F0}% active";
+            => sample == null ? global::OmenCore.Localization.Strings.CsStorageTelemetryUnavailable : string.Format(global::OmenCore.Localization.Strings.CsSSDActive, (sample.SsdTemperatureC > 0 ? $"{sample.SsdTemperatureC:F0}°C" : "—°C"), sample.DiskUsagePercent);
 
         private static string BuildCpuClockSummary(MonitoringSample? sample)
             => sample == null || sample.CpuCoreClocksMhz.Count == 0
-                ? "Per-core clocks unavailable"
+                ? global::OmenCore.Localization.Strings.CsPerCoreClocksUnavailable
                 : string.Join(", ", sample.CpuCoreClocksMhz.Select((c, i) => $"C{i + 1}:{c:F0}MHz"));
 
         private static double SanitizeRange(double candidate, double fallback, double min, double max)
@@ -953,7 +953,7 @@ namespace OmenCore.ViewModels
                     OnPropertyChanged(nameof(MonitoringGraphsVisible));
                     if (_monitoringInitialized)
                     {
-                        PushEvent(value ? "Low overhead monitoring enabled" : "Full monitoring telemetry enabled");
+                        PushEvent(value ? global::OmenCore.Localization.Strings.CsLowOverheadMonitoringEnabled : global::OmenCore.Localization.Strings.CsFullMonitoringTelemetryEnabled);
                     }
                 }
             }
@@ -1072,7 +1072,7 @@ namespace OmenCore.ViewModels
             }
         }
 
-        public string LogsToggleText => LogsCollapsed ? "Show activity log" : "Hide activity log";
+        public string LogsToggleText => LogsCollapsed ? global::OmenCore.Localization.Strings.CsShowActivityLog : global::OmenCore.Localization.Strings.CsHideActivityLog;
 
         public bool RestorePointInProgress
         {
@@ -1758,7 +1758,7 @@ namespace OmenCore.ViewModels
                 var latestSample = _hardwareMonitoringService?.Samples.LastOrDefault();
                 if (latestSample == null)
                 {
-                    _resumeRecoveryDiagnostics.Attention("Post-resume self-check could not confirm telemetry recovery because no fresh monitoring sample was available.");
+                    _resumeRecoveryDiagnostics.Attention(global::OmenCore.Localization.Strings.CsPostResumeSelfCheckCouldNotConfirm);
                     return;
                 }
 
@@ -1830,7 +1830,7 @@ namespace OmenCore.ViewModels
 
                 if (telemetryHealthy && !fansPinnedUnexpectedly)
                 {
-                    _resumeRecoveryDiagnostics.Complete($"Post-resume self-check passed. Monitoring recovered in {sampleAgeSeconds:F0}s and fan state looks normal ({activeFanState}, peak fan {peakFanRpm} RPM).");
+                    _resumeRecoveryDiagnostics.Complete(string.Format(global::OmenCore.Localization.Strings.CsPostResumeSelfCheckPassedMonitoringRecovered, sampleAgeSeconds, activeFanState, peakFanRpm));
                 }
                 else
                 {
@@ -1845,12 +1845,12 @@ namespace OmenCore.ViewModels
                         issues.Append($"Fans still look elevated for the current thermal load ({peakFanRpm} RPM at {hottestComponent:F0}C while fan state is {activeFanState}).");
                     }
 
-                    _resumeRecoveryDiagnostics.Attention($"Post-resume self-check flagged follow-up: {issues.ToString().Trim()}");
+                    _resumeRecoveryDiagnostics.Attention(string.Format(global::OmenCore.Localization.Strings.CsPostResumeSelfCheckFlaggedFollowUp, issues.ToString().Trim()));
                 }
             }
             catch (Exception ex)
             {
-                _resumeRecoveryDiagnostics.Attention($"Post-resume self-check failed: {ex.Message}");
+                _resumeRecoveryDiagnostics.Attention(string.Format(global::OmenCore.Localization.Strings.CsPostResumeSelfCheckFailed, ex.Message));
             }
         }
 
@@ -2525,7 +2525,7 @@ namespace OmenCore.ViewModels
             _keyboardLightingService.RestoreDefaults();
             _fanService.ApplyPreset(FanPresets.First());
             GamingModeActive = false;
-            PushEvent("Defaults restored");
+            PushEvent(global::OmenCore.Localization.Strings.CsDefaultsRestored);
         }
 
         private void ReloadConfiguration()
@@ -2534,7 +2534,7 @@ namespace OmenCore.ViewModels
             // points at (see ConfigurationService), so no manual field-by-field copy is needed.
             _configService.Load();
             HydrateCollections();
-            PushEvent("Configuration reloaded");
+            PushEvent(global::OmenCore.Localization.Strings.CsConfigurationReloaded);
         }
 
         private void OpenConfigFolder()
@@ -2566,30 +2566,30 @@ namespace OmenCore.ViewModels
         {
             RestorePointInProgress = true;
             var label = $"OmenCore safeguard {DateTime.Now:yyyy-MM-dd HH:mm}";
-            RestorePointStatus = "Creating restore point...";
+            RestorePointStatus = global::OmenCore.Localization.Strings.CsCreatingRestorePoint;
             try
             {
                 var result = await _systemRestoreService.CreateRestorePointAsync(label);
                 if (result.Success)
                 {
-                    RestorePointStatus = $"Restore point #{result.SequenceNumber} created";
-                    PushEvent("System restore point created");
+                    RestorePointStatus = string.Format(global::OmenCore.Localization.Strings.CsRestorePointCreated, result.SequenceNumber);
+                    PushEvent(global::OmenCore.Localization.Strings.CsSystemRestorePointCreated);
                 }
                 else
                 {
-                    RestorePointStatus = $"Restore point failed: {result.Message}";
-                    PushEvent("Restore point creation failed");
+                    RestorePointStatus = string.Format(global::OmenCore.Localization.Strings.CsRestorePointFailed, result.Message);
+                    PushEvent(global::OmenCore.Localization.Strings.CsRestorePointCreationFailed);
                 }
             }
             catch (Exception ex)
             {
-                RestorePointStatus = $"Restore point failed: {ex.Message}";
+                RestorePointStatus = string.Format(global::OmenCore.Localization.Strings.CsRestorePointFailed, ex.Message);
                 _logging.ErrorWithContext(
                     component: "MainViewModel",
                     operation: "CreateRestorePointAsync",
                     message: "Unhandled restore point failure",
                     ex: ex);
-                PushEvent("Restore point creation failed");
+                PushEvent(global::OmenCore.Localization.Strings.CsRestorePointCreationFailed);
             }
             finally
             {
@@ -2600,7 +2600,7 @@ namespace OmenCore.ViewModels
         private async Task RunOmenCleanupAsync()
         {
             CleanupInProgress = true;
-            CleanupStatus = CleanupDryRun ? "Running cleanup dry run..." : "Removing OMEN Gaming Hub...";
+            CleanupStatus = CleanupDryRun ? global::OmenCore.Localization.Strings.CsRunningCleanupDryRun : global::OmenCore.Localization.Strings.CsRemovingOMENGamingHub;
             OmenCleanupSteps.Clear();
             
             // Skip restore point for dry run
@@ -2608,46 +2608,46 @@ namespace OmenCore.ViewModels
             {
                 // Automatically attempt to create restore point before cleanup
                 _logging.Info("Attempting to create restore point before OGH cleanup...");
-                CleanupStatus = "Creating restore point...";
-                OmenCleanupSteps.Add("Creating system restore point...");
+                CleanupStatus = global::OmenCore.Localization.Strings.CsCreatingRestorePoint;
+                OmenCleanupSteps.Add(global::OmenCore.Localization.Strings.CsCreatingSystemRestorePoint);
                 
-                var restoreResult = await _systemRestoreService.CreateRestorePointAsync("OmenCore - Before OGH Cleanup");
+                var restoreResult = await _systemRestoreService.CreateRestorePointAsync(global::OmenCore.Localization.Strings.CsOmenCoreBeforeOGHCleanup);
                 
                 if (!restoreResult.Success)
                 {
                     _logging.Warn($"Restore point creation failed: {restoreResult.Message}");
-                    OmenCleanupSteps.Add($"⚠ Restore point failed: {restoreResult.Message}");
+                    OmenCleanupSteps.Add(string.Format(global::OmenCore.Localization.Strings.CsRestorePointFailed_753e7, restoreResult.Message));
                     
                     // Ask user if they want to continue anyway
                     var continueAnyway = System.Windows.MessageBox.Show(
-                        $"System Restore point creation failed:\n{restoreResult.Message}\n\n" +
-                        "This is often because System Restore is disabled on your system.\n\n" +
-                        "Do you want to continue with the cleanup anyway?\n\n" +
-                        "Note: Without a restore point, you cannot easily undo the cleanup.",
-                        "Restore Point Failed - OmenCore",
+                        string.Format(global::OmenCore.Localization.Strings.CsSystemRestorePointCreationFailed, restoreResult.Message) +
+                        global::OmenCore.Localization.Strings.CsThisIsOftenBecauseSystemRestoreIs +
+                        global::OmenCore.Localization.Strings.CsDoYouWantToContinueWithThe +
+                        global::OmenCore.Localization.Strings.CsNoteWithoutARestorePointYouCannot,
+                        global::OmenCore.Localization.Strings.CsRestorePointFailedOmenCore,
                         System.Windows.MessageBoxButton.YesNo,
                         System.Windows.MessageBoxImage.Warning);
                     
                     if (continueAnyway != System.Windows.MessageBoxResult.Yes)
                     {
-                        CleanupStatus = "⚠ Cleanup cancelled - no restore point";
-                        OmenCleanupSteps.Add("Cleanup cancelled by user");
+                        CleanupStatus = global::OmenCore.Localization.Strings.CsCleanupCancelledNoRestorePoint;
+                        OmenCleanupSteps.Add(global::OmenCore.Localization.Strings.CsCleanupCancelledByUser);
                         _logging.Info("OGH cleanup cancelled by user due to restore point failure");
-                        PushEvent("OGH cleanup cancelled");
+                        PushEvent(global::OmenCore.Localization.Strings.CsOGHCleanupCancelled);
                         CleanupInProgress = false;
                         return;
                     }
                     
                     _logging.Info("User chose to continue cleanup without restore point");
-                    OmenCleanupSteps.Add("Continuing without restore point (user confirmed)");
+                    OmenCleanupSteps.Add(global::OmenCore.Localization.Strings.CsContinuingWithoutRestorePointUserConfirmed);
                 }
                 else
                 {
                     _logging.Info($"✓ Restore point created (sequence: {restoreResult.SequenceNumber})");
-                    OmenCleanupSteps.Add($"✓ Restore point created (#{restoreResult.SequenceNumber})");
+                    OmenCleanupSteps.Add(string.Format(global::OmenCore.Localization.Strings.CsRestorePointCreated_89b26, restoreResult.SequenceNumber));
                 }
                 
-                CleanupStatus = "Removing OMEN Gaming Hub...";
+                CleanupStatus = global::OmenCore.Localization.Strings.CsRemovingOMENGamingHub;
             }
             
             // Subscribe to real-time progress updates
@@ -2681,24 +2681,24 @@ namespace OmenCore.ViewModels
 
                 if (result.Success)
                 {
-                    CleanupStatus = CleanupDryRun ? "✓ Dry run completed" : "✓ OMEN Gaming Hub removed";
-                    PushEvent(CleanupDryRun ? "OMEN cleanup dry run completed" : "OMEN Gaming Hub cleanup complete");
+                    CleanupStatus = CleanupDryRun ? global::OmenCore.Localization.Strings.CsDryRunCompleted : global::OmenCore.Localization.Strings.CsOMENGamingHubRemoved;
+                    PushEvent(CleanupDryRun ? global::OmenCore.Localization.Strings.CsOMENCleanupDryRunCompleted : global::OmenCore.Localization.Strings.CsOMENGamingHubCleanupComplete);
                 }
                 else
                 {
-                    CleanupStatus = "⚠ Cleanup finished with errors";
-                    PushEvent("OMEN cleanup completed with errors");
+                    CleanupStatus = global::OmenCore.Localization.Strings.CsCleanupFinishedWithErrors;
+                    PushEvent(global::OmenCore.Localization.Strings.CsOMENCleanupCompletedWithErrors);
                 }
             }
             catch (Exception ex)
             {
-                CleanupStatus = $"✗ Cleanup failed: {ex.Message}";
+                CleanupStatus = string.Format(global::OmenCore.Localization.Strings.CsCleanupFailed_33920, ex.Message);
                 _logging.ErrorWithContext(
                     component: "MainViewModel",
                     operation: "RunOmenCleanupAsync",
                     message: "OMEN cleanup failed",
                     ex: ex);
-                PushEvent("OMEN cleanup failed");
+                PushEvent(global::OmenCore.Localization.Strings.CsOMENCleanupFailed);
             }
             finally
             {
@@ -2885,7 +2885,7 @@ namespace OmenCore.ViewModels
                 if (_logitechDeviceService != null)
                 {
                     await _logitechDeviceService.DiscoverAsync();
-                    PushEvent($"Discovered {_logitechDeviceService.Devices.Count} Logitech device(s)");
+                    PushEvent(string.Format(global::OmenCore.Localization.Strings.CsDiscoveredLogitechDeviceS, _logitechDeviceService.Devices.Count));
                 }
 
                 // Initialize Lighting sub-ViewModel after async services are ready.
@@ -3010,7 +3010,7 @@ namespace OmenCore.ViewModels
                 {
                     _configService.ExportConfiguration(dialog.FileName, _config);
                     _logging.Info($"Configuration exported to: {dialog.FileName}");
-                    PushEvent($"✓ Configuration exported successfully");
+                    PushEvent(global::OmenCore.Localization.Strings.CsConfigurationExportedSuccessfully);
                 }
                 catch (Exception ex)
                 {
@@ -3019,7 +3019,7 @@ namespace OmenCore.ViewModels
                         operation: "ExportConfigurationAsync",
                         message: "Failed to export configuration",
                         ex: ex);
-                    PushEvent($"✗ Export failed: {ex.Message}");
+                    PushEvent(string.Format(global::OmenCore.Localization.Strings.CsExportFailed, ex.Message));
                 }
             }
             await Task.CompletedTask;
@@ -3041,7 +3041,7 @@ namespace OmenCore.ViewModels
                     if (!_configService.ValidateConfiguration(dialog.FileName))
                     {
                         _logging.Warn("Invalid configuration file format");
-                        PushEvent($"✗ Import failed: Invalid file format");
+                        PushEvent(global::OmenCore.Localization.Strings.CsImportFailedInvalidFileFormat);
                         return;
                     }
 
@@ -3050,12 +3050,12 @@ namespace OmenCore.ViewModels
                     {
                         _configService.Save(importedConfig);
                         _logging.Info($"Configuration imported from: {dialog.FileName}");
-                        PushEvent($"✓ Configuration imported - Restart recommended");
+                        PushEvent(global::OmenCore.Localization.Strings.CsConfigurationImportedRestartRecommended);
                         
                         // Notify user to restart
                         MessageBox.Show(
-                            "Configuration imported successfully!\n\nPlease restart OmenCore for all changes to take effect.",
-                            "Import Complete",
+                            global::OmenCore.Localization.Strings.CsConfigurationImportedSuccessfullyPleaseRestartOmenCoreFor,
+                            global::OmenCore.Localization.Strings.CsImportComplete,
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
                     }
@@ -3067,7 +3067,7 @@ namespace OmenCore.ViewModels
                         operation: "ImportConfigurationAsync",
                         message: "Failed to import configuration",
                         ex: ex);
-                    PushEvent($"✗ Import failed: {ex.Message}");
+                    PushEvent(string.Format(global::OmenCore.Localization.Strings.CsImportFailed_af173, ex.Message));
                 }
             }
             await Task.CompletedTask;
@@ -3100,17 +3100,17 @@ namespace OmenCore.ViewModels
                     var productName = sysInfo.ProductName ?? string.Empty;
                     var sku = sysInfo.SystemSku ?? string.Empty;
 
-                    var clipboardText = $"Model: {model}\nProductName: {productName}\nSystemSku: {sku}\nDiagnostics: {exportedPath}";
+                    var clipboardText = string.Format(global::OmenCore.Localization.Strings.CsModelProductNameSystemSkuDiagnostics, model, productName, sku, exportedPath);
                     try { Clipboard.SetText(clipboardText); } catch { _logging.Warn("Clipboard unavailable for ReportModel"); }
 
                     _logging.Info($"ReportModel: diagnostics exported to {exportedPath} and model info copied to clipboard (Model={model})");
-                    PushEvent("✓ Diagnostics bundle created and model info copied to clipboard");
+                    PushEvent(global::OmenCore.Localization.Strings.CsDiagnosticsBundleCreatedAndModelInfoCopied);
 
                     if (Application.Current != null)
                     {
                         MessageBox.Show(
                             $"Diagnostics bundle created and model info copied to clipboard.\n\nModel: {model}\nPath: {exportedPath}",
-                            "Report Model",
+                            global::OmenCore.Localization.Strings.CsReportModel,
                             MessageBoxButton.OK,
                             MessageBoxImage.Information);
                     }
@@ -3118,9 +3118,9 @@ namespace OmenCore.ViewModels
                 else
                 {
                     _logging.Warn("ReportModel: diagnostics export returned no path");
-                    PushEvent("✗ Report model failed: export error");
+                    PushEvent(global::OmenCore.Localization.Strings.CsReportModelFailedExportError);
                     if (Application.Current != null)
-                        MessageBox.Show("Failed to create diagnostics bundle.", "Report Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(global::OmenCore.Localization.Strings.CsFailedToCreateDiagnosticsBundle, global::OmenCore.Localization.Strings.CsReportError, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
@@ -3130,9 +3130,9 @@ namespace OmenCore.ViewModels
                     operation: "ReportModelAsync",
                     message: "ReportModel failed",
                     ex: ex);
-                PushEvent($"✗ Report model failed: {ex.Message}");
+                PushEvent(string.Format(global::OmenCore.Localization.Strings.CsReportModelFailed, ex.Message));
                 if (Application.Current != null)
-                    MessageBox.Show($"Failed to create diagnostics bundle: {ex.Message}", "Report Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Failed to create diagnostics bundle: {ex.Message}", global::OmenCore.Localization.Strings.CsReportError, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             await Task.CompletedTask;
@@ -3145,12 +3145,12 @@ namespace OmenCore.ViewModels
             {
                 try { Clipboard.SetText(path); } catch { _logging.Warn("Clipboard unavailable for telemetry export"); }
                 _logging.Info($"Telemetry exported to: {path}");
-                PushEvent("✓ Telemetry exported");
+                PushEvent(global::OmenCore.Localization.Strings.CsTelemetryExported);
             }
             else
             {
                 _logging.Warn("Telemetry export failed");
-                PushEvent("✗ Telemetry export failed");
+                PushEvent(global::OmenCore.Localization.Strings.CsTelemetryExportFailed);
             }
             await Task.CompletedTask;
         }
@@ -3164,7 +3164,7 @@ namespace OmenCore.ViewModels
                 if (skipWhenSafeMode && _safeModeActive)
                 {
                     _logging.Warn($"Tray action '{actionName}' blocked: Startup Safe Mode active");
-                    Application.Current?.Dispatcher?.BeginInvoke(() => PushEvent($"🛡 Safe Mode blocked tray write: {actionName}"));
+                    Application.Current?.Dispatcher?.BeginInvoke(() => PushEvent(string.Format(global::OmenCore.Localization.Strings.CsSafeModeBlockedTrayWrite, actionName)));
                     return;
                 }
 
@@ -3202,7 +3202,7 @@ namespace OmenCore.ViewModels
                 _safeModeResetTimer?.Dispose();
                 _safeModeResetTimer = null;
                 _logging.Info("🛡 Startup Safe Mode deactivated — monitoring recovered to Healthy");
-                Application.Current?.Dispatcher?.BeginInvoke(() => PushEvent("🛡 Safe Mode lifted — monitoring healthy"));
+                Application.Current?.Dispatcher?.BeginInvoke(() => PushEvent(global::OmenCore.Localization.Strings.CsSafeModeLiftedMonitoringHealthy));
                 return;
             }
 
@@ -3230,7 +3230,7 @@ namespace OmenCore.ViewModels
             {
                 _safeModeActive = true;
                 _logging.Warn($"🛡 Startup Safe Mode activated (status={status}, timeouts={_hardwareMonitoringService.ConsecutiveTimeouts})");
-                Application.Current?.Dispatcher?.BeginInvoke(() => PushEvent("🛡 Startup Safe Mode active — hardware write actions are temporarily restricted"));
+                Application.Current?.Dispatcher?.BeginInvoke(() => PushEvent(global::OmenCore.Localization.Strings.CsStartupSafeModeActiveHardwareWriteActions));
 
                 // Schedule automatic reset after the remaining startup window elapses
                 var remainingMs = Math.Max(5000, (windowSeconds - elapsed.TotalSeconds) * 1000);
@@ -3240,7 +3240,7 @@ namespace OmenCore.ViewModels
                     {
                         _safeModeActive = false;
                         _logging.Info($"🛡 Startup Safe Mode auto-expired after startup window ({windowSeconds}s)");
-                        Application.Current?.Dispatcher?.BeginInvoke(() => PushEvent("🛡 Safe Mode expired — startup window complete"));
+                        Application.Current?.Dispatcher?.BeginInvoke(() => PushEvent(global::OmenCore.Localization.Strings.CsSafeModeExpiredStartupWindowComplete));
                     }
                 }, null, (int)remainingMs, System.Threading.Timeout.Infinite);
             }
@@ -3271,18 +3271,18 @@ namespace OmenCore.ViewModels
                             await dispatcher.InvokeAsync(() =>
                             {
                                 var failedModeName = targetPreset.IsBuiltIn ? mode : targetPreset.Name;
-                                PushEvent($"Fan mode failed: {failedModeName}");
-                                var warningMessage = $"Could not apply {failedModeName}. Check Diagnostics for backend state.";
+                                PushEvent(string.Format(global::OmenCore.Localization.Strings.CsFanModeFailed, failedModeName));
+                                var warningMessage = string.Format(global::OmenCore.Localization.Strings.CsCouldNotApplyCheckDiagnosticsForBackend, failedModeName);
                                 if (IsVictus16S0Model())
                                 {
-                                    warningMessage = $"Could not apply {failedModeName}. Victus 16-s0 models may require firmware-path validation; run Diagnostics and share report + WMI logs in guide format.";
+                                    warningMessage = string.Format(global::OmenCore.Localization.Strings.CsCouldNotApplyVictus16S0Models, failedModeName);
                                 }
                                 else if (IsVictusModel())
                                 {
-                                    warningMessage = $"Could not apply {failedModeName}. On Victus models, share Diagnostics output in guide format so backend mapping can be verified.";
+                                    warningMessage = string.Format(global::OmenCore.Localization.Strings.CsCouldNotApplyOnVictusModelsShare, failedModeName);
                                 }
 
-                                _notificationService.ShowWarning("Fan Mode", warningMessage);
+                                _notificationService.ShowWarning(global::OmenCore.Localization.Strings.CsFanMode_3cb0b, warningMessage);
                             });
                         }
                         return;
@@ -3303,8 +3303,8 @@ namespace OmenCore.ViewModels
                             // relaunch.
                             FanControl?.SelectPresetByNameNoApplyAndSave(confirmedModeName);
                             CurrentFanMode = confirmedModeName;
-                            PushEvent($"🌀 Fan mode: {confirmedModeName}");
-                            _notificationService.ShowFanModeChanged(confirmedModeName, "Quick Access");
+                            PushEvent(string.Format(global::OmenCore.Localization.Strings.CsFanMode_1d852, confirmedModeName));
+                            _notificationService.ShowFanModeChanged(confirmedModeName, global::OmenCore.Localization.Strings.CsQuickAccess);
                         });
                     }
                 }
@@ -3314,8 +3314,8 @@ namespace OmenCore.ViewModels
                     {
                         await dispatcher.InvokeAsync(() =>
                         {
-                            PushEvent($"⚠ Fan mode request ignored: preset not found for {mode}");
-                            _notificationService.ShowWarning("Fan Mode", $"Could not resolve preset for {mode}.");
+                            PushEvent(string.Format(global::OmenCore.Localization.Strings.CsFanModeRequestIgnoredPresetNotFound, mode));
+                            _notificationService.ShowWarning(global::OmenCore.Localization.Strings.CsFanMode_3cb0b, string.Format(global::OmenCore.Localization.Strings.CsCouldNotResolvePresetFor, mode));
                         });
                     }
                 }
@@ -3481,7 +3481,7 @@ namespace OmenCore.ViewModels
                         var confirmedMode = _performanceModeService.GetCurrentMode() ?? mode;
                         CurrentPerformanceMode = confirmedMode;
                         General?.SyncRuntimeState(confirmedMode, CurrentFanMode);
-                        PushEvent($"⚡ Performance: {confirmedMode}");
+                        PushEvent(string.Format(global::OmenCore.Localization.Strings.CsPerformance, confirmedMode));
                     });
                 }
             });
@@ -3577,7 +3577,7 @@ namespace OmenCore.ViewModels
                         if (gpuBoostLevel != null && _systemControl?.GpuPowerBoostAvailable == true)
                             _systemControl.GpuPowerBoostLevel = gpuBoostLevel;
                         ShowHotkeyOsd("Profile", profile, "Tray");
-                        PushEvent($"🎮 Profile: {profile} (fan: {confirmedFanMode})");
+                        PushEvent(string.Format(global::OmenCore.Localization.Strings.CsProfileFan, profile, confirmedFanMode));
                     });
                 }
             });
@@ -3631,8 +3631,8 @@ namespace OmenCore.ViewModels
                             SystemControl.GpuPowerBoostLevel = level;
                             SystemControl.ApplyGpuPowerBoostCommand?.Execute(null);
                             CurrentGpuPowerLevel = level;
-                            PushEvent($"⚡ GPU Power: {level}");
-                            _notificationService.ShowInfo("GPU Power", $"Set to {level}");
+                            PushEvent(string.Format(global::OmenCore.Localization.Strings.CsGPUPower_fe29b, level));
+                            _notificationService.ShowInfo(global::OmenCore.Localization.Strings.CsGPUPower, string.Format(global::OmenCore.Localization.Strings.CsSetTo, level));
                         }
                     });
                 }
@@ -3664,7 +3664,7 @@ namespace OmenCore.ViewModels
                             await _keyboardLightingService.SetBrightness(brightness);
                             CurrentKeyboardBrightness = level;
                             string levelName = level switch { 0 => "Off", 1 => "Low", 2 => "Medium", _ => "High" };
-                            PushEvent($"💡 Keyboard: {levelName}");
+                            PushEvent(string.Format(global::OmenCore.Localization.Strings.CsKeyboard, levelName));
                         }
                     }
                     else
@@ -3683,7 +3683,7 @@ namespace OmenCore.ViewModels
                                 await _keyboardLightingService.SetBrightness(brightness);
                                 CurrentKeyboardBrightness = level;
                                 string levelName = level switch { 0 => "Off", 1 => "Low", 2 => "Medium", _ => "High" };
-                                PushEvent($"💡 Keyboard: {levelName}");
+                                PushEvent(string.Format(global::OmenCore.Localization.Strings.CsKeyboard, levelName));
                             }
                         }).Task.Unwrap();
                     }
@@ -3721,13 +3721,13 @@ namespace OmenCore.ViewModels
                 {
                     // Game profile activated
                     _notificationService.ShowGameProfileActivated(e.Profile.ExecutableName, e.Profile.Name);
-                    PushEvent($"🎮 Profile: {e.Profile.Name} for {e.Profile.ExecutableName}");
+                    PushEvent(string.Format(global::OmenCore.Localization.Strings.CsProfileFor, e.Profile.Name, e.Profile.ExecutableName));
                 }
                 else if (e.Trigger == ProfileTrigger.GameExit)
                 {
                     // Game exited, defaults restored
                     _notificationService.ShowGameProfileDeactivated("Game");
-                    PushEvent("🎮 Restored default settings");
+                    PushEvent(global::OmenCore.Localization.Strings.CsRestoredDefaultSettings);
                 }
             });
         }
@@ -3756,8 +3756,8 @@ namespace OmenCore.ViewModels
                     General?.SyncRuntimeState(CurrentPerformanceMode, confirmedFanMode);
 
                     // Show what actually got applied, not only what we requested.
-                    ShowHotkeyOsd("Fan Mode", confirmedFanMode, "Ctrl+Shift+F");
-                    PushEvent($"🌀 Fan: {confirmedFanMode} (hotkey)");
+                    ShowHotkeyOsd(global::OmenCore.Localization.Strings.CsFanMode_3cb0b, confirmedFanMode, "Ctrl+Shift+F");
+                    PushEvent(string.Format(global::OmenCore.Localization.Strings.CsFanHotkey, confirmedFanMode));
                 }
                 catch (Exception ex)
                 {
@@ -3777,12 +3777,12 @@ namespace OmenCore.ViewModels
                         if (IsVictusModel())
                         {
                             _notificationService.ShowWarning(
-                                "Fan Mode",
-                                "Victus fan backend is unavailable, so Max fan was not applied. Run Diagnostics and share the report using the guide format.");
+                                global::OmenCore.Localization.Strings.CsFanMode_3cb0b,
+                                global::OmenCore.Localization.Strings.CsVictusFanBackendIsUnavailableSoMax);
                         }
                         else
                         {
-                            _notificationService.ShowWarning("Fan Mode", "Fan control backend is unavailable. Max fan hotkey was not applied.");
+                            _notificationService.ShowWarning(global::OmenCore.Localization.Strings.CsFanMode_3cb0b, global::OmenCore.Localization.Strings.CsFanControlBackendIsUnavailableMaxFan);
                         }
 
                         _logging.Warn("Hotkey max fan toggle skipped: fan writes unavailable");
@@ -3791,8 +3791,8 @@ namespace OmenCore.ViewModels
 
                     _fanService.ApplyMaxCooling();
                     FanControl?.SelectPresetByNameNoApplyAndSave("Max");
-                    ShowHotkeyOsd("Fan Mode", "Maximum Cooling", "Ctrl+Shift+M");
-                    PushEvent("🌀 Fan: Maximum Cooling (hotkey)");
+                    ShowHotkeyOsd(global::OmenCore.Localization.Strings.CsFanMode_3cb0b, global::OmenCore.Localization.Strings.CsMaximumCooling, "Ctrl+Shift+M");
+                    PushEvent(global::OmenCore.Localization.Strings.CsFanMaximumCoolingHotkey);
                 }
                 catch (Exception ex)
                 {
@@ -3819,7 +3819,7 @@ namespace OmenCore.ViewModels
                 {
                     _performanceModeService.SetPerformanceMode(nextMode);
                     ShowHotkeyOsd("Performance", nextMode, "Ctrl+Shift+P");
-                    PushEvent($"⚡ Performance: {nextMode} (hotkey)");
+                    PushEvent(string.Format(global::OmenCore.Localization.Strings.CsPerformanceHotkey, nextMode));
                 }
                 catch (Exception ex)
                 {
@@ -3837,7 +3837,7 @@ namespace OmenCore.ViewModels
                     FanControl?.ApplyFanMode("Performance");
                     _performanceModeService.SetPerformanceMode("Performance");
                     ShowHotkeyOsd("Boost", "Performance", "Ctrl+Shift+B");
-                    PushEvent("🔥 Boost mode activated (hotkey)");
+                    PushEvent(global::OmenCore.Localization.Strings.CsBoostModeActivatedHotkey);
                 }
                 catch (Exception ex)
                 {
@@ -3854,8 +3854,8 @@ namespace OmenCore.ViewModels
                 {
                     FanControl?.ApplyFanMode("Quiet");
                     _performanceModeService.SetPerformanceMode("Quiet");
-                    ShowHotkeyOsd("Quiet Mode", "Quiet", "Ctrl+Shift+Q");
-                    PushEvent("🤫 Quiet mode activated (hotkey)");
+                    ShowHotkeyOsd(global::OmenCore.Localization.Strings.CsQuietMode, "Quiet", "Ctrl+Shift+Q");
+                    PushEvent(global::OmenCore.Localization.Strings.CsQuietModeActivatedHotkey);
                 }
                 catch (Exception ex)
                 {
@@ -3968,7 +3968,7 @@ namespace OmenCore.ViewModels
                     }
 
                     ShowHotkeyOsd("Profile", nextProfile, "Ctrl+Shift+E");
-                    PushEvent($"Profile: {nextProfile} (hotkey)");
+                    PushEvent(string.Format(global::OmenCore.Localization.Strings.CsProfileHotkey, nextProfile));
                 }
                 catch (Exception ex)
                 {
@@ -3998,7 +3998,7 @@ namespace OmenCore.ViewModels
                 PushEvent($"Custom profile failed: {customPreset.Name}");
                 _notificationService.ShowWarning(
                     "Profile",
-                    $"Could not apply custom fan preset '{customPreset.Name}'. Check Diagnostics for backend state.");
+                    string.Format(global::OmenCore.Localization.Strings.CsCouldNotApplyCustomFanPresetCheck, customPreset.Name));
                 return false;
             }
 
@@ -4064,12 +4064,12 @@ namespace OmenCore.ViewModels
                     General?.SyncRuntimeState(CurrentPerformanceMode, confirmedFanMode);
                     if (string.Equals(confirmedFanMode, "Max", StringComparison.OrdinalIgnoreCase))
                     {
-                        PushEvent("🌡️ Quiet safety: fans → Max (temp critical)");
+                        PushEvent(global::OmenCore.Localization.Strings.CsQuietSafetyFansMaxTempCritical);
                     }
                     else
                     {
                         _logging.Warn($"[QuietSafety] Max cooling did not confirm (mode is '{confirmedFanMode}') — temp is critical and fans may not have responded");
-                        PushEvent("⚠️ Quiet safety: temp critical, but Max cooling failed to apply — check fan control");
+                        PushEvent(global::OmenCore.Localization.Strings.CsQuietSafetyTempCriticalButMaxCooling);
                     }
                 }
                 catch (Exception ex)
@@ -4093,7 +4093,7 @@ namespace OmenCore.ViewModels
                     CurrentFanMode = confirmedFanMode;
                     General?.SetQuietSafetyOverride(false);
                     General?.SyncRuntimeState(CurrentPerformanceMode, confirmedFanMode);
-                    PushEvent("✅ Quiet safety: fans → Quiet (temp recovered)");
+                    PushEvent(global::OmenCore.Localization.Strings.CsQuietSafetyFansQuietTempRecovered);
                 }
                 catch (Exception ex)
                 {
@@ -4190,13 +4190,13 @@ namespace OmenCore.ViewModels
                     {
                         _fanService.ApplyAutoMode();
                         FanControl?.SelectPresetByNameNoApplyAndSave("Auto");
-                        ShowHotkeyOsd("Fan Mode", "Auto (BIOS Control)", "OMEN Key");
+                        ShowHotkeyOsd(global::OmenCore.Localization.Strings.CsFanMode_3cb0b, global::OmenCore.Localization.Strings.CsAutoBIOSControl, global::OmenCore.Localization.Strings.CsOMENKey);
                     }
                     else
                     {
                         _fanService.ApplyMaxCooling();
                         FanControl?.SelectPresetByNameNoApplyAndSave("Max");
-                        ShowHotkeyOsd("Fan Mode", "Maximum Cooling", "OMEN Key");
+                        ShowHotkeyOsd(global::OmenCore.Localization.Strings.CsFanMode_3cb0b, global::OmenCore.Localization.Strings.CsMaximumCooling, global::OmenCore.Localization.Strings.CsOMENKey);
                     }
                 }
                 catch (Exception ex)
@@ -4469,7 +4469,7 @@ namespace OmenCore.ViewModels
                                 _hotkeyService.RegisterDefaultHotkeys();
                                 _windowHotkeysActive = true;
                                 _logging.Info("Hotkeys registered (window already active)");
-                                PushEvent("⌨️ Hotkeys active (window focus)");
+                                PushEvent(global::OmenCore.Localization.Strings.CsHotkeysActiveWindowFocus);
                             }
                         }
                         else
@@ -4477,7 +4477,7 @@ namespace OmenCore.ViewModels
                             // Fallback: no window handle, just register normally
                             _hotkeyService.RegisterDefaultHotkeys();
                             _logging.Info("Global hotkeys registered (no window handle)");
-                            PushEvent("⌨️ Global hotkeys enabled");
+                            PushEvent(global::OmenCore.Localization.Strings.CsGlobalHotkeysEnabled);
                         }
                     }
                     else
@@ -4485,7 +4485,7 @@ namespace OmenCore.ViewModels
                         _hotkeyService.RegisterDefaultHotkeys();
                         _windowHotkeysActive = true;
                         _logging.Info("Global hotkeys registered");
-                        PushEvent("⌨️ Global hotkeys enabled");
+                        PushEvent(global::OmenCore.Localization.Strings.CsGlobalHotkeysEnabled);
                     }
                 }
                 else
@@ -4548,7 +4548,7 @@ namespace OmenCore.ViewModels
 
                 _hotkeyOsd.ApplySettings(_configService?.Config?.Osd);
                 
-                _hotkeyOsd.ShowMode(category, modeName, $"via Hotkey ({hotkeyText})");
+                _hotkeyOsd.ShowMode(category, modeName, string.Format(global::OmenCore.Localization.Strings.CsViaHotkey, hotkeyText));
             }
             catch (Exception ex)
             {
@@ -4572,7 +4572,7 @@ namespace OmenCore.ViewModels
                 _hotkeyService.RegisterDefaultHotkeys();
                 _windowHotkeysActive = true;
                 _logging.Info("Hotkeys registered (window activated)");
-                PushEvent("⌨️ Hotkeys active (window focused)");
+                PushEvent(global::OmenCore.Localization.Strings.CsHotkeysActiveWindowFocused);
             }
             catch (Exception ex)
             {
@@ -4595,7 +4595,7 @@ namespace OmenCore.ViewModels
                 _hotkeyService.UnregisterAllExcept(HotkeyAction.ToggleWindow, HotkeyAction.ShowWindow);
                 _windowHotkeysActive = false;
                 _logging.Info("Hotkeys unregistered (window deactivated; window restore hotkeys preserved)");
-                PushEvent("⌨️ Hotkeys inactive (window lost focus)");
+                PushEvent(global::OmenCore.Localization.Strings.CsHotkeysInactiveWindowLostFocus);
             }
             catch (Exception ex)
             {

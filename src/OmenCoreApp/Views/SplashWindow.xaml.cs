@@ -102,7 +102,7 @@ namespace OmenCore.Views
         
         private void OnCompleted(object? sender, StartupCompletedEventArgs e)
         {
-            UpdateProgress(100, "Ready!");
+            UpdateProgress(100, global::OmenCore.Localization.Strings.CsReady_63a3b);
         }
         
         protected override void OnClosed(EventArgs e)

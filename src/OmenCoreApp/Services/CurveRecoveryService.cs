@@ -146,12 +146,12 @@ namespace OmenCore.Services
                             DispatcherHelper.RunOnUiThread(() =>
                             {
                                 System.Windows.MessageBox.Show(
-                                    $"Your fan curve caused sustained overheating!\n\n" +
-                                    $"Temperatures exceeded {OverheatThresholdC}°C for over {SustainedOverheatSeconds / 60} minutes.\n\n" +
+                                    global::OmenCore.Localization.Strings.CsYourFanCurveCausedSustainedOverheating +
+                                    string.Format(global::OmenCore.Localization.Strings.CsTemperaturesExceededCForOverMinutes, OverheatThresholdC, SustainedOverheatSeconds / 60) +
                                     $"OmenCore has automatically reverted to your previous fan curve:\n" +
                                     $"\"{_lastKnownGoodPreset.Name}\"\n\n" +
-                                    $"Please review your fan curve and ensure adequate cooling at high temperatures.",
-                                    "Curve Recovery",
+                                    global::OmenCore.Localization.Strings.CsPleaseReviewYourFanCurveAndEnsure,
+                                    global::OmenCore.Localization.Strings.CsCurveRecovery,
                                     System.Windows.MessageBoxButton.OK,
                                     System.Windows.MessageBoxImage.Warning);
                             });
@@ -186,7 +186,7 @@ namespace OmenCore.Services
                 var recoveryEvent = new
                 {
                     Timestamp = DateTime.Now,
-                    Reason = "Sustained overheating",
+                    Reason = global::OmenCore.Localization.Strings.CsSustainedOverheating,
                     ThermalHistory = _thermalHistory.Select(e => new
                     {
                         Time = e.Timestamp,

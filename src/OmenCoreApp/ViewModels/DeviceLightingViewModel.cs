@@ -38,7 +38,7 @@ namespace OmenCore.ViewModels
         private EffectOption? _selectedEffect;
         private ThemeOption? _selectedTheme;
         private string _speed = "Medium";
-        private string _direction = "Left to right";
+        private string _direction = global::OmenCore.Localization.Strings.CsLeftToRight;
         private string _primaryColorHex = "#FF0000";
         private string _secondaryColorHex = "#0000FF";
         private bool _useCustomColors;
@@ -93,7 +93,7 @@ namespace OmenCore.ViewModels
         /// </summary>
         public ObservableCollection<EffectOption> Effects { get; } = new(new[]
         {
-            new EffectOption("Colour cycle", DojoKeyboardMcu.Effect.ColorCycle),
+            new EffectOption(global::OmenCore.Localization.Strings.CsColourCycle, DojoKeyboardMcu.Effect.ColorCycle),
             new EffectOption("Starlight",    DojoKeyboardMcu.Effect.Starlight),
             new EffectOption("Breathing",    DojoKeyboardMcu.Effect.Breathing),
             new EffectOption("Ghosting",     DojoKeyboardMcu.Effect.Ghosting),
@@ -101,7 +101,7 @@ namespace OmenCore.ViewModels
             new EffectOption("Wave",         DojoKeyboardMcu.Effect.Wave),
             new EffectOption("OMEN X",       DojoKeyboardMcu.Effect.OmenX),
             new EffectOption("Raindrop",     DojoKeyboardMcu.Effect.Raindrop),
-            new EffectOption("Audio pulse",  DojoKeyboardMcu.Effect.AudioPulse),
+            new EffectOption(global::OmenCore.Localization.Strings.CsAudioPulse,  DojoKeyboardMcu.Effect.AudioPulse),
             new EffectOption("Confetti",     DojoKeyboardMcu.Effect.Confetti),
             new EffectOption("Sun",          DojoKeyboardMcu.Effect.Sun),
             new EffectOption("Swipe",        DojoKeyboardMcu.Effect.Swipe),
@@ -119,7 +119,7 @@ namespace OmenCore.ViewModels
 
         public ObservableCollection<string> Directions { get; } = new(new[]
         {
-            "Left to right", "Right to left", "Up", "Down", "Inward", "Outward", "Clockwise", "Anticlockwise"
+            global::OmenCore.Localization.Strings.CsLeftToRight, "Right to left", "Up", "Down", "Inward", "Outward", "Clockwise", "Anticlockwise"
         });
 
         public EffectOption? SelectedEffect
@@ -223,13 +223,13 @@ namespace OmenCore.ViewModels
             get
             {
                 if (SelectedEffect?.Wire == DojoKeyboardMcu.Effect.Swipe && !UseCustomColors)
-                    return "Swipe has no preset palette — with a theme selected it renders black. Tick custom colours.";
+                    return global::OmenCore.Localization.Strings.CsSwipeHasNoPresetPaletteWithA;
 
                 if (SelectedEffect?.Wire == DojoKeyboardMcu.Effect.AudioPulse)
-                    return "Audio pulse is driven by live audio levels the host feeds it. Applied on its own it shows a steady colour rather than pulsing.";
+                    return global::OmenCore.Localization.Strings.CsAudioPulseIsDrivenByLiveAudio;
 
                 if (SelectedEffect?.Wire is DojoKeyboardMcu.Effect.Confetti or DojoKeyboardMcu.Effect.Sun && UseCustomColors)
-                    return "Confetti and Sun take no custom colours — the theme is used regardless.";
+                    return global::OmenCore.Localization.Strings.CsConfettiAndSunTakeNoCustomColours;
 
                 return string.Empty;
             }
@@ -244,8 +244,8 @@ namespace OmenCore.ViewModels
 
             bool ok = await _keyboard.SetDeviceEffectAsync(FnCyclePlan.ToRecord(CurrentSlot()));
             Status = ok
-                ? $"{SelectedEffect.Name} installed. It keeps running with OmenCore closed."
-                : $"The keyboard refused {SelectedEffect.Name}.";
+                ? string.Format(global::OmenCore.Localization.Strings.CsInstalledItKeepsRunningWithOmenCoreClosed, SelectedEffect.Name)
+                : string.Format(global::OmenCore.Localization.Strings.CsTheKeyboardRefused, SelectedEffect.Name);
         }
 
         /// <summary>
@@ -272,16 +272,16 @@ namespace OmenCore.ViewModels
             var current = _keyboard?.ReadDeviceEffect();
             if (current == null)
             {
-                Status = "The keyboard did not answer a state read.";
+                Status = global::OmenCore.Localization.Strings.CsTheKeyboardDidNotAnswerAState;
                 return;
             }
 
             var r = current.Value;
             string palette = r.ColorNumber == DojoKeyboardMcu.ColorNumberPreset
                 ? r.ShowMode.ToString()
-                : $"{r.ColorNumber + 1} custom colour(s)";
+                : string.Format(global::OmenCore.Localization.Strings.CsCustomColourS, r.ColorNumber + 1);
 
-            Status = $"On the keyboard now: {r.Effect}, {palette}, {r.Speed.ToString().ToLowerInvariant()}.";
+            Status = string.Format(global::OmenCore.Localization.Strings.CsOnTheKeyboardNow, r.Effect, palette, r.Speed.ToString().ToLowerInvariant());
         }
 
         // ── The Fn+1 / Fn+2 cycle ──────────────────────────────────────────────────
@@ -316,7 +316,7 @@ namespace OmenCore.ViewModels
         /// than presenting a blank area and two buttons.</summary>
         public string FnCycleEmptyHint => FnCycleSlots.Count > 0
             ? string.Empty
-            : "Nothing staged yet. Set up an effect above, then choose \"Add to cycle\".";
+            : global::OmenCore.Localization.Strings.CsNothingStagedYetSetUpAnEffect;
 
         private string _fnCycleStatus = string.Empty;
         public string FnCycleStatus
@@ -332,9 +332,9 @@ namespace OmenCore.ViewModels
         /// that could have shown them the fourth.
         /// </summary>
         public string FnCycleLimitation =>
-            "Writing adds to or updates what the keyboard already holds. There is no command to " +
-            "remove an entry, so a profile taken off this list stays on the keyboard until " +
-            "something overwrites that effect type.";
+            global::OmenCore.Localization.Strings.CsWritingAddsToOrUpdatesWhatThe
+
+;
 
         /// <summary>Live warning about the staged set, or empty. Same two black-by-design traps the
         /// effects card warns about, checked across the whole set before any frame goes out.</summary>
@@ -362,14 +362,14 @@ namespace OmenCore.ViewModels
             {
                 slot.IsActive = existing.Model.IsActive;
                 FnCycleSlots[FnCycleSlots.IndexOf(existing)] = new FnCycleSlotViewModel(slot);
-                FnCycleStatus = $"{slot.DisplayName} updated — the keyboard keeps one profile per effect.";
+                FnCycleStatus = string.Format(global::OmenCore.Localization.Strings.CsUpdatedTheKeyboardKeepsOneProfilePer, slot.DisplayName);
             }
             else
             {
                 // First one staged is the one to leave showing, until the user says otherwise.
                 slot.IsActive = FnCycleSlots.Count == 0;
                 FnCycleSlots.Add(new FnCycleSlotViewModel(slot));
-                FnCycleStatus = $"{slot.DisplayName} added. Nothing is on the keyboard until you write the cycle.";
+                FnCycleStatus = string.Format(global::OmenCore.Localization.Strings.CsAddedNothingIsOnTheKeyboardUntil, slot.DisplayName);
             }
 
             FnCycleChanged();
@@ -384,7 +384,7 @@ namespace OmenCore.ViewModels
             if (slot.Model.IsActive && FnCycleSlots.Count > 0)
                 MakeFnSlotActive(FnCycleSlots[0]);
 
-            FnCycleStatus = $"{slot.Model.DisplayName} removed from the list. It is still on the keyboard.";
+            FnCycleStatus = string.Format(global::OmenCore.Localization.Strings.CsRemovedFromTheListItIsStill, slot.Model.DisplayName);
             FnCycleChanged();
         }
 
@@ -403,11 +403,11 @@ namespace OmenCore.ViewModels
             var ordered = FnCyclePlan.Order(FnCycleSlots.Select(s => s.Model).ToList());
             if (ordered.Count == 0)
             {
-                FnCycleStatus = "Nothing staged to write.";
+                FnCycleStatus = global::OmenCore.Localization.Strings.CsNothingStagedToWrite;
                 return;
             }
 
-            FnCycleStatus = $"Writing {ordered.Count} profile(s)…";
+            FnCycleStatus = string.Format(global::OmenCore.Localization.Strings.CsWritingProfileS, ordered.Count);
 
             var refused = new List<string>();
             foreach (var slot in ordered)
@@ -427,16 +427,16 @@ namespace OmenCore.ViewModels
             var active = ordered.LastOrDefault();
 
             if (refused.Count == ordered.Count)
-                FnCycleStatus = "The keyboard refused every profile. Nothing changed.";
+                FnCycleStatus = global::OmenCore.Localization.Strings.CsTheKeyboardRefusedEveryProfileNothingChanged;
             else if (refused.Count > 0)
                 FnCycleStatus =
-                    $"{written} of {ordered.Count} written; the keyboard refused {string.Join(", ", refused)}. " +
-                    $"Press Fn+1 to step the cycle.";
+                    string.Format(global::OmenCore.Localization.Strings.CsOfWrittenTheKeyboardRefused, written, ordered.Count, string.Join(", ", refused)) +
+                    global::OmenCore.Localization.Strings.CsPressFn1ToStepTheCycle;
             else
                 FnCycleStatus =
-                    $"{written} profile(s) written{(flashed ? "" : " (the keyboard refused the save-to-flash)")}. " +
-                    $"Showing {active?.DisplayName}. Press Fn+1 for the next, Fn+2 for the previous — " +
-                    $"this works with OmenCore closed.";
+                    string.Format(global::OmenCore.Localization.Strings.CsProfileSWritten, written, (flashed ? "" : " (the keyboard refused the save-to-flash)")) +
+                    string.Format(global::OmenCore.Localization.Strings.CsShowingPressFn1ForTheNext, active?.DisplayName) +
+                    global::OmenCore.Localization.Strings.CsThisWorksWithOmenCoreClosed;
 
             _logging.Info($"[FnCycle] Wrote {written}/{ordered.Count} profiles, flash={flashed}");
         }
@@ -524,12 +524,12 @@ namespace OmenCore.ViewModels
 
         public ObservableCollection<LightBarEffectOption> LightBarEffects { get; } = new(new[]
         {
-            new LightBarEffectOption("Colour cycle", HpWmiBios.LightBarEffect.ColorCycle),
+            new LightBarEffectOption(global::OmenCore.Localization.Strings.CsColourCycle, HpWmiBios.LightBarEffect.ColorCycle),
             new LightBarEffectOption("Starlight",    HpWmiBios.LightBarEffect.Starlight),
             new LightBarEffectOption("Breathing",    HpWmiBios.LightBarEffect.Breathing),
             new LightBarEffectOption("Wave",         HpWmiBios.LightBarEffect.Wave),
             new LightBarEffectOption("Raindrop",     HpWmiBios.LightBarEffect.Raindrop),
-            new LightBarEffectOption("Audio pulse",  HpWmiBios.LightBarEffect.AudioPulse),
+            new LightBarEffectOption(global::OmenCore.Localization.Strings.CsAudioPulse,  HpWmiBios.LightBarEffect.AudioPulse),
             new LightBarEffectOption("Confetti",     HpWmiBios.LightBarEffect.Confetti),
             new LightBarEffectOption("Sun",          HpWmiBios.LightBarEffect.Sun),
             new LightBarEffectOption("Swipe",        HpWmiBios.LightBarEffect.Swipe),
@@ -560,8 +560,8 @@ namespace OmenCore.ViewModels
         /// <summary>Shown when unelevated, so the missing controls are explained rather than absent.</summary>
         public string LightBarLimitation => SupportsLightBarEffects
             ? string.Empty
-            : "Run OmenCore as administrator for light bar brightness and animations — those go through " +
-              "HP's BIOS interface, which Windows restricts. Colour works either way.";
+            : global::OmenCore.Localization.Strings.CsRunOmenCoreAsAdministratorForLightBar
+;
 
         public ICommand ApplyLightBarColorCommand { get; }
         public ICommand ApplyLightBarEffectCommand { get; }
@@ -572,7 +572,7 @@ namespace OmenCore.ViewModels
             if (_keyboard == null) return;
 
             bool ok = _keyboard.SetLightBarColors(new[] { ToRgb(BarColorHex) }, (byte)BarBrightness);
-            BarStatus = ok ? "Light bar updated." : "The light bar refused the update.";
+            BarStatus = ok ? global::OmenCore.Localization.Strings.CsLightBarUpdated : global::OmenCore.Localization.Strings.CsTheLightBarRefusedTheUpdate;
             RefreshLightBar();
         }
 
@@ -592,14 +592,14 @@ namespace OmenCore.ViewModels
                 custom ? new[] { ToRgb(BarColorHex) } : null);
 
             BarStatus = ok
-                ? $"{SelectedBarEffect.Name} sent. There is no readback for animations — look at the bar."
-                : $"The light bar refused {SelectedBarEffect.Name}.";
+                ? string.Format(global::OmenCore.Localization.Strings.CsSentThereIsNoReadbackForAnimations, SelectedBarEffect.Name)
+                : string.Format(global::OmenCore.Localization.Strings.CsTheLightBarRefused, SelectedBarEffect.Name);
         }
 
         private void LightBarOff()
         {
             if (_keyboard == null) return;
-            BarStatus = _keyboard.SetLightBarOff() ? "Light bar off." : "The light bar refused the command.";
+            BarStatus = _keyboard.SetLightBarOff() ? global::OmenCore.Localization.Strings.CsLightBarOff : global::OmenCore.Localization.Strings.CsTheLightBarRefusedTheCommand;
         }
 
         private void RefreshLightBar()
@@ -607,7 +607,7 @@ namespace OmenCore.ViewModels
             var zones = _keyboard?.GetLightBarColors() ?? Array.Empty<(byte R, byte G, byte B)?>();
             if (zones.Length == 0) return;
 
-            BarStatus = "Now showing: " + string.Join("  ",
+            BarStatus = global::OmenCore.Localization.Strings.CsNowShowing + string.Join("  ",
                 zones.Select(z => z == null ? "??" : $"#{z.Value.R:X2}{z.Value.G:X2}{z.Value.B:X2}"));
         }
 

@@ -111,10 +111,10 @@ namespace OmenCore.ViewModels
         public string VerificationWarning =>
             !IsAvailable || (_keyboard?.IsVerifiedPerKeyDevice ?? false)
                 ? string.Empty
-                : $"This keyboard ({_keyboard?.PerKeyDeviceIdentity}) matches HP's device list for this " +
-                  "protocol but has not been confirmed on hardware here. Per-key colour is expected to " +
-                  "work and the layout is read from the keyboard itself, so it should be correct — but " +
-                  "if anything misbehaves, that is worth reporting with this device id.";
+                : string.Format(global::OmenCore.Localization.Strings.CsThisKeyboardMatchesHPSDeviceList, _keyboard?.PerKeyDeviceIdentity) +
+                  global::OmenCore.Localization.Strings.CsProtocolButHasNotBeenConfirmedOn +
+                  global::OmenCore.Localization.Strings.CsWorkAndTheLayoutIsReadFrom +
+                  global::OmenCore.Localization.Strings.CsIfAnythingMisbehavesThatIsWorthReporting;
 
         public bool HasVerificationWarning => VerificationWarning.Length > 0;
 
@@ -142,9 +142,9 @@ namespace OmenCore.ViewModels
                 var state = _keyboard?.GetDynamicLightingState();
                 if (state == null || !state.WillRepaintWhenReleased) return string.Empty;
 
-                return "Windows Dynamic Lighting is switched on for this keyboard. Your colours will " +
-                       "look right while OmenCore is open, and Windows will repaint the keyboard as " +
-                       "soon as it closes. Turn Dynamic Lighting off for this device to keep them.";
+                return global::OmenCore.Localization.Strings.CsWindowsDynamicLightingIsSwitchedOnFor
+
+;
             }
         }
 
@@ -226,14 +226,14 @@ namespace OmenCore.ViewModels
                 const string always = " A running keyboard effect cannot be dimmed — the MCU draws those itself.";
 
                 if (!HasSelection)
-                    return "Applies on the next Apply. Select keys to dim them independently." + always;
+                    return global::OmenCore.Localization.Strings.CsAppliesOnTheNextApplySelectKeys + always;
 
                 int selection = SelectionBrightness;
                 if (selection >= 100)
-                    return $"{SelectedCount} selected, at full. Applies on the next Apply." + always;
+                    return string.Format(global::OmenCore.Localization.Strings.CsSelectedAtFullAppliesOnTheNext, SelectedCount) + always;
 
-                return $"{SelectedCount} selected at {selection}% — they land at " +
-                       $"{Brightness * selection / 100}% once the master's {Brightness}% is applied." + always;
+                return string.Format(global::OmenCore.Localization.Strings.CsSelectedAtTheyLandAt, SelectedCount, selection) +
+                       string.Format(global::OmenCore.Localization.Strings.CsOnceTheMasterSIsApplied, Brightness * selection / 100, Brightness) + always;
             }
         }
 
@@ -379,7 +379,7 @@ namespace OmenCore.ViewModels
 
             if (targets.Count == 0)
             {
-                Status = "Nothing selected. Click keys, or drag a box across them.";
+                Status = global::OmenCore.Localization.Strings.CsNothingSelectedClickKeysOrDragA;
                 return;
             }
 
@@ -393,14 +393,14 @@ namespace OmenCore.ViewModels
             OnPropertyChanged(nameof(HasSelection));
             OnPropertyChanged(nameof(SelectionBrightness));
             OnPropertyChanged(nameof(BrightnessHint));
-            Status = $"Painted {targets.Count} key(s) {BrushColorHex}. " +
-                     "Keep going, then Apply to send the whole map to the keyboard.";
+            Status = string.Format(global::OmenCore.Localization.Strings.CsPaintedKeyS, targets.Count, BrushColorHex) +
+                     global::OmenCore.Localization.Strings.CsKeepGoingThenApplyToSendThe;
         }
 
         private void ClearAllColors()
         {
             foreach (var key in Keys) key.ColorHex = "#000000";
-            Status = "All keys set to black. Apply to send it.";
+            Status = global::OmenCore.Localization.Strings.CsAllKeysSetToBlackApplyTo;
         }
 
         private async Task ApplyAsync()
@@ -466,15 +466,15 @@ namespace OmenCore.ViewModels
             var parts = new List<string>();
             if (leds.Count > 0) parts.Add($"{leds.Count} LEDs {(ledsOk ? "accepted" : "REFUSED")}");
             if (colors.Count > 0) parts.Add($"{colors.Count} keys {(keysOk ? "accepted" : "REFUSED")}");
-            if (anyBar) parts.Add($"4 bar zones {(barOk ? "accepted" : "REFUSED")}");
+            if (anyBar) parts.Add(string.Format(global::OmenCore.Localization.Strings.Cs4BarZones, (barOk ? "accepted" : "REFUSED")));
 
-            Status = string.Join(", ", parts) + ". Only looking confirms it.";
+            Status = string.Join(", ", parts) + global::OmenCore.Localization.Strings.CsOnlyLookingConfirmsIt;
 
             // A backend that cannot take brightness sends the colours at full strength, and the
             // slider sitting at 20 while the keyboard blazes is exactly the silent no-op this fix
             // was for. Say it happened rather than leaving the user to infer it from the light.
             if (!brightnessOk && Brightness < 100)
-                Status += $" Brightness {Brightness} was NOT applied - this keyboard's backend has no brightness lever.";
+                Status += string.Format(global::OmenCore.Localization.Strings.CsBrightnessWasNOTAppliedThisKeyboardS, Brightness);
 
             _logging.Info($"[KeyboardMap] Apply: {leds.Count} LEDs ledsOk={ledsOk}, " +
                           $"{colors.Count} keys keysOk={keysOk}, bar={anyBar} barOk={barOk}, " +
@@ -570,8 +570,8 @@ namespace OmenCore.ViewModels
                     _configService?.Config?.KeyboardLighting?.PerKeyBrightness ?? 100, 0, 100);
 
                 if (restored > 0)
-                    Status = $"Restored the last picture ({restored} cells). " +
-                             "Apply to send it to the keyboard.";
+                    Status = string.Format(global::OmenCore.Localization.Strings.CsRestoredTheLastPictureCells, restored) +
+                             global::OmenCore.Localization.Strings.CsApplyToSendItToTheKeyboard;
 
                 _logging.Info($"[KeyboardMap] Restored {restored} of {saved.Count} saved cells");
             }
@@ -613,8 +613,8 @@ namespace OmenCore.ViewModels
             {
                 // Not fatal: the banner already says what to do, this only saves them the clicks.
                 _logging.Warn($"[KeyboardMap] Could not open the Dynamic Lighting settings page: {ex.Message}");
-                Status = "Could not open Settings. It is under " +
-                         "Settings > Personalisation > Dynamic Lighting.";
+                Status = global::OmenCore.Localization.Strings.CsCouldNotOpenSettingsItIsUnder
+;
             }
         }
 
@@ -634,10 +634,10 @@ namespace OmenCore.ViewModels
             bool flashed = await _keyboard.StoreDeviceLightingToFlashAsync();
 
             Status = flashed
-                ? "Saved to the keyboard. This picture now survives a power cycle, and shows with " +
-                  "OmenCore closed."
-                : "Applied, but the keyboard refused the save-to-flash — the picture is showing now " +
-                  "and will not survive a power cycle.";
+                ? global::OmenCore.Localization.Strings.CsSavedToTheKeyboardThisPictureNow
+
+                : global::OmenCore.Localization.Strings.CsAppliedButTheKeyboardRefusedTheSave
+;
 
             // Not a claim that the colours are right: the flash write is acknowledged over the same
             // interface that cannot read a colour back. It says the MCU took the store command.
@@ -653,7 +653,7 @@ namespace OmenCore.ViewModels
             var map = _keyboard?.GetMeasuredKeyMap() ?? Array.Empty<HidLampArray.LampInfo>();
             if (map.Count == 0)
             {
-                Status = "No measured key map on this machine.";
+                Status = global::OmenCore.Localization.Strings.CsNoMeasuredKeyMapOnThisMachine;
                 return;
             }
 
@@ -742,8 +742,8 @@ namespace OmenCore.ViewModels
             AddLightBarZones(keySize);
 
             Status = HasLightBar
-                ? $"{keyCount} keys and 4 light bar zones. Click to select, or drag a box. Hold Ctrl to add."
-                : $"{keyCount} keys. Click to select, or drag a box. Hold Ctrl to add.";
+                ? string.Format(global::OmenCore.Localization.Strings.CsKeysAnd4LightBarZonesClick, keyCount)
+                : string.Format(global::OmenCore.Localization.Strings.CsKeysClickToSelectOrDragA, keyCount);
 
             _logging.Info($"[KeyboardMap] Loaded {keyCount} keys from the measured lamp map" +
                           (HasLightBar ? ", plus 4 light bar zones" : string.Empty));
@@ -823,11 +823,11 @@ namespace OmenCore.ViewModels
 
             string verified = layout.Verified
                 ? string.Empty
-                : " This layout has not been confirmed on hardware.";
+                : global::OmenCore.Localization.Strings.CsThisLayoutHasNotBeenConfirmedOn;
 
-            Status = $"{ledCells} LEDs across {layout.Keys.Count} keys ({layout.Id})" +
-                     (HasLightBar ? " and 4 light bar zones." : ".") +
-                     " Click to select, or drag a box. Hold Ctrl to add." + verified;
+            Status = string.Format(global::OmenCore.Localization.Strings.CsLEDsAcrossKeys, ledCells, layout.Keys.Count, layout.Id) +
+                     (HasLightBar ? global::OmenCore.Localization.Strings.CsAnd4LightBarZones : ".") +
+                     global::OmenCore.Localization.Strings.CsClickToSelectOrDragABox + verified;
 
             _logging.Info($"[KeyboardMap] Loaded {ledCells} LED cells from layout {layout.Id} " +
                           $"({layout.Keys.Count} keys, verified={layout.Verified})" +
@@ -1187,8 +1187,8 @@ namespace OmenCore.ViewModels
                     // The map position is the useful half of this: it is what the probe's
                     // --positions takes, so a cell in the editor and a cell on the command line
                     // are the same thing and can be checked against each other.
-                    string which = LedCount > 1 ? $", LED {LedOrdinal} of {LedCount}" : string.Empty;
-                    return $"{HpKeyName}{which} — colour map position {LedPositions[0]}";
+                    string which = LedCount > 1 ? string.Format(global::OmenCore.Localization.Strings.CsLEDOf, LedOrdinal, LedCount) : string.Empty;
+                    return string.Format(global::OmenCore.Localization.Strings.CsColourMapPosition, HpKeyName, which, LedPositions[0]);
                 }
 
                 string lamps = LampIds.Count == 1
@@ -1196,7 +1196,7 @@ namespace OmenCore.ViewModels
                     : $"lamps {string.Join(", ", LampIds)}";
 
                 return KeyUsage == 0
-                    ? $"{lamps} — no key bound"
+                    ? string.Format(global::OmenCore.Localization.Strings.CsNoKeyBound, lamps)
                     : $"{lamps} — usage 0x{KeyUsage:X2}{(Label == "·" ? " (unnamed)" : $" ({Label})")}";
             }
         }

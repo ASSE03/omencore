@@ -24,29 +24,29 @@ namespace OmenCore.ViewModels
         {
             if (status == null)
             {
-                return "Requested: n/a | Applied: n/a | Verified: awaiting telemetry";
+                return global::OmenCore.Localization.Strings.CsRequestedNAAppliedNAVerified;
             }
 
             var requested = isAmdCpu
-                ? $"Requested: Core {requestedCoreMv:+0;-0;0} mV eq., iGPU {requestedCacheMv:+0;-0;0} mV eq."
-                : $"Requested: Core {requestedCoreMv:+0;-0;0} mV, Cache {requestedCacheMv:+0;-0;0} mV";
+                ? string.Format(global::OmenCore.Localization.Strings.CsRequestedCoreMVEqIGPUMVEq, requestedCoreMv, requestedCacheMv)
+                : string.Format(global::OmenCore.Localization.Strings.CsRequestedCoreMVCacheMV, requestedCoreMv, requestedCacheMv);
 
             var applied = isAmdCpu
-                ? $"Applied: Core {status.CurrentCoreOffsetMv:+0;-0;0} mV eq., iGPU {status.CurrentCacheOffsetMv:+0;-0;0} mV eq."
-                : $"Applied: Core {status.CurrentCoreOffsetMv:+0;-0;0} mV, Cache {status.CurrentCacheOffsetMv:+0;-0;0} mV";
+                ? string.Format(global::OmenCore.Localization.Strings.CsAppliedCoreMVEqIGPUMVEq, status.CurrentCoreOffsetMv, status.CurrentCacheOffsetMv)
+                : string.Format(global::OmenCore.Localization.Strings.CsAppliedCoreMVCacheMV, status.CurrentCoreOffsetMv, status.CurrentCacheOffsetMv);
 
             string verified;
             if (status.HasExternalController)
             {
-                verified = $"Verified: blocked by external controller ({status.ExternalController})";
+                verified = string.Format(global::OmenCore.Localization.Strings.CsVerifiedBlockedByExternalController, status.ExternalController);
             }
             else if (!string.IsNullOrWhiteSpace(status.Error))
             {
-                verified = $"Verified: failed ({status.Error})";
+                verified = string.Format(global::OmenCore.Localization.Strings.CsVerifiedFailed, status.Error);
             }
             else if (!string.IsNullOrWhiteSpace(status.Warning))
             {
-                verified = $"Verified: warning ({status.Warning})";
+                verified = string.Format(global::OmenCore.Localization.Strings.CsVerifiedWarning, status.Warning);
             }
             else
             {
@@ -56,13 +56,13 @@ namespace OmenCore.ViewModels
                               !UndervoltOffsetIsExact(status.CurrentCacheOffsetMv, requestedCacheMv);
                 verified = coreMatch && cacheMatch
                     ? (rounded
-                        ? $"Verified: applied at the nearest Curve Optimizer step ({AmdCoStepMv:0} mV eq. per step)"
+                        ? string.Format(global::OmenCore.Localization.Strings.CsVerifiedAppliedAtTheNearestCurveOptimizer, AmdCoStepMv)
                         : status.HasIndependentReadback
-                        ? "Verified: readback matches requested"
-                        : "Verified: write acknowledged (no independent hardware readback on this path)")
+                        ? global::OmenCore.Localization.Strings.CsVerifiedReadbackMatchesRequested
+                        : global::OmenCore.Localization.Strings.CsVerifiedWriteAcknowledgedNoIndependentHardwareReadback)
                     : status.ControlledByOmenCore
-                        ? "Verified: mismatch between requested and readback"
-                        : "Verified: not controlled by OmenCore";
+                        ? global::OmenCore.Localization.Strings.CsVerifiedMismatchBetweenRequestedAndReadback
+                        : global::OmenCore.Localization.Strings.CsVerifiedNotControlledByOmenCore;
             }
 
             return $"{requested} | {applied} | {verified}";
@@ -82,24 +82,24 @@ namespace OmenCore.ViewModels
         {
             if (!backendAvailable)
             {
-                return "Requested: n/a | Applied: n/a | Verified: GPU tuning backend unavailable";
+                return global::OmenCore.Localization.Strings.CsRequestedNAAppliedNAVerified_fd20c;
             }
 
-            var requested = $"Requested: Core {FormatSigned(requestedCore, "MHz")}, Mem {FormatSigned(requestedMemory, "MHz")}, Power {requestedPower}%, Voltage {FormatSigned(requestedVoltage, "mV")}";
-            var applied = $"Applied: Core {FormatSigned(appliedCore, "MHz")}, Mem {FormatSigned(appliedMemory, "MHz")}, Power {appliedPower}%, Voltage {FormatSigned(appliedVoltage, "mV")}";
+            var requested = string.Format(global::OmenCore.Localization.Strings.CsRequestedCoreMemPowerVoltage, FormatSigned(requestedCore, "MHz"), FormatSigned(requestedMemory, "MHz"), requestedPower, FormatSigned(requestedVoltage, "mV"));
+            var applied = string.Format(global::OmenCore.Localization.Strings.CsAppliedCoreMemPowerVoltage, FormatSigned(appliedCore, "MHz"), FormatSigned(appliedMemory, "MHz"), appliedPower, FormatSigned(appliedVoltage, "mV"));
 
             string verified;
             if (!allWritesSucceeded)
             {
-                verified = "Verified: one or more writes failed";
+                verified = global::OmenCore.Localization.Strings.CsVerifiedOneOrMoreWritesFailed;
             }
             else if (requestedCore == appliedCore && requestedMemory == appliedMemory && requestedPower == appliedPower && requestedVoltage == appliedVoltage)
             {
-                verified = "Verified: readback matches requested";
+                verified = global::OmenCore.Localization.Strings.CsVerifiedReadbackMatchesRequested;
             }
             else
             {
-                verified = "Verified: mismatch between requested and readback";
+                verified = global::OmenCore.Localization.Strings.CsVerifiedMismatchBetweenRequestedAndReadback;
             }
 
             return $"{requested} | {applied} | {verified}";
