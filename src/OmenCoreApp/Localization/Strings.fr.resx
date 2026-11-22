@@ -235,10 +235,7 @@
     <value>L'overclocking des GPU AMD Radeon est disponible via l'AMD Display Library. Réglez les décalages de fréquence et les limites de puissance ci-dessous.</value>
   </data>
   <data name="UiASystemRestorePointIsCreatedBefore" xml:space="preserve">
-    <value>• Un point de restauration système est créé avant d'appliquer les préréglages
-• Certaines modifications nécessitent un redémarrage pour prendre effet
-• Les optimisations à risque moyen ou élevé peuvent affecter la stabilité ou certaines fonctions du système
-• Utilisez « Tout annuler » pour retrouver les réglages d'origine à tout moment</value>
+    <value>• Un point de restauration système est créé avant d'appliquer les préréglages&#xA;• Certaines modifications nécessitent un redémarrage pour prendre effet&#xA;• Les optimisations à risque moyen ou élevé peuvent affecter la stabilité ou certaines fonctions du système&#xA;• Utilisez « Tout annuler » pour retrouver les réglages d'origine à tout moment</value>
   </data>
   <data name="UiASystemRestorePointWillBeCreated" xml:space="preserve">
     <value>ℹ️ Un point de restauration système sera créé automatiquement avant le nettoyage.</value>
@@ -684,7 +681,7 @@
   <data name="UiBalancedProfileDefaultHPPowerAndThermals" xml:space="preserve">
     <value>Profil équilibré : puissance et températures HP par défaut</value>
   </data>
-  <data name="UiBattery" xml:space="preserve">
+  <data name="UiBattery_2" xml:space="preserve">
     <value>Batterie %</value>
   </data>
   <data name="UiBatteryCare" xml:space="preserve">
@@ -774,7 +771,7 @@
   <data name="UiCPUCLOCK" xml:space="preserve">
     <value>FRÉQUENCE CPU</value>
   </data>
-  <data name="UiCPUClock" xml:space="preserve">
+  <data name="UiCPUClock_2" xml:space="preserve">
     <value>Fréquence CPU</value>
   </data>
   <data name="UiCPUCoreUndervoltMV" xml:space="preserve">
@@ -786,7 +783,7 @@
   <data name="UiCPUFREQUENCIES" xml:space="preserve">
     <value>FRÉQUENCES CPU</value>
   </data>
-  <data name="UiCPUFan" xml:space="preserve">
+  <data name="UiCPUFan_2" xml:space="preserve">
     <value>Ventilateur CPU</value>
   </data>
   <data name="UiCPUFanFan0" xml:space="preserve">
@@ -798,7 +795,7 @@
   <data name="UiCPULOAD" xml:space="preserve">
     <value>CHARGE CPU</value>
   </data>
-  <data name="UiCPULoad" xml:space="preserve">
+  <data name="UiCPULoad_2" xml:space="preserve">
     <value>Charge CPU %</value>
   </data>
   <data name="UiCPUPeak" xml:space="preserve">
@@ -819,7 +816,7 @@
   <data name="UiCPUTempOverride" xml:space="preserve">
     <value>Forçage de la temp. CPU :</value>
   </data>
-  <data name="UiCPUTemperature" xml:space="preserve">
+  <data name="UiCPUTemperature_2" xml:space="preserve">
     <value>Température CPU</value>
   </data>
   <data name="UiCPUTemperatureAndUtilizationGreenOKYellow" xml:space="preserve">
@@ -1770,7 +1767,7 @@
   <data name="UiFactoryFanCurveInPerformanceModeExperimental" xml:space="preserve">
     <value>Courbe de ventilation d'usine en mode Performance (expérimental)</value>
   </data>
-  <data name="UiFan" xml:space="preserve">
+  <data name="UiFan_2" xml:space="preserve">
     <value>Ventil. :</value>
   </data>
   <data name="UiFan68Efficient" xml:space="preserve">
@@ -1809,7 +1806,7 @@
   <data name="UiFanMaxVerificationRunsAQuickVerification" xml:space="preserve">
     <value>Vérification du mode Max des ventilateurs (vérifie rapidement le préréglage « Max »)</value>
   </data>
-  <data name="UiFanMode" xml:space="preserve">
+  <data name="UiFanMode_2" xml:space="preserve">
     <value>Mode ventilation</value>
   </data>
   <data name="UiFanModeCustom" xml:space="preserve">
@@ -1851,7 +1848,7 @@
   <data name="UiFanSpeeds" xml:space="preserve">
     <value>🌀 Vitesse des ventilateurs</value>
   </data>
-  <data name="UiFans" xml:space="preserve">
+  <data name="UiFans_2" xml:space="preserve">
     <value>Ventilateurs</value>
   </data>
   <data name="UiFansFollowTheActivePerformanceProfileBIOS" xml:space="preserve">
@@ -1953,7 +1950,7 @@
   <data name="UiGPUFAN" xml:space="preserve">
     <value>VENTILATEUR GPU</value>
   </data>
-  <data name="UiGPUFan" xml:space="preserve">
+  <data name="UiGPUFan_2" xml:space="preserve">
     <value>Ventilateur GPU</value>
   </data>
   <data name="UiGPUFanCurveSupportStatus" xml:space="preserve">
@@ -1968,7 +1965,7 @@
   <data name="UiGPULOAD" xml:space="preserve">
     <value>CHARGE GPU</value>
   </data>
-  <data name="UiGPULoad" xml:space="preserve">
+  <data name="UiGPULoad_2" xml:space="preserve">
     <value>Charge GPU %</value>
   </data>
   <data name="UiGPUMUXSwitch" xml:space="preserve">
@@ -2013,7 +2010,7 @@
   <data name="UiGPUTemp" xml:space="preserve">
     <value>Temp. GPU</value>
   </data>
-  <data name="UiGPUTemperature" xml:space="preserve">
+  <data name="UiGPUTemperature_2" xml:space="preserve">
     <value>Température GPU</value>
   </data>
   <data name="UiGPUTemperatureLoadAndVRAMUsageGPUs" xml:space="preserve">
@@ -2130,7 +2127,7 @@
   <data name="UiHPOMENSpecificFeaturesPerformanceModesFan" xml:space="preserve">
     <value>Fonctions propres aux HP OMEN : modes de performance, courbes de ventilation, changement de GPU</value>
   </data>
-  <data name="UiHPOmenKeyboard" xml:space="preserve">
+  <data name="UiHPOmenKeyboard_2" xml:space="preserve">
     <value>Clavier HP Omen :</value>
   </data>
   <data name="UiHPSOfficialControlSoftwareProvidesWMI" xml:space="preserve">
@@ -2313,7 +2310,7 @@
   <data name="UiInstallUpdate" xml:space="preserve">
     <value>Installer la mise à jour</value>
   </data>
-  <data name="UiInstalled" xml:space="preserve">
+  <data name="UiInstalled_2" xml:space="preserve">
     <value>✓ Installé</value>
   </data>
   <data name="UiInstantApply" xml:space="preserve">
@@ -2670,7 +2667,7 @@
   <data name="UiMinutesToWaitForReconnectionBeforeWorker" xml:space="preserve">
     <value>Minutes d'attente d'une reconnexion avant l'arrêt du processus de mesure</value>
   </data>
-  <data name="UiMode" xml:space="preserve">
+  <data name="UiMode_2" xml:space="preserve">
     <value>Mode</value>
   </data>
   <data name="UiModeChangeNotifications" xml:space="preserve">
@@ -3123,13 +3120,13 @@
   <data name="UiPerform" xml:space="preserve">
     <value>Perf.</value>
   </data>
-  <data name="UiPerformance" xml:space="preserve">
+  <data name="UiPerformance_2" xml:space="preserve">
     <value>Performance</value>
   </data>
   <data name="UiPerformanceAndPowerModeSwitching" xml:space="preserve">
     <value>Changement de mode de performance et de puissance</value>
   </data>
-  <data name="UiPerformanceMode" xml:space="preserve">
+  <data name="UiPerformanceMode_2" xml:space="preserve">
     <value>Mode de performance</value>
   </data>
   <data name="UiPerformanceModeAction" xml:space="preserve">
@@ -3195,7 +3192,7 @@
   <data name="UiPowerAutomation" xml:space="preserve">
     <value>Automatisation selon l'alimentation</value>
   </data>
-  <data name="UiPowerConsumption" xml:space="preserve">
+  <data name="UiPowerConsumption_2" xml:space="preserve">
     <value>⚡ Consommation</value>
   </data>
   <data name="UiPowerEfficiency" xml:space="preserve">
@@ -3204,7 +3201,7 @@
   <data name="UiPowerLevel" xml:space="preserve">
     <value>Niveau de puissance :</value>
   </data>
-  <data name="UiPowerLimit" xml:space="preserve">
+  <data name="UiPowerLimit_2" xml:space="preserve">
     <value> limite de puissance</value>
   </data>
   <data name="UiPowerLimitLocked" xml:space="preserve">
@@ -3372,7 +3369,7 @@
   <data name="UiRAMUSAGE" xml:space="preserve">
     <value>MÉMOIRE VIVE</value>
   </data>
-  <data name="UiRAMUsage" xml:space="preserve">
+  <data name="UiRAMUsage_2" xml:space="preserve">
     <value>Utilisation de la RAM</value>
   </data>
   <data name="UiRAM_c5660" xml:space="preserve">
@@ -3651,7 +3648,7 @@
   <data name="UiRemove_3f703" xml:space="preserve">
     <value>− Retirer</value>
   </data>
-  <data name="UiRemoved" xml:space="preserve">
+  <data name="UiRemoved_2" xml:space="preserve">
     <value>Supprimés</value>
   </data>
   <data name="UiRemovesCachedPagesFromStandbyMemory" xml:space="preserve">
@@ -4281,7 +4278,7 @@
   <data name="UiSyncKeyboardPeripheralsWithScreenColorsAmbilight" xml:space="preserve">
     <value>Synchronise clavier et périphériques avec les couleurs de l'écran (façon Ambilight)</value>
   </data>
-  <data name="UiSystem" xml:space="preserve">
+  <data name="UiSystem_2" xml:space="preserve">
     <value>Système</value>
   </data>
   <data name="UiSystemActivity" xml:space="preserve">
@@ -4626,7 +4623,7 @@
   <data name="UiUseKeyboardShortcutsEvenWhenAppIs" xml:space="preserve">
     <value>Utilise les raccourcis clavier même quand l'appli est en arrière-plan</value>
   </data>
-  <data name="UiUsed" xml:space="preserve">
+  <data name="UiUsed_2" xml:space="preserve">
     <value>% utilisé</value>
   </data>
   <data name="UiUserDefinedFanCurvesAndPowerSettings" xml:space="preserve">
@@ -4683,7 +4680,7 @@
   <data name="UiVisualEffects" xml:space="preserve">
     <value>Effets visuels</value>
   </data>
-  <data name="UiVoltage" xml:space="preserve">
+  <data name="UiVoltage_2" xml:space="preserve">
     <value>Tension</value>
   </data>
   <data name="UiVoltageOffsetAdjustmentRequiresCompatibleCPU" xml:space="preserve">
@@ -4818,35 +4815,22 @@
     <value>1 cible d'éclairage active</value>
   </data>
   <data name="Cs1CloseThrottleStopFromTheSystemTray" xml:space="preserve">
-    <value>1. Fermez ThrottleStop depuis la zone de notification
-2. Désactivez le lancement automatique de ThrottleStop (décochez « Start Minimized »)
-3. Redémarrez OmenCore pour qu'il prenne le contrôle de la tension</value>
+    <value>1. Fermez ThrottleStop depuis la zone de notification&#xA;2. Désactivez le lancement automatique de ThrottleStop (décochez « Start Minimized »)&#xA;3. Redémarrez OmenCore pour qu'il prenne le contrôle de la tension</value>
   </data>
   <data name="Cs1OpenServicesWinRServicesMsc" xml:space="preserve">
-    <value>1. Ouvrez Services (Win+R → services.msc)
-2. Trouvez le service « Intel(R) Extreme Tuning Utility »
-3. Clic droit → Arrêter, puis réglez le type de démarrage sur « Désactivé »
-4. Désinstallez éventuellement XTU depuis le Panneau de configuration
-5. Redémarrez OmenCore</value>
+    <value>1. Ouvrez Services (Win+R → services.msc)&#xA;2. Trouvez le service « Intel(R) Extreme Tuning Utility »&#xA;3. Clic droit → Arrêter, puis réglez le type de démarrage sur « Désactivé »&#xA;4. Désinstallez éventuellement XTU depuis le Panneau de configuration&#xA;5. Redémarrez OmenCore</value>
   </data>
   <data name="Cs1OpenServicesWinRServicesMsc_a0218" xml:space="preserve">
-    <value>1. Ouvrez Services (Win+R → services.msc)
-2. Trouvez « Intel(R) Dynamic Tuning Service »
-3. Arrêtez et désactivez le service
-4. Remarque : cela peut affecter la gestion thermique d'Intel</value>
+    <value>1. Ouvrez Services (Win+R → services.msc)&#xA;2. Trouvez « Intel(R) Dynamic Tuning Service »&#xA;3. Arrêtez et désactivez le service&#xA;4. Remarque : cela peut affecter la gestion thermique d'Intel</value>
   </data>
   <data name="Cs1OpenWindowsSecurityDeviceSecurityCore" xml:space="preserve">
-    <value>1. Ouvrez Sécurité Windows → Sécurité de l'appareil → Isolation du noyau
-</value>
+    <value>1. Ouvrez Sécurité Windows → Sécurité de l'appareil → Isolation du noyau&#xA;</value>
   </data>
   <data name="Cs1RestartYourLaptopHoldPower10" xml:space="preserve">
-    <value>1. Redémarrez votre PC portable (maintenez le bouton d'alimentation 10 secondes)
-</value>
+    <value>1. Redémarrez votre PC portable (maintenez le bouton d'alimentation 10 secondes)&#xA;</value>
   </data>
   <data name="Cs1UseOmenCoreSCleanOMENGaming" xml:space="preserve">
-    <value>1. Utilisez la fonction « Nettoyage de HP OMEN Gaming Hub » d'OmenCore dans les Paramètres
-2. Ou désinstallez OGH depuis Panneau de configuration → Programmes
-3. Redémarrez l'ordinateur après la suppression</value>
+    <value>1. Utilisez la fonction « Nettoyage de HP OMEN Gaming Hub » d'OmenCore dans les Paramètres&#xA;2. Ou désinstallez OGH depuis Panneau de configuration → Programmes&#xA;3. Redémarrez l'ordinateur après la suppression</value>
   </data>
   <data name="Cs23Removing" xml:space="preserve">
     <value>[2/3] Suppression {0}/{1} : {2}...</value>
@@ -4858,21 +4842,16 @@
     <value>Boost GPU +25 W</value>
   </data>
   <data name="Cs2DisableMemoryIntegrity" xml:space="preserve">
-    <value>2. Désactivez « Intégrité de la mémoire »
-</value>
+    <value>2. Désactivez « Intégrité de la mémoire »&#xA;</value>
   </data>
   <data name="Cs33CleanupComplete" xml:space="preserve">
     <value>[3/3] Nettoyage terminé !</value>
   </data>
   <data name="Cs3OrReinstallOmenCore" xml:space="preserve">
-    <value>3. Ou réinstallez OmenCore
-
-</value>
+    <value>3. Ou réinstallez OmenCore&#xA;&#xA;</value>
   </data>
   <data name="Cs3RestartYourComputer" xml:space="preserve">
-    <value>3. Redémarrez l'ordinateur
-
-</value>
+    <value>3. Redémarrez l'ordinateur&#xA;&#xA;</value>
   </data>
   <data name="Cs4BarZones" xml:space="preserve">
     <value>4 zones de barre {0}</value>
@@ -4887,22 +4866,10 @@
     <value>Secteur recommandé</value>
   </data>
   <data name="CsAConflictingToolIsRunningApplyingA" xml:space="preserve">
-    <value>Un outil en conflit est lancé :
-
-{0}
-
-Appliquer un undervolt CPU pendant que cet outil est actif peut provoquer une instabilité ou un plantage.
-
-Voulez-vous quand même continuer ?</value>
+    <value>Un outil en conflit est lancé :&#xA;&#xA;{0}&#xA;&#xA;Appliquer un undervolt CPU pendant que cet outil est actif peut provoquer une instabilité ou un plantage.&#xA;&#xA;Voulez-vous quand même continuer ?</value>
   </data>
   <data name="CsAConflictingToolIsRunningApplyingGPU" xml:space="preserve">
-    <value>Un outil en conflit est lancé :
-
-{0}
-
-Appliquer un overclocking GPU pendant que cet outil est actif peut provoquer une instabilité ou un plantage du pilote.
-
-Voulez-vous quand même continuer ?</value>
+    <value>Un outil en conflit est lancé :&#xA;&#xA;{0}&#xA;&#xA;Appliquer un overclocking GPU pendant que cet outil est actif peut provoquer une instabilité ou un plantage du pilote.&#xA;&#xA;Voulez-vous quand même continuer ?</value>
   </data>
   <data name="CsAD3DDXGIOverlayHookPossiblyRTSS" xml:space="preserve">
     <value>Un hook de surcouche D3D/DXGI (peut-être RTSS, un outil de surcouche ou un anti-triche de jeu) a corrompu le thread de rendu d'OmenCore.</value>
@@ -4920,9 +4887,7 @@ Voulez-vous quand même continuer ?</value>
     <value>valeurs par défaut de puissance CPU AMD</value>
   </data>
   <data name="CsAMDDetected" xml:space="preserve">
-    <value>AMD {0} détecté.
-
-</value>
+    <value>AMD {0} détecté.&#xA;&#xA;</value>
   </data>
   <data name="CsAMDGPUOCAppliedCoreMHzMem" xml:space="preserve">
     <value>OC GPU AMD appliqué : cœurs {0:+#;-#;0} MHz, mémoire {1:+#;-#;0} MHz, puissance {2} %</value>
@@ -4964,25 +4929,16 @@ Voulez-vous quand même continuer ?</value>
     <value>AMD utilise le Curve Optimizer (CO) au lieu d'écrire directement un décalage en mV. Plus la valeur est négative, plus l'undervolt CO est fort.</value>
   </data>
   <data name="CsANewVersionIsAvailableCurrentLatest" xml:space="preserve">
-    <value>Une nouvelle version est disponible !
-
-Actuelle : {0}
-Dernière : {1}
-
-Voulez-vous la télécharger et l'installer maintenant ?</value>
+    <value>Une nouvelle version est disponible !&#xA;&#xA;Actuelle : {0}&#xA;Dernière : {1}&#xA;&#xA;Voulez-vous la télécharger et l'installer maintenant ?</value>
   </data>
   <data name="CsANewVersionIsAvailableOnGitHub" xml:space="preserve">
     <value>Une nouvelle version est disponible sur GitHub. Ouvrir la page de la version maintenant ?</value>
   </data>
   <data name="CsASystemRestartIsRequiredForChanges" xml:space="preserve">
-    <value>Un redémarrage du système est nécessaire pour appliquer les changements.
-
-</value>
+    <value>Un redémarrage du système est nécessaire pour appliquer les changements.&#xA;&#xA;</value>
   </data>
   <data name="CsASystemRestorePointWillBeCreated" xml:space="preserve">
-    <value>Un point de restauration système sera créé avant les modifications.
-
-</value>
+    <value>Un point de restauration système sera créé avant les modifications.&#xA;&#xA;</value>
   </data>
   <data name="CsAccentColourCustomisation" xml:space="preserve">
     <value>Personnalisation de la couleur d'accent</value>
@@ -5053,7 +5009,7 @@ Voulez-vous la télécharger et l'installer maintenant ?</value>
   <data name="CsAppliedOptimizationS" xml:space="preserve">
     <value>{0} optimisation(s) {1} appliquée(s)</value>
   </data>
-  <data name="CsAppliedOptimizations" xml:space="preserve">
+  <data name="CsAppliedOptimizations_2" xml:space="preserve">
     <value>{0}/{1} optimisations appliquées</value>
   </data>
   <data name="CsAppliedOptimizationsFailed" xml:space="preserve">
@@ -5120,9 +5076,7 @@ Voulez-vous la télécharger et l'installer maintenant ?</value>
     <value>Appliquer l'undervolt</value>
   </data>
   <data name="CsApplyWThisChangesTheGPUS" xml:space="preserve">
-    <value>Appliquer {0} {1} W ?
-
-Cela change la limite de puissance du GPU au-delà du réglage du fabricant du PC. </value>
+    <value>Appliquer {0} {1} W ?&#xA;&#xA;Cela change la limite de puissance du GPU au-delà du réglage du fabricant du PC. </value>
   </data>
   <data name="CsApplyYourCustomFanCurveDefinedIn" xml:space="preserve">
     <value>Applique la courbe de ventilation personnalisée définie dans l'éditeur ci-dessous.</value>
@@ -5212,13 +5166,7 @@ Cela change la limite de puissance du GPU au-delà du réglage du fabricant du P
     <value>Mode Auto : le firmware gère les ventilateurs</value>
   </data>
   <data name="CsAutoStartRequiresAdministratorPrivilegesToCreate" xml:space="preserve">
-    <value>Le lancement automatique nécessite des droits administrateur pour créer une tâche planifiée.
-
-Pour l'activer :
-1. Clic droit sur OmenCore puis « Exécuter en tant qu'administrateur »
-2. Allez dans Paramètres et réactivez « Lancer avec Windows »
-
-Ou relancez l'installateur en cochant l'option « Lancer avec Windows ».</value>
+    <value>Le lancement automatique nécessite des droits administrateur pour créer une tâche planifiée.&#xA;&#xA;Pour l'activer :&#xA;1. Clic droit sur OmenCore puis « Exécuter en tant qu'administrateur »&#xA;2. Allez dans Paramètres et réactivez « Lancer avec Windows »&#xA;&#xA;Ou relancez l'installateur en cochant l'option « Lancer avec Windows ».</value>
   </data>
   <data name="CsAutoSystemControlled" xml:space="preserve">
     <value>✓ Auto — géré par le système</value>
@@ -5302,24 +5250,13 @@ Ou relancez l'installateur en cochant l'option « Lancer avec Windows ».</value
     <value>Limite de charge de la batterie</value>
   </data>
   <data name="CsBatteryChargeLimitCannotBeSetHP" xml:space="preserve">
-    <value>Impossible de définir la limite de charge : l'interface HP WMI BIOS n'est pas disponible.
-
-Cette fonction nécessite un PC portable HP OMEN/Victus avec prise en charge WMI BIOS.</value>
+    <value>Impossible de définir la limite de charge : l'interface HP WMI BIOS n'est pas disponible.&#xA;&#xA;Cette fonction nécessite un PC portable HP OMEN/Victus avec prise en charge WMI BIOS.</value>
   </data>
   <data name="CsBatteryChargeLimitCommandFailedThisMay" xml:space="preserve">
-    <value>La commande de limite de charge a échoué.
-
-Causes possibles :
-• Votre modèle ne prend pas en charge cette fonction
-• Le BIOS HP doit être mis à jour
-• L'adaptateur secteur n'est pas branché
-
-Essayez de basculer ce réglage dans OMEN Gaming Hub pour comparer.</value>
+    <value>La commande de limite de charge a échoué.&#xA;&#xA;Causes possibles :&#xA;• Votre modèle ne prend pas en charge cette fonction&#xA;• Le BIOS HP doit être mis à jour&#xA;• L'adaptateur secteur n'est pas branché&#xA;&#xA;Essayez de basculer ce réglage dans OMEN Gaming Hub pour comparer.</value>
   </data>
   <data name="CsBatteryHysteresisSettings" xml:space="preserve">
-    <value>• Les réglages de batterie et d'hystérésis
-
-</value>
+    <value>• Les réglages de batterie et d'hystérésis&#xA;&#xA;</value>
   </data>
   <data name="CsBatteryUnavailable" xml:space="preserve">
     <value>Batterie indisponible</value>
@@ -5334,9 +5271,7 @@ Essayez de basculer ce réglage dans OMEN Gaming Hub pour comparer.</value>
     <value>Suppression des logiciels superflus terminée</value>
   </data>
   <data name="CsBloatwareRemovalComplete_252f4" xml:space="preserve">
-    <value>✓ Suppression des logiciels superflus terminée !
-
-</value>
+    <value>✓ Suppression des logiciels superflus terminée !&#xA;&#xA;</value>
   </data>
   <data name="CsBoostModeActivatedHotkey" xml:space="preserve">
     <value>🔥 Mode boost activé (raccourci)</value>
@@ -5369,13 +5304,10 @@ Essayez de basculer ce réglage dans OMEN Gaming Hub pour comparer.</value>
     <value>{0:0} °C et relancez le diagnostic.</value>
   </data>
   <data name="CsCORequiresSpecificSMUSystemManagementUnit" xml:space="preserve">
-    <value>Le CO nécessite des commandes SMU (System Management Unit) précises, qui peuvent être indisponibles ou ne pas fonctionner sur tous les modèles.
-
-</value>
+    <value>Le CO nécessite des commandes SMU (System Management Unit) précises, qui peuvent être indisponibles ou ne pas fonctionner sur tous les modèles.&#xA;&#xA;</value>
   </data>
   <data name="CsCPU" xml:space="preserve">
-    <value>CPU : {0} @ {1:F0}%
-</value>
+    <value>CPU : {0} @ {1:F0}%&#xA;</value>
   </data>
   <data name="CsCPUC" xml:space="preserve">
     <value>CPU : --°C · --%</value>
@@ -5402,17 +5334,10 @@ Essayez de basculer ce réglage dans OMEN Gaming Hub pour comparer.</value>
     <value>réinitialisation PL1/PL2 CPU au démarrage</value>
   </data>
   <data name="CsCPUPowerLimitsAreLockedByBIOS" xml:space="preserve">
-    <value>Les limites de puissance CPU sont verrouillées par le BIOS et ne peuvent pas être modifiées.
-
-Ce verrou est posé au démarrage et dure jusqu'au prochain redémarrage.
-Certains PC portables nécessitent des réglages BIOS précis ou le mode Unleashed pour le lever.
-
-Sur un OMEN 16-am0xxx (8D2F) Intel Core Ultra, les curseurs PL1/PL2 directs peuvent rester verrouillés alors que la politique des modes de performance OMEN/OGH fonctionne toujours.</value>
+    <value>Les limites de puissance CPU sont verrouillées par le BIOS et ne peuvent pas être modifiées.&#xA;&#xA;Ce verrou est posé au démarrage et dure jusqu'au prochain redémarrage.&#xA;Certains PC portables nécessitent des réglages BIOS précis ou le mode Unleashed pour le lever.&#xA;&#xA;Sur un OMEN 16-am0xxx (8D2F) Intel Core Ultra, les curseurs PL1/PL2 directs peuvent rester verrouillés alors que la politique des modes de performance OMEN/OGH fonctionne toujours.</value>
   </data>
   <data name="CsCPUPowerLimitsCannotBeAppliedMSR" xml:space="preserve">
-    <value>Impossible d'appliquer les limites de puissance CPU : l'accès MSR n'est pas disponible.
-
-Installez le pilote PawnIO depuis pawnio.eu pour contrôler les limites de puissance.</value>
+    <value>Impossible d'appliquer les limites de puissance CPU : l'accès MSR n'est pas disponible.&#xA;&#xA;Installez le pilote PawnIO depuis pawnio.eu pour contrôler les limites de puissance.</value>
   </data>
   <data name="CsCPUPowerLimitsLockedReadOnly" xml:space="preserve">
     <value>limites de puissance CPU verrouillées/en lecture seule</value>
@@ -5427,8 +5352,7 @@ Installez le pilote PawnIO depuis pawnio.eu pour contrôler les limites de puiss
     <value>Source de température CPU : {0}</value>
   </data>
   <data name="CsCPUTemperatureSource_10524" xml:space="preserve">
-    <value>Source de température CPU : {0}
-{1}</value>
+    <value>Source de température CPU : {0}&#xA;{1}</value>
   </data>
   <data name="CsCPUUndervolt" xml:space="preserve">
     <value>Undervolt CPU</value>
@@ -5464,9 +5388,7 @@ Installez le pilote PawnIO depuis pawnio.eu pour contrôler les limites de puiss
     <value>Undervolt CPU</value>
   </data>
   <data name="CsCPUUndervoltingAndTCCOffsetIntelMSR" xml:space="preserve">
-    <value>• Undervolt CPU et décalage TCC (MSR Intel)
-
-</value>
+    <value>• Undervolt CPU et décalage TCC (MSR Intel)&#xA;&#xA;</value>
   </data>
   <data name="CsCPUUndervoltingSettings" xml:space="preserve">
     <value>Réglages d'undervolt CPU</value>
@@ -5490,8 +5412,7 @@ Installez le pilote PawnIO depuis pawnio.eu pour contrôler les limites de puiss
     <value>Fréquence indisponible</value>
   </data>
   <data name="CsCalibratedFor" xml:space="preserve">
-    <value>Étalonné pour : {0}
-</value>
+    <value>Étalonné pour : {0}&#xA;</value>
   </data>
   <data name="CsCalibrationAvailableCreated" xml:space="preserve">
     <value>Étalonnage disponible (créé le {0})</value>
@@ -5593,8 +5514,7 @@ Installez le pilote PawnIO depuis pawnio.eu pour contrôler les limites de puiss
     <value>Rechercher des mises à jour</value>
   </data>
   <data name="CsCheckIfYourBIOSHasAnOption" xml:space="preserve">
-    <value>• Vérifiez si votre BIOS propose une option pour déverrouiller l'overclocking/undervolt
-</value>
+    <value>• Vérifiez si votre BIOS propose une option pour déverrouiller l'overclocking/undervolt&#xA;</value>
   </data>
   <data name="CsCheckSettingsStatusForDriverDetails" xml:space="preserve">
     <value>Consultez Paramètres → État pour les détails du pilote</value>
@@ -5666,8 +5586,7 @@ Installez le pilote PawnIO depuis pawnio.eu pour contrôler les limites de puiss
     <value>Fermez ou désactivez l'application externe, puis redémarrez OmenCore.</value>
   </data>
   <data name="CsCloseRTSSMSIAfterburnerOverlayBeforeStarting" xml:space="preserve">
-    <value>  • Fermez la surcouche RTSS / MSI Afterburner avant de lancer OmenCore, OU
-</value>
+    <value>  • Fermez la surcouche RTSS / MSI Afterburner avant de lancer OmenCore, OU&#xA;</value>
   </data>
   <data name="CsCollectingApplicationLogs" xml:space="preserve">
     <value>Collecte des journaux de l'application...</value>
@@ -5721,9 +5640,7 @@ Installez le pilote PawnIO depuis pawnio.eu pour contrôler les limites de puiss
     <value>✓ Configuration importée - redémarrage recommandé</value>
   </data>
   <data name="CsConfigurationImportedSuccessfullyPleaseRestartOmenCoreFor" xml:space="preserve">
-    <value>Configuration importée avec succès !
-
-Redémarrez OmenCore pour appliquer tous les changements.</value>
+    <value>Configuration importée avec succès !&#xA;&#xA;Redémarrez OmenCore pour appliquer tous les changements.</value>
   </data>
   <data name="CsConfigurationReloaded" xml:space="preserve">
     <value>Configuration rechargée</value>
@@ -5816,9 +5733,7 @@ Redémarrez OmenCore pour appliquer tous les changements.</value>
     <value>Impossible de rétablir le contrôle automatique du BIOS avec cette méthode</value>
   </data>
   <data name="CsCreateAWindowsRestorePointBeforeRemoving" xml:space="preserve">
-    <value>Créer un point de restauration Windows avant de supprimer {0} élément(s) ?
-
-Recommandé par sécurité avant des modifications du système.</value>
+    <value>Créer un point de restauration Windows avant de supprimer {0} élément(s) ?&#xA;&#xA;Recommandé par sécurité avant des modifications du système.</value>
   </data>
   <data name="CsCreateRestorePoint" xml:space="preserve">
     <value>Créer un point de restauration</value>
@@ -5833,8 +5748,7 @@ Recommandé par sécurité avant des modifications du système.</value>
     <value>Création d'un point de restauration système...</value>
   </data>
   <data name="CsCurrentRPMLevelSourceEstimatedSpeed" xml:space="preserve">
-    <value>Actuel : {0} tr/min (niveau : {1}, source : {2})
-Estimé : ~{3} % de vitesse</value>
+    <value>Actuel : {0} tr/min (niveau : {1}, source : {2})&#xA;Estimé : ~{3} % de vitesse</value>
   </data>
   <data name="CsCurrentW" xml:space="preserve">
     <value>Actuel : {0:F0} W</value>
@@ -5903,9 +5817,7 @@ Estimé : ~{3} % de vitesse</value>
     <value>Parcourir les modes de performance</value>
   </data>
   <data name="CsDANGERHIGHRISKEXPERIMENTALFEATURE" xml:space="preserve">
-    <value>🛑 DANGER : FONCTION EXPÉRIMENTALE À HAUT RISQUE 🛑
-
-</value>
+    <value>🛑 DANGER : FONCTION EXPÉRIMENTALE À HAUT RISQUE 🛑&#xA;&#xA;</value>
   </data>
   <data name="CsDGPUIdleLoad" xml:space="preserve">
     <value>dGPU en veille • charge {0:F0}%{1}</value>
@@ -5971,8 +5883,7 @@ Estimé : ~{3} % de vitesse</value>
     <value>fournir. Si les performances sont plus basses que prévu, c'est la première piste à écarter.</value>
   </data>
   <data name="CsDependingOnYourSystemYouCanUse" xml:space="preserve">
-    <value>Selon votre système, vous pouvez utiliser :
-</value>
+    <value>Selon votre système, vous pouvez utiliser :&#xA;</value>
   </data>
   <data name="CsDetectedClockLimitsForCoreMemoryPower" xml:space="preserve">
     <value>Limites de fréquence détectées pour {0} : cœurs {1}, mémoire {2}. L'écriture de la limite de puissance est verrouillée.</value>
@@ -6029,12 +5940,10 @@ Estimé : ~{3} % de vitesse</value>
     <value>Autre surface ou surface inconnue modifiée</value>
   </data>
   <data name="CsDirectECFanControlSomeModels" xml:space="preserve">
-    <value>• Contrôle direct des ventilateurs via l'EC (certains modèles)
-</value>
+    <value>• Contrôle direct des ventilateurs via l'EC (certains modèles)&#xA;</value>
   </data>
   <data name="CsDirectECKeyboardWritesCanCause" xml:space="preserve">
-    <value>L'écriture directe dans l'EC pour le clavier peut provoquer :
-</value>
+    <value>L'écriture directe dans l'EC pour le clavier peut provoquer :&#xA;</value>
   </data>
   <data name="CsDisablesAcrylicAndTransparencyEffectsToReduce" xml:space="preserve">
     <value>Désactive les effets acrylique et de transparence pour réduire le coût de composition et les distractions visuelles.</value>
@@ -6118,9 +6027,7 @@ Estimé : ~{3} % de vitesse</value>
     <value>Ne rien faire (bloquer la touche)</value>
   </data>
   <data name="CsDoYouWantToContinueWithThe" xml:space="preserve">
-    <value>Voulez-vous quand même continuer le nettoyage ?
-
-</value>
+    <value>Voulez-vous quand même continuer le nettoyage ?&#xA;&#xA;</value>
   </data>
   <data name="CsDone" xml:space="preserve">
     <value>{0}/{1} effectués</value>
@@ -6162,19 +6069,10 @@ Estimé : ~{3} % de vitesse</value>
     <value>Point de température en double à {0} °C. Chaque température ne peut apparaître qu'une fois.</value>
   </data>
   <data name="CsECBackendSelectedUsingECForKeyboard" xml:space="preserve">
-    <value>⚠️ Méthode EC choisie ⚠️
-
-Utiliser l'EC pour le clavier nécessite de cocher « Activer le clavier EC ».
-
-Voulez-vous activer la prise en charge expérimentale du clavier EC ?
-(Attention : cela peut faire planter le système sur certains modèles)</value>
+    <value>⚠️ Méthode EC choisie ⚠️&#xA;&#xA;Utiliser l'EC pour le clavier nécessite de cocher « Activer le clavier EC ».&#xA;&#xA;Voulez-vous activer la prise en charge expérimentale du clavier EC ?&#xA;(Attention : cela peut faire planter le système sur certains modèles)</value>
   </data>
   <data name="CsECHasBeenResetToFactoryDefaults" xml:space="preserve">
-    <value>L'EC a été remis à ses valeurs d'usine.
-
-Le BIOS devrait maintenant contrôler entièrement les ventilateurs.
-Si le BIOS affiche toujours des valeurs incorrectes,
-redémarrez votre PC portable.</value>
+    <value>L'EC a été remis à ses valeurs d'usine.&#xA;&#xA;Le BIOS devrait maintenant contrôler entièrement les ventilateurs.&#xA;Si le BIOS affiche toujours des valeurs incorrectes,&#xA;redémarrez votre PC portable.</value>
   </data>
   <data name="CsECKeyboardRegisters0xB20xBEVaryBy" xml:space="preserve">
     <value>Les registres clavier de l'EC (0xB2-0xBE) varient selon le modèle. Écrire à de mauvaises adresses </value>
@@ -6186,10 +6084,7 @@ redémarrez votre PC portable.</value>
     <value>Échec de la réinitialisation de l'EC</value>
   </data>
   <data name="CsECResetMayHavePartiallyCompletedSome" xml:space="preserve">
-    <value>La réinitialisation de l'EC n'est peut-être que partielle.
-
-Certains systèmes nécessitent un redémarrage complet
-pour que tous les changements prennent effet.</value>
+    <value>La réinitialisation de l'EC n'est peut-être que partielle.&#xA;&#xA;Certains systèmes nécessitent un redémarrage complet&#xA;pour que tous les changements prennent effet.</value>
   </data>
   <data name="CsECResetResult" xml:space="preserve">
     <value>Résultat de la réinitialisation de l'EC</value>
@@ -6201,18 +6096,7 @@ pour que tous les changements prennent effet.</value>
     <value>ACTIVER À VOS RISQUES ET PÉRILS ?</value>
   </data>
   <data name="CsEXCLUSIVEECACCESSDIAGNOSTICSThisDiagnosticMode" xml:space="preserve">
-    <value>⚠️ DIAGNOSTIC EC À ACCÈS EXCLUSIF ⚠️
-
-Ce mode de diagnostic va :
-• Prendre un accès exclusif aux registres de l'EC
-• Empêcher les autres applications d'accéder à l'EC
-• Journaliser en détail les conflits d'accès
-• Pouvoir gêner OMEN Gaming Hub ou d'autres applis de contrôle des ventilateurs
-
-À utiliser uniquement pour dépanner des conflits sur les registres de l'EC.
-Il aide à savoir si d'autres applis provoquent des ventilateurs à 0 tr/min.
-
-Activer le mode de diagnostic exclusif ?</value>
+    <value>⚠️ DIAGNOSTIC EC À ACCÈS EXCLUSIF ⚠️&#xA;&#xA;Ce mode de diagnostic va :&#xA;• Prendre un accès exclusif aux registres de l'EC&#xA;• Empêcher les autres applications d'accéder à l'EC&#xA;• Journaliser en détail les conflits d'accès&#xA;• Pouvoir gêner OMEN Gaming Hub ou d'autres applis de contrôle des ventilateurs&#xA;&#xA;À utiliser uniquement pour dépanner des conflits sur les registres de l'EC.&#xA;Il aide à savoir si d'autres applis provoquent des ventilateurs à 0 tr/min.&#xA;&#xA;Activer le mode de diagnostic exclusif ?</value>
   </data>
   <data name="CsEfficiencyDataUnavailable" xml:space="preserve">
     <value>Données d'efficacité indisponibles</value>
@@ -6221,9 +6105,7 @@ Activer le mode de diagnostic exclusif ?</value>
     <value>Activer le clavier EC ?</value>
   </data>
   <data name="CsEnableSoftwareRenderingInOmenCoreSettingsGeneral" xml:space="preserve">
-    <value>  • Activez « Rendu logiciel » dans Paramètres → Général d'OmenCore
-
-</value>
+    <value>  • Activez « Rendu logiciel » dans Paramètres → Général d'OmenCore&#xA;&#xA;</value>
   </data>
   <data name="CsEnablesHardwareAcceleratedGPUSchedulingSoWindows" xml:space="preserve">
     <value>Active la planification GPU à accélération matérielle pour que Windows envoie le travail au GPU avec moins de charge CPU sur les systèmes compatibles.</value>
@@ -6370,21 +6252,16 @@ Activer le mode de diagnostic exclusif ?</value>
     <value>  •  {0} en échec</value>
   </data>
   <data name="CsFailedPackageS" xml:space="preserve">
-    <value>• En échec : {0} paquet(s)
-</value>
+    <value>• En échec : {0} paquet(s)&#xA;</value>
   </data>
-  <data name="CsFailedPackages" xml:space="preserve">
-    <value>
-Paquets en échec :
-</value>
+  <data name="CsFailedPackages_2" xml:space="preserve">
+    <value>&#xA;Paquets en échec :&#xA;</value>
   </data>
   <data name="CsFailedSkippedExportLogForDetails" xml:space="preserve">
     <value>{0} en échec, {1} ignorés. Exportez le journal pour les détails.</value>
   </data>
   <data name="CsFailedToApplyCPUPowerLimitsThe" xml:space="preserve">
-    <value>Impossible d'appliquer les limites de puissance CPU.
-
-Le BIOS a peut-être verrouillé les registres MSR au démarrage.</value>
+    <value>Impossible d'appliquer les limites de puissance CPU.&#xA;&#xA;Le BIOS a peut-être verrouillé les registres MSR au démarrage.</value>
   </data>
   <data name="CsFailedToChangeMemoryCompressionState" xml:space="preserve">
     <value>Impossible de changer l'état de la compression mémoire</value>
@@ -6423,13 +6300,7 @@ Le BIOS a peut-être verrouillé les registres MSR au démarrage.</value>
     <value>Le service d'étalonnage des ventilateurs est indisponible dans ce contexte.</value>
   </data>
   <data name="CsFanCalibrationWillTestSpeedsFrom0" xml:space="preserve">
-    <value>L'étalonnage va tester les vitesses de 0 % à 100 % et peut prendre 5 à 10 minutes.
-
-• Assurez une bonne ventilation au PC portable
-• N'interrompez pas la procédure
-• Les ventilateurs vont tourner à différentes vitesses
-
-Lancer l'étalonnage ?</value>
+    <value>L'étalonnage va tester les vitesses de 0 % à 100 % et peut prendre 5 à 10 minutes.&#xA;&#xA;• Assurez une bonne ventilation au PC portable&#xA;• N'interrompez pas la procédure&#xA;• Les ventilateurs vont tourner à différentes vitesses&#xA;&#xA;Lancer l'étalonnage ?</value>
   </data>
   <data name="CsFanCalibrationWizard" xml:space="preserve">
     <value>Assistant d'étalonnage des ventilateurs</value>
@@ -6513,8 +6384,7 @@ Lancer l'étalonnage ?</value>
     <value>préréglage de ventilation « {0} » (introuvable)</value>
   </data>
   <data name="CsFanPresetS" xml:space="preserve">
-    <value>• {0} préréglage(s) de ventilation
-</value>
+    <value>• {0} préréglage(s) de ventilation&#xA;</value>
   </data>
   <data name="CsFanPreset_88751" xml:space="preserve">
     <value>préréglage de ventilation « {0} » ({1})</value>
@@ -6574,9 +6444,7 @@ Lancer l'étalonnage ?</value>
     <value>Force TCP à envoyer les paquets sans accusés de réception différés : latence plus faible, au prix d'un trafic réseau plus fréquent.</value>
   </data>
   <data name="CsFoundHPBloatwarePackageS" xml:space="preserve">
-    <value>{0} paquet(s) HP superflu(s) trouvé(s) :
-
-</value>
+    <value>{0} paquet(s) HP superflu(s) trouvé(s) :&#xA;&#xA;</value>
   </data>
   <data name="CsFreedMB" xml:space="preserve">
     <value>{0} Mo libérés</value>
@@ -6612,8 +6480,7 @@ Lancer l'étalonnage ?</value>
     <value>{0:F1} / {1:F0} Go</value>
   </data>
   <data name="CsGPU" xml:space="preserve">
-    <value>GPU : {0} @ {1:F0}%{2}
-</value>
+    <value>GPU : {0} @ {1:F0}%{2}&#xA;</value>
   </data>
   <data name="CsGPUC" xml:space="preserve">
     <value>GPU : --°C · --%</value>
@@ -6631,15 +6498,10 @@ Lancer l'étalonnage ?</value>
     <value>Augmentation de l'OC GPU bloquée : branchez d'abord le secteur</value>
   </data>
   <data name="CsGPUOCIncreaseDetectedWhileRunningOn" xml:space="preserve">
-    <value>Augmentation de l'OC GPU détectée sur batterie.
-
-Appliquer des fréquences ou limites de puissance plus élevées sur batterie peut provoquer des fréquences instables, une décharge rapide et un bridage soudain.
-
-Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
+    <value>Augmentation de l'OC GPU détectée sur batterie.&#xA;&#xA;Appliquer des fréquences ou limites de puissance plus élevées sur batterie peut provoquer des fréquences instables, une décharge rapide et un bridage soudain.&#xA;&#xA;Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
   </data>
   <data name="CsGPUOCProfileS" xml:space="preserve">
-    <value>• {0} profil(s) d'overclocking GPU
-</value>
+    <value>• {0} profil(s) d'overclocking GPU&#xA;</value>
   </data>
   <data name="CsGPUOCRecoveryReset" xml:space="preserve">
     <value>réinitialisation de récupération de l'OC GPU</value>
@@ -6705,8 +6567,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value> | Garde-fous : {0}</value>
   </data>
   <data name="CsHARDSYSTEMCRASHESRequiringForcedRestart" xml:space="preserve">
-    <value>• Des PLANTAGES COMPLETS DU SYSTÈME nécessitant un redémarrage forcé
-</value>
+    <value>• Des PLANTAGES COMPLETS DU SYSTÈME nécessitant un redémarrage forcé&#xA;</value>
   </data>
   <data name="CsHPKeyboard" xml:space="preserve">
     <value>Clavier HP ({0})</value>
@@ -6724,20 +6585,16 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>ℹ️ HP Spectre : mode d'alimentation + ventilation uniquement (utilisez Intel XTU ou ThrottleStop pour les limites de puissance CPU)</value>
   </data>
   <data name="CsHPSupportAssistantWillNOTBeRemoved" xml:space="preserve">
-    <value>• HP Support Assistant ne sera PAS supprimé
-</value>
+    <value>• HP Support Assistant ne sera PAS supprimé&#xA;</value>
   </data>
   <data name="CsHVCICoreIsolationEnabled" xml:space="preserve">
-    <value>• HVCI/isolation du noyau activée
-</value>
+    <value>• HVCI/isolation du noyau activée&#xA;</value>
   </data>
   <data name="CsHardwareMonitoringActive" xml:space="preserve">
     <value>Surveillance matérielle active</value>
   </data>
   <data name="CsHasCausedSystemCrashesAndDisplayIssues" xml:space="preserve">
-    <value>a provoqué des plantages et des problèmes d'affichage sur plusieurs modèles OMEN.
-
-</value>
+    <value>a provoqué des plantages et des problèmes d'affichage sur plusieurs modèles OMEN.&#xA;&#xA;</value>
   </data>
   <data name="CsHasNothingToRememberTheFanState" xml:space="preserve">
     <value>« {0} » n'a rien à mémoriser : l'état de la ventilation n'a pas pu être lu.</value>
@@ -6794,8 +6651,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>Hybride (MSHybrid/Optimus)</value>
   </data>
   <data name="CsHyperVHVCICoreIsolationIsBlocking" xml:space="preserve">
-    <value>• Hyper-V/HVCI (isolation du noyau) bloque l'écriture des MSR
-</value>
+    <value>• Hyper-V/HVCI (isolation du noyau) bloque l'écriture des MSR&#xA;</value>
   </data>
   <data name="CsHzModeNotOfferedByThisPanel" xml:space="preserve">
     <value>{0} Hz (mode non proposé par cette dalle)</value>
@@ -6813,8 +6669,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>💡 Si les couleurs ne changent pas, essayez d'activer « Clavier EC expérimental » dans Paramètres → Matériel.</value>
   </data>
   <data name="CsIfYourScreenGoesBlackAfterEnabling" xml:space="preserve">
-    <value>Si votre écran devient noir après l'activation :
-</value>
+    <value>Si votre écran devient noir après l'activation :&#xA;</value>
   </data>
   <data name="CsImportComplete" xml:space="preserve">
     <value>Import terminé</value>
@@ -6844,9 +6699,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>Importer un profil</value>
   </data>
   <data name="CsImportProfileFrom" xml:space="preserve">
-    <value>Importer le profil depuis {0} ?
-
-</value>
+    <value>Importer le profil depuis {0} ?&#xA;&#xA;</value>
   </data>
   <data name="CsImportedCurvePointsRememberToApplySave" xml:space="preserve">
     <value>Courbe « {0} » importée ({1} points). Pensez à l'appliquer ou l'enregistrer.</value>
@@ -6939,9 +6792,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>{0} est lancé et peut écraser l'éclairage clavier d'OmenCore. Fermez-le pour laisser le contrôle complet à OmenCore.</value>
   </data>
   <data name="CsItDoesNotRateHighlyEnoughNot" xml:space="preserve">
-    <value>qu'il juge insuffisante, pas une mesure de ce que cette alimentation peut fournir.
-
-</value>
+    <value>qu'il juge insuffisante, pas une mesure de ce que cette alimentation peut fournir.&#xA;&#xA;</value>
   </data>
   <data name="CsItThenRaisesTheFourCPUPower" xml:space="preserve">
     <value>Il relève ensuite les quatre limites de puissance CPU à {0}, et </value>
@@ -6968,8 +6819,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>Rétroéclairage du clavier</value>
   </data>
   <data name="CsKeyboardDisplayControllerMalfunction" xml:space="preserve">
-    <value>• Un dysfonctionnement du contrôleur du clavier ou de l'écran
-</value>
+    <value>• Un dysfonctionnement du contrôleur du clavier ou de l'écran&#xA;</value>
   </data>
   <data name="CsKeyboardLightingControlIsNotAvailableOn" xml:space="preserve">
     <value>Le contrôle de l'éclairage du clavier n'est pas disponible sur ce système.</value>
@@ -7119,8 +6969,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>{0:F0} MHz ({1} cœurs)</value>
   </data>
   <data name="CsMSRAccessBlockedInstallPawnIOOrDisable" xml:space="preserve">
-    <value>• Accès MSR bloqué (installez PawnIO ou désactivez Secure Boot)
-</value>
+    <value>• Accès MSR bloqué (installez PawnIO ou désactivez Secure Boot)&#xA;</value>
   </data>
   <data name="CsMSRPackageLimitsUnavailableHPFirmwareMay" xml:space="preserve">
     <value>Limites de puissance MSR du processeur indisponibles : le firmware HP peut nécessiter les modes de performance OMEN/le mode Unleashed</value>
@@ -7138,8 +6987,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>Ventilation max</value>
   </data>
   <data name="CsMaxLevel" xml:space="preserve">
-    <value>Niveau max : {0}
-</value>
+    <value>Niveau max : {0}&#xA;</value>
   </data>
   <data name="CsMaxMaximumCooling" xml:space="preserve">
     <value>   Max — refroidissement maximal</value>
@@ -7220,8 +7068,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>Historique de {0:F0} min • moy. {1:F0}% • min {2}% • max {3}%</value>
   </data>
   <data name="CsMinSpinLevel" xml:space="preserve">
-    <value>Niveau min de rotation : {0}
-</value>
+    <value>Niveau min de rotation : {0}&#xA;</value>
   </data>
   <data name="CsMinimizeToTrayOnClose" xml:space="preserve">
     <value>Réduire dans la zone de notification à la fermeture</value>
@@ -7263,8 +7110,7 @@ Branchez le secteur avant d'augmenter les réglages d'OC GPU.</value>
     <value>L'identité du modèle n'a pas encore été analysée.</value>
   </data>
   <data name="CsModelModelID" xml:space="preserve">
-    <value>Modèle : {0}
-ID du modèle : {1}</value>
+    <value>Modèle : {0}&#xA;ID du modèle : {1}</value>
   </data>
   <data name="CsModelOverrideActiveGitHub78WorkerCPU" xml:space="preserve">
     <value>Forçage du modèle actif (GitHub #78) : capteur CPU du processus de mesure prioritaire pour {0}</value>
@@ -7273,10 +7119,7 @@ ID du modèle : {1}</value>
     <value>Forçage du modèle inactif : lecture standard de la température CPU par WMI/ACPI</value>
   </data>
   <data name="CsModelProductNameSystemSkuDiagnostics" xml:space="preserve">
-    <value>Modèle : {0}
-ProductName : {1}
-SystemSku : {2}
-Diagnostics : {3}</value>
+    <value>Modèle : {0}&#xA;ProductName : {1}&#xA;SystemSku : {2}&#xA;Diagnostics : {3}</value>
   </data>
   <data name="CsMonitorUnknown" xml:space="preserve">
     <value>Surveillance : inconnue</value>
@@ -7288,9 +7131,7 @@ Diagnostics : {3}</value>
     <value> (+{0} autres)</value>
   </data>
   <data name="CsMostBIOSUpdatesAfter2020LockMSR" xml:space="preserve">
-    <value>La plupart des mises à jour du BIOS après 2020 verrouillent le MSR 0x150 (registre de décalage de tension).
-
-</value>
+    <value>La plupart des mises à jour du BIOS après 2020 verrouillent le MSR 0x150 (registre de décalage de tension).&#xA;&#xA;</value>
   </data>
   <data name="CsNVAPIClockOffsetsAreAvailableButPower" xml:space="preserve">
     <value>Les décalages de fréquence NVAPI sont disponibles, mais l'écriture de la limite de puissance est verrouillée par le pilote ou le firmware actuel.</value>
@@ -7407,9 +7248,7 @@ Diagnostics : {3}</value>
     <value>Aucun détail d'échec disponible</value>
   </data>
   <data name="CsNoHPBloatwareDetectedYourSystemIs" xml:space="preserve">
-    <value>✓ Aucun logiciel HP superflu détecté !
-
-Votre système est propre.</value>
+    <value>✓ Aucun logiciel HP superflu détecté !&#xA;&#xA;Votre système est propre.</value>
   </data>
   <data name="CsNoHPTelemetryServicesFoundOnThis" xml:space="preserve">
     <value>Aucun service de télémétrie HP trouvé sur ce système.</value>
@@ -7625,19 +7464,7 @@ Votre système est propre.</value>
     <value>PC fixe OMEN - prise en charge expérimentale</value>
   </data>
   <data name="CsOMENDesktopPCDetectedOmenCoreHasExperimental" xml:space="preserve">
-    <value>⚠️ PC fixe OMEN détecté ⚠️
-
-OmenCore prend en charge les PC fixes OMEN à titre expérimental (25L, 30L, 35L, 40L, 45L).
-
-Le contrôle des ventilateurs des PC fixes utilise d'autres interfaces matérielles que les portables. Certaines fonctions peuvent mal fonctionner :
-
-• Le contrôle de la vitesse des ventilateurs peut être limité ou indisponible
-• La surveillance des températures devrait fonctionner normalement
-• Le contrôle RGB est pris en charge
-
-Si vous rencontrez un problème, signalez-le sur GitHub ou Discord.
-
-Voulez-vous continuer ?</value>
+    <value>⚠️ PC fixe OMEN détecté ⚠️&#xA;&#xA;OmenCore prend en charge les PC fixes OMEN à titre expérimental (25L, 30L, 35L, 40L, 45L).&#xA;&#xA;Le contrôle des ventilateurs des PC fixes utilise d'autres interfaces matérielles que les portables. Certaines fonctions peuvent mal fonctionner :&#xA;&#xA;• Le contrôle de la vitesse des ventilateurs peut être limité ou indisponible&#xA;• La surveillance des températures devrait fonctionner normalement&#xA;• Le contrôle RGB est pris en charge&#xA;&#xA;Si vous rencontrez un problème, signalez-le sur GitHub ou Discord.&#xA;&#xA;Voulez-vous continuer ?</value>
   </data>
   <data name="CsOMENGamingHubCleanupComplete" xml:space="preserve">
     <value>Nettoyage d'OMEN Gaming Hub terminé</value>
@@ -7676,13 +7503,7 @@ Voulez-vous continuer ?</value>
     <value>Désactivé : le nettoyage intelligent peut appliquer tout le profil de nettoyage sûr même quand un jeu est au premier plan.</value>
   </data>
   <data name="CsOmenCapPersistsInWindowsDriverStoreAfterOGH" xml:space="preserve">
-    <value>OmenCap reste dans le DriverStore de Windows après la désinstallation d'OGH :
-1. Ouvrez une invite de commandes administrateur
-2. Lancez : pnputil /enum-drivers | findstr /i omen
-3. Notez le fichier oem##.inf de hpomencustomcapcomp
-4. Lancez : pnputil /delete-driver oem##.inf /force
-5. Redémarrez l'ordinateur
-6. Cela supprime entièrement le composant d'accès matériel de HP</value>
+    <value>OmenCap reste dans le DriverStore de Windows après la désinstallation d'OGH :&#xA;1. Ouvrez une invite de commandes administrateur&#xA;2. Lancez : pnputil /enum-drivers | findstr /i omen&#xA;3. Notez le fichier oem##.inf de hpomencustomcapcomp&#xA;4. Lancez : pnputil /delete-driver oem##.inf /force&#xA;5. Redémarrez l'ordinateur&#xA;6. Cela supprime entièrement le composant d'accès matériel de HP</value>
   </data>
   <data name="CsOmenCoreBeforeOGHCleanup" xml:space="preserve">
     <value>OmenCore - Avant le nettoyage d'OGH</value>
@@ -7706,29 +7527,16 @@ Voulez-vous continuer ?</value>
     <value>OmenCore - Contrôle du PC portable gaming</value>
   </data>
   <data name="CsOmenCoreGamingLaptopControlLeftClickQuick" xml:space="preserve">
-    <value>OmenCore - Contrôle du PC portable gaming
-
-Clic gauche : accès rapide
-Double-clic : ouvrir le tableau de bord
-Clic droit : menu</value>
+    <value>OmenCore - Contrôle du PC portable gaming&#xA;&#xA;Clic gauche : accès rapide&#xA;Double-clic : ouvrir le tableau de bord&#xA;Clic droit : menu</value>
   </data>
   <data name="CsOmenCoreHasSwitchedToSoftwareRenderingFor" xml:space="preserve">
-    <value>OmenCore est passé en rendu logiciel pour cette session afin d'éviter d'autres plantages.
-
-</value>
+    <value>OmenCore est passé en rendu logiciel pour cette session afin d'éviter d'autres plantages.&#xA;&#xA;</value>
   </data>
   <data name="CsOmenCoreIsNotRunningAsAdministratorBloatware" xml:space="preserve">
     <value>OmenCore n'est pas lancé en tant qu'administrateur. La suppression des logiciels superflus nécessite des droits administrateur.</value>
   </data>
   <data name="CsOmenCoreRecommendsPawnIOForAdvancedHardwareFeatures" xml:space="preserve">
-    <value>OmenCore recommande PawnIO pour les fonctions matérielles avancées.
-
-PawnIO fournit un accès MSR/EC compatible Secure Boot pour :
-• L'undervolt CPU (Intel/AMD)
-• Le réglage du décalage TCC
-• Le contrôle de secours des ventilateurs via l'EC
-
-Cliquez sur OK pour ouvrir le site de PawnIO.</value>
+    <value>OmenCore recommande PawnIO pour les fonctions matérielles avancées.&#xA;&#xA;PawnIO fournit un accès MSR/EC compatible Secure Boot pour :&#xA;• L'undervolt CPU (Intel/AMD)&#xA;• Le réglage du décalage TCC&#xA;• Le contrôle de secours des ventilateurs via l'EC&#xA;&#xA;Cliquez sur OK pour ouvrir le site de PawnIO.</value>
   </data>
   <data name="CsOmenCoreRenderConflictDetected" xml:space="preserve">
     <value>OmenCore — conflit de rendu détecté</value>
@@ -7758,9 +7566,7 @@ Cliquez sur OK pour ouvrir le site de PawnIO.</value>
     <value>Ne continuez que si vous comprenez le risque.</value>
   </data>
   <data name="CsOnlyEnableThisIfWMIKeyboardLighting" xml:space="preserve">
-    <value>N'activez cette option que si l'éclairage du clavier par WMI ne fonctionne pas sur votre modèle.
-
-</value>
+    <value>N'activez cette option que si l'éclairage du clavier par WMI ne fonctionne pas sur votre modèle.&#xA;&#xA;</value>
   </data>
   <data name="CsOnlyLookingConfirmsIt" xml:space="preserve">
     <value>. Seul un coup d'œil le confirme.</value>
@@ -7781,11 +7587,7 @@ Cliquez sur OK pour ouvrir le site de PawnIO.</value>
     <value>Échec de l'opération</value>
   </data>
   <data name="CsOperationFailedCheckLogsForDetailsTip" xml:space="preserve">
-    <value>Échec de l'opération : {0}
-
-Consultez les journaux pour plus de détails.
-
-Astuce : essayez de redémarrer OmenCore ou vérifiez les paramètres.</value>
+    <value>Échec de l'opération : {0}&#xA;&#xA;Consultez les journaux pour plus de détails.&#xA;&#xA;Astuce : essayez de redémarrer OmenCore ou vérifiez les paramètres.</value>
   </data>
   <data name="CsOptimizesTCPACKFrequencyForFasterResponses" xml:space="preserve">
     <value>Optimise la fréquence des ACK TCP pour des réponses plus rapides</value>
@@ -7797,9 +7599,7 @@ Astuce : essayez de redémarrer OmenCore ou vérifiez les paramètres.</value>
     <value>Ou utilisez Intel XTU, qui dispose d'un pilote signé.</value>
   </data>
   <data name="CsOtherUnpredictableECRelatedIssues" xml:space="preserve">
-    <value>• D'autres problèmes imprévisibles liés à l'EC
-
-</value>
+    <value>• D'autres problèmes imprévisibles liés à l'EC&#xA;&#xA;</value>
   </data>
   <data name="CsOutOf" xml:space="preserve">
     <value> sur {0}.</value>
@@ -7814,9 +7614,7 @@ Astuce : essayez de redémarrer OmenCore ou vérifiez les paramètres.</value>
     <value>{0} : puissance du processeur issue de la télémétrie de surveillance.</value>
   </data>
   <data name="CsPackageSCouldNotBeRemoved" xml:space="preserve">
-    <value>
-
-{0} paquet(s) n'ont pas pu être supprimés.</value>
+    <value>&#xA;&#xA;{0} paquet(s) n'ont pas pu être supprimés.</value>
   </data>
   <data name="CsPaintedKeyS" xml:space="preserve">
     <value>{0} touche(s) peinte(s) en {1}. </value>
@@ -7849,8 +7647,7 @@ Astuce : essayez de redémarrer OmenCore ou vérifiez les paramètres.</value>
     <value>PawnIO installé</value>
   </data>
   <data name="CsPawnIOSecureBootCompatible" xml:space="preserve">
-    <value>• PawnIO (compatible Secure Boot)
-</value>
+    <value>• PawnIO (compatible Secure Boot)&#xA;</value>
   </data>
   <data name="CsPerCoreClocksUnavailable" xml:space="preserve">
     <value>Fréquences par cœur indisponibles</value>
@@ -7901,8 +7698,7 @@ Astuce : essayez de redémarrer OmenCore ou vérifiez les paramètres.</value>
     <value>Restauration du mode de performance</value>
   </data>
   <data name="CsPerformanceModeS" xml:space="preserve">
-    <value>• {0} mode(s) de performance
-</value>
+    <value>• {0} mode(s) de performance&#xA;</value>
   </data>
   <data name="CsPhysicalRPMUnavailable" xml:space="preserve">
     <value>Tr/min réels indisponibles</value>
@@ -7917,16 +7713,13 @@ Astuce : essayez de redémarrer OmenCore ou vérifiez les paramètres.</value>
     <value>Saisissez un nom pour le profil.</value>
   </data>
   <data name="CsPleaseFixTheIssuesBeforeSaving" xml:space="preserve">
-    <value>{0}
-
-Corrigez les problèmes avant d'enregistrer.</value>
+    <value>{0}&#xA;&#xA;Corrigez les problèmes avant d'enregistrer.</value>
   </data>
   <data name="CsPleaseReviewYourFanCurveAndEnsure" xml:space="preserve">
     <value>Revoyez votre courbe de ventilation pour assurer un refroidissement suffisant à haute température.</value>
   </data>
   <data name="CsPossibleSolutions" xml:space="preserve">
-    <value>Solutions possibles :
-</value>
+    <value>Solutions possibles :&#xA;</value>
   </data>
   <data name="CsPostResumeSelfCheckCouldNotConfirm" xml:space="preserve">
     <value>La vérification après sortie de veille n'a pas pu confirmer le retour de la télémétrie, faute de relevé récent.</value>
@@ -8109,9 +7902,7 @@ Corrigez les problèmes avant d'enregistrer.</value>
     <value>Profil : {0} (raccourci)</value>
   </data>
   <data name="CsProfileImportedSuccessfullySettingsHaveBeenApplied" xml:space="preserve">
-    <value>Profil importé avec succès !
-
-Les paramètres ont été appliqués. Certains changements peuvent nécessiter un redémarrage de l'appli.</value>
+    <value>Profil importé avec succès !&#xA;&#xA;Les paramètres ont été appliqués. Certains changements peuvent nécessiter un redémarrage de l'appli.</value>
   </data>
   <data name="CsProfileNameIsRequired" xml:space="preserve">
     <value>Le nom du profil est obligatoire</value>
@@ -8165,8 +7956,7 @@ Les paramètres ont été appliqués. Certains changements peuvent nécessiter u
     <value>RAM : {0:F1}/{1:F1} Go ({2:F0}%)</value>
   </data>
   <data name="CsRAMGB_e88dd" xml:space="preserve">
-    <value>RAM : {0:F1}/{1:F1} Go ({2:F0}%)
-</value>
+    <value>RAM : {0:F1}/{1:F1} Go ({2:F0}%)&#xA;</value>
   </data>
   <data name="CsRGBCheckNotRun" xml:space="preserve">
     <value>Vérification RGB non lancée</value>
@@ -8247,8 +8037,7 @@ Les paramètres ont été appliqués. Certains changements peuvent nécessiter u
     <value>Prêt !</value>
   </data>
   <data name="CsRealtekAudioNetworkDriversWillNOTBe" xml:space="preserve">
-    <value>• Les pilotes audio/réseau Realtek ne seront PAS touchés
-</value>
+    <value>• Les pilotes audio/réseau Realtek ne seront PAS touchés&#xA;</value>
   </data>
   <data name="CsReapplySavedPreset" xml:space="preserve">
     <value>Réappliquer le préréglage enregistré</value>
@@ -8269,9 +8058,7 @@ Les paramètres ont été appliqués. Certains changements peuvent nécessiter u
     <value>Notifications récentes</value>
   </data>
   <data name="CsRecommendationUpdateYourNVIDIADriversToThe" xml:space="preserve">
-    <value>Recommandation : mettez à jour vos pilotes NVIDIA vers la dernière version.
-
-</value>
+    <value>Recommandation : mettez à jour vos pilotes NVIDIA vers la dernière version.&#xA;&#xA;</value>
   </data>
   <data name="CsReduceCPUVoltageOffsetToLowerTemperature" xml:space="preserve">
     <value>Réduisez le décalage de tension du CPU pour baisser la température et la consommation. Plus la valeur est négative, plus l'undervolt est fort.</value>
@@ -8364,16 +8151,13 @@ Les paramètres ont été appliqués. Certains changements peuvent nécessiter u
     <value>{0} retiré de la liste. Il reste dans le clavier.</value>
   </data>
   <data name="CsRemovedPackageS" xml:space="preserve">
-    <value>• Supprimés : {0} paquet(s)
-</value>
+    <value>• Supprimés : {0} paquet(s)&#xA;</value>
   </data>
   <data name="CsRemoving" xml:space="preserve">
     <value>Suppression {0}/{1} : {2}</value>
   </data>
   <data name="CsRemovingHPBloatwarePackagesThisMayTake" xml:space="preserve">
-    <value>Suppression des paquets HP superflus...
-
-Cela peut prendre quelques minutes...</value>
+    <value>Suppression des paquets HP superflus...&#xA;&#xA;Cela peut prendre quelques minutes...</value>
   </data>
   <data name="CsRemovingOMENGamingHub" xml:space="preserve">
     <value>Suppression d'OMEN Gaming Hub...</value>
@@ -8475,10 +8259,7 @@ Cela peut prendre quelques minutes...</value>
     <value>Rétablissez MinAnimate, MenuShowDelay et SmoothScroll à leurs valeurs par défaut pour retrouver l'interface Windows d'origine.</value>
   </data>
   <data name="CsRestorePointCouldNotBeCreatedContinue" xml:space="preserve">
-    <value>Le point de restauration n'a pas pu être créé :
-{0}
-
-Continuer la suppression sans point de restauration ?</value>
+    <value>Le point de restauration n'a pas pu être créé :&#xA;{0}&#xA;&#xA;Continuer la suppression sans point de restauration ?</value>
   </data>
   <data name="CsRestorePointCreated" xml:space="preserve">
     <value>Point de restauration n° {0} créé</value>
@@ -8556,9 +8337,7 @@ Continuer la suppression sans point de restauration ?</value>
     <value>RivaTuner Statistics Server (RTSS) est lancé et ses hooks D3D ont corrompu le thread de rendu d'OmenCore.</value>
   </data>
   <data name="CsRunANewScanToVerify" xml:space="preserve">
-    <value>
-
-Lancez une nouvelle analyse pour vérifier.</value>
+    <value>&#xA;&#xA;Lancez une nouvelle analyse pour vérifier.</value>
   </data>
   <data name="CsRunFsutilBehaviorSetDisableDeleteNotify1To" xml:space="preserve">
     <value>Lancez fsutil behavior set DisableDeleteNotify 1 pour annuler le forçage.</value>
@@ -8687,8 +8466,7 @@ Lancez une nouvelle analyse pour vérifier.</value>
     <value>Analyse de l'état du système</value>
   </data>
   <data name="CsScreenBrightnessStuckAtMinimumBlackScreen" xml:space="preserve">
-    <value>• Une luminosité d'écran bloquée au minimum (écran noir)
-</value>
+    <value>• Une luminosité d'écran bloquée au minimum (écran noir)&#xA;</value>
   </data>
   <data name="CsSecureBootCompatibleDriverBackendAvailableRecommended" xml:space="preserve">
     <value>✓ Pilote compatible Secure Boot disponible (recommandé). Ne déclenche pas de faux positifs de Windows Defender.</value>
@@ -8697,9 +8475,7 @@ Lancez une nouvelle analyse pour vérifier.</value>
     <value>Secure Boot est activé</value>
   </data>
   <data name="CsSecureBootIsPreventingKernelModeAccess" xml:space="preserve">
-    <value>• Secure Boot empêche l'accès en mode noyau
-
-</value>
+    <value>• Secure Boot empêche l'accès en mode noyau&#xA;&#xA;</value>
   </data>
   <data name="CsSecurityVerificationFailed" xml:space="preserve">
     <value>Échec de la vérification de sécurité</value>
@@ -8804,36 +8580,25 @@ Lancez une nouvelle analyse pour vérifier.</value>
     <value> Ignorés : {0}.</value>
   </data>
   <data name="CsSomeChangesMayRequireASystemRestart" xml:space="preserve">
-    <value>
-
-Certains changements peuvent nécessiter un redémarrage du système.</value>
+    <value>&#xA;&#xA;Certains changements peuvent nécessiter un redémarrage du système.</value>
   </data>
   <data name="CsSomeChangesRequireARebootToTake" xml:space="preserve">
-    <value>Certains changements nécessitent un redémarrage pour prendre effet.
-
-Redémarrer maintenant ?</value>
+    <value>Certains changements nécessitent un redémarrage pour prendre effet.&#xA;&#xA;Redémarrer maintenant ?</value>
   </data>
   <data name="CsSomeHPFeaturesMayStopWorking" xml:space="preserve">
-    <value>• Certaines fonctions HP peuvent cesser de fonctionner
-</value>
+    <value>• Certaines fonctions HP peuvent cesser de fonctionner&#xA;</value>
   </data>
   <data name="CsSomeHPFirmwareReducesCPUAndGPU" xml:space="preserve">
     <value>Certains firmwares HP réduisent les limites de puissance CPU et GPU dans ce cas, ce qui peut ressembler à une panne </value>
   </data>
   <data name="CsSomeHardwareControlFeaturesRequireADriver" xml:space="preserve">
-    <value>Certaines fonctions de contrôle du matériel nécessitent un pilote.
-
-</value>
+    <value>Certaines fonctions de contrôle du matériel nécessitent un pilote.&#xA;&#xA;</value>
   </data>
   <data name="CsSomeManufacturersProvideBIOSUpdatesThatRe" xml:space="preserve">
-    <value>• Certains fabricants proposent des mises à jour du BIOS qui réactivent le contrôle de la tension
-</value>
+    <value>• Certains fabricants proposent des mises à jour du BIOS qui réactivent le contrôle de la tension&#xA;</value>
   </data>
   <data name="CsSomePackagesRequireAdministratorPrivilegesRightClick" xml:space="preserve">
-    <value>
-
-Certains paquets nécessitent des droits administrateur.
-Clic droit sur OmenCore → « Exécuter en tant qu'administrateur » et réessayez.</value>
+    <value>&#xA;&#xA;Certains paquets nécessitent des droits administrateur.&#xA;Clic droit sur OmenCore → « Exécuter en tant qu'administrateur » et réessayez.</value>
   </data>
   <data name="CsSomeTestsFailedScore100" xml:space="preserve">
     <value>Certains tests ont échoué - Score : {0}/100 ({1})</value>
@@ -8917,16 +8682,13 @@ Clic droit sur OmenCore → « Exécuter en tant qu'administrateur » et réessa
     <value>Télémétrie stockage indisponible</value>
   </data>
   <data name="CsSuchAsGamingOrBenchmarks" xml:space="preserve">
-    <value>par exemple en jeu ou en benchmark.
-
-</value>
+    <value>par exemple en jeu ou en benchmark.&#xA;&#xA;</value>
   </data>
   <data name="CsSuggestedExclusionsFromCurrentTopProcesses" xml:space="preserve">
     <value>Exclusions suggérées d'après les plus gros processus actuels : {0}.</value>
   </data>
   <data name="CsSupportedRyzen5000SeriesWithPawnIODriver" xml:space="preserve">
-    <value>Pris en charge : Ryzen série 5000 et plus avec le pilote PawnIO installé.
-</value>
+    <value>Pris en charge : Ryzen série 5000 et plus avec le pilote PawnIO installé.&#xA;</value>
   </data>
   <data name="CsSurface" xml:space="preserve">
     <value>{0} Surface : {1}.{2}</value>
@@ -8971,33 +8733,22 @@ Clic droit sur OmenCore → « Exécuter en tant qu'administrateur » et réessa
     <value>Notifications système</value>
   </data>
   <data name="CsSystemRestartMayBeRequired" xml:space="preserve">
-    <value>• Un redémarrage peut être nécessaire
-
-</value>
+    <value>• Un redémarrage peut être nécessaire&#xA;&#xA;</value>
   </data>
   <data name="CsSystemRestorePointCreated" xml:space="preserve">
     <value>Point de restauration système créé</value>
   </data>
   <data name="CsSystemRestorePointCreationFailed" xml:space="preserve">
-    <value>La création du point de restauration système a échoué :
-{0}
-
-</value>
+    <value>La création du point de restauration système a échoué :&#xA;{0}&#xA;&#xA;</value>
   </data>
   <data name="CsTCCOffset" xml:space="preserve">
     <value>Décalage TCC</value>
   </data>
   <data name="CsTCCOffsetCannotBeAppliedMSRAccess" xml:space="preserve">
-    <value>Impossible d'appliquer le décalage TCC : l'accès MSR n'est pas disponible.
-
-Il nécessite le pilote PawnIO (pawnio.eu).
-
-Sans accès MSR, les limites de température du CPU ne peuvent pas être modifiées.</value>
+    <value>Impossible d'appliquer le décalage TCC : l'accès MSR n'est pas disponible.&#xA;&#xA;Il nécessite le pilote PawnIO (pawnio.eu).&#xA;&#xA;Sans accès MSR, les limites de température du CPU ne peuvent pas être modifiées.</value>
   </data>
   <data name="CsTCCOffsetCouldNotBeChangedThe" xml:space="preserve">
-    <value>Le décalage TCC n'a pas pu être changé : la valeur est restée à {0} °C.
-
-</value>
+    <value>Le décalage TCC n'a pas pu être changé : la valeur est restée à {0} °C.&#xA;&#xA;</value>
   </data>
   <data name="CsTCCOffsetError" xml:space="preserve">
     <value>Erreur de décalage TCC</value>
@@ -9042,9 +8793,7 @@ Sans accès MSR, les limites de température du CPU ne peuvent pas être modifi�
     <value>État de la température</value>
   </data>
   <data name="CsTemperaturesExceededCForOverMinutes" xml:space="preserve">
-    <value>Les températures ont dépassé {0} °C pendant plus de {1} minutes.
-
-</value>
+    <value>Les températures ont dépassé {0} °C pendant plus de {1} minutes.&#xA;&#xA;</value>
   </data>
   <data name="CsTestActiveAutoRevertInSUnless" xml:space="preserve">
     <value>Test actif : annulation automatique dans {0} s, sauf si vous cliquez sur Conserver</value>
@@ -9161,9 +8910,7 @@ Sans accès MSR, les limites de température du CPU ne peuvent pas être modifi�
     <value>l'affichage passe par le GPU dédié : le redémarrer éteindrait l'écran, cette opération reste donc manuelle</value>
   </data>
   <data name="CsTheFanCurveWasNotAppliedPlease" xml:space="preserve">
-    <value>{0}
-
-La courbe de ventilation n'a pas été appliquée. Corrigez les problèmes et réessayez.</value>
+    <value>{0}&#xA;&#xA;La courbe de ventilation n'a pas été appliquée. Corrigez les problèmes et réessayez.</value>
   </data>
   <data name="CsTheFansCategoryOfStartupHardwareRestore" xml:space="preserve">
     <value>La catégorie Ventilateurs de la restauration matérielle au démarrage est désactivée dans les Paramètres : ce préréglage ou cette courbe ne sera pas réappliqué automatiquement après un redémarrage. Il faudra le choisir à nouveau, ou réactiver cette catégorie.</value>
@@ -9211,9 +8958,7 @@ La courbe de ventilation n'a pas été appliquée. Corrigez les problèmes et r�
     <value>Le curseur demande {0} W mais le SMU applique </value>
   </data>
   <data name="CsTheUpdateCouldNotBeDownloadedOr" xml:space="preserve">
-    <value>La mise à jour n'a pas pu être téléchargée ou vérifiée.
-
-Ouvrir les versions GitHub pour la télécharger manuellement ?</value>
+    <value>La mise à jour n'a pas pu être téléchargée ou vérifiée.&#xA;&#xA;Ouvrir les versions GitHub pour la télécharger manuellement ?</value>
   </data>
   <data name="CsTheWThisMachineSFirmwareStates" xml:space="preserve">
     <value>les {0} W indiqués par le firmware de cette machine pour un CPU et un GPU en charge</value>
@@ -9231,8 +8976,7 @@ Ouvrir les versions GitHub pour la télécharger manuellement ?</value>
     <value>Garde thermique active : la courbe demande {0}% à {1:F0} °C ; OmenCore imposera {2}% jusqu'à la baisse des températures.</value>
   </data>
   <data name="CsThisActionCannotBeUndone" xml:space="preserve">
-    <value>• Cette action est irréversible
-</value>
+    <value>• Cette action est irréversible&#xA;</value>
   </data>
   <data name="CsThisCPUIsNotOneWhoseSMU" xml:space="preserve">
     <value>ce CPU ne fait pas partie de ceux dont les messages SMU de limite de puissance sont connus</value>
@@ -9247,9 +8991,7 @@ Ouvrir les versions GitHub pour la télécharger manuellement ?</value>
     <value>Ce châssis attend un adaptateur à connecteur rond et n'annonce aucune puissance nominale USB-C : la règle de HP considère donc toute source USB-C comme insuffisante.</value>
   </data>
   <data name="CsThisDisablesAndReEnablesTheDiscrete" xml:space="preserve">
-    <value>Cela désactive puis réactive le GPU dédié.
-
-</value>
+    <value>Cela désactive puis réactive le GPU dédié.&#xA;&#xA;</value>
   </data>
   <data name="CsThisGPU" xml:space="preserve">
     <value>ce GPU</value>
@@ -9264,18 +9006,10 @@ Ouvrir les versions GitHub pour la télécharger manuellement ?</value>
     <value>C'est un problème connu de NVML (NVIDIA Management Library) sous forte charge GPU, </value>
   </data>
   <data name="CsThisIsAnExperimentalUnconfirmedFeatureThat" xml:space="preserve">
-    <value>C'est une fonction expérimentale et non confirmée : elle force un instant l'ouverture de deux bits de l'EC gérés par le firmware, envoie une commande WMI, puis mesure si la puissance du GPU a réellement changé.
-
-Ses auteurs ne l'ont jamais lancée sur du vrai matériel. Pendant l'enquête dont elle est issue, forcer ce même mécanisme avec un adaptateur sous-dimensionné a laissé le GPU dans un état dégradé (appels au pilote de plus de 20 secondes, rendu impossible) qui n'a disparu qu'après un redémarrage, sur une machine ayant déjà eu des plantages du pilote GPU.
-
-Cette option n'apparaît que lorsque l'adaptateur branché est nettement plus puissant que ce que la machine demande : c'est son seul garde-fou. Il est impossible de prévisualiser le résultat, et aucun retour en arrière n'est possible en dehors d'un redémarrage en cas de problème.
-
-Essayer quand même ?</value>
+    <value>C'est une fonction expérimentale et non confirmée : elle force un instant l'ouverture de deux bits de l'EC gérés par le firmware, envoie une commande WMI, puis mesure si la puissance du GPU a réellement changé.&#xA;&#xA;Ses auteurs ne l'ont jamais lancée sur du vrai matériel. Pendant l'enquête dont elle est issue, forcer ce même mécanisme avec un adaptateur sous-dimensionné a laissé le GPU dans un état dégradé (appels au pilote de plus de 20 secondes, rendu impossible) qui n'a disparu qu'après un redémarrage, sur une machine ayant déjà eu des plantages du pilote GPU.&#xA;&#xA;Cette option n'apparaît que lorsque l'adaptateur branché est nettement plus puissant que ce que la machine demande : c'est son seul garde-fou. Il est impossible de prévisualiser le résultat, et aucun retour en arrière n'est possible en dehors d'un redémarrage en cas de problème.&#xA;&#xA;Essayer quand même ?</value>
   </data>
   <data name="CsThisIsOftenBecauseSystemRestoreIs" xml:space="preserve">
-    <value>C'est souvent parce que la Restauration du système est désactivée sur votre système.
-
-</value>
+    <value>C'est souvent parce que la Restauration du système est désactivée sur votre système.&#xA;&#xA;</value>
   </data>
   <data name="CsThisKeyboardMatchesHPSDeviceList" xml:space="preserve">
     <value>Ce clavier ({0}) figure dans la liste de périphériques HP pour ce </value>
@@ -9296,8 +9030,7 @@ Essayer quand même ?</value>
     <value> Cette machine était fournie avec un adaptateur de {0} W.</value>
   </data>
   <data name="CsThisMayBeCausedBy" xml:space="preserve">
-    <value>Causes possibles :
-</value>
+    <value>Causes possibles :&#xA;</value>
   </data>
   <data name="CsThisModeCanAlsoUpdateFanPolicy" xml:space="preserve">
     <value>Ce mode peut aussi modifier la ventilation, car le mode lié est activé.</value>
@@ -9324,102 +9057,49 @@ Essayer quand même ?</value>
     <value>Cela redémarre le GPU pour lever sa limitation. La partie CPU n'est pas incluse</value>
   </data>
   <data name="CsThisSendsExperimentalKeyboardColourCommandsOne" xml:space="preserve">
-    <value>Cela envoie {0} commandes de couleur clavier expérimentales, une toutes les 4 secondes, chacune en rouge.
-
-</value>
+    <value>Cela envoie {0} commandes de couleur clavier expérimentales, une toutes les 4 secondes, chacune en rouge.&#xA;&#xA;</value>
   </data>
   <data name="CsThisUsuallyMeans" xml:space="preserve">
-    <value>Cela signifie généralement :
-</value>
+    <value>Cela signifie généralement :&#xA;</value>
   </data>
   <data name="CsThisWillApply" xml:space="preserve">
-    <value>Seront appliqués :
-</value>
+    <value>Seront appliqués :&#xA;</value>
   </data>
   <data name="CsThisWillApplyALLGamingOptimizationsFor" xml:space="preserve">
-    <value>TOUTES les optimisations pour le jeu vont être appliquées pour des performances maximales.
-
-</value>
+    <value>TOUTES les optimisations pour le jeu vont être appliquées pour des performances maximales.&#xA;&#xA;</value>
   </data>
   <data name="CsThisWillApplyOptimizationSInContinue" xml:space="preserve">
-    <value>{0} optimisation(s) vont être appliquées dans {1}.
-
-Continuer ?</value>
+    <value>{0} optimisation(s) vont être appliquées dans {1}.&#xA;&#xA;Continuer ?</value>
   </data>
   <data name="CsThisWillApplyRecommendedOptimizationsWithMinimal" xml:space="preserve">
-    <value>Les optimisations recommandées vont être appliquées, avec un risque minimal.
-
-</value>
+    <value>Les optimisations recommandées vont être appliquées, avec un risque minimal.&#xA;&#xA;</value>
   </data>
   <data name="CsThisWillChangeTheHardwareDPISettings" xml:space="preserve">
     <value>Les réglages DPI matériels du périphérique choisi vont être modifiés. Voulez-vous continuer ?</value>
   </data>
   <data name="CsThisWillRemoveAllCalibrationDataFor" xml:space="preserve">
-    <value>Toutes les données d'étalonnage de ce modèle vont être supprimées.
-
-Êtes-vous sûr ?</value>
+    <value>Toutes les données d'étalonnage de ce modèle vont être supprimées.&#xA;&#xA;Êtes-vous sûr ?</value>
   </data>
   <data name="CsThisWillRemoveHPBloatwarePackageS" xml:space="preserve">
-    <value>{0} paquet(s) HP superflu(s) vont être supprimés.
-
-</value>
+    <value>{0} paquet(s) HP superflu(s) vont être supprimés.&#xA;&#xA;</value>
   </data>
   <data name="CsThisWillResetAllSettingsToTheir" xml:space="preserve">
-    <value>Tous les paramètres vont être remis à leurs valeurs par défaut.
-
-Cela comprend :
-• Les réglages de surveillance
-• Les préférences de notification
-• Les raccourcis clavier
-• Les préférences de mise à jour
-
-Continuer la réinitialisation ?</value>
+    <value>Tous les paramètres vont être remis à leurs valeurs par défaut.&#xA;&#xA;Cela comprend :&#xA;• Les réglages de surveillance&#xA;• Les préférences de notification&#xA;• Les raccourcis clavier&#xA;• Les préférences de mise à jour&#xA;&#xA;Continuer la réinitialisation ?</value>
   </data>
   <data name="CsThisWillResetTheEmbeddedControllerEC" xml:space="preserve">
-    <value>L'Embedded Controller (EC) va être remis à ses valeurs d'usine.
-
-Cette action va :
-• Rendre au BIOS le contrôle des ventilateurs
-• Effacer tous les forçages manuels de vitesse
-• Réinitialiser le mode boost des ventilateurs
-• Réinitialiser les minuteries de politique thermique
-
-À utiliser si :
-• Les vitesses de ventilation semblent bloquées dans le BIOS
-• Le BIOS affiche des valeurs de ventilation incorrectes
-• Vous voulez retrouver entièrement le comportement d'usine
-
-L'appli appliquera le mode Auto après la réinitialisation.
-
-Voulez-vous continuer ?</value>
+    <value>L'Embedded Controller (EC) va être remis à ses valeurs d'usine.&#xA;&#xA;Cette action va :&#xA;• Rendre au BIOS le contrôle des ventilateurs&#xA;• Effacer tous les forçages manuels de vitesse&#xA;• Réinitialiser le mode boost des ventilateurs&#xA;• Réinitialiser les minuteries de politique thermique&#xA;&#xA;À utiliser si :&#xA;• Les vitesses de ventilation semblent bloquées dans le BIOS&#xA;• Le BIOS affiche des valeurs de ventilation incorrectes&#xA;• Vous voulez retrouver entièrement le comportement d'usine&#xA;&#xA;L'appli appliquera le mode Auto après la réinitialisation.&#xA;&#xA;Voulez-vous continuer ?</value>
   </data>
   <data name="CsThisWillRestoreDPIStagesToTheir" xml:space="preserve">
     <value>Les paliers DPI vont être remis à leurs valeurs enregistrées (ou aux valeurs intégrées s'il n'y en a pas). Continuer ?</value>
   </data>
   <data name="CsThisWillRestoreRemovedItemsAnyDependencies" xml:space="preserve">
-    <value>{0} éléments supprimés vont être restaurés.
-
-Les dépendances ou paramètres seront réinstallés depuis leur source d'origine.
-
-Continuer ?</value>
+    <value>{0} éléments supprimés vont être restaurés.&#xA;&#xA;Les dépendances ou paramètres seront réinstallés depuis leur source d'origine.&#xA;&#xA;Continuer ?</value>
   </data>
   <data name="CsThisWillRevertALLOptimizationsToWindows" xml:space="preserve">
-    <value>TOUTES les optimisations vont être annulées et Windows remis par défaut.
-
-Vos réglages sauvegardés seront restaurés.
-
-Continuer ?</value>
+    <value>TOUTES les optimisations vont être annulées et Windows remis par défaut.&#xA;&#xA;Vos réglages sauvegardés seront restaurés.&#xA;&#xA;Continuer ?</value>
   </data>
   <data name="CsThisWillRunTheFanCleaningCycle" xml:space="preserve">
-    <value>Le cycle de nettoyage des ventilateurs va durer 20 secondes.
-
-⚠️ IMPORTANT :
-• Posez votre PC portable sur une surface plane et stable
-• Vérifiez que les aérations ne sont pas obstruées
-• Les ventilateurs vont brièvement tourner à l'envers
-• Des bruits inhabituels sont normaux
-
-Lancer le nettoyage des ventilateurs ?</value>
+    <value>Le cycle de nettoyage des ventilateurs va durer 20 secondes.&#xA;&#xA;⚠️ IMPORTANT :&#xA;• Posez votre PC portable sur une surface plane et stable&#xA;• Vérifiez que les aérations ne sont pas obstruées&#xA;• Les ventilateurs vont brièvement tourner à l'envers&#xA;• Des bruits inhabituels sont normaux&#xA;&#xA;Lancer le nettoyage des ventilateurs ?</value>
   </data>
   <data name="CsThisWorksWithOmenCoreClosed" xml:space="preserve">
     <value>cela fonctionne OmenCore fermé.</value>
@@ -9437,20 +9117,16 @@ Lancer le nettoyage des ventilateurs ?</value>
     <value>{0} (délai dépassé)</value>
   </data>
   <data name="CsTipRunOmenCoreAsAdministratorToRemove" xml:space="preserve">
-    <value>
-
-💡 Astuce : lancez OmenCore en tant qu'administrateur pour supprimer les paquets provisionnés.</value>
+    <value>&#xA;&#xA;💡 Astuce : lancez OmenCore en tant qu'administrateur pour supprimer les paquets provisionnés.</value>
   </data>
   <data name="CsTo" xml:space="preserve">
     <value>{0} % à {1} %</value>
   </data>
   <data name="CsToFix" xml:space="preserve">
-    <value>Pour corriger :
-</value>
+    <value>Pour corriger :&#xA;</value>
   </data>
   <data name="CsToPermanentlyFixThis" xml:space="preserve">
-    <value>Pour corriger définitivement :
-</value>
+    <value>Pour corriger définitivement :&#xA;</value>
   </data>
   <data name="CsToggleRefreshRate" xml:space="preserve">
     <value>Changer la fréquence d'affichage</value>
@@ -9528,9 +9204,7 @@ Lancer le nettoyage des ventilateurs ?</value>
     <value>• CPU non pris en charge</value>
   </data>
   <data name="CsUntilYouStopHoldingThem" xml:space="preserve">
-    <value>jusqu'à ce que vous arrêtiez de les maintenir.
-
-</value>
+    <value>jusqu'à ce que vous arrêtiez de les maintenir.&#xA;&#xA;</value>
   </data>
   <data name="CsUpdateAvailable" xml:space="preserve">
     <value>⬆️ Mise à jour disponible : {0}</value>
@@ -9578,9 +9252,7 @@ Lancer le nettoyage des ventilateurs ?</value>
     <value>Proxy OMEN Gaming Hub utilisé. Vérifiez que les services de Gaming Hub sont lancés.</value>
   </data>
   <data name="CsUsingTheGPUWillLoseItAnd" xml:space="preserve">
-    <value>utilisant le GPU le perdra et risque de planter.
-
-</value>
+    <value>utilisant le GPU le perdra et risque de planter.&#xA;&#xA;</value>
   </data>
   <data name="CsVIsNowAvailable" xml:space="preserve">
     <value>La v{0} est disponible</value>
@@ -9661,26 +9333,10 @@ Lancer le nettoyage des ventilateurs ?</value>
     <value>tension {0} -&gt; {1}</value>
   </data>
   <data name="CsWARNING" xml:space="preserve">
-    <value>⚠️ ATTENTION :
-</value>
+    <value>⚠️ ATTENTION :&#xA;</value>
   </data>
   <data name="CsWARNINGAggressiveUndervoltYouAreAboutTo" xml:space="preserve">
-    <value>⚠️ ATTENTION : undervolt agressif
-
-Vous allez appliquer un décalage d'undervolt de -140 mV.
-
-C'est un réglage agressif qui peut provoquer :
-• Des écrans bleus (BSOD)
-• Des plantages ou blocages d'applications
-• Une instabilité du système en charge
-
-Ne continuez que si vous comprenez les risques et êtes prêt à :
-• Redémarrer si le système devient instable
-• Tester sérieusement avec des tests de charge (Prime95, OCCT)
-
-L'undervolt ne survit pas au redémarrage : un plantage le réinitialise.
-
-Appliquer l'undervolt de -140 mV ?</value>
+    <value>⚠️ ATTENTION : undervolt agressif&#xA;&#xA;Vous allez appliquer un décalage d'undervolt de -140 mV.&#xA;&#xA;C'est un réglage agressif qui peut provoquer :&#xA;• Des écrans bleus (BSOD)&#xA;• Des plantages ou blocages d'applications&#xA;• Une instabilité du système en charge&#xA;&#xA;Ne continuez que si vous comprenez les risques et êtes prêt à :&#xA;• Redémarrer si le système devient instable&#xA;• Tester sérieusement avec des tests de charge (Prime95, OCCT)&#xA;&#xA;L'undervolt ne survit pas au redémarrage : un plantage le réinitialise.&#xA;&#xA;Appliquer l'undervolt de -140 mV ?</value>
   </data>
   <data name="CsWMIBIOSOptionalLegacyECPath" xml:space="preserve">
     <value>WMI BIOS + ancien accès EC facultatif</value>
@@ -9689,9 +9345,7 @@ Appliquer l'undervolt de -140 mV ?</value>
     <value> Les commandes clavier WMI ne se vérifient pas sur votre modèle : essayez d'activer « Clavier EC expérimental » dans les Paramètres si les couleurs ne changent pas visiblement.</value>
   </data>
   <data name="CsWMIOnlyModeMonitoringAndManyControls" xml:space="preserve">
-    <value>• Le mode WMI seul (la surveillance et de nombreux réglages fonctionnent quand même)
-
-</value>
+    <value>• Le mode WMI seul (la surveillance et de nombreux réglages fonctionnent quand même)&#xA;&#xA;</value>
   </data>
   <data name="CsWPressApplyOrCheckThatAnother" xml:space="preserve">
     <value>{0:F1} W. Cliquez sur Appliquer, ou vérifiez qu'un autre outil ne </value>
@@ -9715,9 +9369,7 @@ Appliquer l'undervolt de -140 mV ?</value>
     <value>Puissance non indiquée</value>
   </data>
   <data name="CsWhatItIsRunning" xml:space="preserve">
-    <value>ce qu'il applique.
-
-</value>
+    <value>ce qu'il applique.&#xA;&#xA;</value>
   </data>
   <data name="CsWhenIndependentPerformanceProfileChangesDoNot" xml:space="preserve">
     <value>Indépendants, changer de profil de performance ne modifie pas la ventilation. Le préréglage ou la courbe choisi reste actif jusqu'à ce que vous changiez directement les réglages de ventilation.</value>
@@ -9744,8 +9396,7 @@ Appliquer l'undervolt de -140 mV ?</value>
     <value>Avec une alimentation sous-dimensionnée, c'est à cela que ressemble la limitation du firmware, </value>
   </data>
   <data name="CsWithoutASupportedDriverBackendTheseFeatures" xml:space="preserve">
-    <value>Sans pilote pris en charge, ces fonctions peuvent être désactivées :
-</value>
+    <value>Sans pilote pris en charge, ces fonctions peuvent être désactivées :&#xA;</value>
   </data>
   <data name="CsWorkAndTheLayoutIsReadFrom" xml:space="preserve">
     <value>fonctionner et la disposition est lue dans le clavier lui-même, elle devrait donc être correcte ; mais </value>
@@ -9775,9 +9426,7 @@ Appliquer l'undervolt de -140 mV ?</value>
     <value>Vos couleurs de clavier actuelles sont d'abord enregistrées, puis restaurées à la fin de la sonde.</value>
   </data>
   <data name="CsYourFanCurveCausedSustainedOverheating" xml:space="preserve">
-    <value>Votre courbe de ventilation a provoqué une surchauffe prolongée !
-
-</value>
+    <value>Votre courbe de ventilation a provoqué une surchauffe prolongée !&#xA;&#xA;</value>
   </data>
   <data name="CsYourScreensWillGoBlackForA" xml:space="preserve">
     <value>Vos écrans vont s'éteindre quelques secondes, et tout jeu, rendu ou calcul </value>

@@ -209,7 +209,7 @@
             </UniformGrid>
 
             <!-- Fan Mode Section -->
-            <TextBlock Grid.Row="4" Text="{x:Static loc:Strings.UiFanMode}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
+            <TextBlock Grid.Row="4" Text="{x:Static loc:Strings.UiFanMode_2}" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,6"/>
             <UniformGrid Grid.Row="5" Rows="1" Margin="0,0,0,12" VerticalAlignment="Top">
                 <Button x:Name="FanAutoBtn" Style="{StaticResource ModeButtonStyle}" Click="FanMode_Click" Tag="Auto">
                     <StackPanel>

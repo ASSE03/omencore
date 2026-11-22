@@ -13,8 +13,8 @@
                 <StackPanel MinWidth="200" MaxWidth="280" Margin="0,0,16,8">
                     <TextBlock Text="{x:Static loc:Strings.UiSelectedFan}" Style="{StaticResource Caption}" />
                     <ComboBox SelectedIndex="{Binding SelectedFanIndex, Mode=TwoWay}" Margin="0,6,0,0">
-                        <ComboBoxItem Content="{x:Static loc:Strings.UiCPUFan}" />
-                        <ComboBoxItem Content="{x:Static loc:Strings.UiGPUFan}" />
+                        <ComboBoxItem Content="{x:Static loc:Strings.UiCPUFan_2}" />
+                        <ComboBoxItem Content="{x:Static loc:Strings.UiGPUFan_2}" />
                     </ComboBox>
 
                     <TextBlock Text="{x:Static loc:Strings.UiTargetPercent}" Style="{StaticResource Caption}" Margin="0,10,0,0" />

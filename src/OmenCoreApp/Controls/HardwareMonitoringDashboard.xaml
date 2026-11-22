@@ -226,7 +226,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock x:Name="RamUsagePercent" Text="--" FontSize="13" FontWeight="Medium" Foreground="#6B7394"/>
-                                <TextBlock Text="{x:Static loc:Strings.UiUsed}" FontSize="13" Foreground="#6B7394"/>
+                                <TextBlock Text="{x:Static loc:Strings.UiUsed_2}" FontSize="13" Foreground="#6B7394"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -240,7 +240,7 @@
                     <!-- Power Chart -->
                     <Border x:Name="PowerChartBorder" Style="{StaticResource MetricCardStyle}" MinHeight="200">
                         <StackPanel>
-                            <TextBlock Text="{x:Static loc:Strings.UiPowerConsumption}" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,8"/>
+                            <TextBlock Text="{x:Static loc:Strings.UiPowerConsumption_2}" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" Margin="0,0,0,8"/>
                             <Canvas x:Name="PowerChartCanvas" Height="150" Background="{DynamicResource BackgroundDarkBrush}"/>
                             <TextBlock x:Name="PowerChartStats" FontSize="10" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,5,0,0"/>
                         </StackPanel>

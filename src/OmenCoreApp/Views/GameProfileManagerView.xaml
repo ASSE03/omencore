@@ -320,7 +320,7 @@
                                   Margin="0,0,0,12"/>
 
                         <!-- Performance Mode -->
-                        <Label Content="{x:Static loc:Strings.UiPerformanceMode}"/>
+                        <Label Content="{x:Static loc:Strings.UiPerformanceMode_2}"/>
                         <ComboBox ItemsSource="{Binding PerformanceModes}"
                                   SelectedItem="{Binding SelectedProfile.PerformanceModeName}"
                                   Margin="0,0,0,12"/>

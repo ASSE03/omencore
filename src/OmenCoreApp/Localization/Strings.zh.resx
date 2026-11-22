@@ -851,7 +851,7 @@
     <value>Balanced profile: default HP power and thermals</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiBattery" xml:space="preserve">
+  <data name="UiBattery_2" xml:space="preserve">
     <value>Battery %</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -971,7 +971,7 @@
     <value>CPU CLOCK</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiCPUClock" xml:space="preserve">
+  <data name="UiCPUClock_2" xml:space="preserve">
     <value>CPU Clock</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -987,7 +987,7 @@
     <value>CPU FREQUENCIES</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiCPUFan" xml:space="preserve">
+  <data name="UiCPUFan_2" xml:space="preserve">
     <value>CPU Fan</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -1003,7 +1003,7 @@
     <value>CPU LOAD</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiCPULoad" xml:space="preserve">
+  <data name="UiCPULoad_2" xml:space="preserve">
     <value>CPU Load %</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -1031,7 +1031,7 @@
     <value>CPU temp override:</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiCPUTemperature" xml:space="preserve">
+  <data name="UiCPUTemperature_2" xml:space="preserve">
     <value>CPU Temperature</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -2299,7 +2299,7 @@
     <value>Factory fan curve in Performance mode (experimental)</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiFan" xml:space="preserve">
+  <data name="UiFan_2" xml:space="preserve">
     <value>Fan:</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -2351,7 +2351,7 @@
     <value>Fan Max Verification (runs a quick verification of 'Max' preset)</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiFanMode" xml:space="preserve">
+  <data name="UiFanMode_2" xml:space="preserve">
     <value>Fan Mode</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -2407,7 +2407,7 @@
     <value>🌀 Fan Speeds</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiFans" xml:space="preserve">
+  <data name="UiFans_2" xml:space="preserve">
     <value>Fans</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -2543,7 +2543,7 @@
     <value>GPU FAN</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiGPUFan" xml:space="preserve">
+  <data name="UiGPUFan_2" xml:space="preserve">
     <value>GPU Fan</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -2563,7 +2563,7 @@
     <value>GPU LOAD</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiGPULoad" xml:space="preserve">
+  <data name="UiGPULoad_2" xml:space="preserve">
     <value>GPU Load %</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -2623,7 +2623,7 @@
     <value>GPU Temp</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiGPUTemperature" xml:space="preserve">
+  <data name="UiGPUTemperature_2" xml:space="preserve">
     <value>GPU Temperature</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -2779,7 +2779,7 @@
     <value>HP OMEN-specific features: Performance modes, fan curves, GPU switching</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiHPOmenKeyboard" xml:space="preserve">
+  <data name="UiHPOmenKeyboard_2" xml:space="preserve">
     <value>HP Omen Keyboard:</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -3023,7 +3023,7 @@
     <value>Install Update</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiInstalled" xml:space="preserve">
+  <data name="UiInstalled_2" xml:space="preserve">
     <value>✓ Installed</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -3499,7 +3499,7 @@
     <value>Minutes to wait for reconnection before worker exits</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiMode" xml:space="preserve">
+  <data name="UiMode_2" xml:space="preserve">
     <value>Mode</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -4103,7 +4103,7 @@
     <value>Perform</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiPerformance" xml:space="preserve">
+  <data name="UiPerformance_2" xml:space="preserve">
     <value>Performance</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -4111,7 +4111,7 @@
     <value>Performance and power mode switching</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiPerformanceMode" xml:space="preserve">
+  <data name="UiPerformanceMode_2" xml:space="preserve">
     <value>Performance Mode</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -4199,7 +4199,7 @@
     <value>Power Automation</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiPowerConsumption" xml:space="preserve">
+  <data name="UiPowerConsumption_2" xml:space="preserve">
     <value>⚡ Power Consumption</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -4211,7 +4211,7 @@
     <value>Power Level:</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiPowerLimit" xml:space="preserve">
+  <data name="UiPowerLimit_2" xml:space="preserve">
     <value> Power Limit</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -4435,7 +4435,7 @@
     <value>RAM USAGE</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiRAMUsage" xml:space="preserve">
+  <data name="UiRAMUsage_2" xml:space="preserve">
     <value>RAM Usage</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -4807,7 +4807,7 @@
     <value>− Remove</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiRemoved" xml:space="preserve">
+  <data name="UiRemoved_2" xml:space="preserve">
     <value>Removed</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -5647,7 +5647,7 @@
     <value>Sync keyboard/peripherals with screen colors (Ambilight-style)</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiSystem" xml:space="preserve">
+  <data name="UiSystem_2" xml:space="preserve">
     <value>System</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -6107,7 +6107,7 @@
     <value>Use keyboard shortcuts even when app is in background</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiUsed" xml:space="preserve">
+  <data name="UiUsed_2" xml:space="preserve">
     <value>% used</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -6183,7 +6183,7 @@
     <value>Visual Effects</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="UiVoltage" xml:space="preserve">
+  <data name="UiVoltage_2" xml:space="preserve">
     <value>Voltage</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -6362,40 +6362,27 @@
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs1CloseThrottleStopFromTheSystemTray" xml:space="preserve">
-    <value>1. Close ThrottleStop from the system tray
-2. Disable ThrottleStop's auto-start (uncheck 'Start Minimized')
-3. Restart OmenCore to take over voltage control</value>
+    <value>1. Close ThrottleStop from the system tray&#xA;2. Disable ThrottleStop's auto-start (uncheck 'Start Minimized')&#xA;3. Restart OmenCore to take over voltage control</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs1OpenServicesWinRServicesMsc" xml:space="preserve">
-    <value>1. Open Services (Win+R → services.msc)
-2. Find 'Intel(R) Extreme Tuning Utility' service
-3. Right-click → Stop, then set Startup type to 'Disabled'
-4. Optionally uninstall XTU from Control Panel
-5. Restart OmenCore</value>
+    <value>1. Open Services (Win+R → services.msc)&#xA;2. Find 'Intel(R) Extreme Tuning Utility' service&#xA;3. Right-click → Stop, then set Startup type to 'Disabled'&#xA;4. Optionally uninstall XTU from Control Panel&#xA;5. Restart OmenCore</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs1OpenServicesWinRServicesMsc_a0218" xml:space="preserve">
-    <value>1. Open Services (Win+R → services.msc)
-2. Find 'Intel(R) Dynamic Tuning Service'
-3. Stop and disable the service
-4. Note: This may affect Intel thermal management</value>
+    <value>1. Open Services (Win+R → services.msc)&#xA;2. Find 'Intel(R) Dynamic Tuning Service'&#xA;3. Stop and disable the service&#xA;4. Note: This may affect Intel thermal management</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs1OpenWindowsSecurityDeviceSecurityCore" xml:space="preserve">
-    <value>1. Open Windows Security → Device Security → Core Isolation
-</value>
+    <value>1. Open Windows Security → Device Security → Core Isolation&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs1RestartYourLaptopHoldPower10" xml:space="preserve">
-    <value>1. Restart your laptop (hold power 10 seconds)
-</value>
+    <value>1. Restart your laptop (hold power 10 seconds)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs1UseOmenCoreSCleanOMENGaming" xml:space="preserve">
-    <value>1. Use OmenCore's 'Clean OMEN Gaming Hub' feature in Settings
-2. Or uninstall OGH from Control Panel → Programs
-3. Restart your computer after removal</value>
+    <value>1. Use OmenCore's 'Clean OMEN Gaming Hub' feature in Settings&#xA;2. Or uninstall OGH from Control Panel → Programs&#xA;3. Restart your computer after removal</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs23Removing" xml:space="preserve">
@@ -6411,8 +6398,7 @@
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs2DisableMemoryIntegrity" xml:space="preserve">
-    <value>2. Disable 'Memory Integrity'
-</value>
+    <value>2. Disable 'Memory Integrity'&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs33CleanupComplete" xml:space="preserve">
@@ -6420,15 +6406,11 @@
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs3OrReinstallOmenCore" xml:space="preserve">
-    <value>3. Or reinstall OmenCore
-
-</value>
+    <value>3. Or reinstall OmenCore&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs3RestartYourComputer" xml:space="preserve">
-    <value>3. Restart your computer
-
-</value>
+    <value>3. Restart your computer&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="Cs4BarZones" xml:space="preserve">
@@ -6448,23 +6430,11 @@
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsAConflictingToolIsRunningApplyingA" xml:space="preserve">
-    <value>A conflicting tool is running:
-
-{0}
-
-Applying a CPU undervolt while this tool is active may cause instability or a crash.
-
-Do you want to continue anyway?</value>
+    <value>A conflicting tool is running:&#xA;&#xA;{0}&#xA;&#xA;Applying a CPU undervolt while this tool is active may cause instability or a crash.&#xA;&#xA;Do you want to continue anyway?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsAConflictingToolIsRunningApplyingGPU" xml:space="preserve">
-    <value>A conflicting tool is running:
-
-{0}
-
-Applying GPU overclocking while this tool is active may cause instability or a driver crash.
-
-Do you want to continue anyway?</value>
+    <value>A conflicting tool is running:&#xA;&#xA;{0}&#xA;&#xA;Applying GPU overclocking while this tool is active may cause instability or a driver crash.&#xA;&#xA;Do you want to continue anyway?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsAD3DDXGIOverlayHookPossiblyRTSS" xml:space="preserve">
@@ -6488,9 +6458,7 @@ Do you want to continue anyway?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsAMDDetected" xml:space="preserve">
-    <value>AMD {0} detected.
-
-</value>
+    <value>AMD {0} detected.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsAMDGPUOCAppliedCoreMHzMem" xml:space="preserve">
@@ -6546,12 +6514,7 @@ Do you want to continue anyway?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsANewVersionIsAvailableCurrentLatest" xml:space="preserve">
-    <value>A new version is available!
-
-Current: {0}
-Latest: {1}
-
-Would you like to download and install it now?</value>
+    <value>A new version is available!&#xA;&#xA;Current: {0}&#xA;Latest: {1}&#xA;&#xA;Would you like to download and install it now?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsANewVersionIsAvailableOnGitHub" xml:space="preserve">
@@ -6559,15 +6522,11 @@ Would you like to download and install it now?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsASystemRestartIsRequiredForChanges" xml:space="preserve">
-    <value>A system restart is required for changes to take effect.
-
-</value>
+    <value>A system restart is required for changes to take effect.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsASystemRestorePointWillBeCreated" xml:space="preserve">
-    <value>A system restore point will be created before making changes.
-
-</value>
+    <value>A system restore point will be created before making changes.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsAccentColourCustomisation" xml:space="preserve">
@@ -6662,7 +6621,7 @@ Would you like to download and install it now?</value>
     <value>Applied {0} {1} optimization(s)</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="CsAppliedOptimizations" xml:space="preserve">
+  <data name="CsAppliedOptimizations_2" xml:space="preserve">
     <value>Applied {0}/{1} optimizations</value>
     <comment>untranslated: English fallback</comment>
   </data>
@@ -6751,9 +6710,7 @@ Would you like to download and install it now?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsApplyWThisChangesTheGPUS" xml:space="preserve">
-    <value>Apply {0} {1} W?
-
-This changes the GPU's power limit beyond the laptop maker's setting. </value>
+    <value>Apply {0} {1} W?&#xA;&#xA;This changes the GPU's power limit beyond the laptop maker's setting. </value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsApplyYourCustomFanCurveDefinedIn" xml:space="preserve">
@@ -6873,13 +6830,7 @@ This changes the GPU's power limit beyond the laptop maker's setting. </value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsAutoStartRequiresAdministratorPrivilegesToCreate" xml:space="preserve">
-    <value>Auto-start requires administrator privileges to create a scheduled task.
-
-To enable auto-start:
-1. Right-click OmenCore and select 'Run as administrator'
-2. Go to Settings and enable 'Start with Windows' again
-
-Or, re-run the installer with the 'Start with Windows' option checked.</value>
+    <value>Auto-start requires administrator privileges to create a scheduled task.&#xA;&#xA;To enable auto-start:&#xA;1. Right-click OmenCore and select 'Run as administrator'&#xA;2. Go to Settings and enable 'Start with Windows' again&#xA;&#xA;Or, re-run the installer with the 'Start with Windows' option checked.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsAutoSystemControlled" xml:space="preserve">
@@ -6991,26 +6942,15 @@ Or, re-run the installer with the 'Start with Windows' option checked.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsBatteryChargeLimitCannotBeSetHP" xml:space="preserve">
-    <value>Battery charge limit cannot be set - HP WMI BIOS interface not available.
-
-This feature requires HP OMEN/Victus laptop with WMI BIOS support.</value>
+    <value>Battery charge limit cannot be set - HP WMI BIOS interface not available.&#xA;&#xA;This feature requires HP OMEN/Victus laptop with WMI BIOS support.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsBatteryChargeLimitCommandFailedThisMay" xml:space="preserve">
-    <value>Battery charge limit command failed.
-
-This may indicate:
-• Your laptop model doesn't support this feature
-• The HP BIOS needs an update
-• AC adapter is not connected
-
-Try toggling the setting in OMEN Gaming Hub to compare behavior.</value>
+    <value>Battery charge limit command failed.&#xA;&#xA;This may indicate:&#xA;• Your laptop model doesn't support this feature&#xA;• The HP BIOS needs an update&#xA;• AC adapter is not connected&#xA;&#xA;Try toggling the setting in OMEN Gaming Hub to compare behavior.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsBatteryHysteresisSettings" xml:space="preserve">
-    <value>• Battery &amp; hysteresis settings
-
-</value>
+    <value>• Battery &amp; hysteresis settings&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsBatteryUnavailable" xml:space="preserve">
@@ -7030,9 +6970,7 @@ Try toggling the setting in OMEN Gaming Hub to compare behavior.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsBloatwareRemovalComplete_252f4" xml:space="preserve">
-    <value>✓ Bloatware removal complete!
-
-</value>
+    <value>✓ Bloatware removal complete!&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsBoostModeActivatedHotkey" xml:space="preserve">
@@ -7076,14 +7014,11 @@ Try toggling the setting in OMEN Gaming Hub to compare behavior.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCORequiresSpecificSMUSystemManagementUnit" xml:space="preserve">
-    <value>CO requires specific SMU (System Management Unit) commands that may not be available or working on all models.
-
-</value>
+    <value>CO requires specific SMU (System Management Unit) commands that may not be available or working on all models.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPU" xml:space="preserve">
-    <value>CPU: {0} @ {1:F0}%
-</value>
+    <value>CPU: {0} @ {1:F0}%&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPUC" xml:space="preserve">
@@ -7119,18 +7054,11 @@ Try toggling the setting in OMEN Gaming Hub to compare behavior.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPUPowerLimitsAreLockedByBIOS" xml:space="preserve">
-    <value>CPU power limits are locked by BIOS and cannot be modified.
-
-This lock is set during boot and persists until the next restart.
-Some laptops may require specific BIOS settings or Unleashed Mode to unlock.
-
-If you are on OMEN 16-am0xxx (8D2F) Intel Core Ultra, direct PL1/PL2 sliders may stay locked while OMEN/OGH performance mode policy still works.</value>
+    <value>CPU power limits are locked by BIOS and cannot be modified.&#xA;&#xA;This lock is set during boot and persists until the next restart.&#xA;Some laptops may require specific BIOS settings or Unleashed Mode to unlock.&#xA;&#xA;If you are on OMEN 16-am0xxx (8D2F) Intel Core Ultra, direct PL1/PL2 sliders may stay locked while OMEN/OGH performance mode policy still works.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPUPowerLimitsCannotBeAppliedMSR" xml:space="preserve">
-    <value>CPU power limits cannot be applied - MSR access not available.
-
-Install PawnIO driver from pawnio.eu to enable power limit control.</value>
+    <value>CPU power limits cannot be applied - MSR access not available.&#xA;&#xA;Install PawnIO driver from pawnio.eu to enable power limit control.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPUPowerLimitsLockedReadOnly" xml:space="preserve">
@@ -7150,8 +7078,7 @@ Install PawnIO driver from pawnio.eu to enable power limit control.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPUTemperatureSource_10524" xml:space="preserve">
-    <value>CPU temperature source: {0}
-{1}</value>
+    <value>CPU temperature source: {0}&#xA;{1}</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPUUndervolt" xml:space="preserve">
@@ -7199,9 +7126,7 @@ Install PawnIO driver from pawnio.eu to enable power limit control.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPUUndervoltingAndTCCOffsetIntelMSR" xml:space="preserve">
-    <value>• CPU undervolting and TCC offset (Intel MSR)
-
-</value>
+    <value>• CPU undervolting and TCC offset (Intel MSR)&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCPUUndervoltingSettings" xml:space="preserve">
@@ -7233,8 +7158,7 @@ Install PawnIO driver from pawnio.eu to enable power limit control.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCalibratedFor" xml:space="preserve">
-    <value>Calibrated for: {0}
-</value>
+    <value>Calibrated for: {0}&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCalibrationAvailableCreated" xml:space="preserve">
@@ -7370,8 +7294,7 @@ Install PawnIO driver from pawnio.eu to enable power limit control.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCheckIfYourBIOSHasAnOption" xml:space="preserve">
-    <value>• Check if your BIOS has an option to unlock overclocking/undervolt
-</value>
+    <value>• Check if your BIOS has an option to unlock overclocking/undervolt&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCheckSettingsStatusForDriverDetails" xml:space="preserve">
@@ -7467,8 +7390,7 @@ Install PawnIO driver from pawnio.eu to enable power limit control.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCloseRTSSMSIAfterburnerOverlayBeforeStarting" xml:space="preserve">
-    <value>  • Close RTSS / MSI Afterburner overlay before starting OmenCore, OR
-</value>
+    <value>  • Close RTSS / MSI Afterburner overlay before starting OmenCore, OR&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCollectingApplicationLogs" xml:space="preserve">
@@ -7540,9 +7462,7 @@ Install PawnIO driver from pawnio.eu to enable power limit control.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsConfigurationImportedSuccessfullyPleaseRestartOmenCoreFor" xml:space="preserve">
-    <value>Configuration imported successfully!
-
-Please restart OmenCore for all changes to take effect.</value>
+    <value>Configuration imported successfully!&#xA;&#xA;Please restart OmenCore for all changes to take effect.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsConfigurationReloaded" xml:space="preserve">
@@ -7666,9 +7586,7 @@ Please restart OmenCore for all changes to take effect.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCreateAWindowsRestorePointBeforeRemoving" xml:space="preserve">
-    <value>Create a Windows restore point before removing {0} item(s)?
-
-Recommended for safety before system changes.</value>
+    <value>Create a Windows restore point before removing {0} item(s)?&#xA;&#xA;Recommended for safety before system changes.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCreateRestorePoint" xml:space="preserve">
@@ -7688,8 +7606,7 @@ Recommended for safety before system changes.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCurrentRPMLevelSourceEstimatedSpeed" xml:space="preserve">
-    <value>Current: {0} RPM (Level: {1}, Source: {2})
-Estimated: ~{3}% speed</value>
+    <value>Current: {0} RPM (Level: {1}, Source: {2})&#xA;Estimated: ~{3}% speed</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsCurrentW" xml:space="preserve">
@@ -7781,9 +7698,7 @@ Estimated: ~{3}% speed</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDANGERHIGHRISKEXPERIMENTALFEATURE" xml:space="preserve">
-    <value>🛑 DANGER: HIGH-RISK EXPERIMENTAL FEATURE 🛑
-
-</value>
+    <value>🛑 DANGER: HIGH-RISK EXPERIMENTAL FEATURE 🛑&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDGPUIdleLoad" xml:space="preserve">
@@ -7871,8 +7786,7 @@ Estimated: ~{3}% speed</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDependingOnYourSystemYouCanUse" xml:space="preserve">
-    <value>Depending on your system, you can use:
-</value>
+    <value>Depending on your system, you can use:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDetectedClockLimitsForCoreMemoryPower" xml:space="preserve">
@@ -7948,13 +7862,11 @@ Estimated: ~{3}% speed</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDirectECFanControlSomeModels" xml:space="preserve">
-    <value>• Direct EC fan control (some models)
-</value>
+    <value>• Direct EC fan control (some models)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDirectECKeyboardWritesCanCause" xml:space="preserve">
-    <value>Direct EC keyboard writes can cause:
-</value>
+    <value>Direct EC keyboard writes can cause:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDisablesAcrylicAndTransparencyEffectsToReduce" xml:space="preserve">
@@ -8066,9 +7978,7 @@ Estimated: ~{3}% speed</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDoYouWantToContinueWithThe" xml:space="preserve">
-    <value>Do you want to continue with the cleanup anyway?
-
-</value>
+    <value>Do you want to continue with the cleanup anyway?&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsDone" xml:space="preserve">
@@ -8124,20 +8034,11 @@ Estimated: ~{3}% speed</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsECBackendSelectedUsingECForKeyboard" xml:space="preserve">
-    <value>⚠️ EC Backend Selected ⚠️
-
-Using EC for keyboard control requires 'Enable EC keyboard' to be checked.
-
-Would you like to enable experimental EC keyboard support?
-(Warning: This may cause system crashes on some models)</value>
+    <value>⚠️ EC Backend Selected ⚠️&#xA;&#xA;Using EC for keyboard control requires 'Enable EC keyboard' to be checked.&#xA;&#xA;Would you like to enable experimental EC keyboard support?&#xA;(Warning: This may cause system crashes on some models)</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsECHasBeenResetToFactoryDefaults" xml:space="preserve">
-    <value>EC has been reset to factory defaults.
-
-BIOS should now have full control of fans.
-If your BIOS displays still show incorrect values,
-try restarting your laptop.</value>
+    <value>EC has been reset to factory defaults.&#xA;&#xA;BIOS should now have full control of fans.&#xA;If your BIOS displays still show incorrect values,&#xA;try restarting your laptop.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsECKeyboardRegisters0xB20xBEVaryBy" xml:space="preserve">
@@ -8153,10 +8054,7 @@ try restarting your laptop.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsECResetMayHavePartiallyCompletedSome" xml:space="preserve">
-    <value>EC reset may have partially completed.
-
-Some systems may require a full restart
-for all changes to take effect.</value>
+    <value>EC reset may have partially completed.&#xA;&#xA;Some systems may require a full restart&#xA;for all changes to take effect.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsECResetResult" xml:space="preserve">
@@ -8172,18 +8070,7 @@ for all changes to take effect.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsEXCLUSIVEECACCESSDIAGNOSTICSThisDiagnosticMode" xml:space="preserve">
-    <value>⚠️ EXCLUSIVE EC ACCESS DIAGNOSTICS ⚠️
-
-This diagnostic mode will:
-• Acquire exclusive access to EC registers
-• Block other applications from accessing EC
-• Log detailed contention information
-• May interfere with OMEN Gaming Hub or other fan control apps
-
-Use this only for troubleshooting EC register conflicts.
-It will help identify if other apps are causing fan RPM 0 issues.
-
-Enable exclusive diagnostics mode?</value>
+    <value>⚠️ EXCLUSIVE EC ACCESS DIAGNOSTICS ⚠️&#xA;&#xA;This diagnostic mode will:&#xA;• Acquire exclusive access to EC registers&#xA;• Block other applications from accessing EC&#xA;• Log detailed contention information&#xA;• May interfere with OMEN Gaming Hub or other fan control apps&#xA;&#xA;Use this only for troubleshooting EC register conflicts.&#xA;It will help identify if other apps are causing fan RPM 0 issues.&#xA;&#xA;Enable exclusive diagnostics mode?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsEfficiencyDataUnavailable" xml:space="preserve">
@@ -8195,9 +8082,7 @@ Enable exclusive diagnostics mode?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsEnableSoftwareRenderingInOmenCoreSettingsGeneral" xml:space="preserve">
-    <value>  • Enable 'Software Rendering' in OmenCore Settings → General
-
-</value>
+    <value>  • Enable 'Software Rendering' in OmenCore Settings → General&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsEnablesHardwareAcceleratedGPUSchedulingSoWindows" xml:space="preserve">
@@ -8393,14 +8278,11 @@ Enable exclusive diagnostics mode?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFailedPackageS" xml:space="preserve">
-    <value>• Failed: {0} package(s)
-</value>
+    <value>• Failed: {0} package(s)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
-  <data name="CsFailedPackages" xml:space="preserve">
-    <value>
-Failed packages:
-</value>
+  <data name="CsFailedPackages_2" xml:space="preserve">
+    <value>&#xA;Failed packages:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFailedSkippedExportLogForDetails" xml:space="preserve">
@@ -8408,9 +8290,7 @@ Failed packages:
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFailedToApplyCPUPowerLimitsThe" xml:space="preserve">
-    <value>Failed to apply CPU power limits.
-
-The BIOS may have locked the MSR registers during boot.</value>
+    <value>Failed to apply CPU power limits.&#xA;&#xA;The BIOS may have locked the MSR registers during boot.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFailedToChangeMemoryCompressionState" xml:space="preserve">
@@ -8462,13 +8342,7 @@ The BIOS may have locked the MSR registers during boot.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFanCalibrationWillTestSpeedsFrom0" xml:space="preserve">
-    <value>Fan calibration will test speeds from 0% to 100% and may take 5-10 minutes.
-
-• Ensure your laptop has good ventilation
-• Do not interrupt the process
-• Fans will run at various speeds
-
-Continue with calibration?</value>
+    <value>Fan calibration will test speeds from 0% to 100% and may take 5-10 minutes.&#xA;&#xA;• Ensure your laptop has good ventilation&#xA;• Do not interrupt the process&#xA;• Fans will run at various speeds&#xA;&#xA;Continue with calibration?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFanCalibrationWizard" xml:space="preserve">
@@ -8580,8 +8454,7 @@ Continue with calibration?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFanPresetS" xml:space="preserve">
-    <value>• {0} fan preset(s)
-</value>
+    <value>• {0} fan preset(s)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFanPreset_88751" xml:space="preserve">
@@ -8661,9 +8534,7 @@ Continue with calibration?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFoundHPBloatwarePackageS" xml:space="preserve">
-    <value>Found {0} HP bloatware package(s):
-
-</value>
+    <value>Found {0} HP bloatware package(s):&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsFreedMB" xml:space="preserve">
@@ -8711,8 +8582,7 @@ Continue with calibration?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsGPU" xml:space="preserve">
-    <value>GPU: {0} @ {1:F0}%{2}
-</value>
+    <value>GPU: {0} @ {1:F0}%{2}&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsGPUC" xml:space="preserve">
@@ -8736,16 +8606,11 @@ Continue with calibration?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsGPUOCIncreaseDetectedWhileRunningOn" xml:space="preserve">
-    <value>GPU OC increase detected while running on battery power.
-
-Applying higher clocks/power limits on battery can cause unstable clocks, rapid battery drain, and sudden throttling.
-
-Connect AC power before increasing GPU OC settings.</value>
+    <value>GPU OC increase detected while running on battery power.&#xA;&#xA;Applying higher clocks/power limits on battery can cause unstable clocks, rapid battery drain, and sudden throttling.&#xA;&#xA;Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsGPUOCProfileS" xml:space="preserve">
-    <value>• {0} GPU OC profile(s)
-</value>
+    <value>• {0} GPU OC profile(s)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsGPUOCRecoveryReset" xml:space="preserve">
@@ -8833,8 +8698,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHARDSYSTEMCRASHESRequiringForcedRestart" xml:space="preserve">
-    <value>• HARD SYSTEM CRASHES requiring forced restart
-</value>
+    <value>• HARD SYSTEM CRASHES requiring forced restart&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHPKeyboard" xml:space="preserve">
@@ -8858,13 +8722,11 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHPSupportAssistantWillNOTBeRemoved" xml:space="preserve">
-    <value>• HP Support Assistant will NOT be removed
-</value>
+    <value>• HP Support Assistant will NOT be removed&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHVCICoreIsolationEnabled" xml:space="preserve">
-    <value>• HVCI/Core Isolation enabled
-</value>
+    <value>• HVCI/Core Isolation enabled&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHardwareMonitoringActive" xml:space="preserve">
@@ -8872,9 +8734,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHasCausedSystemCrashesAndDisplayIssues" xml:space="preserve">
-    <value>has caused system crashes and display issues on various OMEN models.
-
-</value>
+    <value>has caused system crashes and display issues on various OMEN models.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHasNothingToRememberTheFanState" xml:space="preserve">
@@ -8950,8 +8810,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHyperVHVCICoreIsolationIsBlocking" xml:space="preserve">
-    <value>• Hyper-V/HVCI (Core Isolation) is blocking MSR writes
-</value>
+    <value>• Hyper-V/HVCI (Core Isolation) is blocking MSR writes&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsHzModeNotOfferedByThisPanel" xml:space="preserve">
@@ -8975,8 +8834,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsIfYourScreenGoesBlackAfterEnabling" xml:space="preserve">
-    <value>If your screen goes black after enabling this:
-</value>
+    <value>If your screen goes black after enabling this:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsImportComplete" xml:space="preserve">
@@ -9016,9 +8874,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsImportProfileFrom" xml:space="preserve">
-    <value>Import profile from {0}?
-
-</value>
+    <value>Import profile from {0}?&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsImportedCurvePointsRememberToApplySave" xml:space="preserve">
@@ -9142,9 +8998,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsItDoesNotRateHighlyEnoughNot" xml:space="preserve">
-    <value>it does not rate highly enough, not a measurement of what that supply can deliver.
-
-</value>
+    <value>it does not rate highly enough, not a measurement of what that supply can deliver.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsItThenRaisesTheFourCPUPower" xml:space="preserve">
@@ -9180,8 +9034,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsKeyboardDisplayControllerMalfunction" xml:space="preserve">
-    <value>• Keyboard/display controller malfunction
-</value>
+    <value>• Keyboard/display controller malfunction&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsKeyboardLightingControlIsNotAvailableOn" xml:space="preserve">
@@ -9381,8 +9234,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsMSRAccessBlockedInstallPawnIOOrDisable" xml:space="preserve">
-    <value>• MSR access blocked (install PawnIO or disable Secure Boot)
-</value>
+    <value>• MSR access blocked (install PawnIO or disable Secure Boot)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsMSRPackageLimitsUnavailableHPFirmwareMay" xml:space="preserve">
@@ -9406,8 +9258,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsMaxLevel" xml:space="preserve">
-    <value>Max Level: {0}
-</value>
+    <value>Max Level: {0}&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsMaxMaximumCooling" xml:space="preserve">
@@ -9515,8 +9366,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsMinSpinLevel" xml:space="preserve">
-    <value>Min Spin Level: {0}
-</value>
+    <value>Min Spin Level: {0}&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsMinimizeToTrayOnClose" xml:space="preserve">
@@ -9572,8 +9422,7 @@ Connect AC power before increasing GPU OC settings.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsModelModelID" xml:space="preserve">
-    <value>Model: {0}
-Model ID: {1}</value>
+    <value>Model: {0}&#xA;Model ID: {1}</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsModelOverrideActiveGitHub78WorkerCPU" xml:space="preserve">
@@ -9585,10 +9434,7 @@ Model ID: {1}</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsModelProductNameSystemSkuDiagnostics" xml:space="preserve">
-    <value>Model: {0}
-ProductName: {1}
-SystemSku: {2}
-Diagnostics: {3}</value>
+    <value>Model: {0}&#xA;ProductName: {1}&#xA;SystemSku: {2}&#xA;Diagnostics: {3}</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsMonitorUnknown" xml:space="preserve">
@@ -9604,9 +9450,7 @@ Diagnostics: {3}</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsMostBIOSUpdatesAfter2020LockMSR" xml:space="preserve">
-    <value>Most BIOS updates after 2020 lock MSR 0x150 (voltage offset register).
-
-</value>
+    <value>Most BIOS updates after 2020 lock MSR 0x150 (voltage offset register).&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsNVAPIClockOffsetsAreAvailableButPower" xml:space="preserve">
@@ -9762,9 +9606,7 @@ Diagnostics: {3}</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsNoHPBloatwareDetectedYourSystemIs" xml:space="preserve">
-    <value>✓ No HP bloatware detected!
-
-Your system is clean.</value>
+    <value>✓ No HP bloatware detected!&#xA;&#xA;Your system is clean.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsNoHPTelemetryServicesFoundOnThis" xml:space="preserve">
@@ -10052,19 +9894,7 @@ Your system is clean.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOMENDesktopPCDetectedOmenCoreHasExperimental" xml:space="preserve">
-    <value>⚠️ OMEN Desktop PC Detected ⚠️
-
-OmenCore has experimental support for OMEN Desktop systems (25L, 30L, 35L, 40L, 45L).
-
-Desktop fan control uses different hardware interfaces than laptops. Some features may not work correctly:
-
-• Fan speed control may be limited or unavailable
-• Temperature monitoring should work normally
-• RGB control is supported
-
-If you experience any issues, please report them on GitHub or Discord.
-
-Do you want to continue?</value>
+    <value>⚠️ OMEN Desktop PC Detected ⚠️&#xA;&#xA;OmenCore has experimental support for OMEN Desktop systems (25L, 30L, 35L, 40L, 45L).&#xA;&#xA;Desktop fan control uses different hardware interfaces than laptops. Some features may not work correctly:&#xA;&#xA;• Fan speed control may be limited or unavailable&#xA;• Temperature monitoring should work normally&#xA;• RGB control is supported&#xA;&#xA;If you experience any issues, please report them on GitHub or Discord.&#xA;&#xA;Do you want to continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOMENGamingHubCleanupComplete" xml:space="preserve">
@@ -10116,13 +9946,7 @@ Do you want to continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOmenCapPersistsInWindowsDriverStoreAfterOGH" xml:space="preserve">
-    <value>OmenCap persists in Windows DriverStore after OGH uninstall:
-1. Open Admin Command Prompt
-2. Run: pnputil /enum-drivers | findstr /i omen
-3. Note the oem##.inf for hpomencustomcapcomp
-4. Run: pnputil /delete-driver oem##.inf /force
-5. Reboot your computer
-6. This fully removes HP's hardware access component</value>
+    <value>OmenCap persists in Windows DriverStore after OGH uninstall:&#xA;1. Open Admin Command Prompt&#xA;2. Run: pnputil /enum-drivers | findstr /i omen&#xA;3. Note the oem##.inf for hpomencustomcapcomp&#xA;4. Run: pnputil /delete-driver oem##.inf /force&#xA;5. Reboot your computer&#xA;6. This fully removes HP's hardware access component</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOmenCoreBeforeOGHCleanup" xml:space="preserve">
@@ -10154,17 +9978,11 @@ Do you want to continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOmenCoreGamingLaptopControlLeftClickQuick" xml:space="preserve">
-    <value>OmenCore - Gaming Laptop Control
-
-Left-click: Quick Popup
-Double-click: Open Dashboard
-Right-click: Menu</value>
+    <value>OmenCore - Gaming Laptop Control&#xA;&#xA;Left-click: Quick Popup&#xA;Double-click: Open Dashboard&#xA;Right-click: Menu</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOmenCoreHasSwitchedToSoftwareRenderingFor" xml:space="preserve">
-    <value>OmenCore has switched to software rendering for this session to prevent further crashes.
-
-</value>
+    <value>OmenCore has switched to software rendering for this session to prevent further crashes.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOmenCoreIsNotRunningAsAdministratorBloatware" xml:space="preserve">
@@ -10172,14 +9990,7 @@ Right-click: Menu</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOmenCoreRecommendsPawnIOForAdvancedHardwareFeatures" xml:space="preserve">
-    <value>OmenCore recommends PawnIO for advanced hardware features.
-
-PawnIO provides Secure Boot compatible MSR/EC access for:
-• CPU undervolting (Intel/AMD)
-• TCC offset control
-• EC-based fan control fallback
-
-Click OK to open the PawnIO website.</value>
+    <value>OmenCore recommends PawnIO for advanced hardware features.&#xA;&#xA;PawnIO provides Secure Boot compatible MSR/EC access for:&#xA;• CPU undervolting (Intel/AMD)&#xA;• TCC offset control&#xA;• EC-based fan control fallback&#xA;&#xA;Click OK to open the PawnIO website.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOmenCoreRenderConflictDetected" xml:space="preserve">
@@ -10219,9 +10030,7 @@ Click OK to open the PawnIO website.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOnlyEnableThisIfWMIKeyboardLighting" xml:space="preserve">
-    <value>Only enable this if WMI keyboard lighting doesn't work on your model.
-
-</value>
+    <value>Only enable this if WMI keyboard lighting doesn't work on your model.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOnlyLookingConfirmsIt" xml:space="preserve">
@@ -10249,11 +10058,7 @@ Click OK to open the PawnIO website.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOperationFailedCheckLogsForDetailsTip" xml:space="preserve">
-    <value>Operation failed: {0}
-
-Check logs for details.
-
-Tip: Try restarting OmenCore or check Settings for any misconfigurations.</value>
+    <value>Operation failed: {0}&#xA;&#xA;Check logs for details.&#xA;&#xA;Tip: Try restarting OmenCore or check Settings for any misconfigurations.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOptimizesTCPACKFrequencyForFasterResponses" xml:space="preserve">
@@ -10269,9 +10074,7 @@ Tip: Try restarting OmenCore or check Settings for any misconfigurations.</value
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOtherUnpredictableECRelatedIssues" xml:space="preserve">
-    <value>• Other unpredictable EC-related issues
-
-</value>
+    <value>• Other unpredictable EC-related issues&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsOutOf" xml:space="preserve">
@@ -10291,9 +10094,7 @@ Tip: Try restarting OmenCore or check Settings for any misconfigurations.</value
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPackageSCouldNotBeRemoved" xml:space="preserve">
-    <value>
-
-{0} package(s) could not be removed.</value>
+    <value>&#xA;&#xA;{0} package(s) could not be removed.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPaintedKeyS" xml:space="preserve">
@@ -10337,8 +10138,7 @@ Tip: Try restarting OmenCore or check Settings for any misconfigurations.</value
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPawnIOSecureBootCompatible" xml:space="preserve">
-    <value>• PawnIO (Secure Boot compatible)
-</value>
+    <value>• PawnIO (Secure Boot compatible)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPerCoreClocksUnavailable" xml:space="preserve">
@@ -10406,8 +10206,7 @@ Tip: Try restarting OmenCore or check Settings for any misconfigurations.</value
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPerformanceModeS" xml:space="preserve">
-    <value>• {0} performance mode(s)
-</value>
+    <value>• {0} performance mode(s)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPhysicalRPMUnavailable" xml:space="preserve">
@@ -10427,9 +10226,7 @@ Tip: Try restarting OmenCore or check Settings for any misconfigurations.</value
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPleaseFixTheIssuesBeforeSaving" xml:space="preserve">
-    <value>{0}
-
-Please fix the issues before saving.</value>
+    <value>{0}&#xA;&#xA;Please fix the issues before saving.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPleaseReviewYourFanCurveAndEnsure" xml:space="preserve">
@@ -10437,8 +10234,7 @@ Please fix the issues before saving.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPossibleSolutions" xml:space="preserve">
-    <value>Possible solutions:
-</value>
+    <value>Possible solutions:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsPostResumeSelfCheckCouldNotConfirm" xml:space="preserve">
@@ -10682,9 +10478,7 @@ Please fix the issues before saving.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsProfileImportedSuccessfullySettingsHaveBeenApplied" xml:space="preserve">
-    <value>Profile imported successfully!
-
-Settings have been applied. Some changes may require restarting the app.</value>
+    <value>Profile imported successfully!&#xA;&#xA;Settings have been applied. Some changes may require restarting the app.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsProfileNameIsRequired" xml:space="preserve">
@@ -10756,8 +10550,7 @@ Settings have been applied. Some changes may require restarting the app.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRAMGB_e88dd" xml:space="preserve">
-    <value>RAM: {0:F1}/{1:F1} GB ({2:F0}%)
-</value>
+    <value>RAM: {0:F1}/{1:F1} GB ({2:F0}%)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRGBCheckNotRun" xml:space="preserve">
@@ -10865,8 +10658,7 @@ Settings have been applied. Some changes may require restarting the app.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRealtekAudioNetworkDriversWillNOTBe" xml:space="preserve">
-    <value>• Realtek audio/network drivers will NOT be touched
-</value>
+    <value>• Realtek audio/network drivers will NOT be touched&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsReapplySavedPreset" xml:space="preserve">
@@ -10894,9 +10686,7 @@ Settings have been applied. Some changes may require restarting the app.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRecommendationUpdateYourNVIDIADriversToThe" xml:space="preserve">
-    <value>Recommendation: Update your NVIDIA drivers to the latest version.
-
-</value>
+    <value>Recommendation: Update your NVIDIA drivers to the latest version.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsReduceCPUVoltageOffsetToLowerTemperature" xml:space="preserve">
@@ -11020,8 +10810,7 @@ Settings have been applied. Some changes may require restarting the app.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRemovedPackageS" xml:space="preserve">
-    <value>• Removed: {0} package(s)
-</value>
+    <value>• Removed: {0} package(s)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRemoving" xml:space="preserve">
@@ -11029,9 +10818,7 @@ Settings have been applied. Some changes may require restarting the app.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRemovingHPBloatwarePackagesThisMayTake" xml:space="preserve">
-    <value>Removing HP bloatware packages...
-
-This may take a few minutes...</value>
+    <value>Removing HP bloatware packages...&#xA;&#xA;This may take a few minutes...</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRemovingOMENGamingHub" xml:space="preserve">
@@ -11167,10 +10954,7 @@ This may take a few minutes...</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRestorePointCouldNotBeCreatedContinue" xml:space="preserve">
-    <value>Restore point could not be created:
-{0}
-
-Continue removal without a restore point?</value>
+    <value>Restore point could not be created:&#xA;{0}&#xA;&#xA;Continue removal without a restore point?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRestorePointCreated" xml:space="preserve">
@@ -11274,9 +11058,7 @@ Continue removal without a restore point?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRunANewScanToVerify" xml:space="preserve">
-    <value>
-
-Run a new scan to verify.</value>
+    <value>&#xA;&#xA;Run a new scan to verify.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRunFsutilBehaviorSetDisableDeleteNotify1To" xml:space="preserve">
@@ -11448,8 +11230,7 @@ Run a new scan to verify.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsScreenBrightnessStuckAtMinimumBlackScreen" xml:space="preserve">
-    <value>• Screen brightness stuck at minimum (black screen)
-</value>
+    <value>• Screen brightness stuck at minimum (black screen)&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSecureBootCompatibleDriverBackendAvailableRecommended" xml:space="preserve">
@@ -11461,9 +11242,7 @@ Run a new scan to verify.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSecureBootIsPreventingKernelModeAccess" xml:space="preserve">
-    <value>• Secure Boot is preventing kernel-mode access
-
-</value>
+    <value>• Secure Boot is preventing kernel-mode access&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSecurityVerificationFailed" xml:space="preserve">
@@ -11603,20 +11382,15 @@ Run a new scan to verify.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSomeChangesMayRequireASystemRestart" xml:space="preserve">
-    <value>
-
-Some changes may require a system restart.</value>
+    <value>&#xA;&#xA;Some changes may require a system restart.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSomeChangesRequireARebootToTake" xml:space="preserve">
-    <value>Some changes require a reboot to take effect.
-
-Reboot now?</value>
+    <value>Some changes require a reboot to take effect.&#xA;&#xA;Reboot now?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSomeHPFeaturesMayStopWorking" xml:space="preserve">
-    <value>• Some HP features may stop working
-</value>
+    <value>• Some HP features may stop working&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSomeHPFirmwareReducesCPUAndGPU" xml:space="preserve">
@@ -11624,21 +11398,15 @@ Reboot now?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSomeHardwareControlFeaturesRequireADriver" xml:space="preserve">
-    <value>Some hardware-control features require a driver backend.
-
-</value>
+    <value>Some hardware-control features require a driver backend.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSomeManufacturersProvideBIOSUpdatesThatRe" xml:space="preserve">
-    <value>• Some manufacturers provide BIOS updates that re-enable voltage control
-</value>
+    <value>• Some manufacturers provide BIOS updates that re-enable voltage control&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSomePackagesRequireAdministratorPrivilegesRightClick" xml:space="preserve">
-    <value>
-
-Some packages require administrator privileges.
-Right-click OmenCore → 'Run as administrator' and try again.</value>
+    <value>&#xA;&#xA;Some packages require administrator privileges.&#xA;Right-click OmenCore → 'Run as administrator' and try again.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSomeTestsFailedScore100" xml:space="preserve">
@@ -11750,9 +11518,7 @@ Right-click OmenCore → 'Run as administrator' and try again.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSuchAsGamingOrBenchmarks" xml:space="preserve">
-    <value>such as gaming or benchmarks.
-
-</value>
+    <value>such as gaming or benchmarks.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSuggestedExclusionsFromCurrentTopProcesses" xml:space="preserve">
@@ -11760,8 +11526,7 @@ Right-click OmenCore → 'Run as administrator' and try again.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSupportedRyzen5000SeriesWithPawnIODriver" xml:space="preserve">
-    <value>Supported: Ryzen 5000+ series with PawnIO driver installed.
-</value>
+    <value>Supported: Ryzen 5000+ series with PawnIO driver installed.&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSurface" xml:space="preserve">
@@ -11821,9 +11586,7 @@ Right-click OmenCore → 'Run as administrator' and try again.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSystemRestartMayBeRequired" xml:space="preserve">
-    <value>• System restart may be required
-
-</value>
+    <value>• System restart may be required&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSystemRestorePointCreated" xml:space="preserve">
@@ -11831,10 +11594,7 @@ Right-click OmenCore → 'Run as administrator' and try again.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsSystemRestorePointCreationFailed" xml:space="preserve">
-    <value>System Restore point creation failed:
-{0}
-
-</value>
+    <value>System Restore point creation failed:&#xA;{0}&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTCCOffset" xml:space="preserve">
@@ -11842,17 +11602,11 @@ Right-click OmenCore → 'Run as administrator' and try again.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTCCOffsetCannotBeAppliedMSRAccess" xml:space="preserve">
-    <value>TCC offset cannot be applied - MSR access not available.
-
-This requires PawnIO driver access (pawnio.eu).
-
-Without MSR access, CPU temperature limits cannot be modified.</value>
+    <value>TCC offset cannot be applied - MSR access not available.&#xA;&#xA;This requires PawnIO driver access (pawnio.eu).&#xA;&#xA;Without MSR access, CPU temperature limits cannot be modified.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTCCOffsetCouldNotBeChangedThe" xml:space="preserve">
-    <value>TCC offset could not be changed - the value remained at {0}°C.
-
-</value>
+    <value>TCC offset could not be changed - the value remained at {0}°C.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTCCOffsetError" xml:space="preserve">
@@ -11912,9 +11666,7 @@ Without MSR access, CPU temperature limits cannot be modified.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTemperaturesExceededCForOverMinutes" xml:space="preserve">
-    <value>Temperatures exceeded {0}°C for over {1} minutes.
-
-</value>
+    <value>Temperatures exceeded {0}°C for over {1} minutes.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTestActiveAutoRevertInSUnless" xml:space="preserve">
@@ -12070,9 +11822,7 @@ Without MSR access, CPU temperature limits cannot be modified.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTheFanCurveWasNotAppliedPlease" xml:space="preserve">
-    <value>{0}
-
-The fan curve was not applied. Please fix the issues and try again.</value>
+    <value>{0}&#xA;&#xA;The fan curve was not applied. Please fix the issues and try again.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTheFansCategoryOfStartupHardwareRestore" xml:space="preserve">
@@ -12136,9 +11886,7 @@ The fan curve was not applied. Please fix the issues and try again.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTheUpdateCouldNotBeDownloadedOr" xml:space="preserve">
-    <value>The update could not be downloaded or verified.
-
-Open GitHub releases to download manually?</value>
+    <value>The update could not be downloaded or verified.&#xA;&#xA;Open GitHub releases to download manually?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTheWThisMachineSFirmwareStates" xml:space="preserve">
@@ -12162,8 +11910,7 @@ Open GitHub releases to download manually?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisActionCannotBeUndone" xml:space="preserve">
-    <value>• This action cannot be undone
-</value>
+    <value>• This action cannot be undone&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisCPUIsNotOneWhoseSMU" xml:space="preserve">
@@ -12183,9 +11930,7 @@ Open GitHub releases to download manually?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisDisablesAndReEnablesTheDiscrete" xml:space="preserve">
-    <value>This disables and re-enables the discrete GPU.
-
-</value>
+    <value>This disables and re-enables the discrete GPU.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisGPU" xml:space="preserve">
@@ -12205,19 +11950,11 @@ Open GitHub releases to download manually?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisIsAnExperimentalUnconfirmedFeatureThat" xml:space="preserve">
-    <value>This is an experimental, unconfirmed feature that pins two firmware-managed EC bits open for a moment and fires one WMI command, then measures whether the GPU's power actually moved.
-
-It has not been run on real hardware by anyone who wrote it. During the investigation it is built from, forcing this same mechanism on an undersized power adapter left the GPU in a degraded state - driver calls taking 20+ seconds, unable to render - that did not clear until the machine was rebooted, on hardware with a history of GPU-driver crashes.
-
-This offer only appears when the connected adapter is well above this machine's rated requirement, which is the one safeguard behind it. There is no way to preview the result, and no undo beyond a reboot if something goes wrong.
-
-Try it anyway?</value>
+    <value>This is an experimental, unconfirmed feature that pins two firmware-managed EC bits open for a moment and fires one WMI command, then measures whether the GPU's power actually moved.&#xA;&#xA;It has not been run on real hardware by anyone who wrote it. During the investigation it is built from, forcing this same mechanism on an undersized power adapter left the GPU in a degraded state - driver calls taking 20+ seconds, unable to render - that did not clear until the machine was rebooted, on hardware with a history of GPU-driver crashes.&#xA;&#xA;This offer only appears when the connected adapter is well above this machine's rated requirement, which is the one safeguard behind it. There is no way to preview the result, and no undo beyond a reboot if something goes wrong.&#xA;&#xA;Try it anyway?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisIsOftenBecauseSystemRestoreIs" xml:space="preserve">
-    <value>This is often because System Restore is disabled on your system.
-
-</value>
+    <value>This is often because System Restore is disabled on your system.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisKeyboardMatchesHPSDeviceList" xml:space="preserve">
@@ -12245,8 +11982,7 @@ Try it anyway?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisMayBeCausedBy" xml:space="preserve">
-    <value>This may be caused by:
-</value>
+    <value>This may be caused by:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisModeCanAlsoUpdateFanPolicy" xml:space="preserve">
@@ -12282,37 +12018,27 @@ Try it anyway?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisSendsExperimentalKeyboardColourCommandsOne" xml:space="preserve">
-    <value>This sends {0} experimental keyboard colour commands, one every 4 seconds, each in red.
-
-</value>
+    <value>This sends {0} experimental keyboard colour commands, one every 4 seconds, each in red.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisUsuallyMeans" xml:space="preserve">
-    <value>This usually means:
-</value>
+    <value>This usually means:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillApply" xml:space="preserve">
-    <value>This will apply:
-</value>
+    <value>This will apply:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillApplyALLGamingOptimizationsFor" xml:space="preserve">
-    <value>This will apply ALL gaming optimizations for maximum performance.
-
-</value>
+    <value>This will apply ALL gaming optimizations for maximum performance.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillApplyOptimizationSInContinue" xml:space="preserve">
-    <value>This will apply {0} optimization(s) in {1}.
-
-Continue?</value>
+    <value>This will apply {0} optimization(s) in {1}.&#xA;&#xA;Continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillApplyRecommendedOptimizationsWithMinimal" xml:space="preserve">
-    <value>This will apply recommended optimizations with minimal risk.
-
-</value>
+    <value>This will apply recommended optimizations with minimal risk.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillChangeTheHardwareDPISettings" xml:space="preserve">
@@ -12320,46 +12046,19 @@ Continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillRemoveAllCalibrationDataFor" xml:space="preserve">
-    <value>This will remove all calibration data for this model.
-
-Are you sure?</value>
+    <value>This will remove all calibration data for this model.&#xA;&#xA;Are you sure?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillRemoveHPBloatwarePackageS" xml:space="preserve">
-    <value>This will remove {0} HP bloatware package(s).
-
-</value>
+    <value>This will remove {0} HP bloatware package(s).&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillResetAllSettingsToTheir" xml:space="preserve">
-    <value>This will reset all settings to their default values.
-
-This includes:
-• Monitoring settings
-• Notification preferences
-• Hotkey settings
-• Update preferences
-
-Continue with reset?</value>
+    <value>This will reset all settings to their default values.&#xA;&#xA;This includes:&#xA;• Monitoring settings&#xA;• Notification preferences&#xA;• Hotkey settings&#xA;• Update preferences&#xA;&#xA;Continue with reset?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillResetTheEmbeddedControllerEC" xml:space="preserve">
-    <value>This will reset the Embedded Controller (EC) to factory defaults.
-
-This action will:
-• Restore BIOS control of fans
-• Clear all manual fan speed overrides
-• Reset fan boost mode
-• Reset thermal policy timers
-
-Use this if:
-• Fan speeds appear stuck in BIOS
-• BIOS shows incorrect fan readings
-• You want to completely restore factory fan behavior
-
-The app will apply Auto mode after reset.
-
-Do you want to continue?</value>
+    <value>This will reset the Embedded Controller (EC) to factory defaults.&#xA;&#xA;This action will:&#xA;• Restore BIOS control of fans&#xA;• Clear all manual fan speed overrides&#xA;• Reset fan boost mode&#xA;• Reset thermal policy timers&#xA;&#xA;Use this if:&#xA;• Fan speeds appear stuck in BIOS&#xA;• BIOS shows incorrect fan readings&#xA;• You want to completely restore factory fan behavior&#xA;&#xA;The app will apply Auto mode after reset.&#xA;&#xA;Do you want to continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillRestoreDPIStagesToTheir" xml:space="preserve">
@@ -12367,31 +12066,15 @@ Do you want to continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillRestoreRemovedItemsAnyDependencies" xml:space="preserve">
-    <value>This will restore {0} removed items.
-
-Any dependencies or settings will be re-installed from their original sources.
-
-Continue?</value>
+    <value>This will restore {0} removed items.&#xA;&#xA;Any dependencies or settings will be re-installed from their original sources.&#xA;&#xA;Continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillRevertALLOptimizationsToWindows" xml:space="preserve">
-    <value>This will revert ALL optimizations to Windows defaults.
-
-Your backed-up settings will be restored.
-
-Continue?</value>
+    <value>This will revert ALL optimizations to Windows defaults.&#xA;&#xA;Your backed-up settings will be restored.&#xA;&#xA;Continue?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWillRunTheFanCleaningCycle" xml:space="preserve">
-    <value>This will run the fan cleaning cycle for 20 seconds.
-
-⚠️ IMPORTANT:
-• Place your laptop on a flat, stable surface
-• Ensure vents are not blocked
-• The fans will briefly reverse direction
-• You may hear unusual fan sounds - this is normal
-
-Continue with fan cleaning?</value>
+    <value>This will run the fan cleaning cycle for 20 seconds.&#xA;&#xA;⚠️ IMPORTANT:&#xA;• Place your laptop on a flat, stable surface&#xA;• Ensure vents are not blocked&#xA;• The fans will briefly reverse direction&#xA;• You may hear unusual fan sounds - this is normal&#xA;&#xA;Continue with fan cleaning?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsThisWorksWithOmenCoreClosed" xml:space="preserve">
@@ -12415,9 +12098,7 @@ Continue with fan cleaning?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTipRunOmenCoreAsAdministratorToRemove" xml:space="preserve">
-    <value>
-
-💡 Tip: Run OmenCore as Administrator to remove provisioned packages.</value>
+    <value>&#xA;&#xA;💡 Tip: Run OmenCore as Administrator to remove provisioned packages.</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsTo" xml:space="preserve">
@@ -12425,13 +12106,11 @@ Continue with fan cleaning?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsToFix" xml:space="preserve">
-    <value>To fix:
-</value>
+    <value>To fix:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsToPermanentlyFixThis" xml:space="preserve">
-    <value>To permanently fix this:
-</value>
+    <value>To permanently fix this:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsToggleRefreshRate" xml:space="preserve">
@@ -12535,9 +12214,7 @@ Continue with fan cleaning?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsUntilYouStopHoldingThem" xml:space="preserve">
-    <value>until you stop holding them.
-
-</value>
+    <value>until you stop holding them.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsUpdateAvailable" xml:space="preserve">
@@ -12601,9 +12278,7 @@ Continue with fan cleaning?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsUsingTheGPUWillLoseItAnd" xml:space="preserve">
-    <value>using the GPU will lose it and may crash.
-
-</value>
+    <value>using the GPU will lose it and may crash.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsVIsNowAvailable" xml:space="preserve">
@@ -12711,27 +12386,11 @@ Continue with fan cleaning?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWARNING" xml:space="preserve">
-    <value>⚠️ WARNING:
-</value>
+    <value>⚠️ WARNING:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWARNINGAggressiveUndervoltYouAreAboutTo" xml:space="preserve">
-    <value>⚠️ WARNING: Aggressive Undervolt
-
-You are about to apply a -140mV undervolt offset.
-
-This is an aggressive setting that may cause:
-• Blue screen crashes (BSOD)
-• Application crashes or freezes
-• System instability under load
-
-Only proceed if you understand the risks and are prepared to:
-• Reboot if your system becomes unstable
-• Test thoroughly with stress tests (Prime95, OCCT)
-
-The undervolt will not persist after reboot, so a crash will reset it.
-
-Continue with -140mV undervolt?</value>
+    <value>⚠️ WARNING: Aggressive Undervolt&#xA;&#xA;You are about to apply a -140mV undervolt offset.&#xA;&#xA;This is an aggressive setting that may cause:&#xA;• Blue screen crashes (BSOD)&#xA;• Application crashes or freezes&#xA;• System instability under load&#xA;&#xA;Only proceed if you understand the risks and are prepared to:&#xA;• Reboot if your system becomes unstable&#xA;• Test thoroughly with stress tests (Prime95, OCCT)&#xA;&#xA;The undervolt will not persist after reboot, so a crash will reset it.&#xA;&#xA;Continue with -140mV undervolt?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWMIBIOSOptionalLegacyECPath" xml:space="preserve">
@@ -12743,9 +12402,7 @@ Continue with -140mV undervolt?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWMIOnlyModeMonitoringAndManyControls" xml:space="preserve">
-    <value>• WMI-only mode (monitoring and many controls still work)
-
-</value>
+    <value>• WMI-only mode (monitoring and many controls still work)&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWPressApplyOrCheckThatAnother" xml:space="preserve">
@@ -12777,9 +12434,7 @@ Continue with -140mV undervolt?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWhatItIsRunning" xml:space="preserve">
-    <value>what it is running.
-
-</value>
+    <value>what it is running.&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWhenIndependentPerformanceProfileChangesDoNot" xml:space="preserve">
@@ -12815,8 +12470,7 @@ Continue with -140mV undervolt?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWithoutASupportedDriverBackendTheseFeatures" xml:space="preserve">
-    <value>Without a supported driver backend, these features may be disabled:
-</value>
+    <value>Without a supported driver backend, these features may be disabled:&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsWorkAndTheLayoutIsReadFrom" xml:space="preserve">
@@ -12856,9 +12510,7 @@ Continue with -140mV undervolt?</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsYourFanCurveCausedSustainedOverheating" xml:space="preserve">
-    <value>Your fan curve caused sustained overheating!
-
-</value>
+    <value>Your fan curve caused sustained overheating!&#xA;&#xA;</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsYourScreensWillGoBlackForA" xml:space="preserve">

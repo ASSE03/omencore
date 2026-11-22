@@ -352,7 +352,7 @@
                                 <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                     <TextBlock Text="{x:Static loc:Strings.UiCOREOFFSET}" FontSize="10" FontWeight="SemiBold"
                                                Foreground="{StaticResource TextMutedBrush}"/>
-                                    <TextBlock Text="{x:Static loc:Strings.UiVoltage}" FontSize="9" Foreground="{StaticResource TextTertiaryBrush}"/>
+                                    <TextBlock Text="{x:Static loc:Strings.UiVoltage_2}" FontSize="9" Foreground="{StaticResource TextTertiaryBrush}"/>
                                 </StackPanel>
                                 
                                 <Slider Grid.Column="1" 
@@ -1111,7 +1111,7 @@
                                 <TextBlock Grid.Column="1" FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap">
                                     <Run Text="{x:Static loc:Strings.UiGPUUNDERVOLTING}" FontWeight="Bold" Foreground="#64B5F6"/>
                                     <Run Text="{x:Static loc:Strings.UiModernNVIDIAGPUsAutoManageVoltageTo}"/>
-                                    <Run Text="{x:Static loc:Strings.UiPowerLimit}" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}"/>
+                                    <Run Text="{x:Static loc:Strings.UiPowerLimit_2}" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}"/>
                                     <Run Text="{x:Static loc:Strings.UiForcesLowerVoltageAtEachFrequencyOr}"/>
                                     <Run Text="{x:Static loc:Strings.UiNegativeCoreOffset}" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}"/>
                                     <Run Text="{x:Static loc:Strings.UiReducesBoostClocksLessVoltageNeededFor}"/>

@@ -519,7 +519,7 @@
                                 <ColumnDefinition Width="220"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0" Text="{x:Static loc:Strings.UiMode}" VerticalAlignment="Center"
+                            <TextBlock Grid.Column="0" Text="{x:Static loc:Strings.UiMode_2}" VerticalAlignment="Center"
                                        Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,8,0"/>
                             <ComboBox Grid.Column="1" ItemsSource="{Binding AudioVisualizationModes}"
                                       SelectedItem="{Binding SelectedAudioVisualizationMode, Mode=TwoWay}"
@@ -2007,7 +2007,7 @@
                                     <Border Grid.Column="1" Background="{Binding PerformanceModeColorHex, Converter={StaticResource HexToBrushConverter}}"
                                             CornerRadius="6" Padding="8" Margin="4,0" Cursor="Hand">
                                         <StackPanel HorizontalAlignment="Center">
-                                            <TextBlock Text="{x:Static loc:Strings.UiPerformance}" FontSize="10" Foreground="White" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{x:Static loc:Strings.UiPerformance_2}" FontSize="10" Foreground="White" FontWeight="SemiBold"/>
                                             <TextBox Text="{Binding PerformanceModeColorHex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                      Style="{StaticResource ModernTextBox}" FontSize="10" Margin="0,4,0,0" Width="70"/>
                                         </StackPanel>

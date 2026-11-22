@@ -624,7 +624,7 @@ namespace OmenCore.ViewModels
                 var failCount = results.Count - successCount;
                 var rebootNeeded = results.Any(r => r.RequiresReboot && r.Success);
                 
-                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedOptimizations, successCount, results.Count));
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedOptimizations_2, successCount, results.Count));
                 
                 if (failCount > 0)
                 {
@@ -751,7 +751,7 @@ namespace OmenCore.ViewModels
                 var results = await _optimizerService.ApplyBalancedAsync();
                 
                 var successCount = results.Count(r => r.Success);
-                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedOptimizations, successCount, results.Count));
+                SetStatusDone(string.Format(global::OmenCore.Localization.Strings.CsAppliedOptimizations_2, successCount, results.Count));
                 
                 await RefreshStateAsync();
             }

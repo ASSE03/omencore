@@ -75,7 +75,7 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{x:Static loc:Strings.UiRAMUsage}" 
+                            <TextBlock Text="{x:Static loc:Strings.UiRAMUsage_2}" 
                                        FontSize="18" 
                                        FontWeight="SemiBold" 
                                        Foreground="White"

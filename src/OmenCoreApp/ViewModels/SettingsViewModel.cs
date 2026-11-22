@@ -4753,7 +4753,7 @@ namespace OmenCore.ViewModels
                 
                 if (failedNames.Count > 0)
                 {
-                    resultText += global::OmenCore.Localization.Strings.CsFailedPackages + string.Join("\n", failedNames.Select(n => $"  ✗ {n}"));
+                    resultText += global::OmenCore.Localization.Strings.CsFailedPackages_2 + string.Join("\n", failedNames.Select(n => $"  ✗ {n}"));
                     
                     if (failedNames.Any(n => n.Contains("needs admin")))
                     {

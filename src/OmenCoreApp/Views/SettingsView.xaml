@@ -203,7 +203,7 @@
                                             <Setter Property="Foreground" Value="{StaticResource ErrorBrush}"/>
                                             <Style.Triggers>
                                                 <DataTrigger Binding="{Binding PawnIOAvailable}" Value="True">
-                                                    <Setter Property="Text" Value="{x:Static loc:Strings.UiInstalled}"/>
+                                                    <Setter Property="Text" Value="{x:Static loc:Strings.UiInstalled_2}"/>
                                                     <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -1334,13 +1334,13 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0">
-                                        <TextBlock Text="{x:Static loc:Strings.UiFans}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiFans_2}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
                                         <TextBlock Text="{x:Static loc:Strings.UiReapplySavedFanPresetOrCurveAt}" FontSize="11"
                                                    Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap"/>
                                     </StackPanel>
                                     <ToggleButton Grid.Column="1" Style="{StaticResource ModernToggleButton}"
                                                   IsChecked="{Binding StartupRestoreFansEnabled, Mode=TwoWay}"
-                                                  AutomationProperties.Name="{x:Static loc:Strings.UiFans}"/>
+                                                  AutomationProperties.Name="{x:Static loc:Strings.UiFans_2}"/>
                                 </Grid>
 
                                 <Grid Margin="0,0,0,8" IsEnabled="{Binding StartupRestoreFansEnabled}">
@@ -1379,13 +1379,13 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0">
-                                        <TextBlock Text="{x:Static loc:Strings.UiPerformance}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiPerformance_2}" FontSize="13" Foreground="{StaticResource TextPrimaryBrush}"/>
                                         <TextBlock Text="{x:Static loc:Strings.UiReapplyPerformanceModeAndGPUPowerBoost}" FontSize="11"
                                                    Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap"/>
                                     </StackPanel>
                                     <ToggleButton Grid.Column="1" Style="{StaticResource ModernToggleButton}"
                                                   IsChecked="{Binding StartupRestorePerformanceEnabled, Mode=TwoWay}"
-                                                  AutomationProperties.Name="{x:Static loc:Strings.UiPerformance}"/>
+                                                  AutomationProperties.Name="{x:Static loc:Strings.UiPerformance_2}"/>
                                 </Grid>
 
                                 <Grid Margin="0,0,0,8">
@@ -2655,16 +2655,16 @@
                                         <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiThermals}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowThermalsGroup}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
-                                        <TextBlock Text="{x:Static loc:Strings.UiPerformance}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiPerformance}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowPerformanceGroup}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiPerformance_2}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiPerformance_2}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowPerformanceGroup}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
                                         <TextBlock Text="{x:Static loc:Strings.UiNetwork}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
                                         <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiNetwork}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowNetworkGroup}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
-                                        <TextBlock Text="{x:Static loc:Strings.UiSystem}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiSystem}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowSystemGroup}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiSystem_2}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiSystem_2}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowSystemGroup}"/>
                                     </StackPanel>
                                 </WrapPanel>
                                 
@@ -2680,12 +2680,12 @@
                                         <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiGPUTemp}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowGpuTemp}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
-                                        <TextBlock Text="{x:Static loc:Strings.UiCPULoad}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiCPULoad}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowCpuLoad}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiCPULoad_2}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiCPULoad_2}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowCpuLoad}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
-                                        <TextBlock Text="{x:Static loc:Strings.UiGPULoad}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiGPULoad}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowGpuLoad}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiGPULoad_2}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiGPULoad_2}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowGpuLoad}"/>
                                     </StackPanel>
                                 </WrapPanel>
                                 
@@ -2701,8 +2701,8 @@
                                         <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiGPUPowerW}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowGpuPower}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
-                                        <TextBlock Text="{x:Static loc:Strings.UiRAMUsage}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiRAMUsage}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowRamUsage}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiRAMUsage_2}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiRAMUsage_2}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowRamUsage}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
                                         <TextBlock Text="{x:Static loc:Strings.UiVRAMUsage}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
@@ -2711,7 +2711,7 @@
                                 </WrapPanel>
                                 
                                 <!-- Performance -->
-                                <TextBlock Text="{x:Static loc:Strings.UiPerformance}" FontSize="11" Foreground="{StaticResource TextTertiaryBrush}" Margin="0,4,0,4"/>
+                                <TextBlock Text="{x:Static loc:Strings.UiPerformance_2}" FontSize="11" Foreground="{StaticResource TextTertiaryBrush}" Margin="0,4,0,4"/>
                                 <WrapPanel Margin="0,0,0,8">
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
                                         <TextBlock Text="{x:Static loc:Strings.UiFPSRTSS}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
@@ -2743,8 +2743,8 @@
                                         <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiFanSpeedRPM}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowFanSpeed}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
-                                        <TextBlock Text="{x:Static loc:Strings.UiFanMode}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiFanMode}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowFanMode}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiFanMode_2}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiFanMode_2}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowFanMode}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
                                         <TextBlock Text="{x:Static loc:Strings.UiPerfMode}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
@@ -2755,12 +2755,12 @@
                                         <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiClockTime}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowTime}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
-                                        <TextBlock Text="{x:Static loc:Strings.UiBattery}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiBattery}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowBattery}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiBattery_2}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiBattery_2}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowBattery}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
-                                        <TextBlock Text="{x:Static loc:Strings.UiCPUClock}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
-                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiCPUClock}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowCpuClock}"/>
+                                        <TextBlock Text="{x:Static loc:Strings.UiCPUClock_2}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        <ToggleButton AutomationProperties.Name="{x:Static loc:Strings.UiCPUClock_2}" Style="{StaticResource ModernToggleButton}" IsChecked="{Binding OsdShowCpuClock}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0,0,16,4">
                                         <TextBlock Text="{x:Static loc:Strings.UiGPUClock}" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextPrimaryBrush}"/>
@@ -3417,8 +3417,8 @@
                                                             <TextBlock Text="{x:Static loc:Strings.UiTime}" FontSize="11" Foreground="{StaticResource TextTertiaryBrush}" VerticalAlignment="Center" Margin="0,0,6,0"/>
                                                             <TextBox AutomationProperties.Name="{x:Static loc:Strings.UiTime}" Text="{Binding TriggerTime, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                                                      Style="{StaticResource ModernTextBox}" FontSize="11" Width="50" Padding="4,2"/>
-                                                            <TextBlock Text="{x:Static loc:Strings.UiFan}" FontSize="11" Foreground="{StaticResource TextTertiaryBrush}" VerticalAlignment="Center" Margin="12,0,6,0"/>
-                                                            <ComboBox AutomationProperties.Name="{x:Static loc:Strings.UiFan}" SelectedValue="{Binding FanPreset, Mode=TwoWay}" Width="90" FontSize="11"
+                                                            <TextBlock Text="{x:Static loc:Strings.UiFan_2}" FontSize="11" Foreground="{StaticResource TextTertiaryBrush}" VerticalAlignment="Center" Margin="12,0,6,0"/>
+                                                            <ComboBox AutomationProperties.Name="{x:Static loc:Strings.UiFan_2}" SelectedValue="{Binding FanPreset, Mode=TwoWay}" Width="90" FontSize="11"
                                                                       Style="{StaticResource ModernComboBox}">
                                                                 <ComboBoxItem Content="Auto"/>
                                                                 <ComboBoxItem Content="Silent"/>

@@ -83,7 +83,7 @@
             <!-- Mode Text -->
             <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
                 <TextBlock x:Name="ModeCategory"
-                           Text="{x:Static loc:Strings.UiFanMode}"
+                           Text="{x:Static loc:Strings.UiFanMode_2}"
                            FontSize="12"
                            FontWeight="Medium"
                            Foreground="#B3FFFFFF"

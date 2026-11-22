@@ -49,7 +49,7 @@
                     <Border Style="{StaticResource Omen.Card.Utility}" Padding="12,8" Margin="0,0,8,0">
                         <StackPanel>
                             <TextBlock Text="{Binding RemovedCount}" Style="{StaticResource UtilityMetricValue}" Foreground="{StaticResource AccentBrush}"/>
-                            <TextBlock Text="{x:Static loc:Strings.UiRemoved}" Style="{StaticResource UtilityMetricLabel}"/>
+                            <TextBlock Text="{x:Static loc:Strings.UiRemoved_2}" Style="{StaticResource UtilityMetricLabel}"/>
                         </StackPanel>
                     </Border>
                     <Border Style="{StaticResource Omen.Card.Utility}" Padding="12,8">

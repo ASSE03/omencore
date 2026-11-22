@@ -42,11 +42,16 @@ namespace OmenCoreApp.Tests
             // those strings now come from Strings.resx, so on a French (or any non-English) Windows
             // they would resolve to the translation and fail. Pinning the UI culture to English keeps
             // the suite independent of the machine's display language; the localization tests that
-            // need another language set it themselves and restore it afterwards. Number formatting
-            // (CurrentCulture) is deliberately left alone.
+            // need another language set it themselves and restore it afterwards.
             var english = System.Globalization.CultureInfo.GetCultureInfo("en");
             System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = english;
             System.Globalization.CultureInfo.CurrentUICulture = english;
+
+            // Number formatting. App.OnStartup installs the invariant culture so a reading prints as
+            // "78.0" on every machine; the tests never run App, so on a French or German Windows they
+            // formatted "78,0" and every assertion on a formatted number failed. Mirror the app.
+            System.Globalization.CultureInfo.DefaultThreadCurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+            System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
         }
     }
 }
