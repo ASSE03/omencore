@@ -14,7 +14,7 @@
         ShowActivated="True"
         ResizeMode="NoResize"
         Width="360"
-        Height="480"
+        SizeToContent="Height"
         WindowStartupLocation="Manual"
         Deactivated="Window_Deactivated">
     

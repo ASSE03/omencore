@@ -69,6 +69,7 @@ namespace OmenCore.Views
         public QuickPopupWindow()
         {
             InitializeComponent();
+            SizeChanged += OnPopupSizeChanged;
             
             _displayService = new DisplayService(App.Logging);
 
@@ -91,6 +92,33 @@ namespace OmenCore.Views
             };
         }
 
+        private double _anchoredTop = double.NaN;
+
+        private double GetContentHeight()
+        {
+            if (ActualHeight > 0)
+            {
+                return ActualHeight;
+            }
+
+            Measure(new Size(Width, double.PositiveInfinity));
+            return DesiredSize.Height;
+        }
+
+        // Keeps the bottom edge above the taskbar when the content height changes after the popup
+        // was placed (first layout pass, a status line appearing). Left alone once the user has
+        // dragged the popup somewhere else.
+        private void OnPopupSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (!e.HeightChanged || double.IsNaN(_anchoredTop) || Math.Abs(Top - _anchoredTop) > 0.5)
+            {
+                return;
+            }
+
+            Top = SystemParameters.WorkArea.Bottom - ActualHeight - 12;
+            _anchoredTop = Top;
+        }
+
         /// <summary>
         /// Position the popup near the system tray area.
         /// </summary>
@@ -99,9 +127,13 @@ namespace OmenCore.Views
             // Get the working area (excludes taskbar)
             var workArea = SystemParameters.WorkArea;
             
-            // Position in bottom-right corner, above taskbar
+            // Position in bottom-right corner, above taskbar. The window sizes its height to its
+            // content (SizeToContent), so Height is NaN here: use the measured height instead. A
+            // fixed Height either left an empty band or clipped the quick actions once labels got
+            // longer (translations, a 2 x 2 action grid).
             Left = workArea.Right - Width - 12;
-            Top = workArea.Bottom - Height - 12;
+            Top = workArea.Bottom - GetContentHeight() - 12;
+            _anchoredTop = Top;
 
             // Resume timer when showing
             StartUpdateTimer();
