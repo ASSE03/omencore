@@ -741,6 +741,14 @@ namespace OmenCore.Hardware
                     expensiveGpuTelemetryInterval == TimeSpan.Zero ||
                     (DateTime.UtcNow - _lastExpensiveGpuTelemetryUtc) >= expensiveGpuTelemetryInterval;
 
+                // Display off: Windows is powering the adapter down, and a poll landing on that
+                // transition hung it (0x9F, DXG power IRP timeout). The BIOS GPU temperature read
+                // above keeps the fans informed meanwhile. See DisplayStateMonitor.
+                if (DisplayStateMonitor.IsDisplayOff)
+                {
+                    shouldRefreshExpensiveGpuTelemetry = false;
+                }
+
                 if (!onAcPowerForGpuTelemetry)
                 {
                     if (!_batteryGpuTelemetryThrottledLogged)
@@ -1592,7 +1600,7 @@ namespace OmenCore.Hardware
                     }
                 }
 
-                if (gpuNeedsFallback)
+                if (gpuNeedsFallback && !DisplayStateMonitor.IsDisplayOff)
                 {
                     // First try Windows GPU engine counters (no worker dependency).
                     var gpuEngineLoad = TryReadWindowsGpuEngineLoadPercent();

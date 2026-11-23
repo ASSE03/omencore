@@ -872,6 +872,9 @@ namespace OmenCore.ViewModels
                 // device. This is the line that keeps the whole watcher honest.
                 if (_adapterOverrideService.DiscreteGpuIsParked()) return;
 
+                // Nor while the display is off: the adapter is being powered down. See DisplayStateMonitor.
+                if (DisplayStateMonitor.IsDisplayOff) return;
+
                 // Also free, because something else already has the card awake.
                 var limits = _adapterOverrideService.ReadPowerLimitsWatts();
                 if (limits.EnforcedWatts is not double enforced) return;
