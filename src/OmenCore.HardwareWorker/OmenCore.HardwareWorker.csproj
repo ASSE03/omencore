@@ -42,6 +42,11 @@
          to stand down, so both need to see the same flag. -->
     <Compile Include="..\OmenCore.Core\Hardware\GpuRestartGate.cs"
              Link="Hardware\GpuRestartGate.cs" />
+
+    <!-- And the display state: with the display off Windows is powering the adapter down,
+         and a poll from either process landing on that transition can hang it (0x9F). -->
+    <Compile Include="..\OmenCore.Core\Hardware\DisplayStateMonitor.cs"
+             Link="Hardware\DisplayStateMonitor.cs" />
   </ItemGroup>
 
 </Project>

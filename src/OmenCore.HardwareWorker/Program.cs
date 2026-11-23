@@ -650,6 +650,10 @@ class Program
 
         if (OmenCore.Hardware.GpuRestartGate.IsRestarting) return true;
 
+        // The display going off powers the adapter down; polling it then can hang the
+        // transition (0x9F). See DisplayStateMonitor.
+        if (OmenCore.Hardware.DisplayStateMonitor.IsDisplayOff) return true;
+
         _gpuSleepProbe ??= new OmenCore.Hardware.GpuPowerStateProbe(
             msg => LogToFile($"[{DateTime.Now:O}] {msg}\n"));
         return _gpuSleepProbe.IsAsleep();
