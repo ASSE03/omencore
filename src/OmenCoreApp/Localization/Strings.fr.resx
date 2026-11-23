@@ -9907,4 +9907,7 @@
   <data name="UiValidateDriverTooltip" xml:space="preserve">
     <value>Nécessaire une fois par version du pilote NVIDIA avant qu'Appliquer ACTUEL fonctionne sur un pilote autre que le 617.14. Envoie une requête qui répète la propre requête de puissance du pilote et vérifie que rien n'a changé.</value>
   </data>
+  <data name="UiBrowseEllipsis" xml:space="preserve">
+    <value>Parcourir...</value>
+  </data>
 </root>

@@ -52,44 +52,10 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
-        <Style TargetType="ComboBox">
-            <Setter Property="Background" Value="{DynamicResource SurfaceMediumBrush}"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
-            <Setter Property="BorderThickness" Value="1"/>
+        <!-- Built on the app-wide ModernComboBox: a style of its own here replaced that template,
+             and the default Windows one ignores Background, which left light text on a white box. -->
+        <Style TargetType="ComboBox" BasedOn="{StaticResource ModernComboBox}">
             <Setter Property="Padding" Value="8,6"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="ItemContainerStyle">
-                <Setter.Value>
-                    <Style TargetType="ComboBoxItem">
-                        <Setter Property="Background" Value="{DynamicResource SurfaceMediumBrush}"/>
-                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
-                        <Setter Property="Padding" Value="8,6"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ComboBoxItem">
-                                    <Border Background="{TemplateBinding Background}"
-                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                            BorderThickness="0"
-                                            Padding="{TemplateBinding Padding}">
-                                        <ContentPresenter/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Style.Triggers>
-                            <Trigger Property="IsHighlighted" Value="True">
-                                <Setter Property="Background" Value="#0D6EFD"/>
-                                <Setter Property="Foreground" Value="#FFFFFF"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource SurfaceLightBrush}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Setter.Value>
-            </Setter>
         </Style>
 
         <Style TargetType="CheckBox">
@@ -288,7 +254,7 @@
                             <TextBox Grid.Column="0"
                                      Text="{Binding SelectedProfile.ExecutablePath, UpdateSourceTrigger=PropertyChanged}"/>
                             <Button Grid.Column="1"
-                                    Content="Browse..."
+                                    Content="{x:Static loc:Strings.UiBrowseEllipsis}"
                                     Command="{Binding BrowseExecutableCommand}"
                                     Margin="8,0,0,0"/>
                         </Grid>
@@ -418,12 +384,12 @@
                 <Button Content="{x:Static loc:Strings.UiSaveClose}"
                         Command="{Binding SaveCommand}"
                         Style="{StaticResource ModernButton}"
-                        Width="140" Height="38"
+                        MinWidth="140" Height="38" Padding="16,0"
                         Margin="0,0,10,0"/>
                 <Button Content="{x:Static loc:Strings.UiCancel}"
                         Command="{Binding CancelCommand}"
                         Style="{StaticResource SecondaryButton}"
-                        Width="100" Height="38"/>
+                        MinWidth="100" Height="38" Padding="16,0"/>
             </StackPanel>
         </Border>
     </Grid>

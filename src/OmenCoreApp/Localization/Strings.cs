@@ -1038,6 +1038,7 @@ namespace OmenCore.Localization
         public static string UiOptionalGenericRGBControlViaOpenRGBServer => Get(nameof(UiOptionalGenericRGBControlViaOpenRGBServer));
         public static string UiOrange => Get(nameof(UiOrange));
         public static string UiOrder1ResolveVBIOS2ApplyMAX => Get(nameof(UiOrder1ResolveVBIOS2ApplyMAX));
+        public static string UiBrowseEllipsis => Get(nameof(UiBrowseEllipsis));
         public static string UiValidateDriver => Get(nameof(UiValidateDriver));
         public static string UiValidateDriverTooltip => Get(nameof(UiValidateDriverTooltip));
         public static string UiOrphanTimeoutDuration => Get(nameof(UiOrphanTimeoutDuration));
