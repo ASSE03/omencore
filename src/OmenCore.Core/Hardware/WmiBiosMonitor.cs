@@ -209,6 +209,7 @@ namespace OmenCore.Hardware
         private bool _gpuInactive;
         // Set from the dGPU's actual PnP power state rather than inferred from telemetry.
         private bool _gpuAsleepFromProbe;
+        private bool _displayOffLogged;
         private int _updateReadingsCount;
         
         // GPU metrics from NVAPI
@@ -744,9 +745,17 @@ namespace OmenCore.Hardware
                 // Display off: Windows is powering the adapter down, and a poll landing on that
                 // transition hung it (0x9F, DXG power IRP timeout). The BIOS GPU temperature read
                 // above keeps the fans informed meanwhile. See DisplayStateMonitor.
-                if (DisplayStateMonitor.IsDisplayOff)
+                bool displayOff = DisplayStateMonitor.IsDisplayOff;
+                if (displayOff)
                 {
                     shouldRefreshExpensiveGpuTelemetry = false;
+                }
+                if (displayOff != _displayOffLogged)
+                {
+                    _displayOffLogged = displayOff;
+                    _logging?.Info(displayOff
+                        ? "[WmiBiosMonitor] Display off - GPU telemetry paused"
+                        : $"[WmiBiosMonitor] Display on - GPU telemetry resumed (display monitor available={DisplayStateMonitor.IsAvailable})");
                 }
 
                 if (!onAcPowerForGpuTelemetry)

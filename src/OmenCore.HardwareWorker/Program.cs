@@ -652,7 +652,13 @@ class Program
 
         // The display going off powers the adapter down; polling it then can hang the
         // transition (0x9F). See DisplayStateMonitor.
-        if (OmenCore.Hardware.DisplayStateMonitor.IsDisplayOff) return true;
+        var displayOff = OmenCore.Hardware.DisplayStateMonitor.IsDisplayOff;
+        if (displayOff != _displayOffLogged)
+        {
+            _displayOffLogged = displayOff;
+            LogToFile($"[{DateTime.Now:O}] Display {(displayOff ? "off - NVIDIA GPU polling paused" : "on - NVIDIA GPU polling resumed")} (monitor available={OmenCore.Hardware.DisplayStateMonitor.IsAvailable})\n");
+        }
+        if (displayOff) return true;
 
         _gpuSleepProbe ??= new OmenCore.Hardware.GpuPowerStateProbe(
             msg => LogToFile($"[{DateTime.Now:O}] {msg}\n"));
@@ -666,6 +672,9 @@ class Program
     /// during the restart.
     /// </summary>
     private static bool _gpuHandlesStale;
+
+    // Only the transitions are logged; this check runs on every poll.
+    private static bool _displayOffLogged;
 
     // Logged once per process. Slot starvation should not happen with two pollers and sixteen slots,
     // so it is worth saying; saying it on every poll would bury the fact it reports.
