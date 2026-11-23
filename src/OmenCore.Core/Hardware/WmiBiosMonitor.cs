@@ -745,7 +745,7 @@ namespace OmenCore.Hardware
                 // Display off: Windows is powering the adapter down, and a poll landing on that
                 // transition hung it (0x9F, DXG power IRP timeout). The BIOS GPU temperature read
                 // above keeps the fans informed meanwhile. See DisplayStateMonitor.
-                bool displayOff = DisplayStateMonitor.IsDisplayOff;
+                bool displayOff = DisplayStateMonitor.ShouldPauseGpuPolling;
                 if (displayOff)
                 {
                     shouldRefreshExpensiveGpuTelemetry = false;
@@ -754,8 +754,8 @@ namespace OmenCore.Hardware
                 {
                     _displayOffLogged = displayOff;
                     _logging?.Info(displayOff
-                        ? "[WmiBiosMonitor] Display off - GPU telemetry paused"
-                        : $"[WmiBiosMonitor] Display on - GPU telemetry resumed (display monitor available={DisplayStateMonitor.IsAvailable})");
+                        ? $"[WmiBiosMonitor] GPU telemetry paused (display off={DisplayStateMonitor.IsDisplayOff}, idle {(int)DisplayStateMonitor.UserIdleTime.TotalSeconds}s)"
+                        : $"[WmiBiosMonitor] GPU telemetry resumed (display monitor available={DisplayStateMonitor.IsAvailable})");
                 }
 
                 if (!onAcPowerForGpuTelemetry)
@@ -1609,7 +1609,7 @@ namespace OmenCore.Hardware
                     }
                 }
 
-                if (gpuNeedsFallback && !DisplayStateMonitor.IsDisplayOff)
+                if (gpuNeedsFallback && !DisplayStateMonitor.ShouldPauseGpuPolling)
                 {
                     // First try Windows GPU engine counters (no worker dependency).
                     var gpuEngineLoad = TryReadWindowsGpuEngineLoadPercent();
@@ -1815,7 +1815,7 @@ namespace OmenCore.Hardware
                     }
                 }
 
-                if (gpuNeedsFallback)
+                if (gpuNeedsFallback && !DisplayStateMonitor.ShouldPauseGpuPolling)
                 {
                     double gpuPowerFallback = NormalizeGpuPowerWatts(
                         fallbackMonitor.GetGpuPowerWatts(),

@@ -744,7 +744,7 @@ namespace OmenCore.Hardware
 
             // The display going off powers the adapter down; polling it then can hang the
             // transition (0x9F). See DisplayStateMonitor.
-            if (DisplayStateMonitor.IsDisplayOff) return true;
+            if (DisplayStateMonitor.ShouldPauseGpuPolling) return true;
 
             _gpuSleepProbe ??= new GpuPowerStateProbe(_logger);
             return _gpuSleepProbe.IsAsleep();

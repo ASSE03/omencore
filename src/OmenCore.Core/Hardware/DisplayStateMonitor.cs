@@ -101,6 +101,59 @@ namespace OmenCore.Hardware
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
         private static extern IntPtr GetModuleHandle(string? lpModuleName);
 
+        [StructLayout(LayoutKind.Sequential)]
+        private struct LASTINPUTINFO
+        {
+            public uint cbSize;
+            public uint dwTime;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern bool GetLastInputInfo(ref LASTINPUTINFO plii);
+
+        /// <summary>
+        /// How long without keyboard or mouse input before GPU polling stops. Below the shortest
+        /// display timeout Windows offers (1 minute), so polling has already stopped by the time
+        /// the display can go off - including the lock screen's own 1 minute timeout.
+        /// </summary>
+        public static readonly TimeSpan GpuIdlePauseThreshold = TimeSpan.FromSeconds(45);
+
+        /// <summary>
+        /// True when the NVIDIA dGPU should not be polled: the display is off, or nobody has
+        /// touched the keyboard or mouse for <see cref="GpuIdlePauseThreshold"/>.
+        /// </summary>
+        /// <remarks>
+        /// The display-off notification alone was not enough: on the first test a read that was
+        /// already in flight when the display went off hung in the driver (sample timeouts from
+        /// that second on) and the 0x9F followed ten minutes later. Stopping on input idleness
+        /// means no read is in flight when Windows starts powering the display down. Polling
+        /// resumes on the next input. Games and anything else with input keep full telemetry.
+        /// </remarks>
+        public static bool ShouldPauseGpuPolling => IsDisplayOff || UserIdleTime >= GpuIdlePauseThreshold;
+
+        /// <summary>Time since the last keyboard or mouse input in this session; zero if unknown.</summary>
+        public static TimeSpan UserIdleTime
+        {
+            get
+            {
+                if (!OperatingSystem.IsWindows()) return TimeSpan.Zero;
+                try
+                {
+                    var info = new LASTINPUTINFO { cbSize = (uint)Marshal.SizeOf<LASTINPUTINFO>() };
+                    if (!GetLastInputInfo(ref info)) return TimeSpan.Zero;
+                    return IdleFromTicks((uint)Environment.TickCount, info.dwTime);
+                }
+                catch (Exception)
+                {
+                    return TimeSpan.Zero;
+                }
+            }
+        }
+
+        /// <summary>Elapsed time between two GetTickCount values, correct across the 49.7-day wrap.</summary>
+        internal static TimeSpan IdleFromTicks(uint nowTicks, uint lastInputTicks)
+            => TimeSpan.FromMilliseconds(unchecked(nowTicks - lastInputTicks));
+
         /// <summary>
         /// True while Windows reports the display off. False when it is on or dimmed, and when the
         /// state is unknown. Starts the monitor on first access; safe from any thread.

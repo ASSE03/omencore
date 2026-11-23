@@ -652,11 +652,11 @@ class Program
 
         // The display going off powers the adapter down; polling it then can hang the
         // transition (0x9F). See DisplayStateMonitor.
-        var displayOff = OmenCore.Hardware.DisplayStateMonitor.IsDisplayOff;
+        var displayOff = OmenCore.Hardware.DisplayStateMonitor.ShouldPauseGpuPolling;
         if (displayOff != _displayOffLogged)
         {
             _displayOffLogged = displayOff;
-            LogToFile($"[{DateTime.Now:O}] Display {(displayOff ? "off - NVIDIA GPU polling paused" : "on - NVIDIA GPU polling resumed")} (monitor available={OmenCore.Hardware.DisplayStateMonitor.IsAvailable})\n");
+            LogToFile($"[{DateTime.Now:O}] NVIDIA GPU polling {(displayOff ? "paused (display off or input idle)" : "resumed")} (display monitor available={OmenCore.Hardware.DisplayStateMonitor.IsAvailable})\n");
         }
         if (displayOff) return true;
 

@@ -48,5 +48,27 @@ namespace OmenCoreApp.Tests.Hardware
             DisplayStateMonitor.InterpretDisplayBroadcast(ConsoleDisplayStateGuid, dataLength: 2, dataValue: 0)
                 .Should().BeNull();
         }
+
+        [Fact]
+        public void IdleFromTicks_Plain()
+        {
+            DisplayStateMonitor.IdleFromTicks(nowTicks: 100_000, lastInputTicks: 40_000)
+                .Should().Be(TimeSpan.FromSeconds(60));
+        }
+
+        [Fact]
+        public void IdleFromTicks_AcrossTickCountWrap()
+        {
+            // GetTickCount wraps every 49.7 days; last input just before the wrap, now just after.
+            DisplayStateMonitor.IdleFromTicks(nowTicks: 5_000, lastInputTicks: uint.MaxValue - 4_999)
+                .Should().Be(TimeSpan.FromSeconds(10));
+        }
+
+        [Fact]
+        public void GpuIdlePauseThreshold_IsBelowShortestDisplayTimeout()
+        {
+            // Windows' shortest display timeout, and the lock screen's, is one minute.
+            DisplayStateMonitor.GpuIdlePauseThreshold.Should().BeLessThan(TimeSpan.FromMinutes(1));
+        }
     }
 }
