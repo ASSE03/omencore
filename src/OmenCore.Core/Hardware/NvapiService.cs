@@ -304,6 +304,18 @@ namespace OmenCore.Hardware
         {
             if (_initialized) return true;
 
+            // Diagnostic switch: run without opening NVAPI at all (no GPU clocks, load, VRAM or
+            // overclocking; temperatures still come from the BIOS). Added to test whether an open
+            // NVAPI session alone is what makes the display-off power transition hang (0x9F on an
+            // RTX 3070 Laptop OMEN, with every OmenCore poll already stood down).
+            var disable = Environment.GetEnvironmentVariable("OMENCORE_DISABLE_NVAPI");
+            if (string.Equals(disable, "1", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(disable, "true", StringComparison.OrdinalIgnoreCase))
+            {
+                _logging.Info("NVAPI: disabled via OMENCORE_DISABLE_NVAPI; not initialising");
+                return false;
+            }
+
             try
             {
                 // Use NvAPIWrapper for modern initialization
