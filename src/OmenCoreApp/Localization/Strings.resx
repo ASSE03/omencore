@@ -3023,7 +3023,7 @@
     <value>Orange</value>
   </data>
   <data name="UiOrder1ResolveVBIOS2ApplyMAX" xml:space="preserve">
-    <value>Order: 1) Resolve VBIOS, 2) Apply MAX, 3) restart Windows, 4) Apply CURRENT. Raises the GPU's power limit above the laptop maker's setting. MAX is stored in the NVIDIA driver's registry and needs a restart; CURRENT is applied live and resets on reboot. More power means more heat. Based on timmyy123's nvidia-power-control and bobshmo's OmenCore-Prophecy, used with their permission.</value>
+    <value>Order: 1) Resolve VBIOS, 2) Apply MAX, 3) restart Windows, 4) Apply CURRENT. On a new NVIDIA driver, press Validate driver once before Apply CURRENT. Raises the GPU's power limit above the laptop maker's setting. MAX is stored in the NVIDIA driver's registry and needs a restart; CURRENT is applied live and resets on reboot. More power means more heat. Based on timmyy123's nvidia-power-control and bobshmo's Prophecy Power Unlocker (1.2.9), used with their permission.</value>
   </data>
   <data name="UiOrphanTimeoutDuration" xml:space="preserve">
     <value>Orphan timeout duration</value>
@@ -9904,5 +9904,11 @@
   </data>
   <data name="CsStatusFailed" xml:space="preserve">
     <value>Failed: {0}</value>
+  </data>
+  <data name="UiValidateDriver" xml:space="preserve">
+    <value>Validate driver</value>
+  </data>
+  <data name="UiValidateDriverTooltip" xml:space="preserve">
+    <value>Needed once per NVIDIA driver version before Apply CURRENT works on a driver other than 617.14. Sends a request that repeats the driver's own power request and checks nothing changed.</value>
   </data>
 </root>

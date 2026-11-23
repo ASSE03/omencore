@@ -3019,7 +3019,7 @@
     <value>Orange</value>
   </data>
   <data name="UiOrder1ResolveVBIOS2ApplyMAX" xml:space="preserve">
-    <value>Ordre : 1) Résoudre le VBIOS, 2) Appliquer MAX, 3) redémarrer Windows, 4) Appliquer ACTUEL. Relève la limite de puissance du GPU au-delà du réglage du fabricant. MAX est stocké dans le registre du pilote NVIDIA et nécessite un redémarrage ; ACTUEL s'applique en direct et disparaît au redémarrage. Plus de puissance signifie plus de chaleur. Basé sur nvidia-power-control de timmyy123 et OmenCore-Prophecy de bobshmo, utilisés avec leur permission.</value>
+    <value>Ordre : 1) Résoudre le VBIOS, 2) Appliquer MAX, 3) redémarrer Windows, 4) Appliquer ACTUEL. Avec un nouveau pilote NVIDIA, appuyez une fois sur Valider le pilote avant Appliquer ACTUEL. Relève la limite de puissance du GPU au-delà du réglage du fabricant. MAX est stocké dans le registre du pilote NVIDIA et nécessite un redémarrage ; ACTUEL s'applique en direct et disparaît au redémarrage. Plus de puissance signifie plus de chaleur. Basé sur nvidia-power-control de timmyy123 et Prophecy Power Unlocker (1.2.9) de bobshmo, utilisés avec leur permission.</value>
   </data>
   <data name="UiOrphanTimeoutDuration" xml:space="preserve">
     <value>Durée du délai d'orphelin</value>
@@ -9900,5 +9900,11 @@
   </data>
   <data name="CsStatusFailed" xml:space="preserve">
     <value>Échec : {0}</value>
+  </data>
+  <data name="UiValidateDriver" xml:space="preserve">
+    <value>Valider le pilote</value>
+  </data>
+  <data name="UiValidateDriverTooltip" xml:space="preserve">
+    <value>Nécessaire une fois par version du pilote NVIDIA avant qu'Appliquer ACTUEL fonctionne sur un pilote autre que le 617.14. Envoie une requête qui répète la propre requête de puissance du pilote et vérifie que rien n'a changé.</value>
   </data>
 </root>

@@ -13143,4 +13143,10 @@
     <value>Failed: {0}</value>
     <comment>untranslated: English fallback</comment>
   </data>
+  <data name="UiValidateDriver" xml:space="preserve">
+    <value>Validate driver</value>
+  </data>
+  <data name="UiValidateDriverTooltip" xml:space="preserve">
+    <value>Needed once per NVIDIA driver version before Apply CURRENT works on a driver other than 617.14. Sends a request that repeats the driver's own power request and checks nothing changed.</value>
+  </data>
 </root>

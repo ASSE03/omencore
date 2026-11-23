@@ -935,6 +935,9 @@
                                     ToolTip="{x:Static loc:Strings.UiReadsTheVBIOSPowerTableNeedsNvflash64}"/>
                             <Button Content="{x:Static loc:Strings.UiFromFile}" Command="{Binding SystemControl.NvidiaPower.ResolveVbiosFromFileCommand}" Style="{StaticResource ModernButton}" Padding="16,8" Margin="0,0,8,4"/>
                             <Button Content="{x:Static loc:Strings.UiApplyMAXRestart}" Command="{Binding SystemControl.NvidiaPower.ApplyMaxCommand}" Style="{StaticResource ModernButton}" Padding="16,8" Margin="0,0,8,4"/>
+                            <Button Content="{x:Static loc:Strings.UiValidateDriver}" Command="{Binding SystemControl.NvidiaPower.ValidateDriverCommand}" Style="{StaticResource ModernButton}" Padding="16,8" Margin="0,0,8,4"
+                                    Visibility="{Binding SystemControl.NvidiaPower.NeedsDriverValidation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    ToolTip="{x:Static loc:Strings.UiValidateDriverTooltip}"/>
                             <Button Content="{x:Static loc:Strings.UiApplyCURRENT}" Command="{Binding SystemControl.NvidiaPower.ApplyCurrentCommand}" Style="{StaticResource ModernButton}" Padding="16,8" Margin="0,0,8,4"/>
                             <Button Content="{x:Static loc:Strings.UiRemoveMAXOverride}" Command="{Binding SystemControl.NvidiaPower.RemoveMaxCommand}" Style="{StaticResource ModernButton}" Padding="16,8" Margin="0,0,8,4"/>
                             <Button Content="{x:Static loc:Strings.UiRefresh}" Command="{Binding SystemControl.NvidiaPower.RefreshCommand}" Style="{StaticResource ModernButton}" Padding="16,8" Margin="0,0,8,4"/>
