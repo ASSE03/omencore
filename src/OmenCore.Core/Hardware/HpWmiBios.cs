@@ -812,6 +812,9 @@ namespace OmenCore.Hardware
         private void HeartbeatCallback(object? state)
         {
             if (!_isAvailable || _wmiCommandsDisabled) return;
+
+            // Nobody at the machine: no firmware calls (see MainViewModel's away quiet mode).
+            if (DisplayStateMonitor.ShouldPauseGpuPolling) return;
             
             try
             {

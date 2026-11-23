@@ -1722,6 +1722,8 @@ namespace OmenCore.ViewModels
             _ = RestoreSettingsOnStartupAsync();
 
             _automationService.Start();
+
+            StartAwayWatch();
             
             // Initialize game profile system
             _ = InitializeGameProfilesAsync();
@@ -1737,6 +1739,8 @@ namespace OmenCore.ViewModels
 
         private void OnSystemResuming(object? sender, EventArgs e)
         {
+            // A real resume restarts everything below; let the away watch decide afresh.
+            Interlocked.Exchange(ref _awayQuiet, 0);
             _resumeRecoveryDiagnostics.BeginResume();
             var resumeCycleId = _resumeRecoveryDiagnostics.CurrentCycleId;
             _watchdogService?.HandleSystemResume();
@@ -1747,6 +1751,52 @@ namespace OmenCore.ViewModels
             // The SMU limits do not survive a suspend, and the adapter may not be the one that went
             // to sleep. Both are reasons to look again rather than assume the state held.
             _ = GpuClamp.RunAutomaticClampLiftAsync("resume");
+        }
+
+        // ─── Away quiet mode ─────────────────────────────────────────────────────
+        // On an RTX 3070 Laptop OMEN (BIOS 15.42, discrete-only) Windows bugchecked 0x9F/3 (DXG
+        // power IRP timeout) each time the display went off with OmenCore running, never with it
+        // closed. Pausing only the NVIDIA polling after 45 s idle was not enough: the GPU was no
+        // longer being read, yet a sample read (WMI BIOS / ACPI thermal zone) still hung at the
+        // moment the display went off, and the bugcheck followed. So while nobody is at the
+        // machine, everything that reaches the firmware stands down exactly as for a system
+        // suspend: monitoring paused, watchdog off, fans handed back to the BIOS. The next
+        // keyboard or mouse input resumes it all. Implemented, pending confirmation.
+
+        private Timer? _awayWatchTimer;
+        private int _awayQuiet;
+
+        private void StartAwayWatch()
+        {
+            _awayWatchTimer ??= new Timer(_ => CheckAway(), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(2));
+        }
+
+        private void CheckAway()
+        {
+            try
+            {
+                bool away = DisplayStateMonitor.ShouldPauseGpuPolling;
+                if (away)
+                {
+                    if (Interlocked.CompareExchange(ref _awayQuiet, 1, 0) != 0) return;
+                    _logging.Info($"Away quiet mode on (idle {(int)DisplayStateMonitor.UserIdleTime.TotalSeconds}s, display off={DisplayStateMonitor.IsDisplayOff}): monitoring paused, BIOS fan control");
+                    _watchdogService?.HandleSystemSuspend();
+                    _hardwareMonitoringService?.Pause();
+                    _fanService?.HandleSystemSuspend();
+                }
+                else
+                {
+                    if (Interlocked.CompareExchange(ref _awayQuiet, 0, 1) != 1) return;
+                    _logging.Info("Away quiet mode off (input): monitoring and fan control resumed");
+                    _watchdogService?.HandleSystemResume();
+                    _hardwareMonitoringService?.Resume();
+                    _fanService?.HandleSystemResume();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logging.Warn($"Away quiet mode transition failed: {ex.Message}");
+            }
         }
 
         private async Task PostResumeSelfCheckAsync(int resumeCycleId)
@@ -4626,6 +4676,9 @@ namespace OmenCore.ViewModels
             
             _safeModeResetTimer?.Dispose();
             _safeModeResetTimer = null;
+
+            _awayWatchTimer?.Dispose();
+            _awayWatchTimer = null;
             
             // Unsubscribe from Settings events before disposing
             if (_settings != null)
