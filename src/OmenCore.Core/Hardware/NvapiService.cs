@@ -14,7 +14,7 @@ namespace OmenCore.Hardware
     /// NVIDIA NVAPI wrapper for GPU overclocking and control.
     /// Provides access to clock offsets, power limits, and GPU monitoring.
     /// </summary>
-    public class NvapiService : IDisposable
+    public partial class NvapiService : IDisposable
     {
         private readonly Services.LoggingService _logging;
         private readonly GpuPowerStateProbe _powerStateProbe;
@@ -317,6 +317,12 @@ namespace OmenCore.Hardware
             {
                 _logging.Info("NVAPI: disabled via OMENCORE_DISABLE_NVAPI; not initialising");
                 return false;
+            }
+
+            // Out-of-process NVAPI (see NvapiService.Remote.cs): the app never loads nvapi64.dll.
+            if (UseRemote)
+            {
+                return InitializeRemote();
             }
 
             try
@@ -767,6 +773,7 @@ namespace OmenCore.Hardware
         /// <returns>True if successful</returns>
         public bool SetCoreClockOffset(int offsetMHz)
         {
+            if (TryRemote("SetCoreClockOffset", offsetMHz, false, out bool remoteResult)) return remoteResult;
             if (!_initialized)
             {
                 _logging.Warn("NVAPI: Not initialized");
@@ -848,6 +855,7 @@ namespace OmenCore.Hardware
         /// <returns>True if successful</returns>
         public bool SetMemoryClockOffset(int offsetMHz)
         {
+            if (TryRemote("SetMemoryClockOffset", offsetMHz, false, out bool remoteResult)) return remoteResult;
             if (!_initialized)
             {
                 _logging.Warn("NVAPI: Not initialized");
@@ -927,6 +935,7 @@ namespace OmenCore.Hardware
         /// <returns>True if successful</returns>
         public bool SetVoltageOffset(int offsetMv)
         {
+            if (TryRemote("SetVoltageOffset", offsetMv, false, out bool remoteResult)) return remoteResult;
             if (!_initialized)
             {
                 _logging.Warn("NVAPI: Not initialized");
@@ -1151,6 +1160,7 @@ namespace OmenCore.Hardware
         /// <returns>True if successful</returns>
         public bool SetPowerLimit(int percent)
         {
+            if (TryRemote("SetPowerLimit", percent, false, out bool remoteResult)) return remoteResult;
             if (!_initialized)
             {
                 _logging.Warn("NVAPI: Not initialized");
@@ -1254,6 +1264,7 @@ namespace OmenCore.Hardware
         /// </summary>
         public int GetGpuLoad()
         {
+            if (TryRemote("GetGpuLoad", null, 0, out int remoteResult)) return remoteResult;
             if (!_initialized || _primaryGpu == null) return -1;
 
             try
@@ -1274,6 +1285,7 @@ namespace OmenCore.Hardware
         /// </summary>
         public double GetGpuTemperature()
         {
+            if (TryRemote("GetGpuTemperature", null, 0d, out double remoteResult)) return remoteResult;
             if (!_initialized || _primaryGpu == null) return 0;
 
             // Reading a thermal sensor wakes the die. See GpuPowerStateProbe.
@@ -1307,6 +1319,7 @@ namespace OmenCore.Hardware
         /// </summary>
         public (double UsedMb, double TotalMb) GetGpuVramUsage()
         {
+            if (TryRemote("GetGpuVramUsage", null, (0d, 0d), out (double, double) remoteResult)) return remoteResult;
             if (!_initialized || _primaryGpu == null) return (0, 0);
 
             try
@@ -1331,6 +1344,7 @@ namespace OmenCore.Hardware
         /// </summary>
         public double GetGpuPowerWatts()
         {
+            if (TryRemote("GetGpuPowerWatts", null, 0d, out double remoteResult)) return remoteResult;
             if (!_initialized || _primaryGpu == null) return 0;
 
             // Reading power topology wakes the GPU, so the figure it returns describes a
@@ -1359,6 +1373,7 @@ namespace OmenCore.Hardware
         /// </summary>
         public GpuMonitoringSample GetLoadAndVramOnly()
         {
+            if (TryRemote("GetLoadAndVramOnly", null, new GpuMonitoringSample { GpuName = GpuName }, out GpuMonitoringSample remoteResult)) return remoteResult;
             var sample = new GpuMonitoringSample { GpuName = GpuName };
 
             if (!_initialized || _primaryGpu == null) return sample;
@@ -1431,6 +1446,7 @@ namespace OmenCore.Hardware
         /// </summary>
         public GpuMonitoringSample GetMonitoringSample()
         {
+            if (TryRemote("GetMonitoringSample", null, new GpuMonitoringSample { GpuName = GpuName }, out GpuMonitoringSample remoteResult)) return remoteResult;
             var sample = new GpuMonitoringSample { GpuName = GpuName };
 
             if (!_initialized || _primaryGpu == null) return sample;
@@ -1612,6 +1628,7 @@ namespace OmenCore.Hardware
         /// </summary>
         public GpuClockInfo GetCurrentClocks()
         {
+            if (TryRemote("GetCurrentClocks", null, new GpuClockInfo(), out GpuClockInfo remoteResult)) return remoteResult;
             var info = new GpuClockInfo
             {
                 CoreOffsetMHz = CoreClockOffsetMHz,
@@ -1675,6 +1692,7 @@ namespace OmenCore.Hardware
         /// </summary>
         public bool ResetToDefaults()
         {
+            if (TryRemote("ResetToDefaults", null, false, out bool remoteResult)) return remoteResult;
             try
             {
                 var coreReset = SetCoreClockOffset(0);
@@ -1714,6 +1732,14 @@ namespace OmenCore.Hardware
                 _closedForAway = true;
                 _primaryGpu = null;
 
+                if (_remote != null)
+                {
+                    // Out of process: ending the host is what actually releases the driver.
+                    StopRemote();
+                    _logging.Info("NVAPI: host process ended while away");
+                    return;
+                }
+
                 try
                 {
                     if (_initializedViaWrapper)
@@ -1747,6 +1773,8 @@ namespace OmenCore.Hardware
         public void Dispose()
         {
             if (_disposed) return;
+
+            StopRemote();
 
             try
             {

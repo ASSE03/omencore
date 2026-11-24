@@ -207,6 +207,36 @@ namespace OmenCore
                 return;
             }
 
+            // NVAPI host: the child process that owns nvapi64.dll for the app (see
+            // NvapiService.Remote.cs). Before the single-instance check and before DI: it builds
+            // nothing but the NVAPI service, writes no log file of its own (lines go to the parent
+            // on stderr) and exits when the parent closes its stdin.
+            if (e.Args.Any(a => string.Equals(a, OmenCore.Hardware.NvapiService.HostArgument, StringComparison.OrdinalIgnoreCase)))
+            {
+                _isNvapiHost = true;
+                var hostLog = new OmenCore.Services.LoggingService();
+                var stderr = new System.IO.StreamWriter(Console.OpenStandardError(), new System.Text.UTF8Encoding(false)) { AutoFlush = true };
+                hostLog.LogEmitted += line =>
+                {
+                    // "timestamp [LEVEL] message" -> "[LEVEL] message": the parent stamps its own time.
+                    var cut = line.IndexOf(' ');
+                    lock (stderr) stderr.WriteLine(cut > 0 ? line[(cut + 1)..] : line);
+                };
+                var stdin = new System.IO.StreamReader(Console.OpenStandardInput(), new System.Text.UTF8Encoding(false));
+                var stdout = new System.IO.StreamWriter(Console.OpenStandardOutput(), new System.Text.UTF8Encoding(false));
+                var code = OmenCore.Hardware.NvapiService.RunHost(hostLog, stdin, stdout);
+                Shutdown(code);
+                return;
+            }
+
+            // Run NVAPI in that child process rather than in this one, unless told otherwise:
+            // a loaded nvapi64.dll alone was enough for a 0x9F when the display went off on an
+            // RTX 3070 Laptop OMEN, and only ending the process that loaded it released the driver.
+            if (!string.Equals(Environment.GetEnvironmentVariable("OMENCORE_NVAPI_INPROC"), "1", StringComparison.Ordinal))
+            {
+                OmenCore.Hardware.NvapiService.HostExecutablePath = Environment.ProcessPath;
+            }
+
             // Check for single instance - prevent multiple copies running
             if (!AcquireSingleInstance())
             {
@@ -1360,8 +1390,19 @@ namespace OmenCore
             base.OnSessionEnding(e);
         }
 
+        // Set in the --nvapi-host child: it owns nothing but NVAPI, so none of the app's shutdown
+        // applies to it (no fan hand-back, no log file, and above all no stopping of the parent's
+        // HardwareWorker, which the backstop below would otherwise kill).
+        private static bool _isNvapiHost;
+
         protected override void OnExit(ExitEventArgs e)
         {
+            if (_isNvapiHost)
+            {
+                base.OnExit(e);
+                return;
+            }
+
             _sessionSentinel?.MarkExitStarted();
             // Restore fans to default/Windows auto control before shutdown
             // This ensures fans return to BIOS/Windows default behavior instead of staying at last manual setting
