@@ -20,6 +20,9 @@ namespace OmenCore.Hardware
         private readonly GpuPowerStateProbe _powerStateProbe;
         private bool _initialized;
         private bool _disposed;
+        private bool _initializedViaWrapper;
+        private bool _closedForAway;
+        private readonly object _sessionLock = new();
         private NvPhysicalGpuHandle[] _gpuHandles = new NvPhysicalGpuHandle[NVAPI_MAX_PHYSICAL_GPUS];
         
         // NvAPIWrapper GPU reference for modern OC API
@@ -343,6 +346,7 @@ namespace OmenCore.Hardware
                         QueryOcSupport();
                         
                         _initialized = true;
+                        _initializedViaWrapper = true;
                         SupportsOverclocking = true;
                         return true;
                     }
@@ -1685,6 +1689,59 @@ namespace OmenCore.Hardware
                 _logging.Error($"NVAPI: Failed to reset defaults: {ex.Message}", ex);
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Closes the NVAPI session while nobody is at the machine; <see cref="ReopenAfterAway"/>
+        /// opens it again.
+        /// </summary>
+        /// <remarks>
+        /// On an RTX 3070 Laptop OMEN (BIOS 15.42, discrete-only) an open NVAPI session alone was
+        /// enough for Windows to bugcheck 0x9F/3 (DXG power IRP timeout) when the display went off:
+        /// it reproduced with every poll stood down, the BIOS event watcher off,
+        /// LibreHardwareMonitor off and software rendering on, and did not with NVAPI never opened
+        /// (OMENCORE_DISABLE_NVAPI). Implemented, pending confirmation of this close/reopen.
+        /// Callers must have stopped every NVAPI read first (MainViewModel's away quiet mode
+        /// pauses monitoring a poll cycle before calling this).
+        /// </remarks>
+        public void CloseForAway()
+        {
+            lock (_sessionLock)
+            {
+                if (!_initialized || _disposed) return;
+
+                _initialized = false;
+                _closedForAway = true;
+                _primaryGpu = null;
+
+                try
+                {
+                    if (_initializedViaWrapper)
+                        NVIDIA.Unload();
+                    else
+                        _nvAPI_Unload?.Invoke();
+                    _logging.Info("NVAPI: session closed while away");
+                }
+                catch (Exception ex)
+                {
+                    _logging.Warn($"NVAPI: closing the session while away failed: {ex.Message}");
+                }
+                _initializedViaWrapper = false;
+            }
+        }
+
+        /// <summary>Opens again a session closed by <see cref="CloseForAway"/>.</summary>
+        public bool ReopenAfterAway()
+        {
+            lock (_sessionLock)
+            {
+                if (!_closedForAway || _disposed) return _initialized;
+                _closedForAway = false;
+            }
+
+            var ok = Initialize();
+            _logging.Info(ok ? "NVAPI: session reopened" : "NVAPI: session could not be reopened");
+            return ok;
         }
 
         public void Dispose()

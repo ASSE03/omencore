@@ -1739,8 +1739,9 @@ namespace OmenCore.ViewModels
 
         private void OnSystemResuming(object? sender, EventArgs e)
         {
-            // A real resume restarts everything below; let the away watch decide afresh.
-            Interlocked.Exchange(ref _awayQuiet, 0);
+            // A real resume restarts everything below; let the away watch decide afresh, but
+            // reopen NVAPI first if the away mode had closed it.
+            if (Interlocked.Exchange(ref _awayQuiet, 0) == 2) _nvapiService?.ReopenAfterAway();
             _resumeRecoveryDiagnostics.BeginResume();
             var resumeCycleId = _resumeRecoveryDiagnostics.CurrentCycleId;
             _watchdogService?.HandleSystemResume();
@@ -1771,6 +1772,10 @@ namespace OmenCore.ViewModels
             _awayWatchTimer ??= new Timer(_ => CheckAway(), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(2));
         }
 
+        // _awayQuiet: 0 = present, 1 = away (polling stood down), 2 = away and NVAPI closed.
+        // NVAPI is closed one tick (2 s) after the pause, so no read started before the pause
+        // is still running inside it. An open NVAPI session alone was enough for the 0x9F; see
+        // NvapiService.CloseForAway.
         private void CheckAway()
         {
             try
@@ -1778,6 +1783,11 @@ namespace OmenCore.ViewModels
                 bool away = DisplayStateMonitor.ShouldPauseGpuPolling;
                 if (away)
                 {
+                    if (Interlocked.CompareExchange(ref _awayQuiet, 2, 1) == 1)
+                    {
+                        _nvapiService?.CloseForAway();
+                        return;
+                    }
                     if (Interlocked.CompareExchange(ref _awayQuiet, 1, 0) != 0) return;
                     _logging.Info($"Away quiet mode on (idle {(int)DisplayStateMonitor.UserIdleTime.TotalSeconds}s, display off={DisplayStateMonitor.IsDisplayOff}): monitoring paused, BIOS fan control");
                     _watchdogService?.HandleSystemSuspend();
@@ -1786,7 +1796,9 @@ namespace OmenCore.ViewModels
                 }
                 else
                 {
-                    if (Interlocked.CompareExchange(ref _awayQuiet, 0, 1) != 1) return;
+                    int previous = Interlocked.Exchange(ref _awayQuiet, 0);
+                    if (previous == 0) return;
+                    if (previous == 2) _nvapiService?.ReopenAfterAway();
                     _logging.Info("Away quiet mode off (input): monitoring and fan control resumed");
                     _watchdogService?.HandleSystemResume();
                     _hardwareMonitoringService?.Resume();
