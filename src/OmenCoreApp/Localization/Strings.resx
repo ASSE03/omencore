@@ -8119,7 +8119,7 @@
     <value>remove MAX override</value>
   </data>
   <data name="CsRemoveSelectedItem" xml:space="preserve">
-    <value>Remove Selected Item</value>
+    <value>Remove Selected Items</value>
   </data>
   <data name="CsRemoveTCPDelAckTicksToRestoreTheDefaultStack" xml:space="preserve">
     <value>Remove TCPDelAckTicks to restore the default stack behavior.</value>

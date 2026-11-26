@@ -338,6 +338,20 @@ namespace OmenCore.Services.KeyboardLighting
                 UserVerified = false,
                 Notes = "GitHub #121 - Hades 8A43 exact ProductId mapping to avoid Unknown keyboard fallback. HP serial lookup reports OMEN Gaming Laptop 16-n0002ni / 6G103EA."
             });
+
+            // OMEN 16 (2022) - k0xxx series (Intel Alder Lake, Board 8A4D)
+            AddModel(new KeyboardModelConfig
+            {
+                ProductId = "8A4D",
+                ModelName = "OMEN 16-k0xxx (2022) Intel",
+                ModelNamePattern = "16-k0",
+                KeyboardType = KeyboardType.FourZone,
+                PreferredMethod = KeyboardMethod.ColorTable2020,
+                FallbackMethods = new[] { KeyboardMethod.NewWmi2023, KeyboardMethod.EcDirect },
+                ModelYear = 2022,
+                UserVerified = true,
+                Notes = "OMEN by HP Gaming Laptop 16-k0xxx (8A4D) Intel Alder Lake. 4-zone keyboard backlight via ColorTable2020 / WMI."
+            });
             
             // OMEN 16 (2023) - May use new interface
             AddModel(new KeyboardModelConfig
@@ -608,6 +622,26 @@ namespace OmenCore.Services.KeyboardLighting
                     "successful keyboard writes. Keyboard brightness is LampArray intensity only — the MCU refuses its " +
                     "own brightness command (0x0C) at every value, and no effect consumes the brightness field, so a " +
                     "running device effect cannot be dimmed."
+            });
+
+            // OMEN MAX 16z-ak000 (Discord 2026-11-24, 5.0.2 log). The configure-to-order AMD build of the 8D87 chassis: same
+            // "ak0" series and BIOS F.07, and hp-wmi lists 8DD5 beside 8D87. The "z" in the WMI name ("16z-ak000") kept it from
+            // matching 8D87's "16-ak0" pattern, so it fell to the default zone keyboard, whose commands reach the light bar. The
+            // owner says OGH drives the keyboard per key. Routed to the per-key backends as an unverified guess; each declines
+            // cleanly if its keyboard is absent and the WMI fallbacks still apply.
+            AddModel(new KeyboardModelConfig
+            {
+                ProductId = "8DD5",
+                ModelName = "OMEN MAX 16z-ak000 (2025) AMD",
+                ModelNamePattern = "16z-ak0",
+                KeyboardType = KeyboardType.PerKeyRgb,
+                PreferredMethod = KeyboardMethod.HidPerKey,
+                FallbackMethods = new[] { KeyboardMethod.NewWmi2023, KeyboardMethod.ColorTable2020 },
+                ModelYear = 2025,
+                UserVerified = false,
+                Notes = "Discord 2026-11-24 - OMEN MAX 16z-ak000, BIOS F.07, firmware topology FourZoneWithNumpad (0x01, as on " +
+                    "8D87, where those commands reach the light bar). Expected to carry 8D87's Darfon 0D62:54BF; not yet seen in " +
+                    "an export. Needs the owner to confirm the per-key editor opens and colours change."
             });
 
             // HyperX OMEN MAX 16-ak1xxx (GitHub #224). The reporter's keyboard did not light for the standard

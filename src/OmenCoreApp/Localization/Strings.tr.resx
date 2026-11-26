@@ -10762,7 +10762,7 @@
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRemoveSelectedItem" xml:space="preserve">
-    <value>Remove Selected Item</value>
+    <value>Remove Selected Items</value>
     <comment>untranslated: English fallback</comment>
   </data>
   <data name="CsRemoveTCPDelAckTicksToRestoreTheDefaultStack" xml:space="preserve">

@@ -217,6 +217,47 @@ namespace OmenCoreApp.Tests.Hardware
         }
 
         [Fact]
+        public void GetPreferredCapabilities_8A3C_IsExact_TwoFans_AndLeaves8A3ENameMatchAlone()
+        {
+            // GitHub #271: 8A3C used to borrow 8A3E's 1-fan entry through the shared "15-fb0" name.
+            var caps = ModelCapabilityDatabase.GetPreferredCapabilities(
+                "8A3C", "Victus by HP Gaming Laptop 15-fb0xxx", CpuUndervoltProviderFactory.CpuVendor.AMD);
+
+            caps.Should().NotBeNull();
+            caps!.ProductId.Should().Be("8A3C");
+            caps.FanZoneCount.Should().Be(2);
+            caps.MaxFanLevel.Should().Be(55);
+            caps.SupportsFanCurves.Should().BeTrue();
+            caps.SupportsIndependentFanCurves.Should().BeFalse();
+            caps.UserVerified.Should().BeFalse();
+
+            // An unlisted 15-fb0 board still resolves by name to 8A3E, as before.
+            ModelCapabilityDatabase.GetPreferredCapabilities(
+                    "FFF0", "Victus by HP Gaming Laptop 15-fb0xxx", CpuUndervoltProviderFactory.CpuVendor.AMD)!
+                .ProductId.Should().Be("8A3E");
+        }
+
+        [Fact]
+        public void GetPreferredCapabilities_88EB_IsExact_AndLeaves88ECNameMatchAlone()
+        {
+            // GitHub #273: 88EB used to borrow 88EC through the shared "16-e0" name and passed 6/6 on that profile.
+            var caps = ModelCapabilityDatabase.GetPreferredCapabilities(
+                "88EB", "Victus by HP Laptop 16-e0xxx", CpuUndervoltProviderFactory.CpuVendor.AMD);
+
+            caps.Should().NotBeNull();
+            caps!.ProductId.Should().Be("88EB");
+            caps.FanZoneCount.Should().Be(2);
+            caps.MaxFanLevel.Should().Be(55);
+            caps.SupportsFanCurves.Should().BeTrue();
+            caps.AllowDecoupledWmiThermalPolicyFallback.Should().BeTrue();
+            caps.UserVerified.Should().BeFalse();
+
+            ModelCapabilityDatabase.GetPreferredCapabilities(
+                    "FFF0", "Victus by HP Laptop 16-e0xxx", CpuUndervoltProviderFactory.CpuVendor.AMD)!
+                .ProductId.Should().Be("88EC");
+        }
+
+        [Fact]
         public void AutomaticFanCurve_IsOnlyOfferedOn8D87_AndOffByDefaultInConfig()
         {
             ModelCapabilityDatabase.GetPreferredCapabilities(

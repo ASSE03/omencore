@@ -715,6 +715,34 @@ namespace OmenCore.Hardware
                 UserVerified = false,
                 Notes = "GitHub #121 / Discord 2026-05-25 — Hades 8A43 exact ProductId profile added to avoid model-name-pattern inference. HP serial lookup reports OMEN Gaming Laptop 16-n0002ni / 6G103EA. Fan diagnostics show practical V1 ceiling near level 60 (GPU ~60, CPU ~58), so max fan level override is set to 60 for safer verification/normalization."
             });
+
+            // OMEN 16 (2022) - k0xxx series (Intel Alder Lake i7-12700H + RTX 3060 Laptop GPU, Board 8A4D, BIOS F.29)
+            // Hendricks board variant. Thermal policy V1, 2 fans, max fan level 55.
+            AddModel(new ModelCapabilities
+            {
+                ProductId = "8A4D",
+                ModelName = "OMEN by HP Gaming Laptop 16-k0xxx",
+                ModelNamePattern = "16-k0",
+                ModelYear = 2022,
+                Family = OmenModelFamily.OMEN16,
+                SupportsFanControlWmi = true,
+                SupportsFanControlEc = false,
+                SupportsFanCurves = true,
+                SupportsIndependentFanCurves = false,
+                SupportsRpmReadback = false,
+                FanZoneCount = 2,
+                MaxFanLevel = 55,
+                HasMuxSwitch = false,
+                SupportsGpuPowerBoost = false,
+                SupportsUndervolt = false,
+                HasFourZoneRgb = true,
+                HasKeyboardBacklight = true,
+                SupportsPerformanceModes = true,
+                PerformanceModes = new[] { "Default", "Performance", "Cool" },
+                AllowDecoupledWmiThermalPolicyFallback = false,
+                UserVerified = false,
+                Notes = "HP OMEN Gaming Laptop 16-k0xxx (8A4D), Intel i7-12700H + RTX 3060 Laptop GPU, BIOS F.29. Thermal policy V1, 2 fans, max fan level 55, WMI BIOS fan control with level readback (RPM estimated from level to prevent null-readback errors), 4-zone RGB keyboard backlight. MUX switch, GPU Power Boost, and independent fan curves set to false pending switch and tachometer readback evidence."
+            });
             
             // OMEN 16 (2023) - wf series
             // 8BCA is ambiguous (see _ambiguousProductIds) - this entry is only reached when
@@ -1888,6 +1916,37 @@ namespace OmenCore.Hardware
                 Notes = "GitHub #105 — Victus 15-fb0xxx. Conservative Victus profile (single-zone backlight)."
             });
 
+            // Victus 15 (2022) fb0xxx AMD, board 8A3C. GitHub #271/#272 (beamchik): until now it reached 8A3E's entry only
+            // through the shared "15-fb0" name, which says 1 fan where the firmware reports 2. No name pattern here, so
+            // other 15-fb0 boards keep resolving as before.
+            AddModel(new ModelCapabilities
+            {
+                ProductId = "8A3C",
+                ModelName = "HP Victus 15 (2022) fb0xxx AMD",
+                ModelYear = 2022,
+                Family = OmenModelFamily.Victus,
+                SupportsFanControlWmi = true,
+                SupportsFanControlEc = false,
+                SupportsFanCurves = true,
+                SupportsIndependentFanCurves = false,
+                SupportsRpmReadback = false,
+                FanZoneCount = 2,
+                MaxFanLevel = 55,
+                HasMuxSwitch = false,
+                SupportsGpuPowerBoost = false,
+                SupportsUndervolt = false,
+                HasFourZoneRgb = false,
+                HasKeyboardBacklight = true,
+                SupportsPerformanceModes = true,
+                PerformanceModes = new[] { "Default", "Performance", "Cool" },
+                UserVerified = false,
+                Notes = "GitHub #271 (beamchik, 2026-11-24) - Victus 15-fb0xxx, BIOS F.23, Ryzen 7 5800H + RTX 3050 Ti, no MUX. " +
+                    "Firmware reports 2 fans. Guided Fan Verification 6/6 twice (fan-level evidence; RPM readback returns null); " +
+                    "levels reach 55/55 with some settling latency. Asymmetric single-fan requests each read back their own level, " +
+                    "but independent curves are left off. Single-zone backlight. AMD STAPM writes are accepted and ignored on this " +
+                    "firmware (#272), so sustained package power stays at 35 W."
+            });
+
             AddModel(new ModelCapabilities
             {
                 ProductId = "8C30",
@@ -2668,6 +2727,30 @@ namespace OmenCore.Hardware
                 Notes = "Issue #128 — explicit Victus 16-e0xxx mapping (88EC) to avoid low-confidence family fallback; feature flags intentionally conservative pending field verification. A follow-up diagnostics export confirmed 'Performance mode Balanced: nothing was applied (Direct EC writes disabled)' live in the field - this board never got the AllowDecoupledWmiThermalPolicyFallback fix already applied to 8DCD/8C30/878C/8600, so switching modes had no effect at all since Direct EC is (correctly) disabled here and no fallback path was enabled to compensate."
             });
             
+            // GitHub #273 (2026-11-25): Victus 16-e0xxx AMD on board 88EB (Ryzen 5 5600H, GTX 1650, BIOS F.25). It used to
+            // borrow the 88EC entry by name and passed Guided Fan Verification 6/6 on that profile, so this entry copies it.
+            // No ModelNamePattern: other 16-e0 boards keep resolving to 88EC by name.
+            AddModel(new ModelCapabilities
+            {
+                ProductId = "88EB",
+                ModelName = "HP Victus 16-e0xxx AMD (88EB)",
+                ModelYear = 2022,
+                Family = OmenModelFamily.Victus,
+                SupportsFanControlWmi = true,
+                SupportsFanCurves = true,
+                SupportsIndependentFanCurves = false,
+                FanZoneCount = 2,
+                MaxFanLevel = 55,
+                HasMuxSwitch = false,
+                SupportsGpuPowerBoost = false,
+                SupportsUndervolt = false,
+                HasFourZoneRgb = false,
+                HasKeyboardBacklight = true,
+                AllowDecoupledWmiThermalPolicyFallback = true,
+                UserVerified = false,
+                Notes = "GitHub #273 (2026-11-25), 5.0.2 export: Victus 16-e0xxx, board 88EB, Ryzen 5 5600H + GTX 1650, BIOS F.25. Measured: thermal policy V0, 2 fans, max level 55, level readback works, RPM readback null (estimates only), keyboard topology Normal (0x00). Guided Fan Verification 6/6 (2200/3300/4500 RPM estimates) while resolving to the 88EC entry, whose flags this copies. Curves on as in 88EC; GPU boost, MUX and undervolt left off: not measured."
+            });
+
             // ═══════════════════════════════════════════════════════════════════════════════════
             AddModel(new ModelCapabilities
             {
@@ -2990,7 +3073,6 @@ namespace OmenCore.Hardware
             ("8A17", "OMEN 15/17 (2021 generation)", OmenModelFamily.Legacy, 2021),
             ("8A42", "OMEN 16 (2021-2022)", OmenModelFamily.OMEN16, 2022),
             ("8A4C", "OMEN 16 (2021-2022)", OmenModelFamily.OMEN16, 2022),
-            ("8A4D", "OMEN 16 (2021-2022)", OmenModelFamily.OMEN16, 2022),
             ("8BAA", "OMEN 16 (2023-2025)", OmenModelFamily.OMEN16, 0),
             ("8C78", "OMEN 16-wf1xxx (2024)", OmenModelFamily.OMEN16, 2024),
             ("8D3F", "OMEN (2025 generation)", OmenModelFamily.OMEN2024Plus, 0),

@@ -17,12 +17,11 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# Upload and deploy are separate jobs (GitHub's starter layout). In one job, deploy-pages looked the artifact
+# up right after the upload, found none, and the 5.0.2 site deploy failed every time.
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-24.04 # pinned: ubuntu-latest moves to a newer image on 2026-10-19; move on purpose after a CI check
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
 
@@ -31,6 +30,13 @@ jobs:
         with:
           path: website
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
